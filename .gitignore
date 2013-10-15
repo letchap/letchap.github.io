@@ -1,0 +1,6 @@
+output
+*.pyc
+*.pid
+Makefile
+develop_server.sh
+
