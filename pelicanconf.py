@@ -53,7 +53,7 @@ SUMMARY_MAX_LENGTH = 50
 RELATIVE_URLS = True
 
 # Paramètrage du thème
-THEME = "/home/letchap/pelican-themes/mon-theme"
+THEME = "/home/blog/mon-theme"
 
 # Paramètrage de l'URL
 ARTICLE_URL = "{date:%Y}/{date:%m}/{date:%d}/{slug}/"
