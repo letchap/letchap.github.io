@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'letchap'
 SITENAME = u'letchap'
 SITESUBTITLE = u'jamais seul sur la banquise'
-SITEURL = 'test.letchap.github.io'
+SITEURL = 'letchap.github.io'
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_METADATA = (('Linux', 'Python'),)
@@ -16,6 +16,7 @@ PLUGINS = ['liquid_tags.include_code']
 
 
 SIMPLE_SEARCH = 'http://google.com/search'
+SITESEARCH = 'letchap.github.io'
 
 
 DISPLAY_PAGES_ON_MENU = True
@@ -53,7 +54,7 @@ SUMMARY_MAX_LENGTH = 50
 RELATIVE_URLS = True
 
 # Paramètrage du thème
-THEME = "/home/blog/mon-theme"
+THEME = "/home/letchap/blog/mon-theme"
 
 # Paramètrage de l'URL
 ARTICLE_URL = "{date:%Y}/{date:%m}/{date:%d}/{slug}/"
