@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Include Code Tag
 ----------------
@@ -74,8 +75,8 @@ def include_code(preprocessor, tag, markup):
     url = '/{0}/{1}'.format(code_dir, src)
     url = re.sub('/+', '/', url)
 
-    open_tag = ("<figure><figcaption class='well well-sm'><span style='text-align: left'>{title}"
-                "</span><a style='float: right' href='{url}'>Telecharger</a></figcaption>".format(title=title,url=url))
+    open_tag = u"<figure><figcaption class='well well-sm'><span style='text-align: left'>{title}</span>\
+                <a style='float: right' href='{url}'>Télécharger</a></figcaption>".format(title=title,url=url)
     close_tag = "</figure>"
 		
     # store HTML tags in the stash.  This prevents them from being

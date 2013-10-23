@@ -85,10 +85,12 @@ tbody {
 
 td.linenos { 
     width: 5%;
+    overflow-x: auto;
 }
 
 td.code { 
     width: 95%;
+    overflow-x: auto;
 }
 
 .well {

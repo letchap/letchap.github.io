@@ -82,17 +82,11 @@
     			</ul>
     			<ul class="nav navbar-nav navbar-right">
     				<li><a href="{{ SITEURL }}/archives.html"><i class="icon-th-list"></i>Archives</a></li>
-    				{% if FEED_ALL_ATOM %}
-    					<li><a href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="subscribe-rss"
-    					title="{{ SITENAME }} ATOM Feed"><i class="icon-rss"></i></a></li>
-    				{% endif %}
-    				{% if FEED_ALL_RSS %}
-    					<li><a href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="subscribe-rss"
+    				<li><a href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="subscribe-rss"
     					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
-    				{% endif %}
     				<form class="navbar-form navbar-right" action="{{ SIMPLE_SEARCH }}" method="get">
     					<fieldset role="search">
-    					<input type="hidden" name="q" value="site:{{ SITESEARCH }}" />  
+    					<input type="hidden" name="q" value="site:{{ ABSURL }}" />  
     					<input type="search" class="form-control col-lg-8" name="q" results="0" placeholder="Search" />  
     					</fieldset>
     				</form>  

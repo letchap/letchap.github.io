@@ -11,12 +11,12 @@ TIMEZONE = 'Europe/Paris'
 DEFAULT_METADATA = (('Linux', 'Python'),)
 
 STATIC_PATHS = ['images', 'downloads', 'code']
-PLUGIN_PATH = '/home/letchap/pelican/plugins'
+PLUGIN_PATH = '/home/letchap/blog/plugins'
 PLUGINS = ['liquid_tags.include_code']
 
-
+ABSURL = 'letchap.github.io'
 SIMPLE_SEARCH = 'http://google.com/search'
-SITESEARCH = 'letchap.github.io'
+
 
 
 DISPLAY_PAGES_ON_MENU = True
