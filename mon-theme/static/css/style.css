@@ -66,15 +66,18 @@ i {
 
 .highlight pre {
     background-color: #fdf6e3;
-    overflow-x: auto;
     white-space: pre;
+    overflow-x: auto;
 }
+
 
 .linenodiv pre {
-    white-space : pre
+    white-space : pre;
+    overflow-x: auto
 }
 
-table.highlighttable {
+
+.highlighttable {
     table-layout: fixed;
     width:100%;
 }
@@ -85,12 +88,10 @@ tbody {
 
 td.linenos { 
     width: 5%;
-    overflow-x: auto;
 }
 
 td.code { 
     width: 95%;
-    overflow-x: auto;
 }
 
 .well {
@@ -98,7 +99,7 @@ td.code {
 	padding:6px;
 }
 
-/* letchap : modification du style des liens  */
+/* Modification du style des liens  */
 a {
 	color: inherit;
 	text-decoration:none
@@ -110,15 +111,14 @@ a:focus {
 	text-decoration:none
 }
 
-/* letchap : ajout d'un style pour le header  */
+/* Ajout d'un style pour le header  */
 
 .site-header {
     margin-bottom:5px;
 	border-bottom:1px solid #eee
 }
 
-/* letchap : modification du style des liens
-   pour le bloc aside*/
+/* Modification du style des liens pour le bloc aside */
    
 a.list-group-item:hover,
 a.list-group-item:focus {

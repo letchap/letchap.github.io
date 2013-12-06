@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'letchap'
 SITENAME = u'letchap'
-SITESUBTITLE = u'jamais seul sur la banquise'
+SITESUBTITLE = u'du Linux, du Python, un peu de Mac'
 SITEURL = 'letchap.github.io'
 TIMEZONE = 'Europe/Paris'
 
