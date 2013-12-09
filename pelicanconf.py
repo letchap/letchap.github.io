@@ -11,7 +11,7 @@ TIMEZONE = 'Europe/Paris'
 DEFAULT_METADATA = (('Linux', 'Python'),)
 
 STATIC_PATHS = ['images', 'downloads', 'code']
-PLUGIN_PATH = '/home/letchap/blog/plugins'
+PLUGIN_PATH = '/Users/frederic_chaput/pelican/plugins'
 PLUGINS = ['liquid_tags.include_code']
 
 ABSURL = 'letchap.github.io'
@@ -54,7 +54,7 @@ SUMMARY_MAX_LENGTH = 50
 RELATIVE_URLS = True
 
 # Paramètrage du thème
-THEME = "/home/letchap/blog/mon-theme"
+THEME = "//Users/frederic_chaput/pelican/mon-theme"
 
 # Paramètrage de l'URL
 ARTICLE_URL = "{date:%Y}/{date:%m}/{date:%d}/{slug}/"
