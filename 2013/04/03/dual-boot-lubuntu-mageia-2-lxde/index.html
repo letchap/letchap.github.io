@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Dual boot Lubuntu-Mageia 2 LXDE</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	
+    <!-- Style -->
+    <link href="../../../../theme/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../../../theme/css/pygments.css" rel="stylesheet">
+    <link href="../../../../theme/css/style.css" rel="stylesheet" type="text/css"/>
+    
+	<!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+	
+	<!-- Syndication -->
+        <link href="../../../../atom.xml" type="application/atom+xml" rel="alternate"
+              title="letchap RSS Feed"/>
+	
+	<!-- Google analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37436504-2']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+
+<body>
+<div class="container">
+
+    <!-- Banner
+    ================================================== -->
+
+        <div class="site-header" id="banner">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1><a href="../../../..">letchap</a></h1>
+                    <p class="lead">du Linux, du Python, un peu de Mac</p>
+                </div>
+            </div>
+        </div>
+
+    <!-- Navbar
+    ================================================== -->
+    <nav class="navbar navbar-default" role="navigation">
+    	<div class="container">
+    		<div class="navbar-header">
+    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+    				<span class="sr-only">Toggle navigation</span>
+    				<span class="icon-bar"></span>
+    				<span class="icon-bar"></span>
+    				<span class="icon-bar"></span>
+    			</button>
+    			<a class="navbar-brand" href="../../../..">Accueil</a>
+    		</div>
+    		<div class="navbar-collapse collapse navbar-responsive-collapse">
+    			<ul class="nav navbar-nav">
+    						<li><a href="../../../../pages/a-propos.html">A propos</a></li>
+    			</ul>
+    			<ul class="nav navbar-nav navbar-right">
+    				<li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
+    				<li><a href="../../../../atom.xml" type="application/atom+xml" rel="subscribe-rss"
+    					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
+    				<form class="navbar-form navbar-right" action="http://google.com/search" method="get">
+    					<fieldset role="search">
+    					<input type="hidden" name="q" value="site:letchap.github.io" />  
+    					<input type="search" class="form-control col-lg-8" name="q" results="0" placeholder="Search" />  
+    					</fieldset>
+    				</form>  
+    			</ul>
+    		</div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->	
+</div><!-- /.container -->
+
+	
+	<!-- Articles & sidebar
+	================================================== -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../2013/04/03/dual-boot-lubuntu-mageia-2-lxde/"
+                       rel="bookmark"
+                       title="Permalink to Dual boot Lubuntu-Mageia 2 LXDE">
+                        Dual boot Lubuntu-Mageia 2 LXDE
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Mer 03 avril 2013
+    </span>
+
+    <span class="label label-default">Category</span>
+    <a href="../../../../category/mageia.html">Mageia</a>
+
+
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.</p>
+<p>Enfin, j'ai réussi à faire un dual boot Lubuntu 12.04 et Mageia 2 (version LXDE aussi, même si cela n'a aucune importance pour la suite du post). Je me suis largement inspiré du <a href="http://www.mageialinux-online.org/forum/topic-10359-1.php">fil disponible sur mageia on line</a>.</p>
+<p>Je pense que cela fonctionne de la même manière avec toutes les variantes Ubuntu et en 12.10, mais comme je n'ai pas testé ...</p>
+<p>Mon objectif était d'installer Mageia à coté de Lubuntu et de proposer au démarrage de l'ordinateur le choix entre ces deux distributions.</p>
+<h3>Le principe de fonctionnement de l'amorçage</h3>
+<p>Pour démarrer, un certain nombre de distributions Linux (dont celles basées sur Debian comme Ubuntu, mais également Mageia et d'autres) utilise un même programme d'amorçage : GRUB. Le même, pas tout à fait, car il existe dans des versions différentes en fonction des distributions, qui ne sont pas toujours compatibles.</p>
+<p>Dans l'exemple de dual boot Lubuntu Mageia, lorsque vous installez Mageia après Lubuntu, si vous ne faites rien, le GRUB de Mageia ne va pas reconnaître le GRUB de Lubuntu et il sera alors impossible de choisir la distribution au démarrage (l'inverse est également vrai). Heureusement, il est tout à fait possible de "chaîner" les GRUB, c'est à dire d'indiquer au premier GRUB où se trouve le deuxième, et donc de choisir sur quel GRUB, ou quelle distribution démarrer. Cela demande un peu de manipulation et un peu d'expérience. En particulier, il faut savoir :</p>
+<ul>
+<li>utiliser un éditeur en mode root (gedit, nano, vim, ...)</li>
+<li>partitionner un disque (pour la 2ème installation)</li>
+</ul>
+<p>La procédure que je décris va permettre d'ajouter une entrée Mageia sur le GRUB de Lubuntu. Pourquoi dans ce sens ? Tout simplement parce que j'ai installé une entrée Plop manager sur le Grub de Lubuntu qui me permet de démarrer sur une clé USB sans passer par le BIOS, je n'ai pas envie de recommencer la configuration de Plop Manager sur le GRUB de Mageia. Il existe une procédure sur Mageia on Line pour chaîner sur le GRUB de Lubuntu à partir du GRUB de Mageia, que je n'ai pas testée car ce n'est pas ce que je voulais faire.</p>
+<h3>Installer Lubuntu 12.04</h3>
+<p>Si vous installez Lubuntu sur l'ensemble du disque, le programme d'installation va créer deux partitions sur le disque, la plus grande formatée en ext4 portera un petit nom sdXY, en général, si c'est la seule, sda1, et une toute petite partition swap qui sera sda6 chez moi. Cette partition swap n'a aucun intérêt pour la suite des opérations.</p>
+<p>Le programme d'installation va installer le GRUB sur le MBR (master boot record : secteur de démarrage principal du disque dur, sda1 dans ce cas). C'est là le point le plus important à comprendre pour la suite.</p>
+<h3>Installer Mageia 2</h3>
+<p>Pour installer Mageia 2 à coté de Lubuntu, le programme d'installation va vous demander de modifier les partitions existantes. Avec le partitionnement automatique, Mageia va créer 3 nouvelles partitions à coté du sda1 et sda6 :</p>
+<ul>
+<li>sda5 </li>
+<li>sda7</li>
+<li>sda8</li>
+</ul>
+<p>A la fin de l'installation, le paramétrage le plus important à ne pas manquer est celui du chargeur d'amorçage. Vous vous souvenez que le GRUB de Lubuntu est sur sda1. Par défaut, Mageia écrit un nouveau chargeur de démarrage GRUB dans le MBR, en essayant de récupérer les chargeurs d'amorçage existants, mais avec celui de Lubuntu, cela ne fonctionne pas. Et au redémarrage, vous n'aurez plus accès à Lubuntu. Il faut donc configurer le chargeur d'amorçage Mageia pour qu'il pointe sur sda5. </p>
+<p>Une illustration en image : choisir sda5 dans le menu déroulant.
+<img alt="grub Mageia" src="../../../../images/grub_mageia.png" title="Grub Mageia" /></p>
+<p>Au redémarrage, vous serez toujours sur le GRUB de Lubuntu et vous n'aurez toujours pas accès à Mageia. </p>
+<p>Pour vous en convaincre, vous pouvez taper la commande fdisk et voir que la petite étoile dans la colonne amorce est bien devant la partition sda1 où se trouve Lubuntu.</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">localhost</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">fdisk</span> <span class="o">-</span><span class="n">l</span>
+
+<span class="n">P</span><span class="err">é</span><span class="n">riph</span><span class="err">é</span><span class="n">rique</span> <span class="n">Amorce</span>  <span class="n">D</span><span class="err">é</span><span class="n">but</span>        <span class="n">Fin</span>      <span class="n">Blocs</span>     <span class="n">Id</span>  <span class="n">Syst</span><span class="err">è</span><span class="n">me</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>   <span class="o">*</span>        <span class="mi">2048</span>    <span class="mi">43006004</span>    <span class="mi">21501978</span><span class="o">+</span>  <span class="mi">83</span>  <span class="n">Linux</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span>        <span class="mi">43010037</span>    <span class="mi">78139391</span>    <span class="mi">17564677</span><span class="o">+</span>   <span class="mi">5</span>  <span class="err">É</span><span class="n">tendue</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span>        <span class="mi">43010048</span>    <span class="mi">60773894</span>     <span class="mi">8881923</span><span class="o">+</span>  <span class="mi">83</span>  <span class="n">Linux</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span>        <span class="mi">77094912</span>    <span class="mi">78139391</span>      <span class="mi">522240</span>   <span class="mi">82</span>  <span class="n">partition</span> <span class="n">d</span><span class="err">&#39;é</span><span class="n">change</span> <span class="n">Linux</span> <span class="o">/</span> <span class="n">Solaris</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda7</span>        <span class="mi">60776448</span>    <span class="mi">62749889</span>      <span class="mi">986721</span>   <span class="mi">82</span>  <span class="n">partition</span> <span class="n">d</span><span class="err">&#39;é</span><span class="n">change</span> <span class="n">Linux</span> <span class="o">/</span> <span class="n">Solaris</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda8</span>        <span class="mi">62752768</span>    <span class="mi">77079869</span>     <span class="mi">7163551</span>   <span class="mi">83</span>  <span class="n">Linux</span>
+</pre></div>
+
+
+<p>Ou encore avec l'outil parted, nous voyons que le numéro 1 (ou sda1) est bien la partition de démarrage</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">localhost</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">parted</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span> <span class="n">print</span>
+<span class="n">Mod</span><span class="err">è</span><span class="n">le</span><span class="o">:</span> <span class="n">ATA</span> <span class="n">TOSHIBA</span> <span class="n">MK4021GA</span> <span class="p">(</span><span class="n">scsi</span><span class="p">)</span>
+<span class="n">Disque</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span> <span class="o">:</span> <span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>
+<span class="n">Taille</span> <span class="n">des</span> <span class="n">secteurs</span> <span class="p">(</span><span class="n">logiques</span><span class="o">/</span><span class="n">physiques</span><span class="p">)</span><span class="o">:</span> <span class="mi">512</span><span class="n">B</span><span class="o">/</span><span class="mi">512</span><span class="n">B</span>
+<span class="n">Table</span> <span class="n">de</span> <span class="n">partitions</span> <span class="o">:</span> <span class="n">msdos</span>
+<span class="n">Disk</span> <span class="n">Flags</span><span class="o">:</span>
+
+<span class="n">Num</span><span class="err">é</span><span class="n">ro</span>  <span class="n">D</span><span class="err">é</span><span class="n">but</span>   <span class="n">Fin</span>     <span class="n">Taille</span>  <span class="n">Type</span>      <span class="n">Syst</span><span class="err">è</span><span class="n">me</span> <span class="n">de</span> <span class="n">fichiers</span>  <span class="n">Fanions</span>
+ <span class="mi">1</span>      <span class="mi">1049</span><span class="n">kB</span>  <span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>  <span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>  <span class="n">primary</span>   <span class="n">ext4</span>                 <span class="n">d</span><span class="err">é</span><span class="n">marrage</span>
+ <span class="mi">2</span>      <span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>  <span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>  <span class="mi">18</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>  <span class="n">extended</span>
+ <span class="mi">5</span>      <span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>  <span class="mi">31</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span>  <span class="mi">9095</span><span class="n">MB</span>  <span class="n">logical</span>   <span class="n">ext4</span>
+ <span class="mi">7</span>      <span class="mi">31</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span>  <span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span>  <span class="mi">1010</span><span class="n">MB</span>  <span class="n">logical</span>   <span class="n">linux</span><span class="o">-</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+ <span class="mi">8</span>      <span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span>  <span class="mi">39</span><span class="p">,</span><span class="mi">5</span><span class="n">GB</span>  <span class="mi">7335</span><span class="n">MB</span>  <span class="n">logical</span>   <span class="n">ext4</span>
+ <span class="mi">6</span>      <span class="mi">39</span><span class="p">,</span><span class="mi">5</span><span class="n">GB</span>  <span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>  <span class="mi">535</span><span class="n">MB</span>   <span class="n">logical</span>   <span class="n">linux</span><span class="o">-</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Et c'est là qu'intervient la dernière étape.</p>
+<h3>Le chaînage</h3>
+<p>Nous allons dire au GRUB de Lubuntu de chaîner sur le GRUB de Mageia. Pour cela nous allons ajouter une entrée Mageia dans le GRUB de Lubuntu.</p>
+<p>Pour cela, il suffit d'ouvrir de fichier 40_custom <a href="../../../../2013/02/23/demarrer-sur-une-cle-usb-sans-passer-par-le-bios/">(le même qui contient mon entrée pour Plop Manager)</a> et d'ajouter les lignes suivantes :</p>
+<div class="highlight"><pre><span class="n">menuentry</span> <span class="s">&quot;Mageia&quot;</span> <span class="p">{</span>
+<span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">chainloader</span> <span class="o">+</span><span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Ici, (hd0,5) signifie sda5. (hd1,4) signifierait sdb4 par exemple. </p>
+<p>Ensuite nous mettons à jour Grub par la commande suivante :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo update-grub
+</pre></div>
+
+
+<p>Et au redémarrage, nous aurons l'accès à Mageia qui sera proposée.</p>
+<h3>Ca ne marche pas ton truc</h3>
+<p>Il y a trois étapes très importantes à respecter pour que le chaînage fonctionne :</p>
+<ul>
+<li>installer d'abord Lubuntu puis Mageia </li>
+<li>ne pas installer le GRUB Mageia sur le MBR mais bien sur la partition sda5</li>
+<li>ne pas se tromper dans les n° hd(x,y)</li>
+</ul>
+<p>Si vous avez écrasé le GRUB de Lubuntu avec l'installation de Mageia, je vous conseille de :</p>
+<ul>
+<li>réinstaller le GRUB de Lubuntu (ça évite de refaire toute l'installation)</li>
+<li>réinstaller Mageia proprement</li>
+</ul>
+<h4>Réinstaller le GRUB de Lubuntu</h4>
+<p>Il existe des tas de manières de faire, personnellement j'utilise <a href="http://howtoubuntu.org/how-to-repair-restore-reinstall-grub-2-with-a-ubuntu-live-cd/">cette procédure qui fonctionne très bien.</a></p>
+<p>L'idée est de démarrer sur un live CD et de réinstaller le programme GRUB sur la racine du disque.</p>
+<p>Après avoir démarré sur le live CD, vous ouvrez une fenêtre du terminal et vous montez le disque ainsi que quelques bibliothèques complémentaires.</p>
+<p>Ensuite vous installez le programme GRUB et vous le remettez à jour.</p>
+<p>Vous sortez proprement.</p>
+<p>Et c'est tout, vous pouvez redémarrer.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_identifier = "2013/04/03/dual-boot-lubuntu-mageia-2-lxde/";
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://letchap.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        
+    </section>
+        </article>
+    </section>
+
+			</div>
+			<div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-medium"></i>Social</h4></li>
+                    <li class="list-group-item">
+						<a href="http://twitter.com/letchap">
+							<i class="icon-twitter-sign icon-medium"></i>twitter
+						</a>
+					</li>
+                    <li class="list-group-item">
+						<a href="http://github.com/letchap">
+							<i class="icon-github-sign icon-medium"></i>github
+						</a>
+					</li>
+
+
+			
+                <li class="list-group-item"><h4><i class="icon-home icon-meduim"></i>Categories</h4></li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/conky.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Conky
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/crunchbang.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Crunchbang
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/freebox.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Freebox
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/linux.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Linux
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/lubuntu.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Lubuntu
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/mac-os-x.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Mac OS X
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/mageia.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Mageia
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/octopress.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Octopress
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/pelican.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Pelican
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/python.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Python
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/shell.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Shell
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/terminal.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Terminal
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/virtualbox.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>VirtualBox
+                        </a>
+                   </li>
+
+	
+        </ul>
+    </section>
+</aside>			</div>
+		</div>
+	</div>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+	<script src="../../../../theme/js/respond.min.js"></script>
+	
+	<!-- Disqus -->
+<script type="text/javascript">
+    var disqus_shortname = 'letchap';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://letchap.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          meteo
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Demarrage du service meteo
+# Description:       Demarrage du programme de récupération des données
+#                    meteo
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting server"
+    # Start the daemon
+    python /usr/sbin/meteo.py start
+    ;;
+  stop)
+    echo "Stopping server"
+    # Stop the daemon
+    python /usr/sbin/meteo.py stop
+    ;;
+  restart)
+    echo "Restarting server"
+    python /usr/sbin/meteo.py restart
+    ;;
+  *)
+    # Refuse to do other stuff
+    echo "Usage: /etc/init.d/meteo {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

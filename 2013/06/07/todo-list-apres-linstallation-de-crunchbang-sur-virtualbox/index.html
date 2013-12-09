@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>ToDo list après l'installation de Crunchbang sur VirtualBox</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	
+    <!-- Style -->
+    <link href="../../../../theme/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../../../theme/css/pygments.css" rel="stylesheet">
+    <link href="../../../../theme/css/style.css" rel="stylesheet" type="text/css"/>
+    
+	<!-- JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+	
+	<!-- Syndication -->
+        <link href="../../../../atom.xml" type="application/atom+xml" rel="alternate"
+              title="letchap RSS Feed"/>
+	
+	<!-- Google analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37436504-2']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+
+<body>
+<div class="container">
+
+    <!-- Banner
+    ================================================== -->
+
+        <div class="site-header" id="banner">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1><a href="../../../..">letchap</a></h1>
+                    <p class="lead">du Linux, du Python, un peu de Mac</p>
+                </div>
+            </div>
+        </div>
+
+    <!-- Navbar
+    ================================================== -->
+    <nav class="navbar navbar-default" role="navigation">
+    	<div class="container">
+    		<div class="navbar-header">
+    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+    				<span class="sr-only">Toggle navigation</span>
+    				<span class="icon-bar"></span>
+    				<span class="icon-bar"></span>
+    				<span class="icon-bar"></span>
+    			</button>
+    			<a class="navbar-brand" href="../../../..">Accueil</a>
+    		</div>
+    		<div class="navbar-collapse collapse navbar-responsive-collapse">
+    			<ul class="nav navbar-nav">
+    						<li><a href="../../../../pages/a-propos.html">A propos</a></li>
+    			</ul>
+    			<ul class="nav navbar-nav navbar-right">
+    				<li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
+    				<li><a href="../../../../atom.xml" type="application/atom+xml" rel="subscribe-rss"
+    					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
+    				<form class="navbar-form navbar-right" action="http://google.com/search" method="get">
+    					<fieldset role="search">
+    					<input type="hidden" name="q" value="site:letchap.github.io" />  
+    					<input type="search" class="form-control col-lg-8" name="q" results="0" placeholder="Search" />  
+    					</fieldset>
+    				</form>  
+    			</ul>
+    		</div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->	
+</div><!-- /.container -->
+
+	
+	<!-- Articles & sidebar
+	================================================== -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="../../../../2013/06/07/todo-list-apres-linstallation-de-crunchbang-sur-virtualbox/"
+                       rel="bookmark"
+                       title="Permalink to ToDo list après l'installation de Crunchbang sur VirtualBox">
+                        ToDo list après l'installation de Crunchbang sur VirtualBox
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="icon-calendar"></i>Ven 07 juin 2013
+    </span>
+
+    <span class="label label-default">Category</span>
+    <a href="../../../../category/virtualbox.html">VirtualBox</a>
+
+
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>J'ai testé un certain nombre de distributions sur une VirtualBox installée sur un iMac et la plus stable à ce jour est sans conteste Crunchbang. De plus, comme c'est une distribution légère, j'ai l'impression d'avoir une bête de course. Mais surtout, surtout, fini les problèmes d'affichage, les redémarrages douloureux après une mise à jour. Les releases stables, ça a du bon.</p>
+<p>J'ai déjà eu l'occasion de décrire la procédure d'installation d'une distribution sur VirtualBox <a href="../../../../2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/" title="Virtualiser">dans un billet précédent</a>, nous allons nous attarder dans ce billet sur les compléments d'installation qui rendent l'utilisation de la VirtualBox plus agréable. Crunchbang étant par nature assez chichement doté en outils graphiques, ces petits compléments se feront par le terminal. Quand les commandes sont connues, ce n'est pas plus long que par des outils graphiques, bien au contraire.</p>
+<h3>Installation de VirtualBox Guest Additions</h3>
+<p>Les Guest Additions permettent notamment l'affichage en plein écran.</p>
+<p>Tout d'abord :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install build-essential linux-headers-<span class="sb">`</span>uname -r<span class="sb">`</span> dkms
+</pre></div>
+
+
+<p>Les Guest Additions se trouvent dans une image disque virtuelle que nous montons en sélectionnant "Installer les Guest Additions" dans le menu Devices (périphérique) de VirtualBox</p>
+<p>Le disque devrait apparaître dans le gestionnaire de fichier, dans mon cas il est monté sur /media/cdrom0</p>
+<p>Il ne reste plus qu'à lancer la procédure d'installation :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo sh /media/cdrom0/VBoxLinuxAdditions.run
+</pre></div>
+
+
+<h3>Dossier partage</h3>
+<p>Un deuxième gros intérêt des Guest Additions est la possibilité de partager des fichiers entre le système hôte et le système invité. Après avoir créer un dossier partage sur le système hôte, par défaut, il se retrouvere dans le répertoire Media (dossier commençant par "sf_") de votre Crunchbang virtualisé mais ne sera pas accessible à l'utilisateur. Pour donner les droits d'accès à ce dossier, il faut ajouter l'utilisateur au groupe Vbox.</p>
+<p>Pour cela, il faut éditer le fichier /etc/groups, repérer la ligne commençant par vboxsf et ajouter son nom de user, par exemple :</p>
+<div class="highlight"><pre><span class="n">vboxsf</span><span class="o">:</span><span class="n">x</span><span class="o">:</span><span class="mi">1001</span><span class="o">:</span><span class="n">letchap</span>
+</pre></div>
+
+
+<h3>Modification du clavier</h3>
+<p>La procédure d'installation de Crunchbang ne permet pas de choisir le clavier. Par défaut, il installe un clavier azerty "classique". Je n'ai donc pas eu la possibilité de paramétrer le clavier Mac. Ce qui pose quelques petits problèmes quand je veux taper "-" par exemple, ou des crochets.</p>
+<p>Il est possible de changer la configuration du clavier à partir du terminal, pour cela il faut éditer les fichier /etc/default/keyboard et le renseigner de la manière suivante :</p>
+<div class="highlight"><pre><span class="n">XKBMODEL</span><span class="o">=</span><span class="s">&quot;pc105&quot;</span>
+<span class="n">XKBLAYOUT</span><span class="o">=</span><span class="s">&quot;fr&quot;</span>
+<span class="n">XKBVARIANT</span><span class="o">=</span><span class="s">&quot;mac&quot;</span>
+<span class="n">XKBOPTIONS</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+</pre></div>
+
+
+<p>Il ne reste plus qu'à redémarrer la machine virtuelle pour bénéficier de tous ces ajouts.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_identifier = "2013/06/07/todo-list-apres-linstallation-de-crunchbang-sur-virtualbox/";
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://letchap.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        
+    </section>
+        </article>
+    </section>
+
+			</div>
+			<div class="col-lg-3 well well-sm" id="sidebar">
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="icon-home icon-medium"></i>Social</h4></li>
+                    <li class="list-group-item">
+						<a href="http://twitter.com/letchap">
+							<i class="icon-twitter-sign icon-medium"></i>twitter
+						</a>
+					</li>
+                    <li class="list-group-item">
+						<a href="http://github.com/letchap">
+							<i class="icon-github-sign icon-medium"></i>github
+						</a>
+					</li>
+
+
+			
+                <li class="list-group-item"><h4><i class="icon-home icon-meduim"></i>Categories</h4></li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/conky.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Conky
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/crunchbang.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Crunchbang
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/freebox.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Freebox
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/linux.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Linux
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/lubuntu.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Lubuntu
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/mac-os-x.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Mac OS X
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/mageia.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Mageia
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/octopress.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Octopress
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/pelican.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Pelican
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/python.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Python
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/shell.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Shell
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/terminal.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>Terminal
+                        </a>
+                   </li>
+                    <li class="list-group-item">
+                        <a href="../../../../category/virtualbox.html">
+                            <i class="icon-folder-open-alt icon-medium"></i>VirtualBox
+                        </a>
+                   </li>
+
+	
+        </ul>
+    </section>
+</aside>			</div>
+		</div>
+	</div>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../../../../theme/js/bootstrap.min.js"></script>
+
+	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+	<script src="../../../../theme/js/respond.min.js"></script>
+	
+	<!-- Disqus -->
+<script type="text/javascript">
+    var disqus_shortname = 'letchap';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://letchap.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿##############################################
+# Paramètres
+##############################################
+background yes
+use_xft yes
+xftfont Walkway:size=9
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 560 200
+maximum_width 560
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color #b5b5b5
+alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
+gap_x 30
+gap_y 70
+border_inner_margin 5 ## marge entre le texte et la bordure
+border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+no_buffers yes
+uppercase no
+override_utf8_locale yes
+##############################################
+# Affichage
+##############################################
+TEXT
+# D'abord, je place les images
+${execp grep jour1_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 30,0 -s 128x128}"}'}
+
+# Je place le texte
+${color #b5b5b5}${voffset -30}${goto 260}${font size=12:bold}Aujourd'hui à ${execp grep Derniere_observation ~/tmp/meteo.txt | awk -F " " '{print $8}'} à Paris${font}
+${voffset 10}${goto 240}Temp. actuelle : $alignr${execp grep Temperature ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+${voffset 3}${goto 240}Temp. ressentie : $alignr${execp grep Ressentie ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+${voffset 3}${goto 240}Proba. de précip. : $alignr${execp grep jour1_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+${voffset 3}${goto 240}Vent : $alignr de ${execp grep Dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep Vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+${voffset 3}${goto 240}Pression atmos. : $alignr${execp grep Pression ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}${execp grep Tend_pres ~/tmp/meteo.txt | awk -F " " '{print " " $3}'}
+${voffset 3}${goto 240}Humidité : $alignr${execp grep Humidite ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+${voffset 3}${goto 240}Visibilité : $alignr${execp grep Visibilite ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+${font bold}${goto 50}${execp grep Meteo ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}${font}${goto 240}Indice UV : $alignr${execp grep Indice_UV ~/tmp/meteo.txt | awk -F " " '{print $3}'} ${font}
+${voffset 3}${goto 240}Hauteur de précipitation : $alignr${execp grep jour1_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+${font bold}${goto 50}${execp grep jour1_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} |  ${font}${execp grep jour1_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}${goto 240}Hauteur de neige : $alignr${execp grep jour1_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+${hr 2}
+${voffset -40}
