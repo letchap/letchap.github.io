@@ -15,7 +15,8 @@
     <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../../../theme/css/pygments.css" rel="stylesheet">
     <link href="../../../../theme/css/style.css" rel="stylesheet" type="text/css"/>
-    
+    <link href="../../../../theme/css/lightbox.css" rel="stylesheet" type="text/css"/>
+
 	<!-- JavaScript plugins (requires jQuery) -->
     <script src="http://code.jquery.com/jquery.js"></script>
 	
@@ -127,7 +128,7 @@
 <p>Pour cela, sur Mac OS X, il existe un utilitaire sympa, Automator. Il va nous permettre de créer un service qui lancera le traitement de notre ou de nos fichiers grâce à un clic droit.</p>
 <p>Des éléments complémentaires sont disponibles sur le site <a href="https://developer.apple.com/library/mac/documentation/AppleApplications/Conceptual/AutomatorConcepts/Articles/ShellScriptActions.html">d'apple developper</a></p>
 <p>Pour créer un service, je commence par choisir "service" dans automator puis, je choisis "exécuter un script Shell" </p>
-<p><img alt="automator" src="http://pix.toile-libre.org/upload/original/1386106913.png" title="service automator" /></p>
+<p><a href="images/atomator.png" data-lightbox="automator" title="Automator"><img src="images/atomator.png"/>image #1</a></p>
 <p>A ce stade, vous avez deux possibilités : vous pouvez au choix saisir vos lignes de script python en sélectionnant /usr/bin/python dans l'interpréteur, ou alors vous pouvez préférez un script shell permettant de lancer le programme python. Je préfère nettement cette deuxième solution pour deux raisons : il n'existe qu'une seule version du programme python, et vous pouvez trapper les erreurs dans un fichier de log</p>
 <p>Nous saisissons donc notre script d'appel au programme python en shell, tout en oubliant pas de sélectionner "fichier ou dossier", "dans n'importe quelle application" ainsi que "comme arguments".</p>
 <p>Pour passer le fichier d'entrée au programme python, nous utilisons la variable magique "$@".</p>
@@ -256,6 +257,9 @@
 	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
 	<script src="../../../../theme/js/respond.min.js"></script>
 	
+
+    <script src="../../../../theme/js/jquery-1.10.2.min.js"></script>
+    <script src="../../../../theme/js/lightbox-2.6.min.js"></script>
 	<!-- Disqus -->
 <script type="text/javascript">
     var disqus_shortname = 'letchap';
