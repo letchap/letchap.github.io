@@ -51,6 +51,18 @@ i {
     height: auto;
 }
 
+
+.lightbox a {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.lightbox a:hover {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+
 #categories ul, #tags ul {
     list-style: none;
     padding: 0;
