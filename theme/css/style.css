@@ -52,12 +52,12 @@ i {
 }
 
 
-.lightbox a {
+.gallery a {
     text-decoration: none;
     border-bottom: none;
 }
 
-.lightbox a:hover {
+.gallery a:hover {
     text-decoration: none;
     border-bottom: none;
 }
