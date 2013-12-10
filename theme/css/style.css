@@ -51,6 +51,16 @@ i {
     height: auto;
 }
 
+.summary a {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+}
+
+.summary a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid;
+}
+
 
 .gallery a {
     text-decoration: none;
