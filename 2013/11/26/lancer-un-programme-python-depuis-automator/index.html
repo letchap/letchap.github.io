@@ -128,7 +128,7 @@
 <p>Pour cela, sur Mac OS X, il existe un utilitaire sympa, Automator. Il va nous permettre de créer un service qui lancera le traitement de notre ou de nos fichiers grâce à un clic droit.</p>
 <p>Des éléments complémentaires sont disponibles sur le site <a href="https://developer.apple.com/library/mac/documentation/AppleApplications/Conceptual/AutomatorConcepts/Articles/ShellScriptActions.html">d'apple developper</a></p>
 <p>Pour créer un service, je commence par choisir "service" dans automator puis, je choisis "exécuter un script Shell" </p>
-<figure><figcaption class="gallery"><a href="../../../../images/automator.png" data-lightbox="automator" title="Automator"><img src="../../../../images/automator.png" alt="automator"</a></figcaption></figure>
+<figure><figcaption class="gallery"><a href="../../../../images/automator.png" data-lightbox="automator" title="Automator"><img src="../../../../images/automator.png" alt="automator" /></a></figcaption></figure>
 
 <p>A ce stade, vous avez deux possibilités : vous pouvez au choix saisir vos lignes de script python en sélectionnant /usr/bin/python dans l'interpréteur, ou alors vous pouvez préférez un script shell permettant de lancer le programme python. Je préfère nettement cette deuxième solution pour deux raisons : il n'existe qu'une seule version du programme python, et vous pouvez trapper les erreurs dans un fichier de log</p>
 <p>Nous saisissons donc notre script d'appel au programme python en shell, tout en oubliant pas de sélectionner "fichier ou dossier", "dans n'importe quelle application" ainsi que "comme arguments".</p>
