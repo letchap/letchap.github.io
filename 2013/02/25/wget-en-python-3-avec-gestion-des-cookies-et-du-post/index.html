@@ -124,7 +124,7 @@
 
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data.</p>
+                <p>Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3</p>
 <h3>La commande Wget dans un petit script :</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -138,8 +138,8 @@
 10
 11
 12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
-<span class="nv">login</span><span class="o">=</span><span class="s2">&quot;xxxxx&quot;</span>
-<span class="nv">pass</span><span class="o">=</span><span class="s2">&quot;xxxxx&quot;</span>
+<span class="nv">login</span><span class="o">=</span><span class="nv">$login</span>
+<span class="nv">pass</span><span class="o">=</span><span class="nv">$password</span>
 
 <span class="c">#Récupération des premiers cookies</span>
 wget -dO /dev/null --cookies<span class="o">=</span>on --keep-session-cookies --save-cookies<span class="o">=</span>cookies.txt <span class="s2">&quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&quot;</span>
@@ -152,8 +152,8 @@ wget -dO index.html --cookies<span class="o">=</span>on --keep-session-cookies -
 </pre></div>
 </td></tr></table>
 
-<p>Pour expliquer un peu ce qui se passe, il faut faire plusieurs passages pour récupérer les cookies. Sur les deux premiers, je ne conserve pas de fichiers de sortie en envoyant les fichiers vers /dev/null.</p>
-<p>Le point important est de bien mettre les load et save cookies, et de remplir correctement la partie post. Pour savoir ce qu'il faut mettre dans le post, un petit coup d'extension web developer de firefox fera l'affaire.</p>
+<p>Nous allons être obligé de faire plusieurs passages pour récupérer les cookies. Sur les deux premiers passages, je ne conserve pas de fichiers de sortie en envoyant le résultat de la requête vers /dev/null. En revanche, mes cookies seront bien conservés dans le fichiers cookies.txt grâce à l'option --save-cookies. </p>
+<p>Pour le post, un petit coup d'extension web developer de firefox fera l'affaire. Cela permet d'identifier les zones de formulaires à remplir.</p>
 <h3>La même chose en Python 3</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -207,13 +207,11 @@ wget -dO index.html --cookies<span class="o">=</span>on --keep-session-cookies -
 50
 51
 52
-53
-54</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python3.2</span>
+53</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python3.2</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">urllib.parse</span><span class="o">,</span> <span class="nn">urllib.error</span>
 <span class="kn">import</span> <span class="nn">http.cookiejar</span>
 
 <span class="c">#Le fichier qui va stocker les cookies</span>
-<span class="n">COOKIEFILE</span> <span class="o">=</span> <span class="s">&#39;cookies.lwp&#39;</span>
 <span class="n">cj</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">cookiejar</span><span class="o">.</span><span class="n">LWPCookieJar</span>
 
 <span class="c">#Des raccourcis pour lancer les requêtes</span>
@@ -243,8 +241,8 @@ wget -dO index.html --cookies<span class="o">=</span>on --keep-session-cookies -
 <span class="err">  </span> <span class="k">else</span><span class="p">:</span>
 <span class="err">      </span> <span class="k">return</span> <span class="n">handle</span>
 
-<span class="n">login</span> <span class="o">=</span> <span class="s">&#39;xxxxxx&#39;</span>
-<span class="n">password</span> <span class="o">=</span> <span class="s">&#39;xxxxxx&#39;</span>
+<span class="n">login</span> <span class="o">=</span> <span class="err">$</span><span class="n">login</span>
+<span class="n">password</span> <span class="o">=</span> <span class="err">$</span><span class="n">password</span>
 
 <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&quot;</span>
 <span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;connexioncompte_2numSecuriteSociale&#39;</span> <span class="p">:</span> <span class="n">login</span><span class="p">,</span>

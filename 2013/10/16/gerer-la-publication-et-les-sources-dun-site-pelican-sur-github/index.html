@@ -129,7 +129,7 @@
 <p>Mon objectif était d'avoir une facilité de publication assez similaire à celle offerte par Octopress. A partir d'un même dépôt distant, je veux disposé d'une branche contenant le site à déployer et d'une branche content les sources de mon site. Cela est très utile pour blogger depuis plusieurs ordinateurs. Je veux pouvoir mettre à jour facilement ces deux branches, indépendemment l'une de l'autre, mais toujours à partir d'un unique dépôt local. Le tout doit être exécutable en un minimum de lignes de commande. </p>
 <p>Dernier élément, je veux conserver l'adresse letchap.github.io, ce qui m'oblige à passer par une publication de pages Github en mode "pages utilisateur"</p>
 <p>C'est parti !</p>
-<p>Je commence par me placer dans le répertoire contenant les sources et le site. Je l'ai appelé de manière très originale <code>blog</code>. Il doit contenir les répertoires content et output (obtenu par la commande <code>make html</code>)</p>
+<p>Je commence par me placer dans le répertoire contenant les sources et le site. Je l'ai appelé de manière très originale <code>blog</code>. Il doit contenir les répertoires content et output (obtenu par la commande <code>make html</code>):</p>
 <div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>blog
 /blog<span class="nv">$ </span>ls -l
 drwxr-xr-x  6 letchap letchap 4096 oct.  16 21:00 content
@@ -175,8 +175,9 @@ develop_server.sh
 
 
 <p>Maintenant le site proprement dit !</p>
-<p>Rappelez - vous, toutes les pages sont contenues dans le dossier output. Pour créer et alimenter une branche gh-pages, nous allons utilisé l'utilitaire ghp-import qui s'installe par un <code>pip install ghp-import</code>. Je ne sais pas comment ça fonctionne mais cela créé ou met à jour une branche gh-pages avec le contenu du dossier output. Hyper pratique. Il ne reste plus qu'à pousser cette branche sur la branche master de notre dépôt distant(qui se créé à cette occasion).</p>
-<div class="highlight"><pre><span class="nv">$ </span>ghp-import output
+<p>Rappelez - vous, toutes les pages sont contenues dans le dossier output. Pour créer et alimenter une branche gh-pages, nous allons utiliser l'utilitaire ghp-import qui s'installe par un <code>pip install ghp-import</code>. Je ne sais pas comment ça fonctionne mais cela créé ou met à jour une branche gh-pages avec le contenu du dossier output. Hyper pratique. Il ne reste plus qu'à pousser cette branche sur la branche master de notre dépôt distant (qui se créé à cette occasion).</p>
+<div class="highlight"><pre><span class="nv">$ </span>make html <span class="c"># génère le dossier output avec le contenu du site</span>
+<span class="nv">$ </span>ghp-import output
 <span class="nv">$ </span>git push origin gh-pages:master
 </pre></div>
 
@@ -196,6 +197,22 @@ develop_server.sh
 
 
 <p>C'est magique !</p>
+<p>Si vous souhaitez blogger depuis un autre ordinateur, il suffit de cloner la branche source distante en local après l'avoir préalablement mise à jour, de supprimer la branche master distante qui contient le site, de regénérer localement la branche gh-pages et de la pousser sur une nouvelle branche master distante,  ce qui donne :</p>
+<p>Sur le premier ordinateur :</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">cd</span> <span class="n">blog</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;je vais blogger ailleurs&quot;</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">source</span>
+</pre></div>
+
+
+<p>Sur le deuxième ordinateur :</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="o">-</span><span class="n">b</span> <span class="n">source</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="n">letchap</span><span class="o">/</span><span class="n">letchap</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span> <span class="n">blog</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">:</span><span class="n">master</span> <span class="err">#</span> <span class="n">cela</span> <span class="n">supprime</span> <span class="n">la</span> <span class="n">branche</span> <span class="n">master</span> <span class="n">distante</span>
+<span class="err">$</span> <span class="n">make</span> <span class="n">html</span>
+<span class="err">$</span> <span class="n">ghp</span><span class="o">-</span><span class="n">import</span> <span class="n">output</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="o">:</span><span class="n">master</span>
+</pre></div>
             </div>
             <!-- /.entry-content -->
     <hr />

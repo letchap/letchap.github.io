@@ -5,7 +5,7 @@
 &lt;p&gt;Pour créer un service, je commence par choisir "service" dans automator puis, je choisis "exécuter un script Shell" &lt;/p&gt;
 &lt;figure&gt;&lt;figcaption class="gallery"&gt;&lt;a href="/images/automator.png" data-lightbox="automator" title="Automator"&gt;&lt;img src="/images/automator.png" alt="automator" /&gt;&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
 
-&lt;p&gt;A ce stade, vous avez deux possibilités : vous pouvez au choix saisir vos lignes de script python en sélectionnant /usr/bin/python dans l'interpréteur, ou alors vous pouvez préférez un script shell permettant de lancer le programme python. Je préfère nettement cette deuxième solution pour deux raisons : il n'existe qu'une seule version du programme python, et vous pouvez trapper les erreurs dans un fichier de log&lt;/p&gt;
+&lt;p&gt;A ce stade, vous avez deux possibilités : vous pouvez au choix saisir vos lignes de script python en sélectionnant /usr/bin/python dans l'interpréteur, ou alors vous pouvez préférez un script shell permettant de lancer le programme python. Je préfère nettement cette deuxième solution pour deux raisons : il n'existe qu'une seule version du programme python, et vous pouvez trapper les erreurs dans un fichier de log.&lt;/p&gt;
 &lt;p&gt;Nous saisissons donc notre script d'appel au programme python en shell, tout en oubliant pas de sélectionner "fichier ou dossier", "dans n'importe quelle application" ainsi que "comme arguments".&lt;/p&gt;
 &lt;p&gt;Pour passer le fichier d'entrée au programme python, nous utilisons la variable magique "$@".&lt;/p&gt;
 &lt;p&gt;Pour débugger le programme, il est bien sûr possible de renvoyer les sorties standard et erreur vers un fichier de log par un petit &lt;code&gt;&amp;gt;&amp;gt; log 2&amp;gt;&amp;amp;1&lt;/code&gt;, ce qui peut s'avérer pratique.&lt;/p&gt;
@@ -323,7 +323,7 @@
 &lt;p&gt;Mon objectif était d'avoir une facilité de publication assez similaire à celle offerte par Octopress. A partir d'un même dépôt distant, je veux disposé d'une branche contenant le site à déployer et d'une branche content les sources de mon site. Cela est très utile pour blogger depuis plusieurs ordinateurs. Je veux pouvoir mettre à jour facilement ces deux branches, indépendemment l'une de l'autre, mais toujours à partir d'un unique dépôt local. Le tout doit être exécutable en un minimum de lignes de commande. &lt;/p&gt;
 &lt;p&gt;Dernier élément, je veux conserver l'adresse letchap.github.io, ce qui m'oblige à passer par une publication de pages Github en mode "pages utilisateur"&lt;/p&gt;
 &lt;p&gt;C'est parti !&lt;/p&gt;
-&lt;p&gt;Je commence par me placer dans le répertoire contenant les sources et le site. Je l'ai appelé de manière très originale &lt;code&gt;blog&lt;/code&gt;. Il doit contenir les répertoires content et output (obtenu par la commande &lt;code&gt;make html&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;Je commence par me placer dans le répertoire contenant les sources et le site. Je l'ai appelé de manière très originale &lt;code&gt;blog&lt;/code&gt;. Il doit contenir les répertoires content et output (obtenu par la commande &lt;code&gt;make html&lt;/code&gt;):&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;blog
 /blog&lt;span class="nv"&gt;$ &lt;/span&gt;ls -l
 drwxr-xr-x  6 letchap letchap 4096 oct.  16 21:00 content
@@ -369,8 +369,9 @@ develop_server.sh
 
 
 &lt;p&gt;Maintenant le site proprement dit !&lt;/p&gt;
-&lt;p&gt;Rappelez - vous, toutes les pages sont contenues dans le dossier output. Pour créer et alimenter une branche gh-pages, nous allons utilisé l'utilitaire ghp-import qui s'installe par un &lt;code&gt;pip install ghp-import&lt;/code&gt;. Je ne sais pas comment ça fonctionne mais cela créé ou met à jour une branche gh-pages avec le contenu du dossier output. Hyper pratique. Il ne reste plus qu'à pousser cette branche sur la branche master de notre dépôt distant(qui se créé à cette occasion).&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ghp-import output
+&lt;p&gt;Rappelez - vous, toutes les pages sont contenues dans le dossier output. Pour créer et alimenter une branche gh-pages, nous allons utiliser l'utilitaire ghp-import qui s'installe par un &lt;code&gt;pip install ghp-import&lt;/code&gt;. Je ne sais pas comment ça fonctionne mais cela créé ou met à jour une branche gh-pages avec le contenu du dossier output. Hyper pratique. Il ne reste plus qu'à pousser cette branche sur la branche master de notre dépôt distant (qui se créé à cette occasion).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;make html &lt;span class="c"&gt;# génère le dossier output avec le contenu du site&lt;/span&gt;
+&lt;span class="nv"&gt;$ &lt;/span&gt;ghp-import output
 &lt;span class="nv"&gt;$ &lt;/span&gt;git push origin gh-pages:master
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -389,7 +390,23 @@ develop_server.sh
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;C'est magique !&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">letchap</dc:creator><pubDate>Wed, 16 Oct 2013 21:01:00 +0200</pubDate><guid>tag:letchap.github.io,2013-10-16:2013/10/16/gerer-la-publication-et-les-sources-dun-site-pelican-sur-github/</guid><category>Pelican</category><category>Github</category></item><item><title>Envoyer une notification au centre de notification de Mountain Lion avec Python</title><link>letchap.github.io/2013/08/29/envoyer-une-notification-au-centre-de-notification-de-mountain-lion-avec-python/</link><description>&lt;p&gt;&lt;a href="letchap.github.io/2013/08/08/demarrage-automatique-de-travaux-avec-launchd/" title="Démarrage automatique de travaux avec launchd"&gt;Dans mon dernier article&lt;/a&gt;, nous avons vu comment programmer le déclenchement périodique d'un programme dans Mountain Lion grace à l'utilitaire launchd. J'aimerais maintenant être averti de la bonne exécution de mon programme via le centre de notifciation de Mountain Lion.&lt;/p&gt;
+&lt;p&gt;C'est magique !&lt;/p&gt;
+&lt;p&gt;Si vous souhaitez blogger depuis un autre ordinateur, il suffit de cloner la branche source distante en local après l'avoir préalablement mise à jour, de supprimer la branche master distante qui contient le site, de regénérer localement la branche gh-pages et de la pousser sur une nouvelle branche master distante,  ce qui donne :&lt;/p&gt;
+&lt;p&gt;Sur le premier ordinateur :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;je vais blogger ailleurs&amp;quot;&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Sur le deuxième ordinateur :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;letchap&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;letchap&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;cela&lt;/span&gt; &lt;span class="n"&gt;supprime&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt; &lt;span class="n"&gt;branche&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt; &lt;span class="n"&gt;distante&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;gh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">letchap</dc:creator><pubDate>Wed, 16 Oct 2013 21:01:00 +0200</pubDate><guid>tag:letchap.github.io,2013-10-16:2013/10/16/gerer-la-publication-et-les-sources-dun-site-pelican-sur-github/</guid><category>Pelican</category><category>Github</category></item><item><title>Envoyer une notification au centre de notification de Mountain Lion avec Python</title><link>letchap.github.io/2013/08/29/envoyer-une-notification-au-centre-de-notification-de-mountain-lion-avec-python/</link><description>&lt;p&gt;&lt;a href="letchap.github.io/2013/08/08/demarrage-automatique-de-travaux-avec-launchd/" title="Démarrage automatique de travaux avec launchd"&gt;Dans mon dernier article&lt;/a&gt;, nous avons vu comment programmer le déclenchement périodique d'un programme dans Mountain Lion grace à l'utilitaire launchd. J'aimerais maintenant être averti de la bonne exécution de mon programme via le centre de notifciation de Mountain Lion.&lt;/p&gt;
 &lt;p&gt;Ce qui est décrit ci-dessous est librement inspiré de cet &lt;a href="http://dbader.org/blog/alfred-timer-extension" title="A countdown timer extension for Alfred"&gt;article en anglais&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Pour pouvoir envoyer un message dans le centre de notification de Mountain Lion et afficher une pop-up, il faut obligatoirement que l'application soit reconnu par Apple via le "bundle identifier". Pour mon petit programme Python à moi, je ne vais pas demander un identifiant, alors pour pouvoir malgré tout envoyer un message, je vais adopter la stratégie du coucou et emprunter un bundle identifier existant. Par exemple celui de du programme Python Launcher (puisque que je lance un programme Python). Je vais donc faire croire au centre de notification que c'est l'application Python Launcher qui envoie un message.&lt;/p&gt;
 &lt;p&gt;Tout d'abord, comment récupérer le bundler identifier? Avec la commande suivante dans le terminal :&lt;/p&gt;
@@ -1987,7 +2004,7 @@ origin  git@github.com:letchap/letchap.github.com.git &lt;span class="o"&gt;(&lt
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Voilà, une corbeille comme neuve.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">letchap</dc:creator><pubDate>Mon, 25 Feb 2013 22:18:00 +0100</pubDate><guid>tag:letchap.github.io,2013-02-25:2013/02/25/vider-la-corbeille-avec-le-terminal/</guid><category>Corbeille</category><category>Linux</category><category>Lubuntu</category><category>Terminal</category></item><item><title>wget en python 3 avec gestion des cookies et du post</title><link>letchap.github.io/2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/</link><description>&lt;p&gt;Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data.&lt;/p&gt;
+&lt;p&gt;Voilà, une corbeille comme neuve.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">letchap</dc:creator><pubDate>Mon, 25 Feb 2013 22:18:00 +0100</pubDate><guid>tag:letchap.github.io,2013-02-25:2013/02/25/vider-la-corbeille-avec-le-terminal/</guid><category>Corbeille</category><category>Linux</category><category>Lubuntu</category><category>Terminal</category></item><item><title>wget en python 3 avec gestion des cookies et du post</title><link>letchap.github.io/2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/</link><description>&lt;p&gt;Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3&lt;/p&gt;
 &lt;h3&gt;La commande Wget dans un petit script :&lt;/h3&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
@@ -2001,8 +2018,8 @@ origin  git@github.com:letchap/letchap.github.com.git &lt;span class="o"&gt;(&lt
 10
 11
 12&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class="nv"&gt;login&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;xxxxx&amp;quot;&lt;/span&gt;
-&lt;span class="nv"&gt;pass&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;xxxxx&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;login&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$login&lt;/span&gt;
+&lt;span class="nv"&gt;pass&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$password&lt;/span&gt;
 
 &lt;span class="c"&gt;#Récupération des premiers cookies&lt;/span&gt;
 wget -dO /dev/null --cookies&lt;span class="o"&gt;=&lt;/span&gt;on --keep-session-cookies --save-cookies&lt;span class="o"&gt;=&lt;/span&gt;cookies.txt &lt;span class="s2"&gt;&amp;quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&amp;quot;&lt;/span&gt;
@@ -2015,8 +2032,8 @@ wget -dO index.html --cookies&lt;span class="o"&gt;=&lt;/span&gt;on --keep-sessi
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;p&gt;Pour expliquer un peu ce qui se passe, il faut faire plusieurs passages pour récupérer les cookies. Sur les deux premiers, je ne conserve pas de fichiers de sortie en envoyant les fichiers vers /dev/null.&lt;/p&gt;
-&lt;p&gt;Le point important est de bien mettre les load et save cookies, et de remplir correctement la partie post. Pour savoir ce qu'il faut mettre dans le post, un petit coup d'extension web developer de firefox fera l'affaire.&lt;/p&gt;
+&lt;p&gt;Nous allons être obligé de faire plusieurs passages pour récupérer les cookies. Sur les deux premiers passages, je ne conserve pas de fichiers de sortie en envoyant le résultat de la requête vers /dev/null. En revanche, mes cookies seront bien conservés dans le fichiers cookies.txt grâce à l'option --save-cookies. &lt;/p&gt;
+&lt;p&gt;Pour le post, un petit coup d'extension web developer de firefox fera l'affaire. Cela permet d'identifier les zones de formulaires à remplir.&lt;/p&gt;
 &lt;h3&gt;La même chose en Python 3&lt;/h3&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
@@ -2070,13 +2087,11 @@ wget -dO index.html --cookies&lt;span class="o"&gt;=&lt;/span&gt;on --keep-sessi
 50
 51
 52
-53
-54&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/usr/bin/python3.2&lt;/span&gt;
+53&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/usr/bin/python3.2&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib.request&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;urllib.parse&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;urllib.error&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;http.cookiejar&lt;/span&gt;
 
 &lt;span class="c"&gt;#Le fichier qui va stocker les cookies&lt;/span&gt;
-&lt;span class="n"&gt;COOKIEFILE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;cookies.lwp&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;cj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cookiejar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LWPCookieJar&lt;/span&gt;
 
 &lt;span class="c"&gt;#Des raccourcis pour lancer les requêtes&lt;/span&gt;
@@ -2106,8 +2121,8 @@ wget -dO index.html --cookies&lt;span class="o"&gt;=&lt;/span&gt;on --keep-sessi
 &lt;span class="err"&gt;  &lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
 &lt;span class="err"&gt;      &lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;handle&lt;/span&gt;
 
-&lt;span class="n"&gt;login&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;xxxxxx&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;password&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;xxxxxx&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;login&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt;
+&lt;span class="n"&gt;password&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;password&lt;/span&gt;
 
 &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;values&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;connexioncompte_2numSecuriteSociale&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
