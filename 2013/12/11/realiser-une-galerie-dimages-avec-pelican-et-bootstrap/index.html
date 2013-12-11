@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox</title>
+    <title>Réaliser une galerie d'images avec Pelican et Bootstrap</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -102,10 +102,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../../../../2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/"
+                    <a href="../../../../2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/"
                        rel="bookmark"
-                       title="Permalink to Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox">
-                        Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox
+                       title="Permalink to Réaliser une galerie d'images avec Pelican et Bootstrap">
+                        Réaliser une galerie d'images avec Pelican et Bootstrap
                     </a>
                 </h1>
             </header>
@@ -115,83 +115,85 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>Mar 09 avril 2013
+        <i class="icon-calendar"></i>Mer 11 décembre 2013
     </span>
 
     <span class="label label-default">Category</span>
-    <a href="../../../../category/virtualbox.html">VirtualBox</a>
+    <a href="../../../../category/pelican.html">Pelican</a>
 
 
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Malgré toute sa bonne volonté mon pauvre vieux PC de 2003 touche certaines limites. La plus génante concerne l'obsolescence de la carte graphique, il m'est par exemple impossible d'utiliser Kivy.</p>
-<p>C'est l'occasion d'installer une distribution sur mon iMac. Et pour tester un univers que je ne connais pas et qui va me changer du monde Ubuntu, nous allons installer Mageia 2.</p>
-<h3>Dual boot ou virtualisation ?</h3>
-<p>Pour ne pas perturber les autres membres de la famille avec le choix d'un OS de démarrage, je ne souhaite pas installer Mageia en double amorçage (dual boot) sur mon iMac. J'ai la flemme de partitionner, d'installer rEfit, tout ça pour avoir un écran moche au démarrage.</p>
-<p>La solution : la virtualisation</p>
-<p>La virtualisation permet de démarrer une session de n'importe quelle distribution Linux à l'intérieur de Mountain Lion :</p>
+                <p>Nous allons voir aujourd'hui comment afficher les images sous forme de diaporama sur un site généré avec Pelican. L'idéée est de rendre cliquable une image qui s'affiche alors au-dessus du site, et de faire défiler les images sous la forme d'un diaporama pour une galerie d'image. Vous avez un petit exemple de ce que cela peut donner pour une image simple sur <a href="../../../../2013/11/26/lancer-un-programme-python-depuis-automator/">un autre de mes billets</a> ou pour <a href="../../../../2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">une galerie sur un autre billet ici</a></p>
+<p>Pour cela, nous avons besoin du plugin Lightbox pour Bootstrap ainsi que de la possibilité offerte par Pelican d'utiliser les extensions pour markdown de Python.</p>
+<p>Cela ne s'applique que si vous utiliser la synthaxe Markdown pour rédiger vos billets. Je suppose que c'est également réalisable en synthaxe reStructuredTex.</p>
+<h3>Installer le plugin lightbox</h3>
+<p>Le plugin lightbox pour bootstrap est disponible <a href="http://lokeshdhakar.com/projects/lightbox2/" title="Lightbox V2">à cette adresse</a>. </p>
+<p>Pour installer ligthbox dans votre thème pelican, il faut : </p>
 <ul>
-<li>Ca ne prend pas de place (il faut compter 8 Go pour être tranquille),</li>
-<li>Ca tourne de manière fluide avec 512 Mo de RAM dédiée (j'ai mis 2 Go quand même pour Mageia 2),</li>
-<li>Ca ne touche pas à Mountain Lion, </li>
-<li>Ca permet de partager des fichiers entre Mountain Lion et Mageia très facilement,</li>
-<li>Ca reconnaît les port usb,</li>
-<li>Ca se sauvegarde,</li>
-<li>Ca permet de tester très facilement toutes sortes de distributions.</li>
+<li>copier le répertoire img dans le répertoire <code>/static</code></li>
+<li>copier les fichiers jquery-1.10.2.min.js et lightbox-2.6.min.js dans le répertoire <code>/static/js</code></li>
+<li>copier lightbox.css dans le répertoire <code>/css</code></li>
+<li>
+<p>déclarer les scripts js et le fichier css dans le fichier base.hmtl</p>
+<pre><code>:::html
+&lt;script src="{{ SITEURL }}/theme/js/jquery-1.10.2.min.js"&gt;&lt;/script&gt;
+&lt;script src="{{ SITEURL }}/theme/js/lightbox-2.6.min.js"&gt;&lt;/script&gt;
+&lt;link href="{{ SITEURL }}/theme/css/lightbox.css" rel="stylesheet" type="text/css"/&gt;
+</code></pre>
+</li>
 </ul>
-<p>Le principal intérêt de la virtualisation est de pouvoir essayer sereinement des distributions, mais j'ai décidé de tester la virtualisation aussi sur la durée, je voudrais savoir si cela peut être une solution pérenne en attendant de racheter un PC et de faire une vraie installation.</p>
-<h3>L'installation</h3>
-<p>Il n'existe pas énormément de logiciel de virtualisation sur Max OS X, et le seul gratuit est VirtualBox. Les deux autres sont VMware et Parallel Desktop.</p>
-<p>Pour virtualiser, j'ai donc utilisé le logiciel Virtualbox. Les différentes étapes sont :</p>
+<p>La synthaxe html pour activer lightbox est la suivante : </p>
+<pre><code>:::html
+&lt;a href="/path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&gt;&lt;img src="/path/to/monimage.png" alt="Mon Image" /&gt;&lt;/a&gt;
+</code></pre>
+<p>Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.</p>
+<p>Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown</p>
+<h3>Les extensions Markdown Python</h3>
+<p>Pour un petit cours de rattrapage sur la synthaxe Markdown, <a href="../../../../2013/03/01/memo-markdown-en-francais/" title="memo markdown">c'est ici</a></p>
+<p>Pour rédiger notre texte entièrement en Markdown, nous allons devoir résoudre deux problèmes :</p>
 <ul>
-<li>L'installation de Virtualbox </li>
-<li>Le téléchargement de l'image disque Mageia 2</li>
-<li>L'installation de Mageia 2 dans VirtualBox</li>
-<li>L'installation des compléments (VirtualBox guest additions)</li>
-<li>L'installation des compléments (VirtualBox extension pack)</li>
+<li>créer un lien sur une image</li>
+<li>ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas natvement Markdown</li>
 </ul>
-<h4>Installer Virtualbox.</h4>
-<p>C'est une installation classique sur OS X par les paquets dmg. Il est disponible au téléchargement <a href="https://www.virtualbox.org/wiki/Downloads" title="VirtualBox">ici</a></p>
-<h4>Télécharger Mageia 2</h4>
-<p>Nous allons installer la dernière version de Mageia 2 en 64 bits, elle est disponible au téléchargement sur <a href="http://www.mageia.org/fr/downloads/" title="Mageia">cette page</a>. Personnellement j'utilise le torrent avec transmission, c'est plus rapide et plus sûr.</p>
-<p>Dans le dossier que vous récupérez se trouve un fichier .iso, c'est de celui dont nous aurons besoin.</p>
-<p>Tous les Mac récents tournent en 64 bits, pour vous en assurer, vous pouvez aller dans le moniteur d'activité, il doit être indiqué Intel (64bits) dans la colonne Type.
-<a d_activité="d'activité" data-lightbox="moniteur" href="../../../../images/virtualbox/moniteur.png" title="&quot;moniteur"><img alt="Moniteur d'activité" src="../../../../images/virtualbox/moniteur.png" title="moniteur d'activité" /></a></p>
-<p>La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur du 32, je n'ai pas essayé, je ne sais pas si cela fonctionne bien.</p>
-<h4>Démarrer VirtualBox et installer Mageia</h4>
-<p>Le vrai travail commence maintenant</p>
-<p>Démarrer VirtaulBox et cliquer sur nouveau. Vous saisissez alors le nom de votre distribution, Mageia
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution"><img alt="VirtualBox nouveau" src="../../../../images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution" /></a></p>
-<p>Ensuite choisissez la taille de la mémoire qui sera utilisé pour faire fonctionner la machine virtuelle. La mémoire vive est partagé avec le système hôte, celle dédiée à VirtualBox ne peut pas être plus de la moitié de la taille totale. Ici, j'ai choisi 2Go.
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive"><img alt="VirtualBox mémoire" src="../../../../images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive" /></a></p>
-<p>La création d'un disque dur virtuel est proposée (laissez le paramétrage par défaut)
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel"><img alt="VirtualBox disque dur" src="../../../../images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel" /></a></p>
-<p>Il s'agit d'un disque virtuel avec une extension vdi qui permettra plus tard si besoin d'exporter la machine virtuelle
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque"><img alt="VirtualBox vdi" src="../../../../images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque" /></a></p>
-<p>Conserver le paramétrage de taille de disque dynamiquement allouée. Seul l'espace réellement utilisé sera présent sur le disque dur de la machine hôte. Pour des soucis de performance, il est possible de choisir une taille fixe, mais évidemment, cela prend plus d'espace. A vous de voir.
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée"><img alt="VirtualBox taille allouée" src="../../../../images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée" /></a></p>
-<p>8Go par défaut, c'est largement suffisant pour tester une distribution.
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque"><img alt="VirtualBox taille" src="../../../../images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque" /></a></p>
-<p>Une fois tous ces éléments paramétrés, il va falloir demander à la machine de démarrer sur l'image disque de Mageia. Pour cela, il faut se rendre dans l'onglet stockage.
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage"><img alt="VirtualBox stockage" src="../../../../images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage" /></a></p>
-<p>Vous cliquez sur l'icone du CD à coté de Lecteur CD/DVD.
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso"><img alt="VirtualBox CD" src="../../../../images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso" /></a></p>
-<p>Et vous choisissez votre fichier iso.
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso"><img alt="VirtualBox iso" src="../../../../images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso" /></a></p>
-<p>Vous cliquer alors sur démarrer et lancer l'installation normale de Mageia. Attention, ne télécharger pas les compléments d'installation durant cette étape. C'est très important pour un bon fonctionnement ultérieur de Mageia.</p>
-<p>A la fin de l'installation, vous éteignez (power off) la machine virtuelle.
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine"><img alt="VirtualBox power off" src="../../../../images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine" /></a></p>
-<p>Puis, vous éjectez le fichier iso (pour ne pas redémarrer l'installation à chaque fois).
-<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso"><img alt="VirtualBox eject" src="../../../../images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso" /></a></p>
-<p>Vous pouvez alors redémarrer Mageia. Une fois sur Mageia, voici quelques petites astuces pour un fonctionnement optimal de la machine virtuelle :</p>
-<h4>Guest additions</h4>
-<p>Tout d'abord, installer les compléments de l'installation que nous avons mis de coté tout à l'heure. L'installation sera plus propre si vous le faites maintenant et évitera des dysfonctionnements de Mageia. Pour éviter d'être embêté avec le fichier iso, vous pouvez aller dans le Centre de Contrôle Mageia (CCM) pour paramétrer les sources des programmes et supprimer la mise à jour par CD.</p>
-<p>Mageia va en même temps installer les VirtualBox guest additions qui permettent notamment de partager un répertoire avec le système hôte. Il n'est donc pas nécessaire d'installer spécifiquement ces guest additions, laissez le CCM faire.</p>
-<p>Une petite astuce pour les répertoires partagés, n'oubliez pas d'ajouter votre utilisateur dans le groupe VirtualBox (là encore cela se passe dans le CCM).
-<a data-lightbox="CCM" href="../../../../images/virtualbox/ccm.png" title="CCM"><img alt="CCM" src="../../../../images/virtualbox/ccm.png" title="Partager un répertoire" /></a></p>
-<h4>Extension pack</h4>
-<p>Enfin, dernière astuce, installer le VirtualBox extension pack pour pouvoir accéder aux ports USB sur la machine invitée.</p>
-<p>Bonne virtualisation !!</p>
+<h4>Créer un lien sur une image en Markdown</h4>
+<p>Pour créer un lien, la synthaxe Markdown est la suivante :</p>
+<pre><code>[lien](http://example.com)
+ou sur Pelican pour un lien interne
+[lien]({filename}/path/to/monarticle.markdown)
+</code></pre>
+<p>Pour insérer une image :</p>
+<pre><code>![alt text](/path/to/monimage.png)
+ou sur Pelican
+![alt text]({filename}/path/to/monimage.png)
+</code></pre>
+<p>Pour créer un lien sur une image, nous allons simplement combiner les deux </p>
+<pre><code>[![alt text]({filename}/path/to/monimage.png)]({filename}/path/to/monimage.png)
+</code></pre>
+<p>Ce qui nous donnera bien en sortie html :</p>
+<pre><code>&lt;a href="/path/to/monimage.png"&gt;&lt;img src="path/to/monimage.png" alt="alt text" /&gt;&lt;/a&gt;
+</code></pre>
+<h4>Ajouter un attribut sur le lien</h4>
+<p>Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.</p>
+<p>Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur <a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python">la documentation Python</a>. L'extension qui nous intéresse est celle concernant les attributs, elle porte le petit nom de <code>attr_list</code> et nous allons la déclarer tout de suite dans pelicanconf.py :</p>
+<pre><code>:::python
+MD_EXTENSIONS= ['attr_list']
+</code></pre>
+<p>Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :</p>
+<pre><code>[lien]({filename}/path/to/monimage.png){: data-lightbox="monimage" title="Mon Image" }
+</code></pre>
+<p>Ce qui se traduira par :</p>
+<pre><code>&lt;a href="path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&gt;
+</code></pre>
+<h4>On assemble le tout</h4>
+<p>Pour une image cliquable avec un effet diaporama, il faut donc écrire en Markdown :</p>
+<pre><code>[![Mon Image]({filename}/path/to/monimage.png "Mon Image")]({filename}/path/to/monimage.png){: data-lightbox="monimage" title="Mon Image" }
+</code></pre>
+<p>Pour obtenir :</p>
+<pre><code>:::html
+&lt;a href="/path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&gt;&lt;img src="/path/to/monimage.png" alt="Mon Image" /&gt;&lt;/a&gt;
+</code></pre>
+<p>Bon, d'accord, ce n'est pas beaucoup plus simple, mais c'est tellement plus gratifiant.</p>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -200,7 +202,7 @@
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_identifier = "2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/";
+            var disqus_identifier = "2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/";
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
                 var dsq = document.createElement('script');

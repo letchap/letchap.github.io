@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>letchap</title><link>letchap.github.io/</link><description>du Linux, du Python, un peu de Mac</description><atom:link href="letchap.github.io/atom.xml" rel="self"></atom:link><lastBuildDate>Tue, 26 Nov 2013 13:41:00 +0100</lastBuildDate><item><title>Lancer un programme python depuis automator</title><link>letchap.github.io/2013/11/26/lancer-un-programme-python-depuis-automator/</link><description>&lt;p&gt;&lt;a href="letchap.github.io/2013/11/25/transformer-un-texte-chinois-en-pdf/"&gt;J'ai un joli script python qui me permet de décoder un texte chinois en UTF8 tout en le tranformant en pdf&lt;/a&gt;. Maintenant, j'aimerais bien pouvoir le lancer d'un simple clic droit, voir même plusieurs fichiers d'un coup.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>letchap</title><link>letchap.github.io/</link><description>du Linux, du Python, un peu de Mac</description><atom:link href="letchap.github.io/atom.xml" rel="self"></atom:link><lastBuildDate>Wed, 11 Dec 2013 11:54:00 +0100</lastBuildDate><item><title>Réaliser une galerie d'images avec Pelican et Bootstrap</title><link>letchap.github.io/2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/</link><description>&lt;p&gt;Nous allons voir aujourd'hui comment afficher les images sous forme de diaporama sur un site généré avec Pelican. L'idéée est de rendre cliquable une image qui s'affiche alors au-dessus du site, et de faire défiler les images sous la forme d'un diaporama pour une galerie d'image. Vous avez un petit exemple de ce que cela peut donner pour une image simple sur &lt;a href="letchap.github.io/2013/11/26/lancer-un-programme-python-depuis-automator/"&gt;un autre de mes billets&lt;/a&gt; ou pour &lt;a href="letchap.github.io/2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/"&gt;une galerie sur un autre billet ici&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Pour cela, nous avons besoin du plugin Lightbox pour Bootstrap ainsi que de la possibilité offerte par Pelican d'utiliser les extensions pour markdown de Python.&lt;/p&gt;
+&lt;p&gt;Cela ne s'applique que si vous utiliser la synthaxe Markdown pour rédiger vos billets. Je suppose que c'est également réalisable en synthaxe reStructuredTex.&lt;/p&gt;
+&lt;h3&gt;Installer le plugin lightbox&lt;/h3&gt;
+&lt;p&gt;Le plugin lightbox pour bootstrap est disponible &lt;a href="http://lokeshdhakar.com/projects/lightbox2/" title="Lightbox V2"&gt;à cette adresse&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Pour installer ligthbox dans votre thème pelican, il faut : &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;copier le répertoire img dans le répertoire &lt;code&gt;/static&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;copier les fichiers jquery-1.10.2.min.js et lightbox-2.6.min.js dans le répertoire &lt;code&gt;/static/js&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;copier lightbox.css dans le répertoire &lt;code&gt;/css&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;déclarer les scripts js et le fichier css dans le fichier base.hmtl&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:::html
+&amp;lt;script src="{{ SITEURL }}/theme/js/jquery-1.10.2.min.js"&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src="{{ SITEURL }}/theme/js/lightbox-2.6.min.js"&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;link href="{{ SITEURL }}/theme/css/lightbox.css" rel="stylesheet" type="text/css"/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;La synthaxe html pour activer lightbox est la suivante : &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:::html
+&amp;lt;a href="/path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&amp;gt;&amp;lt;img src="/path/to/monimage.png" alt="Mon Image" /&amp;gt;&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.&lt;/p&gt;
+&lt;p&gt;Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown&lt;/p&gt;
+&lt;h3&gt;Les extensions Markdown Python&lt;/h3&gt;
+&lt;p&gt;Pour un petit cours de rattrapage sur la synthaxe Markdown, &lt;a href="letchap.github.io/2013/03/01/memo-markdown-en-francais/" title="memo markdown"&gt;c'est ici&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Pour rédiger notre texte entièrement en Markdown, nous allons devoir résoudre deux problèmes :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;créer un lien sur une image&lt;/li&gt;
+&lt;li&gt;ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas natvement Markdown&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Créer un lien sur une image en Markdown&lt;/h4&gt;
+&lt;p&gt;Pour créer un lien, la synthaxe Markdown est la suivante :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[lien](http://example.com)
+ou sur Pelican pour un lien interne
+[lien]({filename}/path/to/monarticle.markdown)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pour insérer une image :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;![alt text](/path/to/monimage.png)
+ou sur Pelican
+![alt text]({filename}/path/to/monimage.png)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pour créer un lien sur une image, nous allons simplement combiner les deux &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[![alt text]({filename}/path/to/monimage.png)]({filename}/path/to/monimage.png)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ce qui nous donnera bien en sortie html :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;a href="/path/to/monimage.png"&amp;gt;&amp;lt;img src="path/to/monimage.png" alt="alt text" /&amp;gt;&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;Ajouter un attribut sur le lien&lt;/h4&gt;
+&lt;p&gt;Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.&lt;/p&gt;
+&lt;p&gt;Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur &lt;a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python"&gt;la documentation Python&lt;/a&gt;. L'extension qui nous intéresse est celle concernant les attributs, elle porte le petit nom de &lt;code&gt;attr_list&lt;/code&gt; et nous allons la déclarer tout de suite dans pelicanconf.py :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:::python
+MD_EXTENSIONS= ['attr_list']
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[lien]({filename}/path/to/monimage.png){: data-lightbox="monimage" title="Mon Image" }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ce qui se traduira par :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;a href="path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;On assemble le tout&lt;/h4&gt;
+&lt;p&gt;Pour une image cliquable avec un effet diaporama, il faut donc écrire en Markdown :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[![Mon Image]({filename}/path/to/monimage.png "Mon Image")]({filename}/path/to/monimage.png){: data-lightbox="monimage" title="Mon Image" }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pour obtenir :&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;:::html
+&amp;lt;a href="/path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&amp;gt;&amp;lt;img src="/path/to/monimage.png" alt="Mon Image" /&amp;gt;&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Bon, d'accord, ce n'est pas beaucoup plus simple, mais c'est tellement plus gratifiant.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">letchap</dc:creator><pubDate>Wed, 11 Dec 2013 11:54:00 +0100</pubDate><guid>tag:letchap.github.io,2013-12-11:2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/</guid><category>Pelican</category><category>Bootstrap</category><category>lightbox</category><category>Markdown</category><category>Python</category></item><item><title>Lancer un programme python depuis automator</title><link>letchap.github.io/2013/11/26/lancer-un-programme-python-depuis-automator/</link><description>&lt;p&gt;&lt;a href="letchap.github.io/2013/11/25/transformer-un-texte-chinois-en-pdf/"&gt;J'ai un joli script python qui me permet de décoder un texte chinois en UTF8 tout en le tranformant en pdf&lt;/a&gt;. Maintenant, j'aimerais bien pouvoir le lancer d'un simple clic droit, voir même plusieurs fichiers d'un coup.&lt;/p&gt;
 &lt;p&gt;Pour cela, sur Mac OS X, il existe un utilitaire sympa, Automator. Il va nous permettre de créer un service qui lancera le traitement de notre ou de nos fichiers grâce à un clic droit.&lt;/p&gt;
 &lt;p&gt;Des éléments complémentaires sont disponibles sur le site &lt;a href="https://developer.apple.com/library/mac/documentation/AppleApplications/Conceptual/AutomatorConcepts/Articles/ShellScriptActions.html"&gt;d'apple developper&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Pour créer un service, je commence par choisir "service" dans automator puis, je choisis "exécuter un script Shell" &lt;/p&gt;
@@ -1441,7 +1510,7 @@ $ git pull origin master
 &lt;p&gt;Tout d'abord, installer les compléments de l'installation que nous avons mis de coté tout à l'heure. L'installation sera plus propre si vous le faites maintenant et évitera des dysfonctionnements de Mageia. Pour éviter d'être embêté avec le fichier iso, vous pouvez aller dans le Centre de Contrôle Mageia (CCM) pour paramétrer les sources des programmes et supprimer la mise à jour par CD.&lt;/p&gt;
 &lt;p&gt;Mageia va en même temps installer les VirtualBox guest additions qui permettent notamment de partager un répertoire avec le système hôte. Il n'est donc pas nécessaire d'installer spécifiquement ces guest additions, laissez le CCM faire.&lt;/p&gt;
 &lt;p&gt;Une petite astuce pour les répertoires partagés, n'oubliez pas d'ajouter votre utilisateur dans le groupe VirtualBox (là encore cela se passe dans le CCM).
-[&lt;img alt="CCM" src="letchap.github.io/images/virtualbox/ccm.png" title="Partager un répertoire" /&gt;]{filename}/images/virtualbox/ccm.png){: data-lightbox="CCM" title="CCM" }&lt;/p&gt;
+&lt;a data-lightbox="CCM" href="letchap.github.io/images/virtualbox/ccm.png" title="CCM"&gt;&lt;img alt="CCM" src="letchap.github.io/images/virtualbox/ccm.png" title="Partager un répertoire" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4&gt;Extension pack&lt;/h4&gt;
 &lt;p&gt;Enfin, dernière astuce, installer le VirtualBox extension pack pour pouvoir accéder aux ports USB sur la machine invitée.&lt;/p&gt;
 &lt;p&gt;Bonne virtualisation !!&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">letchap</dc:creator><pubDate>Tue, 09 Apr 2013 22:02:00 +0200</pubDate><guid>tag:letchap.github.io,2013-04-09:2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/</guid><category>VirtualBox</category><category>OS X</category><category>Mountain Lion</category><category>Mageia</category><category>guest additions</category><category>virtualisation</category></item><item><title>Dual boot Lubuntu-Mageia 2 LXDE</title><link>letchap.github.io/2013/04/03/dual-boot-lubuntu-mageia-2-lxde/</link><description>&lt;p&gt;Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.&lt;/p&gt;
