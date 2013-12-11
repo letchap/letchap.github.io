@@ -133,29 +133,25 @@
 <p>Pour cela, il faut télécharger le dossier plpbt-5.0.14.zip (c’est la dernière version au moment de l’écriture du billet) sur le site de Plop manager <a href="http://www.plop.at/en/bootmanager/download.html" title="Plop manager">à cette adresse</a>.</p>
 <p>Vous décompressez le .zip et vous copiez le fichier plpbt.bin dans le répertoire /boot.</p>
 <p>Ensuite il faut éditer le fichier /etc/grub.d/40_custom avec <code>sudo nano /etc/grub.d/40_custom</code>, puis ajouter les lignes ci-dessous : </p>
-<div class="highlight"><pre><span class="n">menuentry</span> <span class="s">&quot;Plop Boot Manager&quot;</span> <span class="p">{</span>
-<span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="err">&#39;</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="err">&#39;</span>
-<span class="n">linux16</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">plpbt</span><span class="p">.</span><span class="n">bin</span>
-<span class="p">}</span>
-</pre></div>
-
-
+<pre><code>menuentry "Plop Boot Manager" {
+set root='(hd0,1)'
+linux16 /boot/plpbt.bin
+}
+</code></pre>
 <p>Comme son nom l'indique, il s'agit d'un fichier où nous pouvons ajouter des entrées personnalisées dans GRUB.</p>
 <p>Nous avons maintenant installé le programme et ajouté une entrée pour appeler ce programme dans GRUB.</p>
 <p>Dernière étape sur certaines distrubutions (Ubuntu par exemple), il faut forcer l'affichage du GRUB au démarrage. En effet, si certaines distributions proposent l'affichage systématique de GRUB par défaut, d'autres non et lancent directement le système présent sur l'ordinateur s'il est le seul présent.</p>
 <p>IL est possible de modifier ce paramètrage de deux manières. D'abord avec l'outil graphique GRUB Customizer disponible dans un ppa en tapant les commandes suivantes dans le terminal :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-<span class="nv">$ </span>sudo apt-get update
-<span class="nv">$ </span>sudo apt-get install grub-customizer
-</pre></div>
-
-
+<pre><code>:::bash
+$ sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+$ sudo apt-get update
+$ sudo apt-get install grub-customizer
+</code></pre>
 <p>Il est possible également de le faire manuellement en éditant le fichier /etc/default/grub en fixant une valeur de 10s par exemple pour le TIMEOUT `GRUB_TIMEOUT=10, ce qui forcera l'affichage de GRUB au démarrage.</p>
 <p>Très important, il reste à mettre à jour GRUB avec la commande suivante dans le terminal :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo update-grub
-</pre></div>
-
-
+<pre><code>:::bash
+$ sudo update-grub
+</code></pre>
 <p>Et voilà, au démarrage, il vous sera proposé de choisir Plop Manager, puis une fois dans Plop Manager, de choisir USB pour démarrer votre PC.</p>
             </div>
             <!-- /.entry-content -->

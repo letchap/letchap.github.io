@@ -128,146 +128,78 @@
 <p>Ce qui est décrit ci-dessous est librement inspiré de cet <a href="http://dbader.org/blog/alfred-timer-extension" title="A countdown timer extension for Alfred">article en anglais</a>.</p>
 <p>Pour pouvoir envoyer un message dans le centre de notification de Mountain Lion et afficher une pop-up, il faut obligatoirement que l'application soit reconnu par Apple via le "bundle identifier". Pour mon petit programme Python à moi, je ne vais pas demander un identifiant, alors pour pouvoir malgré tout envoyer un message, je vais adopter la stratégie du coucou et emprunter un bundle identifier existant. Par exemple celui de du programme Python Launcher (puisque que je lance un programme Python). Je vais donc faire croire au centre de notification que c'est l'application Python Launcher qui envoie un message.</p>
 <p>Tout d'abord, comment récupérer le bundler identifier? Avec la commande suivante dans le terminal :</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">osascript</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">id</span> <span class="n">of</span> <span class="n">app</span> <span class="s">&quot;Python Launcher&quot;</span><span class="err">&#39;</span>
-<span class="n">org</span><span class="p">.</span><span class="n">python</span><span class="p">.</span><span class="n">PythonLauncher</span>
-</pre></div>
-
-
+<pre><code>$ osascript -e 'id of app "Python Launcher"'
+org.python.PythonLauncher
+</code></pre>
 <p>Maintenant, décorons !</p>
 <figure><figcaption class='well well-sm'><span style='text-align: left'>decorateur.py</span>                <a style='float: right' href='/code/decorateur.py'>Télécharger</a></figcaption>
 
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
-<span class="kn">import</span> <span class="nn">objc</span>
+<pre><code>#!/usr/bin/python
+import objc
 
-<span class="c">########################################################################</span>
-<span class="c">#                             Le décorateur                            #</span>
-<span class="c">########################################################################</span>
+########################################################################
+#                             Le décorateur                            #
+########################################################################
 
-<span class="k">def</span> <span class="nf">swizzle</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Decorator to override an ObjC selector&#39;s implementation with a</span>
-<span class="sd">    custom implementation (&quot;method swizzling&quot;).</span>
+def swizzle(*args):
+    """
+    Decorator to override an ObjC selector's implementation with a
+    custom implementation ("method swizzling").
 
-<span class="sd">    Use like this:</span>
+    Use like this:
 
-<span class="sd">    @swizzle(NSOriginalClass, &#39;selectorName&#39;)</span>
-<span class="sd">    def swizzled_selectorName(self, original):</span>
-<span class="sd">        --&gt; `self` points to the instance</span>
-<span class="sd">        --&gt; `original` is the original implementation</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cls</span><span class="p">,</span> <span class="n">SEL</span> <span class="o">=</span> <span class="n">args</span>
+    @swizzle(NSOriginalClass, 'selectorName')
+    def swizzled_selectorName(self, original):
+        --&gt; `self` points to the instance
+        --&gt; `original` is the original implementation
+    """
+    cls, SEL = args
 
-    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-        <span class="n">old_IMP</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">instanceMethodForSelector_</span><span class="p">(</span><span class="n">SEL</span><span class="p">)</span>
+    def decorator(func):
+        old_IMP = cls.instanceMethodForSelector_(SEL)
 
-        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_IMP</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        def wrapper(self, *args, **kwargs):
+            return func(self, old_IMP, *args, **kwargs)
 
-        <span class="n">new_IMP</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">wrapper</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="n">old_IMP</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span>
-                                <span class="n">signature</span><span class="o">=</span><span class="n">old_IMP</span><span class="o">.</span><span class="n">signature</span><span class="p">)</span>
-        <span class="n">objc</span><span class="o">.</span><span class="n">classAddMethod</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">SEL</span><span class="p">,</span> <span class="n">new_IMP</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">wrapper</span>
+        new_IMP = objc.selector(wrapper, selector=old_IMP.selector,
+                                signature=old_IMP.signature)
+        objc.classAddMethod(cls, SEL, new_IMP)
+        return wrapper
 
-    <span class="k">return</span> <span class="n">decorator</span>
+    return decorator
 
 
-<span class="nd">@swizzle</span><span class="p">(</span><span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s">&#39;NSBundle&#39;</span><span class="p">),</span> <span class="n">b</span><span class="s">&#39;bundleIdentifier&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">swizzled_bundleIdentifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">original</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Swizzle [NSBundle bundleIdentifier] to make NSUserNotifications</span>
-<span class="sd">    work.</span>
+@swizzle(objc.lookUpClass('NSBundle'), b'bundleIdentifier')
+def swizzled_bundleIdentifier(self, original):
+    """Swizzle [NSBundle bundleIdentifier] to make NSUserNotifications
+    work.
 
-<span class="sd">    To post NSUserNotifications OS X requires the binary to be packaged</span>
-<span class="sd">    as an application bundle. To circumvent this restriction, as it would</span>
-<span class="sd">    be difficult (impossible?) to implement in an Alfred Extension,</span>
-<span class="sd">    we modify `bundleIdentifier` to return a fake bundle identifier.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># Return Python Launcher&#39;s bundle identifier to display the Python Launcher logo.</span>
+    To post NSUserNotifications OS X requires the binary to be packaged
+    as an application bundle. To circumvent this restriction, as it would
+    be difficult (impossible?) to implement in an Alfred Extension,
+    we modify `bundleIdentifier` to return a fake bundle identifier.
+    """
+    # Return Python Launcher's bundle identifier to display the Python Launcher logo.
     
-    <span class="k">return</span> <span class="s">&#39;org.python.PythonLauncher&#39;</span>
+    return 'org.python.PythonLauncher'
 
 
 
-<span class="c">########################################################################</span>
-<span class="c">#      L&#39;envoi de la noticiation au centre de notification             #</span>
-<span class="c">########################################################################</span>
+########################################################################
+#      L'envoi de la noticiation au centre de notification             #
+########################################################################
 
-<span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Display a NSUserNotification on Mac OS X &gt;= 10.8&quot;&quot;&quot;</span>
-    <span class="n">NSUserNotification</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s">&#39;NSUserNotification&#39;</span><span class="p">)</span>
-    <span class="n">NSUserNotificationCenter</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s">&#39;NSUserNotificationCenter&#39;</span><span class="p">)</span>
+def notify(title, text):
+    """Display a NSUserNotification on Mac OS X &gt;= 10.8"""
+    NSUserNotification = objc.lookUpClass('NSUserNotification')
+    NSUserNotificationCenter = objc.lookUpClass('NSUserNotificationCenter')
     
-    <span class="n">notification</span> <span class="o">=</span> <span class="n">NSUserNotification</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-    <span class="n">notification</span><span class="o">.</span><span class="n">setTitle_</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">notification</span><span class="o">.</span><span class="n">setInformativeText_</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    notification = NSUserNotification.alloc().init()
+    notification.setTitle_(title)
+    notification.setInformativeText_(text)
     
-    <span class="n">NSUserNotificationCenter</span><span class="o">.</span><span class="n">defaultUserNotificationCenter</span><span class="p">()</span><span class="o">.</span><span class="n">deliverNotification_</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
-</pre></div>
-</td></tr></table>
-
+    NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification_(notification)
+</code></pre>
 </figure>
 
 <p>Le principe de base est de "décorer" la fonction renvoyant le bundle identifier, c'est à dire que nous affectons son comportement temporairement (mais sans la modifier), pour qu'elle renvoie l'identifiant que nous lui passons. Pour cela, nous utilisons un décorateur Python. Pour plus d'informations sur le fonctionnement des décorateurs, vous pouvez aller sur le <a href="http://www.siteduzero.com/informatique/tutoriels/apprenez-a-programmer-en-python/les-decorateurs" title="Les décorateurs Python">site du zéro</a> ou sur <a href="http://sametmax.com/comprendre-les-decorateurs-python-pas-a-pas-partie-1/" title="Les décorateurs Python première partie">le blog de Sam et Max</a>.</p>
@@ -278,19 +210,14 @@
 <p>Contrairement au paquet pync (un wrapper Python de terminal-notifier qui permet d'envoyer des messages au centre de notification depuis le terminal) qui ne sait pas envoyer des messages hors d'une session du terminal, ici, il sera possible d'envoyer des notifications même si le programme est déclenché en mode batch par launchd.</p>
 <p>Voilà, c'est tout pour Mac OS X pour le moment, la prochaine fois, retour sur Linux. </p>
 <p>Pour la petite histoire, ce qu'on vient de faire tient en trois lignes de code sous Linux grâce à la bibliothèque pynotify :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">pynotify</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s">&quot;Free.py&quot;</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">pynotify</span><span class="o">.</span><span class="n">Notification</span><span class="p">(</span>
-    <span class="s">&quot;Titre</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="c"># Titre</span>
-    <span class="s">&quot;Message&quot;</span><span class="p">,</span> <span class="c"># Message</span>
-    <span class="s">&quot;/home/letchap/Image/application_pdf.png&quot;</span><span class="p">)</span> <span class="c"># Image</span>
-<span class="n">n</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</td></tr></table>
+<pre><code>#!python
+pynotify.init("Free.py")
+n = pynotify.Notification(
+    "Titre\n", # Titre
+    "Message", # Message
+    "/home/letchap/Image/application_pdf.png") # Image
+n.show()
+</code></pre>
             </div>
             <!-- /.entry-content -->
     <hr />

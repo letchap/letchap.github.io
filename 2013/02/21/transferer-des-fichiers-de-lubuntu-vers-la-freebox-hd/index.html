@@ -133,13 +133,12 @@
 <h3>2ème solution : lftp dans le terminal</h3>
 <p>C’est pareil que ftp, mais en plus simple, et là, j’ai tout compris.</p>
 <p>Ci dessous, tout ce qu'il y a à faire :</p>
-<div class="highlight"><pre><span class="nv">$ </span>lftp freebox:@hd1.freebox.fr
-lftp freebox:@hd1.freebox.fr:~&gt; <span class="nb">cd </span>Disque<span class="se">\ </span>dur/Video
-<span class="nb">cd </span>ok, <span class="nv">cwd</span><span class="o">=</span>/Disque dur/Video
+<pre><code>:::bash
+$ lftp freebox:@hd1.freebox.fr
+lftp freebox:@hd1.freebox.fr:~&gt; cd Disque\ dur/Video
+cd ok, cwd=/Disque dur/Video
 lftp freebox:@hd1.freebox.fr:/Disque dur/Video&gt; put /adresse/fichier.avi
-</pre></div>
-
-
+</code></pre>
 <p>D'abord se connecter à lftp. Si vous avez mis un mot de passe pour la connection lftp à votre freebox, il faut l'ajouter entre ":" et "@".</p>
 <p>Une fois sur le prompt lftp, ce que personnellement j’ai trouvé très simple, c’est de pouvoir se balader dans le répertoire de la Freebox avec les commandes du terminal, en particulier "cd" et le "\" (pour gérer les espaces dans le nom des répertoires). Dans l'exemple, je me suis positionné sur le répertoire Video du Disque dur de la Freebox.</p>
 <p>Pour le transfert du fichier lui-même, il ne reste plus qu’à taper la commande put et de faire un copier – coller du fichier (adresse complète va s'afficher toute seule), le transfert démarre.</p>

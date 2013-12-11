@@ -61,11 +61,17 @@ i {
     border-bottom: 1px solid;
 }
 
-a[data-lightbox],
-a[data-lightbox]:hover {
+
+.gallery a {
     text-decoration: none;
     border-bottom: none;
 }
+
+.gallery a:hover {
+    text-decoration: none;
+    border-bottom: none;
+}
+
 
 #categories ul, #tags ul {
     list-style: none;

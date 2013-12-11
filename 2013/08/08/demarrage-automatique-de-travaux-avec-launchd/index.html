@@ -137,52 +137,30 @@
 <p>Les fichiers plist que vous allez créer sont à stocker de préférence dans le répertoire ~/Library/LaunchAgents. Le gros avantage de les créer à cet endroit est que vos agents launchd seront pris en compte automatiquement au démarrage du Mac.</p>
 <p>La convention de nommage d'un fichier plist est de prendre un nom de domaine à l'envers. Ici, comme mon programme python récupère les factures freebox, je l'ai simplement appelé fr.free.facture.plist.</p>
 <p>Détaillons un peu le fichier plist :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
-<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;dict&gt;</span>
-    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;string&gt;</span>fr.free.facture<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;array&gt;</span>
-        <span class="nt">&lt;string&gt;</span>/usr/bin/python<span class="nt">&lt;/string&gt;</span>
-        <span class="nt">&lt;string&gt;</span>/usr/local/bin/free.py<span class="nt">&lt;/string&gt;</span>
-    <span class="nt">&lt;/array&gt;</span>
-    <span class="nt">&lt;key&gt;</span>StartCalendarInterval<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;dict&gt;</span>
-        <span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
-        <span class="nt">&lt;integer&gt;</span>7<span class="nt">&lt;/integer&gt;</span>
-        <span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
-        <span class="nt">&lt;integer&gt;</span>0<span class="nt">&lt;/integer&gt;</span>
-        <span class="nt">&lt;key&gt;</span>Day<span class="nt">&lt;/key&gt;</span>
-        <span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
-    <span class="nt">&lt;/dict&gt;</span>
-<span class="nt">&lt;/dict&gt;</span>
-<span class="nt">&lt;/plist&gt;</span>
-</pre></div>
-</td></tr></table>
-
+<pre><code>#!xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;fr.free.facture&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/usr/bin/python&lt;/string&gt;
+        &lt;string&gt;/usr/local/bin/free.py&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;StartCalendarInterval&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Hour&lt;/key&gt;
+        &lt;integer&gt;7&lt;/integer&gt;
+        &lt;key&gt;Minute&lt;/key&gt;
+        &lt;integer&gt;0&lt;/integer&gt;
+        &lt;key&gt;Day&lt;/key&gt;
+        &lt;integer&gt;6&lt;/integer&gt;
+    &lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre>
 <p>Les 3 premières lignes sont des informations d'entête, en particulier, nous voyons que nous avons bien à faire à un format xml. Ces lignes d'entête peuvent être reprises sans modification.</p>
 <p>La partie intéressante se situe après.</p>
 <p>D'abord, en lignes 5 et 6  nous nommons notre agent (avec le même nom que le fichier, c'est plus simple).</p>
