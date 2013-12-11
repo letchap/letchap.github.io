@@ -1409,12 +1409,12 @@ $ git pull origin master
 &lt;p&gt;Nous allons installer la dernière version de Mageia 2 en 64 bits, elle est disponible au téléchargement sur &lt;a href="http://www.mageia.org/fr/downloads/" title="Mageia"&gt;cette page&lt;/a&gt;. Personnellement j'utilise le torrent avec transmission, c'est plus rapide et plus sûr.&lt;/p&gt;
 &lt;p&gt;Dans le dossier que vous récupérez se trouve un fichier .iso, c'est de celui dont nous aurons besoin.&lt;/p&gt;
 &lt;p&gt;Tous les Mac récents tournent en 64 bits, pour vous en assurer, vous pouvez aller dans le moniteur d'activité, il doit être indiqué Intel (64bits) dans la colonne Type.
-&lt;img alt="Moniteur d'activité" src="letchap.github.io/images/virtualbox/moniteur.png" title="moniteur d'activité" /&gt;&lt;/p&gt;
+&lt;a d_activité="d'activité" data-lightbox="moniteur" href="letchap.github.io/images/virtualbox/moniteur.png" title="&amp;quot;moniteur"&gt;&lt;img alt="Moniteur d'activité" src="letchap.github.io/images/virtualbox/moniteur.png" title="moniteur d'activité" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur du 32, je n'ai pas essayé, je ne sais pas si cela fonctionne bien.&lt;/p&gt;
 &lt;h4&gt;Démarrer VirtualBox et installer Mageia&lt;/h4&gt;
 &lt;p&gt;Le vrai travail commence maintenant&lt;/p&gt;
 &lt;p&gt;Démarrer VirtaulBox et cliquer sur nouveau. Vous saisissez alors le nom de votre distribution, Mageia
-[&lt;img alt="VirtualBox nouveau" src="letchap.github.io/images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution" /&gt;]{filename}/images/virtualbox/vb-nouvelle.png){: data-lightbox="virtualbox" title="Etape 1 : créer une nouvelle distribution" }&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution"&gt;&lt;img alt="VirtualBox nouveau" src="letchap.github.io/images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Ensuite choisissez la taille de la mémoire qui sera utilisé pour faire fonctionner la machine virtuelle. La mémoire vive est partagé avec le système hôte, celle dédiée à VirtualBox ne peut pas être plus de la moitié de la taille totale. Ici, j'ai choisi 2Go.
 &lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive"&gt;&lt;img alt="VirtualBox mémoire" src="letchap.github.io/images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;La création d'un disque dur virtuel est proposée (laissez le paramétrage par défaut)
