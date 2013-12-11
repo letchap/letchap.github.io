@@ -185,11 +185,7 @@
 
 <h4>Ajouter un attribut sur le lien</h4>
 <p>Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.</p>
-<p>Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur <a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python">la documentation Python</a>. L'extension qui nous intéresse est celle concernant les attributs, elle porte le petit nom de <code>attr_list</code> et nous allons la déclarer tout de suite dans pelicanconf.py :</p>
-<div class="highlight"><pre><span class="n">MD_EXTENSIONS</span><span class="o">=</span> <span class="p">[</span><span class="s">&#39;attr_list&#39;</span><span class="p">]</span>
-</pre></div>
-
-
+<p>Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur <a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python">la documentation Python</a>.</p>
 <p>Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :</p>
 <div class="highlight"><pre><span class="p">[</span><span class="n">lien</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
 </pre></div>
