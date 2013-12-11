@@ -1414,34 +1414,34 @@ $ git pull origin master
 &lt;h4&gt;Démarrer VirtualBox et installer Mageia&lt;/h4&gt;
 &lt;p&gt;Le vrai travail commence maintenant&lt;/p&gt;
 &lt;p&gt;Démarrer VirtaulBox et cliquer sur nouveau. Vous saisissez alors le nom de votre distribution, Mageia
-&lt;img alt="VirtualBox nouveau" src="letchap.github.io/images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution" /&gt;&lt;/p&gt;
+[&lt;img alt="VirtualBox nouveau" src="letchap.github.io/images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution" /&gt;]{filename}/images/virtualbox/vb-nouvelle.png){: data-lightbox="virtualbox" title="Etape 1 : créer une nouvelle distribution" }&lt;/p&gt;
 &lt;p&gt;Ensuite choisissez la taille de la mémoire qui sera utilisé pour faire fonctionner la machine virtuelle. La mémoire vive est partagé avec le système hôte, celle dédiée à VirtualBox ne peut pas être plus de la moitié de la taille totale. Ici, j'ai choisi 2Go.
-&lt;img alt="VirtualBox mémoire" src="letchap.github.io/images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive"&gt;&lt;img alt="VirtualBox mémoire" src="letchap.github.io/images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;La création d'un disque dur virtuel est proposée (laissez le paramétrage par défaut)
-&lt;img alt="VirtualBox disque dur" src="letchap.github.io/images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel"&gt;&lt;img alt="VirtualBox disque dur" src="letchap.github.io/images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Il s'agit d'un disque virtuel avec une extension vdi qui permettra plus tard si besoin d'exporter la machine virtuelle
-&lt;img alt="VirtualBox vdi" src="letchap.github.io/images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque"&gt;&lt;img alt="VirtualBox vdi" src="letchap.github.io/images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Conserver le paramétrage de taille de disque dynamiquement allouée. Seul l'espace réellement utilisé sera présent sur le disque dur de la machine hôte. Pour des soucis de performance, il est possible de choisir une taille fixe, mais évidemment, cela prend plus d'espace. A vous de voir.
-&lt;img alt="VirtualBox taille allouée" src="letchap.github.io/images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée"&gt;&lt;img alt="VirtualBox taille allouée" src="letchap.github.io/images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;8Go par défaut, c'est largement suffisant pour tester une distribution.
-&lt;img alt="VirtualBox taille" src="letchap.github.io/images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque"&gt;&lt;img alt="VirtualBox taille" src="letchap.github.io/images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Une fois tous ces éléments paramétrés, il va falloir demander à la machine de démarrer sur l'image disque de Mageia. Pour cela, il faut se rendre dans l'onglet stockage.
-&lt;img alt="VirtualBox stockage" src="letchap.github.io/images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage"&gt;&lt;img alt="VirtualBox stockage" src="letchap.github.io/images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Vous cliquez sur l'icone du CD à coté de Lecteur CD/DVD.
-&lt;img alt="VirtualBox CD" src="letchap.github.io/images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso"&gt;&lt;img alt="VirtualBox CD" src="letchap.github.io/images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Et vous choisissez votre fichier iso.
-&lt;img alt="VirtualBox iso" src="letchap.github.io/images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso"&gt;&lt;img alt="VirtualBox iso" src="letchap.github.io/images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Vous cliquer alors sur démarrer et lancer l'installation normale de Mageia. Attention, ne télécharger pas les compléments d'installation durant cette étape. C'est très important pour un bon fonctionnement ultérieur de Mageia.&lt;/p&gt;
 &lt;p&gt;A la fin de l'installation, vous éteignez (power off) la machine virtuelle.
-&lt;img alt="VirtualBox power off" src="letchap.github.io/images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine"&gt;&lt;img alt="VirtualBox power off" src="letchap.github.io/images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Puis, vous éjectez le fichier iso (pour ne pas redémarrer l'installation à chaque fois).
-&lt;img alt="VirtualBox eject" src="letchap.github.io/images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso" /&gt;&lt;/p&gt;
+&lt;a data-lightbox="virtualbox" href="letchap.github.io/images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso"&gt;&lt;img alt="VirtualBox eject" src="letchap.github.io/images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Vous pouvez alors redémarrer Mageia. Une fois sur Mageia, voici quelques petites astuces pour un fonctionnement optimal de la machine virtuelle :&lt;/p&gt;
 &lt;h4&gt;Guest additions&lt;/h4&gt;
 &lt;p&gt;Tout d'abord, installer les compléments de l'installation que nous avons mis de coté tout à l'heure. L'installation sera plus propre si vous le faites maintenant et évitera des dysfonctionnements de Mageia. Pour éviter d'être embêté avec le fichier iso, vous pouvez aller dans le Centre de Contrôle Mageia (CCM) pour paramétrer les sources des programmes et supprimer la mise à jour par CD.&lt;/p&gt;
 &lt;p&gt;Mageia va en même temps installer les VirtualBox guest additions qui permettent notamment de partager un répertoire avec le système hôte. Il n'est donc pas nécessaire d'installer spécifiquement ces guest additions, laissez le CCM faire.&lt;/p&gt;
 &lt;p&gt;Une petite astuce pour les répertoires partagés, n'oubliez pas d'ajouter votre utilisateur dans le groupe VirtualBox (là encore cela se passe dans le CCM).
-&lt;img alt="CCM" src="letchap.github.io/images/virtualbox/ccm.png" title="Partager un répertoire" /&gt;&lt;/p&gt;
+[&lt;img alt="CCM" src="letchap.github.io/images/virtualbox/ccm.png" title="Partager un répertoire" /&gt;]{filename}/images/virtualbox/ccm.png){: data-lightbox="CCM" title="CCM" }&lt;/p&gt;
 &lt;h4&gt;Extension pack&lt;/h4&gt;
 &lt;p&gt;Enfin, dernière astuce, installer le VirtualBox extension pack pour pouvoir accéder aux ports USB sur la machine invitée.&lt;/p&gt;
 &lt;p&gt;Bonne virtualisation !!&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">letchap</dc:creator><pubDate>Tue, 09 Apr 2013 22:02:00 +0200</pubDate><guid>tag:letchap.github.io,2013-04-09:2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/</guid><category>VirtualBox</category><category>OS X</category><category>Mountain Lion</category><category>Mageia</category><category>guest additions</category><category>virtualisation</category></item><item><title>Dual boot Lubuntu-Mageia 2 LXDE</title><link>letchap.github.io/2013/04/03/dual-boot-lubuntu-mageia-2-lxde/</link><description>&lt;p&gt;Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.&lt;/p&gt;
