@@ -131,17 +131,26 @@
 <li>Copier le dossier d’origine contenant les fichiers audios à convertir dans le répertoire musique avec les fichiers convertis.</li>
 </ul>
 <p>C’est parti, voici le code :</p>
-<pre><code>#!bash
-#!/bin/bash
-for file in $(find ~ -type f -name "*.flac"); do
-rep=$(printf $file | sed –re "s/^[[:punct:][:alnum:]]+\/([[:alnum:]]+)\/[[:alnum:]]+\.flac/\1/")
-titre=$(echo $file)
-if [ ! -d ~/Musique/$rep ]; then
-mkdir ~/Musique/$rep
-fi
-avconv -i $file -acodec libvo_aacenc -ab 192k -ar 44100 ~/Musique/"$rep"/"${titre%%.flac}.m4a"
-done
-</code></pre>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="k">for </span>file in <span class="k">$(</span>find ~ -type f -name <span class="s2">&quot;*.flac&quot;</span><span class="k">)</span>; <span class="k">do</span>
+<span class="nv">rep</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span> <span class="nv">$file</span> | sed –re <span class="s2">&quot;s/^[[:punct:][:alnum:]]+\/([[:alnum:]]+)\/[[:alnum:]]+\.flac/\1/&quot;</span><span class="k">)</span>
+<span class="nv">titre</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$file</span><span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> ! -d ~/Musique/<span class="nv">$rep</span> <span class="o">]</span>; <span class="k">then</span>
+mkdir ~/Musique/<span class="nv">$rep</span>
+<span class="k">fi</span>
+avconv -i <span class="nv">$file</span> -acodec libvo_aacenc -ab 192k -ar 44100 ~/Musique/<span class="s2">&quot;$rep&quot;</span>/<span class="s2">&quot;${titre%%.flac}.m4a&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</td></tr></table>
+
 <p>Nous allons décortiquer tout ça et expliquer les éléments mis en œuvre dans ce script.</p>
 <p>Le principe général:</p>
 <ul>

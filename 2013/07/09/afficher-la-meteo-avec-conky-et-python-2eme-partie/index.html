@@ -134,65 +134,70 @@
 <p>Le fichier <code>/etc/init.d/skeleton</code> est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que <a href="http://www.gavinj.net/2012/06/building-python-daemon-process.html">j'ai trouvé ici</a>, puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire <code>/etc/init.d/</code>, en faisant <code>$ sudo geany /etc/init.d/meteo</code> par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).</p>
 <figure><figcaption class='well well-sm'><span style='text-align: left'>meteo</span>                <a style='float: right' href='/code/meteo'>Télécharger</a></figcaption>
 
-<pre><code>:::bash
-#! /bin/sh
-### BEGIN INIT INFO
-# Provides:          meteo
-# Required-Start:    $all
-# Required-Stop:     $all
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Demarrage du service meteo
-# Description:       Demarrage du programme de récupération des données
-#                    meteo
-### END INIT INFO
+<div class="highlight"><pre><span class="c">#! /bin/sh</span>
+<span class="c">### BEGIN INIT INFO</span>
+<span class="c"># Provides:          meteo</span>
+<span class="c"># Required-Start:    $all</span>
+<span class="c"># Required-Stop:     $all</span>
+<span class="c"># Default-Start:     2 3 4 5</span>
+<span class="c"># Default-Stop:      0 1 6</span>
+<span class="c"># Short-Description: Demarrage du service meteo</span>
+<span class="c"># Description:       Demarrage du programme de récupération des données</span>
+<span class="c">#                    meteo</span>
+<span class="c">### END INIT INFO</span>
 
-case "$1" in
-  start)
-    echo "Starting server"
-    # Start the daemon
+<span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+  start<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Starting server&quot;</span>
+    <span class="c"># Start the daemon</span>
     python /usr/sbin/meteo.py start
     ;;
-  stop)
-    echo "Stopping server"
-    # Stop the daemon
+  stop<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Stopping server&quot;</span>
+    <span class="c"># Stop the daemon</span>
     python /usr/sbin/meteo.py stop
     ;;
-  restart)
-    echo "Restarting server"
+  restart<span class="o">)</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Restarting server&quot;</span>
     python /usr/sbin/meteo.py restart
     ;;
-  *)
-    # Refuse to do other stuff
-    echo "Usage: /etc/init.d/meteo {start|stop|restart}"
-    exit 1
+  *<span class="o">)</span>
+    <span class="c"># Refuse to do other stuff</span>
+    <span class="nb">echo</span> <span class="s2">&quot;Usage: /etc/init.d/meteo {start|stop|restart}&quot;</span>
+    <span class="nb">exit </span>1
     ;;
-esac
+<span class="k">esac</span>
 
-exit 0
-</code></pre>
+<span class="nb">exit </span>0
+</pre></div>
+
+
 </figure>
 
 <p>Ensuite, il ne faut pas oublier de rendre le script exécutable par :</p>
-<pre><code>:::bash
-$ sudo chmod +x meteo
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>sudo chmod +x meteo
+</pre></div>
+
+
 <p>Pour tester si votre script fonctionne correctement, vous pouvez faire :</p>
-<pre><code>:::bash
-$ service /etc/init.d/meteo start
-$ ps -ef | grep meteo
+<div class="highlight"><pre><span class="nv">$ </span>service /etc/init.d/meteo start
+<span class="nv">$ </span>ps -ef | grep meteo
 root      2355     1  0 21:01 ?        00:00:00 python /usr/sbin/meteo.py start
-</code></pre>
+</pre></div>
+
+
 <p>Vous devriez voir votre service dans la liste des processus actifs.</p>
 <p>Pour arrêter le service, il suffit de faire :</p>
-<pre><code>:::bash
-$ service /etc/init.d/meteo stop
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>service /etc/init.d/meteo stop
+</pre></div>
+
+
 <h3>Inclure le service au démarrage</h3>
 <p>Pour ajouter le script à la liste de démarrage, vous devez lancer la commande suivante à partir du répertoire /etc/init.d/</p>
-<pre><code>:::bash
-$ sudo update-rc.d meteo defaults
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>sudo update-rc.d meteo defaults
+</pre></div>
+
+
 <p>Il ne reste plus qu'à rebooter et le programme python sera lancé automatiquement au démarrage.</p>
 <h3>Petites astuces</h3>
 <p>Argh, ça ne marche pas ! ! ! Mais pourquoi ? Pas de panique, il y a forcément une explication. Voilà deux pistes.</p>
@@ -201,16 +206,18 @@ $ sudo update-rc.d meteo defaults
 <p>Maintenant que tout part à la poubelle, je n'ai plus d'infos sur le démon, mais je n'ai plus de problème.</p>
 <h4>Astuce 2</h4>
 <p>Pour être sûr d'avoir paramétré correctement le script meteo dans /etc/init.d, , il faut savoir dans quel runlevel se lance Crunchbang.</p>
-<pre><code>:::bash
-$ who -r
-         niveau d'exécution 2 2013-07-09 21:01                   dernier=S
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>who -r
+         niveau d<span class="err">&#39;</span>exécution 2 2013-07-09 21:01                   <span class="nv">dernier</span><span class="o">=</span>S
+</pre></div>
+
+
 <p>Nous voyons dans mon cas particulier que ma session démarre avec un runlevel 2. Ca tombe bien, c'est ce que j'ai défini sur la ligne <code># Default-Start:     2 3 4 5</code>. </p>
 <p>Et lorsque que j'ai lancé la commande update-rc.d, un lien s'est créé dans le répertoire /etc/rc2.d listant les services concernés par le runlevel 2, la lettre S signifiant Start (K voulant dire Kill), et le numéro 05 précisant que le service démarrera après tous ceux ayant un numéro inférieur.</p>
-<pre><code>:::bash
-$ls -l /etc/rc2.d/
+<div class="highlight"><pre><span class="nv">$ls</span> -l /etc/rc2.d/
 lrwxrwxrwx 1 root root  15 juil.  5 21:45 S05meteo -&gt; ../init.d/meteo
-</code></pre>
+</pre></div>
+
+
 <p>Pour plus d'information sur les runlevel, je vous invite à aller <a href="http://www.generation-linux.fr/?post/2009/01/22/Cours-Linux-%3A-les-runlevels" title="Tout ce que vous avez toujours voulu savoir sur les runlevel">à cette adresse</a></p>
 <p>Dans le prochain billet, la troisème et dernière étape : <a href="../../../../2013/07/10/afficher-la-meteo-avec-conky-et-python-3eme-partie/">le conky météo</a></p>
             </div>

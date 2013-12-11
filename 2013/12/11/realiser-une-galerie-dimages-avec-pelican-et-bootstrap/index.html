@@ -136,17 +136,19 @@
 <li>copier lightbox.css dans le répertoire <code>/css</code></li>
 <li>
 <p>déclarer les scripts js et le fichier css dans le fichier base.hmtl</p>
-<pre><code>:::html
-&lt;script src="{{ SITEURL }}/theme/js/jquery-1.10.2.min.js"&gt;&lt;/script&gt;
-&lt;script src="{{ SITEURL }}/theme/js/lightbox-2.6.min.js"&gt;&lt;/script&gt;
-&lt;link href="{{ SITEURL }}/theme/css/lightbox.css" rel="stylesheet" type="text/css"/&gt;
-</code></pre>
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;{{ SITEURL }}/theme/js/jquery-1.10.2.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;{{ SITEURL }}/theme/js/lightbox-2.6.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/theme/css/lightbox.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+
+
 </li>
 </ul>
 <p>La synthaxe html pour activer lightbox est la suivante : </p>
-<pre><code>:::html
-&lt;a href="/path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&gt;&lt;img src="/path/to/monimage.png" alt="Mon Image" /&gt;&lt;/a&gt;
-</code></pre>
+<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title=</span><span class="s">&quot;Mon Image&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mon Image&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+</pre></div>
+
+
 <p>Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.</p>
 <p>Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown</p>
 <h3>Les extensions Markdown Python</h3>
@@ -158,41 +160,57 @@
 </ul>
 <h4>Créer un lien sur une image en Markdown</h4>
 <p>Pour créer un lien, la synthaxe Markdown est la suivante :</p>
-<pre><code>[lien](http://example.com)
-ou sur Pelican pour un lien interne
-[lien]({filename}/path/to/monarticle.markdown)
-</code></pre>
+<div class="highlight"><pre><span class="p">[</span><span class="n">lien</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com)</span>
+<span class="n">ou</span> <span class="n">sur</span> <span class="n">Pelican</span> <span class="n">pour</span> <span class="n">un</span> <span class="n">lien</span> <span class="n">interne</span>
+<span class="p">[</span><span class="n">lien</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monarticle</span><span class="p">.</span><span class="n">markdown</span><span class="p">)</span>
+</pre></div>
+
+
 <p>Pour insérer une image :</p>
-<pre><code>![alt text](/path/to/monimage.png)
-ou sur Pelican
-![alt text]({filename}/path/to/monimage.png)
-</code></pre>
+<div class="highlight"><pre><span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+<span class="n">ou</span> <span class="n">sur</span> <span class="n">Pelican</span>
+<span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+</pre></div>
+
+
 <p>Pour créer un lien sur une image, nous allons simplement combiner les deux </p>
-<pre><code>[![alt text]({filename}/path/to/monimage.png)]({filename}/path/to/monimage.png)
-</code></pre>
+<div class="highlight"><pre><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+</pre></div>
+
+
 <p>Ce qui nous donnera bien en sortie html :</p>
-<pre><code>&lt;a href="/path/to/monimage.png"&gt;&lt;img src="path/to/monimage.png" alt="alt text" /&gt;&lt;/a&gt;
-</code></pre>
+<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;alt text&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+</pre></div>
+
+
 <h4>Ajouter un attribut sur le lien</h4>
 <p>Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.</p>
 <p>Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur <a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python">la documentation Python</a>. L'extension qui nous intéresse est celle concernant les attributs, elle porte le petit nom de <code>attr_list</code> et nous allons la déclarer tout de suite dans pelicanconf.py :</p>
-<pre><code>:::python
-MD_EXTENSIONS= ['attr_list']
-</code></pre>
+<div class="highlight"><pre><span class="n">MD_EXTENSIONS</span><span class="o">=</span> <span class="p">[</span><span class="s">&#39;attr_list&#39;</span><span class="p">]</span>
+</pre></div>
+
+
 <p>Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :</p>
-<pre><code>[lien]({filename}/path/to/monimage.png){: data-lightbox="monimage" title="Mon Image" }
-</code></pre>
+<div class="highlight"><pre><span class="p">[</span><span class="n">lien</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
+</pre></div>
+
+
 <p>Ce qui se traduira par :</p>
-<pre><code>&lt;a href="path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&gt;
-</code></pre>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;path/to/monimage.png&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span><span class="o">&gt;</span>
+</pre></div>
+
+
 <h4>On assemble le tout</h4>
 <p>Pour une image cliquable avec un effet diaporama, il faut donc écrire en Markdown :</p>
-<pre><code>[![Mon Image]({filename}/path/to/monimage.png "Mon Image")]({filename}/path/to/monimage.png){: data-lightbox="monimage" title="Mon Image" }
-</code></pre>
+<div class="highlight"><pre><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">Mon</span> <span class="n">Image</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span> <span class="s">&quot;Mon Image&quot;</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
+</pre></div>
+
+
 <p>Pour obtenir :</p>
-<pre><code>:::html
-&lt;a href="/path/to/monimage.png" data-lightbox="monimage" title="Mon Image"&gt;&lt;img src="/path/to/monimage.png" alt="Mon Image" /&gt;&lt;/a&gt;
-</code></pre>
+<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title=</span><span class="s">&quot;Mon Image&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mon Image&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+</pre></div>
+
+
 <p>Bon, d'accord, ce n'est pas beaucoup plus simple, mais c'est tellement plus gratifiant.</p>
             </div>
             <!-- /.entry-content -->

@@ -130,27 +130,29 @@
 <h3>Setup des pages Github</h3>
 <p>Il se peut que la saisie de l'adresse URL du dépôt est été mal faite (avec des gros doigts, j'en parle parce que ça m'est arrivé) au moment du <code>rake setup_github_pages</code>.</p>
 <p>Pour vérifier que l'on ne sait pas trompé :</p>
-<pre><code>:::bash
-$ git remote -v
-origin  git@github.com:letchap/letchap.github.com.git (fetch)
-origin  git@github.com:letchap/letchap.github.com.git (push)
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>git remote -v
+origin  git@github.com:letchap/letchap.github.com.git <span class="o">(</span>fetch<span class="o">)</span>
+origin  git@github.com:letchap/letchap.github.com.git <span class="o">(</span>push<span class="o">)</span>
+</pre></div>
+
+
 <h3>RVM is not a function</h3>
 <p>Au moment de lancer <code>$ RVM use</code>, j'ai eu un message d'erreur indiquant <code>RVM is not a function</code>.</p>
 <p>En fait, par défaut, les binaires sont installés dans $HOME/.rvm et ne sont pas accessibles via le terminal. Pour corriger cela, il faut ajouter les lignes suivantes dans le fichier /home/your-name/.bashrc.</p>
-<pre><code>:::bash
-[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; source "$HOME/.rvm/scripts/rvm"
-</code></pre>
+<div class="highlight"><pre><span class="o">[[</span> -s <span class="s2">&quot;$HOME/.rvm/scripts/rvm&quot;</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">source</span> <span class="s2">&quot;$HOME/.rvm/scripts/rvm&quot;</span>
+</pre></div>
+
+
 <h3>Réinstallation de Ruby avec openssl</h3>
 <p>La dernière difficulté est survenue au moment du déploiement du site avec le message d'erreur suivant :</p>
-<pre><code>:::bash
-$ require "openssl" # &gt; LoadError: cannot load such file -- openssl
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>require <span class="s2">&quot;openssl&quot;</span> <span class="c"># &gt; LoadError: cannot load such file -- openssl</span>
+</pre></div>
+
+
 <p>Je ne sais pas pourquoi Ruby ne peut pas utiliser mon openssl installé par défaut, la solution de contournement que j'ai trouvé sur le site <a href="https://rvm.io/packages/openssl/">RVM</a> a été d'installer un nouveau paquet openssl et de réinstaller Ruby.</p>
-<pre><code>:::bash
-$ rvm pkg install openssl
-$ rvm reinstall 1.9.3 --with-openssl-dir=$rvm_path/usr
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>rvm pkg install openssl
+<span class="nv">$ </span>rvm reinstall 1.9.3 --with-openssl-dir<span class="o">=</span><span class="nv">$rvm_path</span>/usr
+</pre></div>
             </div>
             <!-- /.entry-content -->
     <hr />

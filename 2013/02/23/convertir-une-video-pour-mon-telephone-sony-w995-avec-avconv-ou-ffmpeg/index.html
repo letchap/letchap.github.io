@@ -142,9 +142,10 @@
 <h4>2. comment fonctionne avconv ou ffmpeg ?</h4>
 <p>Le programme avconv s'installe avec le paquet libav-tools</p>
 <p>Voici la ligne de commande brute de décoffrage :</p>
-<pre><code>:::bash
-$ avconv -i monfichier.avi -c:a aac -strict experimental -b:a 128k -ar 44100 -c:v mpeg4 -b:v 600k -s 320x240 ~/vidéos/monfichier.mp4
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>avconv -i monfichier.avi -c:a aac -strict experimental -b:a 128k -ar 44100 -c:v mpeg4 -b:v 600k -s 320x240 ~/vidéos/monfichier.mp4
+</pre></div>
+
+
 <p>Dans le détail :</p>
 <ul>
 <li>Avconv : la commande de conversion (le fonctionnement est le même en mettant ffmpeg à la place de avconv),</li>
@@ -154,19 +155,25 @@ $ avconv -i monfichier.avi -c:a aac -strict experimental -b:a 128k -ar 44100 -c:
 <li>~/Video/monfichier.mp4 : le fichier de sortie, ici dans le dossier video de mon répertoire personnel.</li>
 </ul>
 <p>Pour connaître la liste des formats disponibles sur votre version d'avconv vous pouvez taper la commande suivante dans le terminal :</p>
-<pre><code>:::bash
-$ avconv -formats
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>avconv -formats
+</pre></div>
+
+
 <h1>3ème tentative : mon premier script en shell</h1>
 <p>C’est bien beau cette ligne de commande, mais ça reste quand même moins convivial que WINFF.</p>
 <p>Je me suis donc lancé dans l’écriture de mon tout premier script en shell pour automatiser tout ça.</p>
 <p>J’ai donc besoin de convertir toute une série de fichiers video dans des formats différents sans être obligé de lancer une ligne de commande par fichier en changeant à chaque fois à la main le fichier en entrée et le fichier en sortie.</p>
 <p>Le script le voici (à créer dans un fichier monscript.sh)</p>
-<pre><code>#!/bin/bash
-for file in *.avi *.mp4; do
-avconv -i $file -c:a aac -strict experimental -b:a 128k -ar 44100 -c:v mpeg4 -b:v 600k -s 320x240 ~/Video/"${file%%.*}.mp4"
-done
-</code></pre>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="k">for </span>file in *.avi *.mp4; <span class="k">do</span>
+avconv -i <span class="nv">$file</span> -c:a aac -strict experimental -b:a 128k -ar 44100 -c:v mpeg4 -b:v 600k -s 320x240 ~/Video/<span class="s2">&quot;${file%%.*}.mp4&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</td></tr></table>
+
 <p>Ce que je trouve beau, c’est qu’une automatisation de tâche tienne en 4 lignes de code, et encore, comme c’est mon premier script, je suis sûr qu’un pro ferait beaucoup mieux.</p>
 <p>Pour expliquer un peu ce qui se passe là-dedans :</p>
 <p>La 1ère ligne permet tout simplement de dire qu’on est en train d’écrire un script shell, et qu’on utilisera l’interpréteur bash.</p>
@@ -180,9 +187,10 @@ done
 <li>il faut changer les droits du script pour le rendre exécutable : chmod +x monscript.sh</li>
 <li>
 <p>il se lance de la manière suivante (attention aux chemins des répertoires où se trouvent les fichiers et le programme, nous verrons plus tard comment simplifier les lancements):</p>
-<pre><code>:::bash
-$ ./monscript.sh
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>./monscript.sh
+</pre></div>
+
+
 </li>
 </ul>
 <p>Du coup, j’en ai profité pour faire un autre script pour les fichiers audio sur le même principe pour transformer des fichiers flac en m4a, en n’utilisant que la partie –c:a, sans la partie -c:v. Et comme j’en ai aussi profité pour approfondir mes connaissances shell, le prochain billet parlera variables, sed, expressions régulières, tubes, que du bonheur.</p>

@@ -129,28 +129,34 @@
 <h3>Installation de VirtualBox Guest Additions</h3>
 <p>Les Guest Additions permettent notamment l'affichage en plein écran.</p>
 <p>Tout d'abord :</p>
-<pre><code>:::bash
-$ sudo apt-get install build-essential linux-headers-`uname -r` dkms
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install build-essential linux-headers-<span class="sb">`</span>uname -r<span class="sb">`</span> dkms
+</pre></div>
+
+
 <p>Les Guest Additions se trouvent dans une image disque virtuelle que nous montons en sélectionnant "Installer les Guest Additions" dans le menu Devices (périphérique) de VirtualBox</p>
 <p>Le disque devrait apparaître dans le gestionnaire de fichier, dans mon cas il est monté sur /media/cdrom0</p>
 <p>Il ne reste plus qu'à lancer la procédure d'installation :</p>
-<pre><code>:::bash
-$ sudo sh /media/cdrom0/VBoxLinuxAdditions.run
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>sudo sh /media/cdrom0/VBoxLinuxAdditions.run
+</pre></div>
+
+
 <h3>Dossier partage</h3>
 <p>Un deuxième gros intérêt des Guest Additions est la possibilité de partager des fichiers entre le système hôte et le système invité. Après avoir créer un dossier partage sur le système hôte, par défaut, il se retrouvere dans le répertoire Media (dossier commençant par "sf_") de votre Crunchbang virtualisé mais ne sera pas accessible à l'utilisateur. Pour donner les droits d'accès à ce dossier, il faut ajouter l'utilisateur au groupe Vbox.</p>
 <p>Pour cela, il faut éditer le fichier /etc/groups, repérer la ligne commençant par vboxsf et ajouter son nom de user, par exemple :</p>
-<pre><code>vboxsf:x:1001:letchap
-</code></pre>
+<div class="highlight"><pre><span class="n">vboxsf</span><span class="o">:</span><span class="n">x</span><span class="o">:</span><span class="mi">1001</span><span class="o">:</span><span class="n">letchap</span>
+</pre></div>
+
+
 <h3>Modification du clavier</h3>
 <p>La procédure d'installation de Crunchbang ne permet pas de choisir le clavier. Par défaut, il installe un clavier azerty "classique". Je n'ai donc pas eu la possibilité de paramétrer le clavier Mac. Ce qui pose quelques petits problèmes quand je veux taper "-" par exemple, ou des crochets.</p>
 <p>Il est possible de changer la configuration du clavier à partir du terminal, pour cela il faut éditer les fichier /etc/default/keyboard et le renseigner de la manière suivante :</p>
-<pre><code>XKBMODEL="pc105"
-XKBLAYOUT="fr"
-XKBVARIANT="mac"
-XKBOPTIONS=""
-</code></pre>
+<div class="highlight"><pre><span class="n">XKBMODEL</span><span class="o">=</span><span class="s">&quot;pc105&quot;</span>
+<span class="n">XKBLAYOUT</span><span class="o">=</span><span class="s">&quot;fr&quot;</span>
+<span class="n">XKBVARIANT</span><span class="o">=</span><span class="s">&quot;mac&quot;</span>
+<span class="n">XKBOPTIONS</span><span class="o">=</span><span class="s">&quot;&quot;</span>
+</pre></div>
+
+
 <p>Il ne reste plus qu'à redémarrer la machine virtuelle pour bénéficier de tous ces ajouts.</p>
             </div>
             <!-- /.entry-content -->
