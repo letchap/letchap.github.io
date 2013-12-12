@@ -21,7 +21,9 @@
     <script src="http://code.jquery.com/jquery.js"></script>
 	
 	<!-- Syndication -->
-        <link href="../../../../atom.xml" type="application/atom+xml" rel="alternate"
+        <link href="../../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="letchap ATOM Feed"/>
+        <link href="../../../../feeds/all.rss.xml" type="application/atom+xml" rel="alternate"
               title="letchap RSS Feed"/>
 	
 	<!-- Google analytics -->
@@ -78,7 +80,7 @@
     			</ul>
     			<ul class="nav navbar-nav navbar-right">
     				<li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
-    				<li><a href="../../../../atom.xml" type="application/atom+xml" rel="subscribe-rss"
+    				<li><a href="../../../../feeds/all.rss.xml" type="application/atom+xml" rel="subscribe-rss"
     					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
     				<form class="navbar-form navbar-right" action="http://google.com/search" method="get">
     					<fieldset role="search">
@@ -150,13 +152,13 @@
 
 
 <p>Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.</p>
-<p>Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown</p>
+<p>Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown.</p>
 <h3>Les extensions Markdown Python</h3>
-<p>Pour un petit cours de rattrapage sur la synthaxe Markdown, <a href="../../../../2013/03/01/memo-markdown-en-francais/" title="memo markdown">c'est ici</a></p>
+<p>Pour un petit cours de rattrapage sur la synthaxe Markdown, <a href="../../../../2013/03/01/memo-markdown-en-francais/" title="memo markdown">c'est ici.</a></p>
 <p>Pour rédiger notre texte entièrement en Markdown, nous allons devoir résoudre deux problèmes :</p>
 <ul>
 <li>créer un lien sur une image</li>
-<li>ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas natvement Markdown</li>
+<li>ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas nativement Markdown</li>
 </ul>
 <h4>Créer un lien sur une image en Markdown</h4>
 <p>Pour créer un lien, la synthaxe Markdown est la suivante :</p>
