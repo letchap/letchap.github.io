@@ -255,21 +255,26 @@
 
 <p>Une exception que je n'ai pas réussi à gérer dans style.css, j'ai supprimé dans le fichier bootstrap.css, pour la balise pre, la mise en forme word-wrap: word-break. Sinon, impossible d'avoir un ascenseur horizontal dans le bloc de code.</p>
 <h3>RSS</h3>
-<p>J'ai commencé par paramétrer un flux RSS dans le fichier de configuration, que j'ai rendu accessible dans ma barre de navigation.</p>
-<p>Dans le fichier pelicanconf.py</p>
-<div class="highlight"><pre><span class="n">FEED_ALL_RSS</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">atom</span><span class="p">.</span><span class="n">xml</span><span class="err">&#39;</span>
+<p>J'ai commencé par paramétrer un flux RSS dans le fichier de configuration, que j'ai rendu accessible dans ma barre de navigation. Je n'ai pas vraiment suivi les recommandations de la documentation, j'ai plutôt fait une adaptation à ma sauce.</p>
+<p>Tout d'abord, dans le fichier pelicanconf.py, j'ai simplement ajouté une ligne, ce qui ne génèrera qu'un seul fichier atom.xml pour tous les posts, c'est largement suffisant, pas besoin de catégories ni de sous-dossier feed.</p>
+<div class="highlight"><pre><span class="n">FEED_ALL_ATOM</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">atom</span><span class="p">.</span><span class="n">xml</span><span class="err">&#39;</span>
 </pre></div>
 
 
-<p>Et dans le fichier base.html</p>
-<div class="highlight"><pre><span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;nav navbar-nav navbar-right&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/archives.html&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon-th-list&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>Archives<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
-    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/{{ FEED_ALL_RSS }}&quot;</span> <span class="na">type=</span><span class="s">&quot;application/atom+xml&quot;</span> <span class="na">rel=</span><span class="s">&quot;subscribe-rss&quot;</span>
-        <span class="na">title=</span><span class="s">&quot;Subscribe via RSS&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon-rss&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span>
-<span class="nt">&lt;/ul&gt;</span>
+<p><strong>LE PLUS IMPORTANT</strong> est dans le fichier base.html. Il ne faut surtout, surtout, surtout pas faire ce qui est écrit partout, à savoir paramétrer le lien RSS avec l'adresse du site comme ceci :</p>
+<div class="highlight"><pre>    <span class="p">:::</span><span class="nl">html</span>
+    <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ SITEURL }}/{{ FEED_ALL_ATOM }}&quot;</span> <span class="k">type</span><span class="o">=</span><span class="s2">&quot;application/atom+xml&quot;</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;subscribe-rss&quot;</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Subscribe via RSS&quot;</span><span class="o">&gt;&lt;</span><span class="nx">i</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;icon-rss&quot;</span><span class="o">&gt;&lt;/</span><span class="nx">i</span><span class="o">&gt;&lt;/</span><span class="nx">a</span><span class="o">&gt;&lt;/</span><span class="nx">li</span><span class="o">&gt;</span>
 </pre></div>
 
 
+<p>Il faut impérativement le paramètrer sans référence au site comme celà :</p>
+<div class="highlight"><pre><span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/{{ FEED_ALL_ATOM }}&quot;</span> <span class="na">type=</span><span class="s">&quot;application/atom+xml&quot;</span> <span class="na">rel=</span><span class="s">&quot;subscribe-rss&quot;</span>
+    <span class="na">title=</span><span class="s">&quot;Subscribe via RSS&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon-rss&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span>
+</pre></div>
+
+
+<p>Sinon, le risque est d'avoir des liens vers les artciles tous bizarres dans les aggrégateurs de flux.</p>
 <h3>La recherche sur le site avec google</h3>
 <p>Le fichier de configuration est un outil magique car il permet de définir ses propres variables réutilisables dans les fichiers html. Je m'en suis servi pour créer deux variables permettant une recherche sur mon site grâce à google.</p>
 <div class="highlight"><pre><span class="n">SIMPLE_SEARCH</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//google.com/search&#39;</span>
