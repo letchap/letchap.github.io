@@ -14,6 +14,8 @@
     <link href="../../../../theme/css/pygments.css" rel="stylesheet">
     <link href="../../../../theme/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="../../../../theme/css/lightbox.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../../theme/css/fuelux.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../../theme/css/fuelux-responsive.css" rel="stylesheet" type="text/css"/>
 
 	<!-- JavaScript plugins (requires jQuery) -->
     <script src="http://code.jquery.com/jquery.js"></script>
@@ -78,7 +80,10 @@
     				<li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
     				<li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
     					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
-    				<form class="navbar-form navbar-right" action="http://google.com/search" method="get">
+    				<div id="MySearch" class="input-append search">
+                        <input type="text" class="input-medium" placeholder="Search"><button type="button" class="btn"><i class="icon-search"></i></button>
+                    </div>
+                    <form class="navbar-form navbar-right" action="http://google.com/search" method="get">
     					<fieldset role="search">
     					<input type="hidden" name="q" value="site:letchap.github.io" />  
     					<input type="search" class="form-control col-lg-8" name="q" results="0" placeholder="Search" />  
@@ -124,7 +129,7 @@
                 </div>
                 <p>Nous allons voir aujourd'hui comment afficher les images sous forme de diaporama sur un site généré avec Pelican. L'idéée est de rendre cliquable une image qui s'affiche alors au-dessus du site, et de faire défiler les images sous la forme d'un diaporama pour une galerie d'image. Vous avez un petit exemple de ce que cela peut donner pour une image simple sur <a href="../../../../2013/11/26/lancer-un-programme-python-depuis-automator/">un autre de mes billets</a> ou pour <a href="../../../../2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">une galerie sur un autre billet ici</a></p>
 <p>Pour cela, nous avons besoin du plugin Lightbox pour Bootstrap ainsi que de la possibilité offerte par Pelican d'utiliser les extensions pour markdown de Python.</p>
-<p>Cela ne s'applique que si vous utiliser la synthaxe Markdown pour rédiger vos billets. Je suppose que c'est également réalisable en synthaxe reStructuredTex.</p>
+<p>Cela ne s'applique que si vous utiliser la syntaxe Markdown pour rédiger vos billets. Je suppose que c'est également réalisable en syntaxe reStructuredTex.</p>
 <h3>Installer le plugin lightbox</h3>
 <p>Le plugin lightbox pour bootstrap est disponible <a href="http://lokeshdhakar.com/projects/lightbox2/" title="Lightbox V2">à cette adresse</a>. </p>
 <p>Pour installer ligthbox dans votre thème pelican, il faut : </p>
@@ -142,7 +147,7 @@
 
 </li>
 </ul>
-<p>La synthaxe html pour activer lightbox est la suivante : </p>
+<p>La syntaxe html pour activer lightbox est la suivante : </p>
 <div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title=</span><span class="s">&quot;Mon Image&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mon Image&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
 </pre></div>
 
@@ -150,14 +155,14 @@
 <p>Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.</p>
 <p>Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown.</p>
 <h3>Les extensions Markdown Python</h3>
-<p>Pour un petit cours de rattrapage sur la synthaxe Markdown, <a href="../../../../2013/03/01/memo-markdown-en-francais/" title="memo markdown">c'est ici.</a></p>
+<p>Pour un petit cours de rattrapage sur la syntaxe Markdown, <a href="../../../../2013/03/01/memo-markdown-en-francais/" title="memo markdown">c'est ici.</a></p>
 <p>Pour rédiger notre texte entièrement en Markdown, nous allons devoir résoudre deux problèmes :</p>
 <ul>
 <li>créer un lien sur une image</li>
 <li>ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas nativement Markdown</li>
 </ul>
 <h4>Créer un lien sur une image en Markdown</h4>
-<p>Pour créer un lien, la synthaxe Markdown est la suivante :</p>
+<p>Pour créer un lien, la syntaxe Markdown est la suivante :</p>
 <div class="highlight"><pre><span class="p">[</span><span class="n">lien</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com)</span>
 <span class="n">ou</span> <span class="n">sur</span> <span class="n">Pelican</span> <span class="n">pour</span> <span class="n">un</span> <span class="n">lien</span> <span class="n">interne</span>
 <span class="p">[</span><span class="n">lien</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monarticle</span><span class="p">.</span><span class="n">markdown</span><span class="p">)</span>
@@ -331,6 +336,7 @@
 
     <!-- script src="../../../../theme/js/jquery-1.10.2.min.js"></script -->
     <script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+    <script src="../../../../theme/js/loader.min.js" type="text/javascript"></script>
 	<!-- Disqus -->
 <script type="text/javascript">
     var disqus_shortname = 'letchap';
