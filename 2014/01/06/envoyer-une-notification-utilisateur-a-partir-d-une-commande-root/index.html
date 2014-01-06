@@ -100,7 +100,7 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="../../../../2013/07/08/envoyer-une-notification-utilisateur-a-partir-d-une-commande-root/"
+                    <a href="../../../../2014/01/06/envoyer-une-notification-utilisateur-a-partir-d-une-commande-root/"
                        rel="bookmark"
                        title="Permalink to Envoyer une notification utilisateur à partir d'une commande root">
                         Envoyer une notification utilisateur à partir d'une commande root
@@ -113,25 +113,41 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>Lun 08 juillet 2013
+        <i class="icon-calendar"></i>Lun 06 janvier 2014
     </span>
 
     <span class="label label-default">Category</span>
-    <a href="../../../../category/python.html">Python</a>
+    <a href="../../../../category/shell.html">Shell</a>
 
 
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Vous allez me dire, à quoi ça sert ? On ne devrait jamais se connecter en root, sinon cela veut dire que les droits sont mal gérés. Si on veut envoyer une notification utilisateur, on lance la commande en tant qu'utilisateur. Malheureusement, cela ne fonctionne pas avec anacron qui ne s'exécute qu'en root, à moins de créer une instance non root spécialement (ce que je détaille ici)</p>
-<p>Le principe de base qui s'applique est que les messages de notification envoyés, par exemple par notify-send (’sudo apt-get install notify-send’ si vous ne l'avez pas), le sont dans la session serveur X de l'utilisateur. </p>
-<p>Faites le petit test suivant pour vous en convaincre, en envoyant d'abord un message en tant que simple utilisateur puis en tant que root. D'abord, vous modifiez les couleurs de la notification avec l'utilitaire ’xfce4-notifyd-config’ que vous configurez une fois en tant qu'utilisateur puis différemment en tant que root. Puis :</p>
-<div class="highlight"><pre><span class="n">letchap</span><span class="err">@</span><span class="n">crunchbang</span><span class="o">:~</span><span class="err">$</span> <span class="n">notify</span><span class="o">-</span><span class="n">send</span> <span class="err">&#39;</span><span class="n">test</span><span class="err">&#39;</span>
-<span class="n">letchap</span><span class="err">@</span><span class="n">crunchbang</span><span class="o">:~</span><span class="err">$</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">s</span>
-<span class="n">root</span><span class="err">@</span><span class="n">crunchbang</span><span class="o">:/</span><span class="n">home</span><span class="o">/</span><span class="n">letchap</span><span class="err">#</span> <span class="n">notify</span><span class="o">-</span><span class="n">send</span> <span class="err">&#39;</span><span class="n">test</span><span class="err">&#39;</span>
+                <p>Vous allez me dire, à quoi ça sert ? On ne devrait jamais se connecter en root ! C'est dangereux et cela signifie que les droits sont mal gérés. Si je veux envoyer une notification utilisateur, je lance la commande en tant qu'utilisateur, un point c'est tout. Malheureusement, cela ne fonctionne pas avec anacron qui ne s'exécute qu'en root, à moins de créer une instance non root spécialement <a href="../../../../2013/10/25/lancer-anacron-comme-simple-utilisateur/">ce que je détaille ici</a>). Et là patatras, un job lancé par anacron en root n'enverra jamais de message sur une session utilisateur.</p>
+<p>Pour la suite de l'article, il faut avoir en tête qu'à chaque utilisateur est associé une session du serveur X qui gère notammenent l'interface graphique. Par défaut, le root n'a pas le droit de se connecter au serveur X d'un utilisateur non-root.</p>
+<p>Heureusement, il est possible de forcer un job lancé en root à envoyer un message sur une session du serveur X. Pour cela nous allons modifier la variable d'environnement DISPLAY du root que nous allons fusionner avec celle de l'utilisateur le temps de l'exécution de la commande.</p>
+<p>La variable d'environnement DISPLAY contient les éléments suivants :
+    machine:numéro_display.numéro_écran</p>
+<p>Pour un simple utilisateur comme moi, pas de nom de machine, un seul écran, elle va donc s'afficher avec ’:0.0’</p>
+<p>Maintenant, comment rappatrier l'authentification au serveur X de l'utilisateur et le passer au root : en utilisant la commande ’xauth’. ’xauth’ est utilisé pour éditer et fournir les authorisations d'un serveur X. Associé à la commande ’merge’, elle va permettre de récupérer les authorisations de l'utilisateur et les passer au root.</p>
+<p>Enfin, pour ne faire cette opération que le temps de l'exécution de la commande, nous allons utiliser la commande ’env’ qui permet justement de définir une variable le temps de la commande.</p>
+<p>Un dernier point avant d'afficher la solution. Mais où récupère t-on les authorisations de l'utlisateur ?</p>
+<p>Pour cela, il faut connaître son gestionnaire d'affichage, ou Display Manager dans la langue de Stallman. Les plus connus sont gdm ou kdm. Bon sur Crunchbang, c'est slim (sur Archlinux aussi d'ailleurs). Pour s'en assurer, il suffit de faire :</p>
+<div class="highlight"><pre><span class="nv">$ </span>cat /etc/X11/default-display-manager
+/usr/bin/slim
 </pre></div>
 
 
-<p>Vous devriez voir des notifications avec des couleurs différentes signifiant que vous n'êtes pas sur les mêmes sessions serveur X dans chacun de ces deux cas.</p>
+<p>Les informations qui nous intéressent vont se trouver dans le fichier ’/etc/slim.conf’.</p>
+<div class="highlight"><pre><span class="nv">$ </span>cat /etc/slim.conf
+<span class="c"># Xauth file for server</span>
+authfile           /var/run/slim.auth
+</pre></div>
+
+
+<p>Voilà, les authorisations de l'utilisateur se trouvent dans le fichier /var/run/slim.auth</p>
+<p>Il ne reste plus qu'à compiler tout ça, et la solution est :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo env <span class="nv">DISPLAY</span><span class="o">=</span>:0 xauth merge /var/run/slim.auth &amp; ma_commande
+</pre></div>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -140,7 +156,7 @@
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_identifier = "2013/07/08/envoyer-une-notification-utilisateur-a-partir-d-une-commande-root/";
+            var disqus_identifier = "2014/01/06/envoyer-une-notification-utilisateur-a-partir-d-une-commande-root/";
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
                 var dsq = document.createElement('script');
