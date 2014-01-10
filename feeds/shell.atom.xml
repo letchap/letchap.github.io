@@ -21,7 +21,7 @@ authfile           /var/run/slim.auth
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Voilà, les authorisations de l'utilisateur se trouvent dans le fichier /var/run/slim.auth&lt;/p&gt;
+&lt;p&gt;Voilà, les authorisations de l'utilisateur se trouvent dans le fichier &lt;code&gt;/var/run/slim.auth&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Il ne reste plus qu'à compiler tout ça, et la solution est :&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo env &lt;span class="nv"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;:0 xauth merge /var/run/slim.auth &amp;amp; ma_commande
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="shell"></category><category term="terminal"></category><category term="slim"></category><category term="crunchbang"></category><category term="xauth"></category></entry><entry><title>Vider la corbeille avec le terminal</title><link href="http://letchap.github.io/2013/02/25/vider-la-corbeille-avec-le-terminal/" rel="alternate"></link><updated>2013-02-25T22:18:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-25:2013/02/25/vider-la-corbeille-avec-le-terminal/</id><summary type="html">&lt;p&gt;Avec mon Lubuntu 12.04, j'ai parfois des soucis avec la corbeille : je ne vois pas les fichiers à supprimer, et donc je ne peux pas vider la corbeille. Il m'arrive parfois des messages d'erreur.&lt;/p&gt;

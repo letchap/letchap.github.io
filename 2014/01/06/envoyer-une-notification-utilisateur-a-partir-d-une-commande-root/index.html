@@ -144,7 +144,7 @@ authfile           /var/run/slim.auth
 </pre></div>
 
 
-<p>Voilà, les authorisations de l'utilisateur se trouvent dans le fichier /var/run/slim.auth</p>
+<p>Voilà, les authorisations de l'utilisateur se trouvent dans le fichier <code>/var/run/slim.auth</code>.</p>
 <p>Il ne reste plus qu'à compiler tout ça, et la solution est :</p>
 <div class="highlight"><pre><span class="nv">$ </span>sudo env <span class="nv">DISPLAY</span><span class="o">=</span>:0 xauth merge /var/run/slim.auth &amp; ma_commande
 </pre></div>
