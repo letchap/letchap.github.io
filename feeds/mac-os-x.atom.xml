@@ -35,7 +35,7 @@
 
 
 &lt;p&gt;Maintenant, décorons !&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;decorateur.py&lt;/span&gt;                &lt;a style='float: right' href='/code/decorateur.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;decorateur.py&lt;/span&gt;                &lt;a style='float: right' href='/code/decorateur.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2

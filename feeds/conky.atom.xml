@@ -13,7 +13,7 @@
 &lt;p&gt;Tout d'abord, il faut installer conky. Sur Crunchbang, il est installé par défaut, sinon &lt;code&gt;sudo apt-get install conky&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Ensuite, nous allons réaliser non pas un mais quatre script conky, un par jour de prévision. Conky ne sait pas gérer les colonnes, à moins de bidouiller avec la commande ${goto}. Donc nous allons coller quatre conky pour réaliser une jolie présentation.&lt;/p&gt;
 &lt;p&gt;Voilà, à la suite, les quatre fichiers. Ces fichiers sont à copier dans le répertoire /home/monuser/.conky/ :&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -70,7 +70,7 @@ TEXT
 
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour2&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour2'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour2&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour2'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -121,7 +121,7 @@ Vent : &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;alignr&lt;/sp
 
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour3&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour3'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour3&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour3'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -172,7 +172,7 @@ Vent : &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;alignr&lt;/sp
 
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour4&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour4'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour4&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour4'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -235,7 +235,7 @@ Vent : &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;alignr&lt;/sp
 &lt;h3&gt;L'appel et la fermeture du conky météo&lt;/h3&gt;
 &lt;p&gt;Je ne souhaite pas avoir en permanence les informations météo affichées sur mon bureau mais uniquement à la demande. Pour cela nous allons créer un petit programme de démarrage/arrêt du conky et créer des raccourcis dans le menu openbox et dans celui définissant les touches de raccourcis.&lt;/p&gt;
 &lt;p&gt;Le programme le voici :&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;startstopmeteo.sh&lt;/span&gt;                &lt;a style='float: right' href='/code/startstopmeteo.sh'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;startstopmeteo.sh&lt;/span&gt;                &lt;a style='float: right' href='/code/startstopmeteo.sh'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2

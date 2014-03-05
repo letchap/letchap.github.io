@@ -116,7 +116,7 @@
 <p>Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans <code>/usr./sbin</code> doit se faire en mode root par un <code>sudo cp meteo.py /usr/sbin</code>. Ne pas oublier au préalable de rendre le script exécutable par un <code>chmod +x meteo.py</code>. </p>
 <h3>Créer un script de démarrage /etc/init.d</h3>
 <p>Le fichier <code>/etc/init.d/skeleton</code> est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que <a href="http://www.gavinj.net/2012/06/building-python-daemon-process.html">j'ai trouvé ici</a>, puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire <code>/etc/init.d/</code>, en faisant <code>$ sudo geany /etc/init.d/meteo</code> par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).</p>
-<figure><figcaption class='well well-sm'><span style='text-align: left'>meteo</span>                <a style='float: right' href='/code/meteo'>Télécharger</a></figcaption>
+<figure><figcaption class='include'><span style='text-align: left'>meteo</span>                <a style='float: right' href='/code/meteo'>Télécharger</a></figcaption>
 
 <div class="highlight"><pre><span class="c">#! /bin/sh</span>
 <span class="c">### BEGIN INIT INFO</span>

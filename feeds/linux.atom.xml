@@ -7,7 +7,7 @@
 &lt;p&gt;Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans &lt;code&gt;/usr./sbin&lt;/code&gt; doit se faire en mode root par un &lt;code&gt;sudo cp meteo.py /usr/sbin&lt;/code&gt;. Ne pas oublier au préalable de rendre le script exécutable par un &lt;code&gt;chmod +x meteo.py&lt;/code&gt;. &lt;/p&gt;
 &lt;h3&gt;Créer un script de démarrage /etc/init.d&lt;/h3&gt;
 &lt;p&gt;Le fichier &lt;code&gt;/etc/init.d/skeleton&lt;/code&gt; est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que &lt;a href="http://www.gavinj.net/2012/06/building-python-daemon-process.html"&gt;j'ai trouvé ici&lt;/a&gt;, puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire &lt;code&gt;/etc/init.d/&lt;/code&gt;, en faisant &lt;code&gt;$ sudo geany /etc/init.d/meteo&lt;/code&gt; par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#! /bin/sh&lt;/span&gt;
 &lt;span class="c"&gt;### BEGIN INIT INFO&lt;/span&gt;

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/pelican.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-01-09T22:25:00+01:00</updated><entry><title>Créer automatiquement un modèle pré-rempli d'article sur Pelican</title><link href="http://letchap.github.io/2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican/" rel="alternate"></link><updated>2014-01-09T22:25:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-01-09:2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican/</id><summary type="html">&lt;p&gt;Depuis mon passage d'Octopress à Pelican, un petit outil me manque : la possibilité de créer un squelette d'article automatiquement à partir du titre, et directement dans le bon répertoire. Sur Octopress, cela se fait par la commande &lt;code&gt;rake new_post['Mon super post!']&lt;/code&gt;. Par cette commande, l'en-tête est renseignée avec un certain nombre d'informations comme le titre ou la date, le nom du fichier est généré automatiquement et "slugifié", tout ça dans le bon répertoire.&lt;/p&gt;
 &lt;p&gt;Jusqu'à présent, sur Pelican, pour créer un nouvel article, je faisais un copier-coller d'un ancien post, et je modifiais tout à la main. Pas terrible.&lt;/p&gt;
 &lt;p&gt;Qu'à cela ne tienne, nous allons faire notre propre script Python pour automatiser tout ça. Le script, le voici, les commentaires sont dedans :&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;newpost.py&lt;/span&gt;                &lt;a style='float: right' href='/code/newpost.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;newpost.py&lt;/span&gt;                &lt;a style='float: right' href='/code/newpost.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/usr/bin/python&lt;/span&gt;
 &lt;span class="c"&gt;# -*- coding: utf8 -*-&lt;/span&gt;
@@ -208,7 +208,7 @@
 - fontawesome.min.css
 - pygments.css&lt;/p&gt;
 &lt;p&gt;Toutes les modifications ou surcharges sont à faire dans un fichier spécifique qui est nommé style.css dans le thème bootstrap3 et que j'ai un peu adapté à mes besoins, surtout pour les insertions de blocs de code. Tous les commentaires sont dans le code.&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;style.css&lt;/span&gt;                &lt;a style='float: right' href='/code/style.css'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;style.css&lt;/span&gt;                &lt;a style='float: right' href='/code/style.css'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;/* Fichier de personalisation de bootstrap */&lt;/span&gt;
 

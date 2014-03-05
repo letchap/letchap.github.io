@@ -4,7 +4,7 @@
 &lt;p&gt;Qu'à cela ne tienne, nous allons convertir notre texte dans un format unicode universel, dans sa version UTF8. Et puis, pour pouvoir lire le texte en toute circonstance et sur toute plateforme, nous allons en faire un pdf&lt;/p&gt;
 &lt;p&gt;Pour cela, nous allons utiliser deux bibliothèques tierces de Python, chardet qui permet de deviner l'encodage de notre fichier texte de départ (très pratique si nous ne le connaissons pas) et pyfpdf qui permet de créer un fichier pdf (plus simple à utiliser que reportlab). Les deux bibliothèques s'installent avec pip. la documentation pyfpdf est &lt;a href="http://code.google.com/p/pyfpdf/"&gt;ici&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Allez, le programme python. Les commentaires sont dans le code.&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;txt2pdf.py&lt;/span&gt;                &lt;a style='float: right' href='/code/txt2pdf.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;txt2pdf.py&lt;/span&gt;                &lt;a style='float: right' href='/code/txt2pdf.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/usr/bin/python&lt;/span&gt;
 &lt;span class="c"&gt;# -*- coding: utf8 -*-&lt;/span&gt;
@@ -86,7 +86,7 @@
 &lt;p&gt;Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky. &lt;/p&gt;
 &lt;p&gt;Ce script est largement inspiré d'une part du tutoriel python sur &lt;a href="http://www.fullcirclemag.fr/?pages/Numéros"&gt;full circle HS n°2&lt;/a&gt; et sur &lt;a href="http://www.archlinux.fr/forum/viewtopic.php?t=9981&amp;amp;p=107541"&gt;ce forum&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Tous les commentaires sont dans le script.&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;meteo.py&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;meteo.py&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;  1
   2

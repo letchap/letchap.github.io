@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-01-09T22:25:00+01:00</updated><entry><title>Créer automatiquement un modèle pré-rempli d'article sur Pelican</title><link href="http://letchap.github.io/2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican/" rel="alternate"></link><updated>2014-01-09T22:25:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-01-09:2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican/</id><summary type="html">&lt;p&gt;Depuis mon passage d'Octopress à Pelican, un petit outil me manque : la possibilité de créer un squelette d'article automatiquement à partir du titre, et directement dans le bon répertoire. Sur Octopress, cela se fait par la commande &lt;code&gt;rake new_post['Mon super post!']&lt;/code&gt;. Par cette commande, l'en-tête est renseignée avec un certain nombre d'informations comme le titre ou la date, le nom du fichier est généré automatiquement et "slugifié", tout ça dans le bon répertoire.&lt;/p&gt;
 &lt;p&gt;Jusqu'à présent, sur Pelican, pour créer un nouvel article, je faisais un copier-coller d'un ancien post, et je modifiais tout à la main. Pas terrible.&lt;/p&gt;
 &lt;p&gt;Qu'à cela ne tienne, nous allons faire notre propre script Python pour automatiser tout ça. Le script, le voici, les commentaires sont dedans :&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;newpost.py&lt;/span&gt;                &lt;a style='float: right' href='/code/newpost.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;newpost.py&lt;/span&gt;                &lt;a style='float: right' href='/code/newpost.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/usr/bin/python&lt;/span&gt;
 &lt;span class="c"&gt;# -*- coding: utf8 -*-&lt;/span&gt;
@@ -209,7 +209,7 @@ authfile           /var/run/slim.auth
 &lt;p&gt;Qu'à cela ne tienne, nous allons convertir notre texte dans un format unicode universel, dans sa version UTF8. Et puis, pour pouvoir lire le texte en toute circonstance et sur toute plateforme, nous allons en faire un pdf&lt;/p&gt;
 &lt;p&gt;Pour cela, nous allons utiliser deux bibliothèques tierces de Python, chardet qui permet de deviner l'encodage de notre fichier texte de départ (très pratique si nous ne le connaissons pas) et pyfpdf qui permet de créer un fichier pdf (plus simple à utiliser que reportlab). Les deux bibliothèques s'installent avec pip. la documentation pyfpdf est &lt;a href="http://code.google.com/p/pyfpdf/"&gt;ici&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Allez, le programme python. Les commentaires sont dans le code.&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;txt2pdf.py&lt;/span&gt;                &lt;a style='float: right' href='/code/txt2pdf.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;txt2pdf.py&lt;/span&gt;                &lt;a style='float: right' href='/code/txt2pdf.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/usr/bin/python&lt;/span&gt;
 &lt;span class="c"&gt;# -*- coding: utf8 -*-&lt;/span&gt;
@@ -369,7 +369,7 @@ authfile           /var/run/slim.auth
 - fontawesome.min.css
 - pygments.css&lt;/p&gt;
 &lt;p&gt;Toutes les modifications ou surcharges sont à faire dans un fichier spécifique qui est nommé style.css dans le thème bootstrap3 et que j'ai un peu adapté à mes besoins, surtout pour les insertions de blocs de code. Tous les commentaires sont dans le code.&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;style.css&lt;/span&gt;                &lt;a style='float: right' href='/code/style.css'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;style.css&lt;/span&gt;                &lt;a style='float: right' href='/code/style.css'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;/* Fichier de personalisation de bootstrap */&lt;/span&gt;
 
@@ -614,7 +614,7 @@ develop_server.sh
 
 
 &lt;p&gt;Maintenant, décorons !&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;decorateur.py&lt;/span&gt;                &lt;a style='float: right' href='/code/decorateur.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;decorateur.py&lt;/span&gt;                &lt;a style='float: right' href='/code/decorateur.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
@@ -864,7 +864,7 @@ develop_server.sh
 &lt;p&gt;Tout d'abord, il faut installer conky. Sur Crunchbang, il est installé par défaut, sinon &lt;code&gt;sudo apt-get install conky&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Ensuite, nous allons réaliser non pas un mais quatre script conky, un par jour de prévision. Conky ne sait pas gérer les colonnes, à moins de bidouiller avec la commande ${goto}. Donc nous allons coller quatre conky pour réaliser une jolie présentation.&lt;/p&gt;
 &lt;p&gt;Voilà, à la suite, les quatre fichiers. Ces fichiers sont à copier dans le répertoire /home/monuser/.conky/ :&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -921,7 +921,7 @@ TEXT
 
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour2&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour2'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour2&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour2'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -972,7 +972,7 @@ Vent : &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;alignr&lt;/sp
 
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour3&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour3'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour3&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour3'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -1023,7 +1023,7 @@ Vent : &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;alignr&lt;/sp
 
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour4&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour4'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;conkyrc_meteo_jour4&lt;/span&gt;                &lt;a style='float: right' href='/code/conkyrc_meteo_jour4'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;##############################################&lt;/span&gt;
 &lt;span class="c"&gt;# Paramètres&lt;/span&gt;
@@ -1086,7 +1086,7 @@ Vent : &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;alignr&lt;/sp
 &lt;h3&gt;L'appel et la fermeture du conky météo&lt;/h3&gt;
 &lt;p&gt;Je ne souhaite pas avoir en permanence les informations météo affichées sur mon bureau mais uniquement à la demande. Pour cela nous allons créer un petit programme de démarrage/arrêt du conky et créer des raccourcis dans le menu openbox et dans celui définissant les touches de raccourcis.&lt;/p&gt;
 &lt;p&gt;Le programme le voici :&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;startstopmeteo.sh&lt;/span&gt;                &lt;a style='float: right' href='/code/startstopmeteo.sh'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;startstopmeteo.sh&lt;/span&gt;                &lt;a style='float: right' href='/code/startstopmeteo.sh'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
@@ -1158,7 +1158,7 @@ Vent : &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;alignr&lt;/sp
 &lt;p&gt;Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans &lt;code&gt;/usr./sbin&lt;/code&gt; doit se faire en mode root par un &lt;code&gt;sudo cp meteo.py /usr/sbin&lt;/code&gt;. Ne pas oublier au préalable de rendre le script exécutable par un &lt;code&gt;chmod +x meteo.py&lt;/code&gt;. &lt;/p&gt;
 &lt;h3&gt;Créer un script de démarrage /etc/init.d&lt;/h3&gt;
 &lt;p&gt;Le fichier &lt;code&gt;/etc/init.d/skeleton&lt;/code&gt; est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que &lt;a href="http://www.gavinj.net/2012/06/building-python-daemon-process.html"&gt;j'ai trouvé ici&lt;/a&gt;, puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire &lt;code&gt;/etc/init.d/&lt;/code&gt;, en faisant &lt;code&gt;$ sudo geany /etc/init.d/meteo&lt;/code&gt; par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;meteo&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#! /bin/sh&lt;/span&gt;
 &lt;span class="c"&gt;### BEGIN INIT INFO&lt;/span&gt;
@@ -1264,7 +1264,7 @@ lrwxrwxrwx 1 root root  15 juil.  5 21:45 S05meteo -&amp;gt; ../init.d/meteo
 &lt;p&gt;Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky. &lt;/p&gt;
 &lt;p&gt;Ce script est largement inspiré d'une part du tutoriel python sur &lt;a href="http://www.fullcirclemag.fr/?pages/Numéros"&gt;full circle HS n°2&lt;/a&gt; et sur &lt;a href="http://www.archlinux.fr/forum/viewtopic.php?t=9981&amp;amp;p=107541"&gt;ce forum&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Tous les commentaires sont dans le script.&lt;/p&gt;
-&lt;figure&gt;&lt;figcaption class='well well-sm'&gt;&lt;span style='text-align: left'&gt;meteo.py&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figure&gt;&lt;figcaption class='include'&gt;&lt;span style='text-align: left'&gt;meteo.py&lt;/span&gt;                &lt;a style='float: right' href='/code/meteo.py'&gt;Télécharger&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;  1
   2

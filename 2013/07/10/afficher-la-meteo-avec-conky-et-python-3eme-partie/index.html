@@ -122,7 +122,7 @@
 <p>Tout d'abord, il faut installer conky. Sur Crunchbang, il est installé par défaut, sinon <code>sudo apt-get install conky</code></p>
 <p>Ensuite, nous allons réaliser non pas un mais quatre script conky, un par jour de prévision. Conky ne sait pas gérer les colonnes, à moins de bidouiller avec la commande ${goto}. Donc nous allons coller quatre conky pour réaliser une jolie présentation.</p>
 <p>Voilà, à la suite, les quatre fichiers. Ces fichiers sont à copier dans le répertoire /home/monuser/.conky/ :</p>
-<figure><figcaption class='well well-sm'><span style='text-align: left'>conkyrc_meteo</span>                <a style='float: right' href='/code/conkyrc_meteo'>Télécharger</a></figcaption>
+<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo</span>                <a style='float: right' href='/code/conkyrc_meteo'>Télécharger</a></figcaption>
 
 <div class="highlight"><pre><span class="c">##############################################</span>
 <span class="c"># Paramètres</span>
@@ -179,7 +179,7 @@ TEXT
 
 </figure>
 
-<figure><figcaption class='well well-sm'><span style='text-align: left'>conkyrc_meteo_jour2</span>                <a style='float: right' href='/code/conkyrc_meteo_jour2'>Télécharger</a></figcaption>
+<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo_jour2</span>                <a style='float: right' href='/code/conkyrc_meteo_jour2'>Télécharger</a></figcaption>
 
 <div class="highlight"><pre><span class="c">##############################################</span>
 <span class="c"># Paramètres</span>
@@ -230,7 +230,7 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 
 </figure>
 
-<figure><figcaption class='well well-sm'><span style='text-align: left'>conkyrc_meteo_jour3</span>                <a style='float: right' href='/code/conkyrc_meteo_jour3'>Télécharger</a></figcaption>
+<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo_jour3</span>                <a style='float: right' href='/code/conkyrc_meteo_jour3'>Télécharger</a></figcaption>
 
 <div class="highlight"><pre><span class="c">##############################################</span>
 <span class="c"># Paramètres</span>
@@ -281,7 +281,7 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 
 </figure>
 
-<figure><figcaption class='well well-sm'><span style='text-align: left'>conkyrc_meteo_jour4</span>                <a style='float: right' href='/code/conkyrc_meteo_jour4'>Télécharger</a></figcaption>
+<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo_jour4</span>                <a style='float: right' href='/code/conkyrc_meteo_jour4'>Télécharger</a></figcaption>
 
 <div class="highlight"><pre><span class="c">##############################################</span>
 <span class="c"># Paramètres</span>
@@ -344,7 +344,7 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 <h3>L'appel et la fermeture du conky météo</h3>
 <p>Je ne souhaite pas avoir en permanence les informations météo affichées sur mon bureau mais uniquement à la demande. Pour cela nous allons créer un petit programme de démarrage/arrêt du conky et créer des raccourcis dans le menu openbox et dans celui définissant les touches de raccourcis.</p>
 <p>Le programme le voici :</p>
-<figure><figcaption class='well well-sm'><span style='text-align: left'>startstopmeteo.sh</span>                <a style='float: right' href='/code/startstopmeteo.sh'>Télécharger</a></figcaption>
+<figure><figcaption class='include'><span style='text-align: left'>startstopmeteo.sh</span>                <a style='float: right' href='/code/startstopmeteo.sh'>Télécharger</a></figcaption>
 
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
