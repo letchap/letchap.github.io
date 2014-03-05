@@ -1,163 +1,153 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
+<!--[if'IE'9]><html'class="lt#ie10"'lang="en"'>'<![endif]-->
+
 <head>
-    <title>letchap</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="letchap">
-	
-    <!-- Style -->
-    <link href="./theme/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
-    <link href="./theme/css/pygments.css" rel="stylesheet">
-    <link href="./theme/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="./theme/css/lightbox.css" rel="stylesheet" type="text/css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="letchap">
+  <title>letchap</title>
 
-	<!-- JavaScript plugins (requires jQuery) -->
-    <script src="http://code.jquery.com/jquery.js"></script>
-	
-	<!-- Syndication -->
-        <link href="/atom.xml" type="application/atom+xml" rel="alternate"
-              title="letchap ATOM Feed"/>
-	
-	<!-- Google analytics -->
-    <script type="text/javascript">
+  <!-- Style -->
+  
+  <link rel="stylesheet" href="./theme/css/foundation.min.css"/>
+  <link rel="stylesheet" href="./theme/css/normalize.css"/>
+  <link rel="stylesheet" href="./theme/css/pygments.css"/>
+  <link rel="stylesheet" href="./theme/css/foundation-icons.css"/>
+  <link rel="stylesheet" href="./theme/css/style.css"/>
+  <link rel="stylesheet" href="./theme/css/lightbox.css" type="text/css"/>
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-37436504-2']);
-        _gaq.push(['_trackPageview']);
+  <script src="./theme/js/vendor/modernizr.js"></script>
 
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-
-    </script>
+  <!-- Syndication -->
+  
+  <link href="./" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
 
 </head>
 
 <body>
-<div class="container">
 
-    <!-- Banner
-    ================================================== -->
+<!--'body'content'here'-->
+  <!-- Nav Bar -->
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href=".">
+           Accueil
+          </a>
+         </h1>
+      </li>
+    </ul>
 
-        <div class="site-header" id="banner">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1><a href=".">letchap</a></h1>
-                    <p class="lead">du Linux, du Python, un peu de Mac</p>
-                </div>
-            </div>
+    <section class="top-bar-section">
+      <ul class="left">
+        <li><a href="./pages/a-propos.html">A propos</a></li>
+      </ul>
+
+      <ul class="right">
+        <li><a href="./archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+        <li><a href="./" type="application/atom+xml" rel="subscribe-rss"
+             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+        <li class="has-form">  
+          <form action="http://google.com/search" method="get">
+            <div class="row collapse">
+              <div class="large-9 small-10 columns" >
+                <input type="search" name="q" results="0" placeholder="Search">
+                <input type="hidden" name="q" value="site:letchap.github.io" />
+              </div>
+            </div>    
+          </form>
+        </li>       
+      </ul>
+    </section>
+  </nav>
+
+ 
+
+
+  <!-- End Nav -->
+
+
+  <!-- Main Page Content and Sidebar -->
+<section role="main">
+    <div class="myheader">
+      <div class="row">
+        <div class="large-12 large-centered columns">
+          <h1><a href=".">letchap</a></h1>
+          <h2><small>du Linux, du Python, un peu de Mac</small></h2>
         </div>
+      </div>
+    </div>
 
-    <!-- Navbar
-    ================================================== -->
-    <nav class="navbar navbar-default" role="navigation">
-    	<div class="container">
-    		<div class="navbar-header">
-    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-    				<span class="sr-only">Toggle navigation</span>
-    				<span class="icon-bar"></span>
-    				<span class="icon-bar"></span>
-    				<span class="icon-bar"></span>
-    			</button>
-    			<a class="navbar-brand" href=".">Accueil</a>
-    		</div>
-    		<div class="navbar-collapse collapse navbar-responsive-collapse">
-    			<ul class="nav navbar-nav">
-    						<li><a href="./pages/a-propos.html">A propos</a></li>
-    			</ul>
-    			<ul class="nav navbar-nav navbar-right">
-    				<li><a href="./archives.html"><i class="icon-th-list"></i>Archives</a></li>
-    				<li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
-    					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
-    				<form class="navbar-form navbar-right" action="http://google.com/search" method="get">
-    					<fieldset role="search">
-    					<input type="hidden" name="q" value="site:letchap.github.io" />  
-    					<input type="search" class="form-control col-lg-8" name="q" results="0" placeholder="Search" />  
-    					</fieldset>
-    				</form>  
-    			</ul>
-    		</div><!-- /.navbar-collapse -->
-        </div><!-- /.container -->
-    </nav><!-- /.navbar -->	
-</div><!-- /.container -->
-
-	
-	<!-- Articles & sidebar
-	================================================== -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-9">
-            <article>
-                <h2><a href="./2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox</a></h2>
-                <div class="summary"><p>Malgré toute sa bonne volonté mon pauvre vieux PC de 2003 touche certaines limites. La plus génante concerne l'obsolescence de la carte graphique, il m'est par exemple impossible d'utiliser Kivy.</p>
+  <div class="row">
+ 
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox</a></h1>
+      <div><p>Malgré toute sa bonne volonté mon pauvre vieux PC de 2003 touche certaines limites. La plus génante concerne l'obsolescence de la carte graphique, il m'est par exemple impossible d'utiliser Kivy.</p>
 <p>C'est l'occasion d'installer une distribution sur mon iMac. Et pour tester un univers que ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/04/03/dual-boot-lubuntu-mageia-2-lxde/">Dual boot Lubuntu-Mageia 2 LXDE</a></h2>
-                <div class="summary"><p>Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.</p>
+		<a class="button radius tiny" href="./2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/04/03/dual-boot-lubuntu-mageia-2-lxde/">Dual boot Lubuntu-Mageia 2 LXDE</a></h1>
+      <div><p>Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.</p>
 <p>Enfin, j'ai réussi à faire un dual boot Lubuntu 12.04 et Mageia 2 (version ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/04/03/dual-boot-lubuntu-mageia-2-lxde/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/03/01/memo-markdown-en-francais/">Memo Markdown en français</a></h2>
-                <div class="summary"><p>Je n'ai pas trouvé de petit memo ou cheat sheet markdown en français sur la toile, alors j'ai créé le mien.</p>
+		<a class="button radius tiny" href="./2013/04/03/dual-boot-lubuntu-mageia-2-lxde/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/03/01/memo-markdown-en-francais/">Memo Markdown en français</a></h1>
+      <div><p>Je n'ai pas trouvé de petit memo ou cheat sheet markdown en français sur la toile, alors j'ai créé le mien.</p>
 <p>Le markdown est une synthaxe qui permet d'écrire de manière assez naturelle des pages qui seront ensuite traduites en langage html. Par exemple, un titre de ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/03/01/memo-markdown-en-francais/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/02/27/de-lutilite-dun-live-cd-pour-les-situations-desesperees/">De l'utilité d'un live CD pour les situations désespérées</a></h2>
-                <div class="summary"><p>Catastrophe, l'écran de mon ordinateur ne fonctionne plus. C'est malin, qu'est ce qui m'a pris aussi de vouloir installer le tout dernier pilote nvidia sur mon vieux PC. Moralité, écran noir. Que faire, réinstaller mon Lubuntu ?</p>
+		<a class="button radius tiny" href="./2013/03/01/memo-markdown-en-francais/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/02/27/de-lutilite-dun-live-cd-pour-les-situations-desesperees/">De l'utilité d'un live CD pour les situations désespérées</a></h1>
+      <div><p>Catastrophe, l'écran de mon ordinateur ne fonctionne plus. C'est malin, qu'est ce qui m'a pris aussi de vouloir installer le tout dernier pilote nvidia sur mon vieux PC. Moralité, écran noir. Que faire, réinstaller mon Lubuntu ?</p>
 <p>Bon sang mais c'est bien sûr, il faut démarrer ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/02/27/de-lutilite-dun-live-cd-pour-les-situations-desesperees/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/02/26/ceci-nest-pas-un-post-sur-pourquoi-jai-migre-de-wordpress-vers-octopress/">Ceci n'est pas un post sur pourquoi j'ai migré de Wordpress vers Octopress</a></h2>
-                <div class="summary"><p>Bon, j'ai fait comme tout le monde, j'ai migré de Wordpress vers Octopress parce que ... parce que c'est mieux. Il existe des tutoriels en français et en anglais donc je ne m'étendrai pas sur l'installation d'Octopress, <a href="http://octopress.org/">le site d'Octopress</a> lui-même est très détaillé ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/02/26/ceci-nest-pas-un-post-sur-pourquoi-jai-migre-de-wordpress-vers-octopress/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/02/25/vider-la-corbeille-avec-le-terminal/">Vider la corbeille avec le terminal</a></h2>
-                <div class="summary"><p>Avec mon Lubuntu 12.04, j'ai parfois des soucis avec la corbeille : je ne vois pas les fichiers à supprimer, et donc je ne peux pas vider la corbeille. Il m'arrive parfois des messages d'erreur.</p>
+		<a class="button radius tiny" href="./2013/02/27/de-lutilite-dun-live-cd-pour-les-situations-desesperees/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/02/26/ceci-nest-pas-un-post-sur-pourquoi-jai-migre-de-wordpress-vers-octopress/">Ceci n'est pas un post sur pourquoi j'ai migré de Wordpress vers Octopress</a></h1>
+      <div><p>Bon, j'ai fait comme tout le monde, j'ai migré de Wordpress vers Octopress parce que ... parce que c'est mieux. Il existe des tutoriels en français et en anglais donc je ne m'étendrai pas sur l'installation d'Octopress, <a href="http://octopress.org/">le site d'Octopress</a> lui-même est très détaillé ...</p>
+		<a class="button radius tiny" href="./2013/02/26/ceci-nest-pas-un-post-sur-pourquoi-jai-migre-de-wordpress-vers-octopress/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/02/25/vider-la-corbeille-avec-le-terminal/">Vider la corbeille avec le terminal</a></h1>
+      <div><p>Avec mon Lubuntu 12.04, j'ai parfois des soucis avec la corbeille : je ne vois pas les fichiers à supprimer, et donc je ne peux pas vider la corbeille. Il m'arrive parfois des messages d'erreur.</p>
 <p>Je suis alors obligé de vider la corbeille via le terminal et ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/02/25/vider-la-corbeille-avec-le-terminal/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/">wget en python 3 avec gestion des cookies et du post</a></h2>
-                <div class="summary"><p>Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3</p>
+		<a class="button radius tiny" href="./2013/02/25/vider-la-corbeille-avec-le-terminal/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/">wget en python 3 avec gestion des cookies et du post</a></h1>
+      <div><p>Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3</p>
 <h3>La commande Wget dans un petit script :</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -170,168 +160,142 @@
  9
 10
 11 ...</pre></div></td></tr></table>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/02/24/executer-un-script-shell/">Exécuter un script shell</a></h2>
-                <div class="summary"><p>Nous avons fait deux beaux scripts en shell pour utiliser la commande <a href="./2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/" title="Convertir des fichiers flac en m4a grâce à un script shell">avconv</a>. Nous avons enregistré nos scripts dans des fichiers monscript.sh. Maintenant comment exécuter ces scripts ?</p>
+		<a class="button radius tiny" href="./2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/02/24/executer-un-script-shell/">Exécuter un script shell</a></h1>
+      <div><p>Nous avons fait deux beaux scripts en shell pour utiliser la commande <a href="./2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/" title="Convertir des fichiers flac en m4a grâce à un script shell">avconv</a>. Nous avons enregistré nos scripts dans des fichiers monscript.sh. Maintenant comment exécuter ces scripts ?</p>
 <p>La première chose à faire est de rendre exécutable le script par la commande :</p>
 <div class="highlight"><pre><span class="nv">$ </span>chmod +x monscript.sh
 </pre></div>
 
 
 <p>Ensuite, deux façons de ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/02/24/executer-un-script-shell/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/02/24/chromium-firefox-ou-midori-sur-lubuntu/">Chromium Firefox ou Midori sur Lubuntu ?</a></h2>
-                <div class="summary"><p>Par défaut, Lubuntu est livré avec Chromium. Est ce le bon choix ? Pourquoi pas une livraison standard avec Firefox ? Et pourquoi pas Midori qui semble ultra léger et donc dans l'esprit d'un Lubuntu.</p>
+		<a class="button radius tiny" href="./2013/02/24/executer-un-script-shell/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/02/24/chromium-firefox-ou-midori-sur-lubuntu/">Chromium Firefox ou Midori sur Lubuntu ?</a></h1>
+      <div><p>Par défaut, Lubuntu est livré avec Chromium. Est ce le bon choix ? Pourquoi pas une livraison standard avec Firefox ? Et pourquoi pas Midori qui semble ultra léger et donc dans l'esprit d'un Lubuntu.</p>
 <p>J'ai fait une comparaison très subjective des trois navigateurs.</p>
 <h3>Les performances : vainqueur Midori</h3>
 <p>Sans ...</p>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/02/24/chromium-firefox-ou-midori-sur-lubuntu/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="./2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/">Convertir des fichiers flac en m4a grâce à un script shell</a></h2>
-                <div class="summary"><p>Dans le précédent billet, nous avons vu comment convertir une video grâce aux commandes avconv et ffmpeg et comment l’automatiser dans un script shell.</p>
+		<a class="button radius tiny" href="./2013/02/24/chromium-firefox-ou-midori-sur-lubuntu/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
+    <article>
+      <header class="heading">
+      <h1><a href="./2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/">Convertir des fichiers flac en m4a grâce à un script shell</a></h1>
+      <div><p>Dans le précédent billet, nous avons vu comment convertir une video grâce aux commandes avconv et ffmpeg et comment l’automatiser dans un script shell.</p>
 <p>Cette fois ci, nous allons faire la même chose pour convertir des fichiers audio flac en m4a en introduisant deux contraintes supplémentaires :</p>
 <ul>
 <li>Lancer le programme ...</li></ul>
-                    <br>
-					<br>
-					<a class="btn btn-primary btn-sm" href="./2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/">la suite ...</a>
-                </div>
-            </article>
-            <hr/>
+		<a class="button radius tiny" href="./2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/">la suite ...</a>
+      </div>
+    </header>
+    </article>
+    <hr />
 
-        <ul class="pagination">
-                <li class="prev"><a href="./index2.html">&laquo;</a>
-                </li>
-                <li class=""><a
-                        href="./index.html">1</a></li>
-                <li class=""><a
-                        href="./index2.html">2</a></li>
-                <li class="active"><a
-                        href="./index3.html">3</a></li>
-                <li class=""><a
-                        href="./index4.html">4</a></li>
-                <li class="next"><a
-                        href="./index4.html">&raquo;</a></li>
-        </ul>
-			</div>
-			<div class="col-lg-3 well well-sm" id="sidebar">
-<aside>
-    <section>
-        <ul class="list-group list-group-flush">
-                <li class="list-group-item"><h4><i class="icon-home icon-medium"></i>Social</h4></li>
-                    <li class="list-group-item">
-						<a href="http://twitter.com/letchap">
-							<i class="icon-twitter-sign icon-medium"></i>twitter
-						</a>
-					</li>
-                    <li class="list-group-item">
-						<a href="http://github.com/letchap">
-							<i class="icon-github-sign icon-medium"></i>github
-						</a>
-					</li>
+    <div class="pagination-centered">
+	  <ul class="pagination">
+        
+          <li class="arrow"><a href="./index2.html">&laquo;</a></li>
+        
+          <li class=""><a
+            href="./index.html">1</a></li>
+          <li class=""><a
+            href="./index2.html">2</a></li>
+          <li class="current"><a
+            href="./index3.html">3</a></li>
+          <li class=""><a
+            href="./index4.html">4</a></li>
+        
+          <li class="arrow"><a
+            href="./index4.html">&raquo;</a></li>
+      </ul>
+	</div>	
+    </div>
 
+    <!-- End Main Content -->    
+    
+    <!-- Sidebar -->
+    
+    <aside class="large-3 columns">
+	  <div class="panel">
+		<ul class="side-nav">
+		  <li class="heading">Social</h4></li>
+		  <li>
+			<a href="http://twitter.com/letchap">
+			<i class="fi-social-twitter medium"></i> twitter
+			</a>
+		  </li>
+		  <li>
+			<a href="http://github.com/letchap">
+			<i class="fi-social-github medium"></i> github
+			</a>
+		  </li>
+		  <li class="divider">
+		  <li class="heading">Categories</h4></li>
+		  <li><a href="./category/conky.html">Conky</a></li>
+		  <li><a href="./category/crunchbang.html">Crunchbang</a></li>
+		  <li><a href="./category/freebox.html">Freebox</a></li>
+		  <li><a href="./category/linux.html">Linux</a></li>
+		  <li><a href="./category/lubuntu.html">Lubuntu</a></li>
+		  <li><a href="./category/mac-os-x.html">Mac OS X</a></li>
+		  <li><a href="./category/mageia.html">Mageia</a></li>
+		  <li><a href="./category/octopress.html">Octopress</a></li>
+		  <li><a href="./category/pelican.html">Pelican</a></li>
+		  <li><a href="./category/python.html">Python</a></li>
+		  <li><a href="./category/shell.html">Shell</a></li>
+		  <li><a href="./category/terminal.html">Terminal</a></li>
+		  <li><a href="./category/virtualbox.html">VirtualBox</a></li>
+		</ul>
+	  </div>
+    </aside>
+    <!-- End Sidebar -->
 
-			
-                <li class="list-group-item"><h4><i class="icon-home icon-meduim"></i>Categories</h4></li>
-                    <li class="list-group-item">
-                        <a href="./category/conky.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Conky
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/crunchbang.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Crunchbang
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/freebox.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Freebox
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/linux.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Linux
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/lubuntu.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Lubuntu
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/mac-os-x.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Mac OS X
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/mageia.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Mageia
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/octopress.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Octopress
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/pelican.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Pelican
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/python.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Python
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/shell.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Shell
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/terminal.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Terminal
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="./category/virtualbox.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>VirtualBox
-                        </a>
-                   </li>
+  </div>
+ 
+  <!-- End Main Content and Sidebar -->
 
+  <!-- Footer -->
+ 
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright WTFP</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="http://getpelican.com/">Site généré par Pelican</a></li>
+         </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="./theme/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
 	
-        </ul>
-    </section>
-</aside>			</div>
-		</div>
-	</div>
-
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="./theme/js/bootstrap.min.js"></script>
-
-	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-	<script src="./theme/js/respond.min.js"></script>
+	<script src="./theme/js/lightbox-2.6.min.js"></script>
+  
 	
-
-    <!-- script src="./theme/js/jquery-1.10.2.min.js"></script -->
-    <script src="./theme/js/lightbox-2.6.min.js"></script>
 	<!-- Disqus -->
 <script type="text/javascript">
     var disqus_shortname = 'letchap';

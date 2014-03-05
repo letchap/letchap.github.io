@@ -1,128 +1,114 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
+<!--[if'IE'9]><html'class="lt#ie10"'lang="en"'>'<![endif]-->
+
 <head>
-    <title>Dual boot Lubuntu-Mageia 2 LXDE</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="letchap">
-	
-    <!-- Style -->
-    <link href="../../../../theme/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../../theme/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../../../theme/css/pygments.css" rel="stylesheet">
-    <link href="../../../../theme/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../../theme/css/lightbox.css" rel="stylesheet" type="text/css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="letchap">
+  <title>Dual boot Lubuntu-Mageia 2 LXDE</title>
 
-	<!-- JavaScript plugins (requires jQuery) -->
-    <script src="http://code.jquery.com/jquery.js"></script>
-	
-	<!-- Syndication -->
-        <link href="/atom.xml" type="application/atom+xml" rel="alternate"
-              title="letchap ATOM Feed"/>
-	
-	<!-- Google analytics -->
-    <script type="text/javascript">
+  <!-- Style -->
+  
+  <link rel="stylesheet" href="../../../../theme/css/foundation.min.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/normalize.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/style.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-37436504-2']);
-        _gaq.push(['_trackPageview']);
+  <script src="../../../../theme/js/vendor/modernizr.js"></script>
 
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-
-    </script>
+  <!-- Syndication -->
+  
+  <link href="../../../../" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
 
 </head>
 
 <body>
-<div class="container">
 
-    <!-- Banner
-    ================================================== -->
+<!--'body'content'here'-->
+  <!-- Nav Bar -->
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="../../../..">
+           Accueil
+          </a>
+         </h1>
+      </li>
+    </ul>
 
-        <div class="site-header" id="banner">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1><a href="../../../..">letchap</a></h1>
-                    <p class="lead">du Linux, du Python, un peu de Mac</p>
-                </div>
-            </div>
+    <section class="top-bar-section">
+      <ul class="left">
+        <li><a href="../../../../pages/a-propos.html">A propos</a></li>
+      </ul>
+
+      <ul class="right">
+        <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+        <li><a href="../../../../" type="application/atom+xml" rel="subscribe-rss"
+             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+        <li class="has-form">  
+          <form action="http://google.com/search" method="get">
+            <div class="row collapse">
+              <div class="large-9 small-10 columns" >
+                <input type="search" name="q" results="0" placeholder="Search">
+                <input type="hidden" name="q" value="site:letchap.github.io" />
+              </div>
+            </div>    
+          </form>
+        </li>       
+      </ul>
+    </section>
+  </nav>
+
+ 
+
+
+  <!-- End Nav -->
+
+
+  <!-- Main Page Content and Sidebar -->
+<section role="main">
+    <div class="myheader">
+      <div class="row">
+        <div class="large-12 large-centered columns">
+          <h1><a href="../../../..">letchap</a></h1>
+          <h2><small>du Linux, du Python, un peu de Mac</small></h2>
         </div>
+      </div>
+    </div>
 
-    <!-- Navbar
-    ================================================== -->
-    <nav class="navbar navbar-default" role="navigation">
-    	<div class="container">
-    		<div class="navbar-header">
-    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-    				<span class="sr-only">Toggle navigation</span>
-    				<span class="icon-bar"></span>
-    				<span class="icon-bar"></span>
-    				<span class="icon-bar"></span>
-    			</button>
-    			<a class="navbar-brand" href="../../../..">Accueil</a>
-    		</div>
-    		<div class="navbar-collapse collapse navbar-responsive-collapse">
-    			<ul class="nav navbar-nav">
-    						<li><a href="../../../../pages/a-propos.html">A propos</a></li>
-    			</ul>
-    			<ul class="nav navbar-nav navbar-right">
-    				<li><a href="../../../../archives.html"><i class="icon-th-list"></i>Archives</a></li>
-    				<li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
-    					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
-    				<form class="navbar-form navbar-right" action="http://google.com/search" method="get">
-    					<fieldset role="search">
-    					<input type="hidden" name="q" value="site:letchap.github.io" />  
-    					<input type="search" class="form-control col-lg-8" name="q" results="0" placeholder="Search" />  
-    					</fieldset>
-    				</form>  
-    			</ul>
-    		</div><!-- /.navbar-collapse -->
-        </div><!-- /.container -->
-    </nav><!-- /.navbar -->	
-</div><!-- /.container -->
-
-	
-	<!-- Articles & sidebar
-	================================================== -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-9">
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="../../../../2013/04/03/dual-boot-lubuntu-mageia-2-lxde/"
-                       rel="bookmark"
-                       title="Permalink to Dual boot Lubuntu-Mageia 2 LXDE">
-                        Dual boot Lubuntu-Mageia 2 LXDE
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="icon-calendar"></i>Mer 03 avril 2013
+  <div class="row">
+ 
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+<section>
+  <header class="heading">
+	<h1>
+	  <a href="../../../../2013/04/03/dual-boot-lubuntu-mageia-2-lxde/"
+		rel="bookmark"
+		title="Permalink to Dual boot Lubuntu-Mageia 2 LXDE">
+		Dual boot Lubuntu-Mageia 2 LXDE
+	  </a>
+	</h1>
+	<hr />
+<footer>
+    <span class="label">Date</span>
+        <i class="fi-calendar"></i>Mer 03 avril 2013
     </span>
-
-    <span class="label label-default">Category</span>
+	
+	
+    <span class="label">Category</span>
     <a href="../../../../category/mageia.html">Mageia</a>
+</footer><!-- /.post-info -->	<hr />
+  </header>
 
-
-</footer><!-- /.post-info -->                    </div>
-                </div>
-                <p>Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.</p>
+  <article>	
+    <div>
+	<p>Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.</p>
 <p>Enfin, j'ai réussi à faire un dual boot Lubuntu 12.04 et Mageia 2 (version LXDE aussi, même si cela n'a aucune importance pour la suite du post). Je me suis largement inspiré du <a href="http://www.mageialinux-online.org/forum/topic-10359-1.php">fil disponible sur mageia on line</a>.</p>
 <p>Je pense que cela fonctionne de la même manière avec toutes les variantes Ubuntu et en 12.10, mais comme je n'ai pas testé ...</p>
 <p>Mon objectif était d'installer Mageia à coté de Lubuntu et de proposer au démarrage de l'ordinateur le choix entre ces deux distributions.</p>
@@ -216,11 +202,12 @@
 <p>Ensuite vous installez le programme GRUB et vous le remettez à jour.</p>
 <p>Vous sortez proprement.</p>
 <p>Et c'est tout, vous pouvez redémarrer.</p>
-            </div>
-            <!-- /.entry-content -->
+	</div>
+  </article>
+
     <hr />
-    <section class="comments" id="comments">
-        <h2>Comments</h2>
+    <section>
+        <h2>Commentaires</h2>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -234,113 +221,81 @@
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
         </script>
-        
     </section>
-        </article>
-    </section>
+</section>
+    </div>
 
-			</div>
-			<div class="col-lg-3 well well-sm" id="sidebar">
-<aside>
-    <section>
-        <ul class="list-group list-group-flush">
-                <li class="list-group-item"><h4><i class="icon-home icon-medium"></i>Social</h4></li>
-                    <li class="list-group-item">
-						<a href="http://twitter.com/letchap">
-							<i class="icon-twitter-sign icon-medium"></i>twitter
-						</a>
-					</li>
-                    <li class="list-group-item">
-						<a href="http://github.com/letchap">
-							<i class="icon-github-sign icon-medium"></i>github
-						</a>
-					</li>
+    <!-- End Main Content -->    
+    
+    <!-- Sidebar -->
+    
+    <aside class="large-3 columns">
+	  <div class="panel">
+		<ul class="side-nav">
+		  <li class="heading">Social</h4></li>
+		  <li>
+			<a href="http://twitter.com/letchap">
+			<i class="fi-social-twitter medium"></i> twitter
+			</a>
+		  </li>
+		  <li>
+			<a href="http://github.com/letchap">
+			<i class="fi-social-github medium"></i> github
+			</a>
+		  </li>
+		  <li class="divider">
+		  <li class="heading">Categories</h4></li>
+		  <li><a href="../../../../category/conky.html">Conky</a></li>
+		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		  <li><a href="../../../../category/linux.html">Linux</a></li>
+		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		  <li><a href="../../../../category/python.html">Python</a></li>
+		  <li><a href="../../../../category/shell.html">Shell</a></li>
+		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		</ul>
+	  </div>
+    </aside>
+    <!-- End Sidebar -->
 
+  </div>
+ 
+  <!-- End Main Content and Sidebar -->
 
-			
-                <li class="list-group-item"><h4><i class="icon-home icon-meduim"></i>Categories</h4></li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/conky.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Conky
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/crunchbang.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Crunchbang
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/freebox.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Freebox
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/linux.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Linux
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/lubuntu.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Lubuntu
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/mac-os-x.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Mac OS X
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/mageia.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Mageia
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/octopress.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Octopress
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/pelican.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Pelican
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/python.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Python
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/shell.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Shell
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/terminal.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>Terminal
-                        </a>
-                   </li>
-                    <li class="list-group-item">
-                        <a href="../../../../category/virtualbox.html">
-                            <i class="icon-folder-open-alt icon-medium"></i>VirtualBox
-                        </a>
-                   </li>
+  <!-- Footer -->
+ 
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright WTFP</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="http://getpelican.com/">Site généré par Pelican</a></li>
+         </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
 
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
 	
-        </ul>
-    </section>
-</aside>			</div>
-		</div>
-	</div>
-
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="../../../../theme/js/bootstrap.min.js"></script>
-
-	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-	<script src="../../../../theme/js/respond.min.js"></script>
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
 	
-
-    <!-- script src="../../../../theme/js/jquery-1.10.2.min.js"></script -->
-    <script src="../../../../theme/js/lightbox-2.6.min.js"></script>
 	<!-- Disqus -->
 <script type="text/javascript">
     var disqus_shortname = 'letchap';
