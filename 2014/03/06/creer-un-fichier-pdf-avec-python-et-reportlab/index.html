@@ -112,7 +112,7 @@
 - la création d'une document d'une centaine de page est très longs, plusieurs minutes
 - pour une raison que je ne m'explique pas, la conversion de certains caractères chinois est incorrecte au moment de la création du fichier pdf.</p>
 <p>Il me fallait donc trouver une autre solution.</p>
-<p>J'avais bien repéré la bibliothèque Reportlab pour Python, qui est la bibliothque de référence pour la création de fichier pdf. Mais comme je n'avais pas obtenu de résultats probents aussi rapidement qu'avec pyfpdf, je l'avais mis de coté. Grave erreur.</p>
+<p>J'avais bien repéré la bibliothèque Reportlab pour Python, qui est la bibliothque de référence pour la création de fichier pdf. Mais comme je n'avais pas obtenu de résultats probants aussi rapidement qu'avec pyfpdf, je l'avais mis de coté. Grave erreur.</p>
 <p>C'est de la faute à la doc reportlab aussi. Je dois transformer du texte en pdf et je vois un chapître entièrement consacrer à la transformation de texte en pdf. Chouette, je vais utiliser cette fonctionalité : "text objet method". Et bien, surtout pas. Il faut se prendre la tête à positionner un curseur, il n'y a pas nativement de multipage, la mise en page est inexistante. Une galère.</p>
 <p>En revanche, il y a une fonctionnalité géniale, PLATYPUS : Page Layout and Typography Using Scripts. Et là, ça déchire.</p>
 <p>Comme un petit script vaut mieux qu'un long discours, voyons comment créer un fichier pdf à partir d'un fichier texte avec reportlab :</p>
