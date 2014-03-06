@@ -1,0 +1,322 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<!--[if'IE'9]><html'class="lt#ie10"'lang="en"'>'<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="letchap">
+  <title>Créer un fichier pdf avec Python et Reportlab</title>
+
+  <!-- Style -->
+  
+  <link rel="stylesheet" href="../../../../theme/css/foundation.min.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/normalize.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/style.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
+
+  <script src="../../../../theme/js/vendor/modernizr.js"></script>
+
+  <!-- Syndication -->
+  
+  <link href="../../../../" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+</head>
+
+<body>
+
+<!--'body'content'here'-->
+  <!-- Nav Bar -->
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="../../../..">
+           Accueil
+          </a>
+         </h1>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="left">
+        <li><a href="../../../../pages/a-propos.html">A propos</a></li>
+      </ul>
+
+      <ul class="right">
+        <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+        <li><a href="../../../../" type="application/atom+xml" rel="subscribe-rss"
+             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+        <li class="has-form">  
+          <form action="http://google.com/search" method="get">
+            <div class="row collapse">
+              <div class="large-9 small-10 columns" >
+                <input type="search" name="q" results="0" placeholder="Search">
+                <input type="hidden" name="q" value="site:letchap.github.io" />
+              </div>
+            </div>    
+          </form>
+        </li>       
+      </ul>
+    </section>
+  </nav>
+
+ 
+
+
+  <!-- End Nav -->
+
+
+  <!-- Main Page Content and Sidebar -->
+<section role="main">
+    <div class="myheader">
+      <div class="row">
+        <div class="large-12 large-centered columns">
+          <h1><a href="../../../..">letchap</a></h1>
+          <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+        </div>
+      </div>
+    </div>
+
+  <div class="row">
+ 
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+<section>
+  <header class="heading">
+	<h1>
+	  <a href="../../../../2014/03/06/creer-un-fichier-pdf-avec-python-et-reportlab/"
+		rel="bookmark"
+		title="Permalink to Créer un fichier pdf avec Python et Reportlab">
+		Créer un fichier pdf avec Python et Reportlab
+	  </a>
+	</h1>
+	<hr />
+<footer>
+    <span class="label">Date</span>
+        <i class="fi-calendar"></i>Jeu 06 mars 2014
+    </span>
+	
+	
+    <span class="label">Category</span>
+    <a href="../../../../category/python.html">Python</a>
+</footer><!-- /.post-info -->	<hr />
+  </header>
+
+  <article>	
+    <div>
+	<p>Dans un billet précédent, pour créer un document pdf, <a href="../../../../2013/11/25/transformer-un-texte-chinois-en-pdf/">j'avais utilisé la bibliothèque tierce pyfpdf</a>. Si cette bibliothèque s'avère extrèmement facile à prendre en main pour créer un fichier pdf à partir d'un fichier texte, elle présente à l'utilisation deux inconvénients majeures :
+- la création d'une document d'une centaine de page est très longs, plusieurs minutes
+- pour une raison que je ne m'explique pas, la conversion de certains caractères chinois est incorrecte au moment de la création du fichier pdf.</p>
+<p>Il me fallait donc trouver une autre solution.</p>
+<p>J'avais bien repéré la bibliothèque Reportlab pour Python, qui est la bibliothque de référence pour la création de fichier pdf. Mais comme je n'avais pas obtenu de résultats probents aussi rapidement qu'avec pyfpdf, je l'avais mis de coté. Grave erreur.</p>
+<p>C'est de la faute à la doc reportlab aussi. Je dois transformer du texte en pdf et je vois un chapître entièrement consacrer à la transformation de texte en pdf. Chouette, je vais utiliser cette fonctionalité : "text objet method". Et bien, surtout pas. Il faut se prendre la tête à positionner un curseur, il n'y a pas nativement de multipage, la mise en page est inexistante. Une galère.</p>
+<p>En revanche, il y a une fonctionnalité géniale, PLATYPUS : Page Layout and Typography Using Scripts. Et là, ça déchire.</p>
+<p>Comme un petit script vaut mieux qu'un long discours, voyons comment créer un fichier pdf à partir d'un fichier texte avec reportlab :</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">reportlab.lib.pagesizes</span> <span class="kn">import</span> <span class="n">A4</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.units</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span class="n">Paragraph</span><span class="p">,</span> <span class="n">SimpleDocTemplate</span><span class="p">,</span> <span class="n">Spacer</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.styles</span> <span class="kn">import</span> <span class="n">getSampleStyleSheet</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.styles</span> <span class="kn">import</span> <span class="n">ParagraphStyle</span>
+
+<span class="kn">from</span> <span class="nn">reportlab.pdfbase</span> <span class="kn">import</span> <span class="n">pdfmetrics</span>
+<span class="kn">from</span> <span class="nn">reportlab.pdfbase.cidfonts</span> <span class="kn">import</span> <span class="n">UnicodeCIDFont</span>
+<span class="n">pdfmetrics</span><span class="o">.</span><span class="n">registerFont</span><span class="p">(</span><span class="n">UnicodeCIDFont</span><span class="p">(</span><span class="s">&#39;STSong-Light&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filein</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">docpdf</span> <span class="o">=</span> <span class="n">SimpleDocTemplate</span><span class="p">(</span><span class="n">fileout</span><span class="p">,</span> 
+                               <span class="n">pagesize</span> <span class="o">=</span> <span class="n">A4</span><span class="p">)</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">getSampleStyleSheet</span><span class="p">()</span>
+    <span class="n">style</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ParagraphStyle</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Chinese&#39;</span><span class="p">,</span>
+                             <span class="n">fontName</span><span class="o">=</span><span class="s">&#39;STSong-Light&#39;</span><span class="p">,</span>
+                             <span class="n">fontSize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                             <span class="n">leading</span><span class="o">=</span><span class="mi">14</span><span class="p">),</span>
+                             <span class="n">wordWrap</span> <span class="o">=</span> <span class="s">&#39;CJK&#39;</span><span class="p">)</span>
+
+    <span class="n">story</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">paragraphs</span> <span class="o">=</span> <span class="n">txt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">para</span> <span class="ow">in</span> <span class="n">paragraphs</span><span class="p">:</span>
+        <span class="n">story</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Paragraph</span><span class="p">(</span><span class="n">para</span><span class="p">,</span> <span class="n">style</span><span class="p">[</span><span class="s">&quot;Chinese&quot;</span><span class="p">]))</span>
+        <span class="n">story</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Spacer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cm</span> <span class="o">*</span> <span class="o">.</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">docpdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">story</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Utilisation : &lt;script&gt; textfile pdffile&#39;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="n">filein</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">fileout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">pdf</span><span class="p">(</span><span class="n">filein</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p>Commençons par les imports :</p>
+<ul>
+<li>l'import de sys est uniquement pour gérer les fichiers d'entrée et de sortie</li>
+<li>ensuite, nous importons diférents modules de reportlab pour gérer le format de la feuille, et l'unité de mesure</li>
+<li>puis, nous importons l'ensemble des modules de PLATYPUS qui vont nous permettre de gérer le style du document et des paragraphes</li>
+<li>enfin le dernier bloc d'import sert à gérer une police unicode pour les caractères chinois.</li>
+</ul>
+<p>Concernant le code lui-même :</p>
+<ul>
+<li>en ligne 16, nous ouvrons le fichier en lecture</li>
+<li>puis en ligne 17 nous définissons les caractéristiques de notre document</li>
+<li>en ligne 19 à 24 nous créons un style auquel nous apportons des caractéristiques particulières comme la police, la taille de la police, et surtout, le plus important pour l'écriture chinoise, un flag 'CJK' pour les ruptures en bout de ligne. Sans cela, la ligne dépasserait le cadre de la page. Toutes les possibilités de paramétrages du style sont décrites dans la documentation reportlab disponible <a href="www.reportlab.com/docs/reportlab-userguide.pdf‎" title="reportlab">à cette adresse</a>.</li>
+<li>Par défaut, le multi-pages est géré.</li>
+<li>à partir de la ligne 27 et jusqu'à la ligne 31, nous lisons ligne à ligne notre texte et nous alimentons une liste, liste qui sera à son tour lue pour constituer le document pdf en applicant le style défini plus haut.</li>
+</ul>
+<p>Par rapport à pyfpdf, je n'ai plus de problème de changement intempestif de caractères chinois et surtout, cela va beaucoup, beaucoup plus vite. Quelques secondes pour un fichier d'une centaine de pages.</p>
+<p>Moralité, il ne faut pas refuser l'obstacle, la satisfaction est au bout de l'effort.</p>
+	</div>
+  </article>
+
+    <hr />
+    <section>
+        <h2>Commentaires</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_identifier = "2014/03/06/creer-un-fichier-pdf-avec-python-et-reportlab/";
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://letchap.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </section>
+</section>
+    </div>
+
+    <!-- End Main Content -->    
+    
+    <!-- Sidebar -->
+    
+    <aside class="large-3 columns">
+	  <div class="panel">
+		<ul class="side-nav">
+		  <li class="heading">Social</h4></li>
+		  <li>
+			<a href="http://twitter.com/letchap">
+			<i class="fi-social-twitter medium"></i> twitter
+			</a>
+		  </li>
+		  <li>
+			<a href="http://github.com/letchap">
+			<i class="fi-social-github medium"></i> github
+			</a>
+		  </li>
+		  <li class="divider">
+		  <li class="heading">Categories</h4></li>
+		  <li><a href="../../../../category/conky.html">Conky</a></li>
+		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		  <li><a href="../../../../category/linux.html">Linux</a></li>
+		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		  <li><a href="../../../../category/python.html">Python</a></li>
+		  <li><a href="../../../../category/shell.html">Shell</a></li>
+		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		</ul>
+	  </div>
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+ 
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright WTFP</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="http://getpelican.com/">Site généré par Pelican</a></li>
+         </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+	
+	<!-- Disqus -->
+<script type="text/javascript">
+    var disqus_shortname = 'letchap';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://letchap.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</body>
+</html>

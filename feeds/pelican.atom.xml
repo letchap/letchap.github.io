@@ -73,7 +73,7 @@
 &lt;p&gt;Le dernier petit truc pour pouvoir faire plus simplement &lt;code&gt;python newpost 'Mon super post!'&lt;/code&gt;, il suffit de créer un répertoire &lt;code&gt;newpost&lt;/code&gt; à la racine du blog, et de mettre notre script python dans ce répertoire en le nommant &lt;code&gt;__main__.py&lt;/code&gt;.&lt;/p&gt;</summary><category term="Pelican"></category><category term="Octopress"></category><category term="Fabric"></category><category term="slug"></category><category term="slugify"></category></entry><entry><title>Réaliser une galerie d'images avec Pelican et Bootstrap</title><link href="http://letchap.github.io/2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/" rel="alternate"></link><updated>2013-12-11T11:54:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-12-11:2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/</id><summary type="html">&lt;p&gt;Nous allons voir aujourd'hui comment afficher les images sous forme de diaporama sur un site généré avec Pelican. L'idéée est de rendre cliquable une image qui s'affiche alors au-dessus du site, et de faire défiler les images sous la forme d'un diaporama pour une galerie d'image. Vous avez un petit exemple de ce que cela peut donner pour une image simple sur &lt;a href="http://letchap.github.io/2013/11/26/lancer-un-programme-python-depuis-automator/"&gt;un autre de mes billets&lt;/a&gt; ou pour &lt;a href="http://letchap.github.io/2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/"&gt;une galerie sur un autre billet ici&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Pour cela, nous avons besoin du plugin Lightbox pour Bootstrap ainsi que de la possibilité offerte par Pelican d'utiliser les extensions pour markdown de Python.&lt;/p&gt;
 &lt;p&gt;Cela ne s'applique que si vous utiliser la syntaxe Markdown pour rédiger vos billets. Je suppose que c'est également réalisable en syntaxe reStructuredTex.&lt;/p&gt;
-&lt;h1&gt;Installer le plugin lightbox&lt;/h1&gt;
+&lt;h3&gt;Installer le plugin lightbox&lt;/h3&gt;
 &lt;p&gt;Le plugin lightbox pour bootstrap est disponible &lt;a href="http://lokeshdhakar.com/projects/lightbox2/" title="Lightbox V2"&gt;à cette adresse&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;Pour installer ligthbox dans votre thème pelican, il faut : &lt;/p&gt;
 &lt;ul&gt;
@@ -97,14 +97,14 @@
 
 &lt;p&gt;Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.&lt;/p&gt;
 &lt;p&gt;Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown.&lt;/p&gt;
-&lt;h1&gt;Les extensions Markdown Python&lt;/h1&gt;
+&lt;h3&gt;Les extensions Markdown Python&lt;/h3&gt;
 &lt;p&gt;Pour un petit cours de rattrapage sur la syntaxe Markdown, &lt;a href="http://letchap.github.io/2013/03/01/memo-markdown-en-francais/" title="memo markdown"&gt;c'est ici.&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Pour rédiger notre texte entièrement en Markdown, nous allons devoir résoudre deux problèmes :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;créer un lien sur une image&lt;/li&gt;
 &lt;li&gt;ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas nativement Markdown&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;Créer un lien sur une image en Markdown&lt;/h2&gt;
+&lt;h4&gt;Créer un lien sur une image en Markdown&lt;/h4&gt;
 &lt;p&gt;Pour créer un lien, la syntaxe Markdown est la suivante :&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;lien&lt;/span&gt;&lt;span class="p"&gt;](&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//example.com)&lt;/span&gt;
 &lt;span class="n"&gt;ou&lt;/span&gt; &lt;span class="n"&gt;sur&lt;/span&gt; &lt;span class="n"&gt;Pelican&lt;/span&gt; &lt;span class="n"&gt;pour&lt;/span&gt; &lt;span class="n"&gt;un&lt;/span&gt; &lt;span class="n"&gt;lien&lt;/span&gt; &lt;span class="n"&gt;interne&lt;/span&gt;
@@ -129,7 +129,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;Ajouter un attribut sur le lien&lt;/h2&gt;
+&lt;h4&gt;Ajouter un attribut sur le lien&lt;/h4&gt;
 &lt;p&gt;Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.&lt;/p&gt;
 &lt;p&gt;Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur &lt;a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python"&gt;la documentation Python&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :&lt;/p&gt;
@@ -142,7 +142,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;On assemble le tout&lt;/h2&gt;
+&lt;h4&gt;On assemble le tout&lt;/h4&gt;
 &lt;p&gt;Pour une image cliquable avec un effet diaporama, il faut donc écrire en Markdown :&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Mon&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="p"&gt;]({&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;monimage&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;png&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Mon Image&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)]({&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;monimage&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;png&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;lightbox&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;monimage&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Mon Image&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
