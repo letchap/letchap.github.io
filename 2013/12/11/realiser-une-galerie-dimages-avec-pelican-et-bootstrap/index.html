@@ -111,7 +111,7 @@
 	<p>Nous allons voir aujourd'hui comment afficher les images sous forme de diaporama sur un site généré avec Pelican. L'idéée est de rendre cliquable une image qui s'affiche alors au-dessus du site, et de faire défiler les images sous la forme d'un diaporama pour une galerie d'image. Vous avez un petit exemple de ce que cela peut donner pour une image simple sur <a href="../../../../2013/11/26/lancer-un-programme-python-depuis-automator/">un autre de mes billets</a> ou pour <a href="../../../../2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">une galerie sur un autre billet ici</a></p>
 <p>Pour cela, nous avons besoin du plugin Lightbox pour Bootstrap ainsi que de la possibilité offerte par Pelican d'utiliser les extensions pour markdown de Python.</p>
 <p>Cela ne s'applique que si vous utiliser la syntaxe Markdown pour rédiger vos billets. Je suppose que c'est également réalisable en syntaxe reStructuredTex.</p>
-<h3>Installer le plugin lightbox</h3>
+<h1>Installer le plugin lightbox</h1>
 <p>Le plugin lightbox pour bootstrap est disponible <a href="http://lokeshdhakar.com/projects/lightbox2/" title="Lightbox V2">à cette adresse</a>. </p>
 <p>Pour installer ligthbox dans votre thème pelican, il faut : </p>
 <ul>
@@ -135,14 +135,14 @@
 
 <p>Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.</p>
 <p>Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown.</p>
-<h3>Les extensions Markdown Python</h3>
+<h1>Les extensions Markdown Python</h1>
 <p>Pour un petit cours de rattrapage sur la syntaxe Markdown, <a href="../../../../2013/03/01/memo-markdown-en-francais/" title="memo markdown">c'est ici.</a></p>
 <p>Pour rédiger notre texte entièrement en Markdown, nous allons devoir résoudre deux problèmes :</p>
 <ul>
 <li>créer un lien sur une image</li>
 <li>ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas nativement Markdown</li>
 </ul>
-<h4>Créer un lien sur une image en Markdown</h4>
+<h2>Créer un lien sur une image en Markdown</h2>
 <p>Pour créer un lien, la syntaxe Markdown est la suivante :</p>
 <div class="highlight"><pre><span class="p">[</span><span class="n">lien</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com)</span>
 <span class="n">ou</span> <span class="n">sur</span> <span class="n">Pelican</span> <span class="n">pour</span> <span class="n">un</span> <span class="n">lien</span> <span class="n">interne</span>
@@ -167,7 +167,7 @@
 </pre></div>
 
 
-<h4>Ajouter un attribut sur le lien</h4>
+<h2>Ajouter un attribut sur le lien</h2>
 <p>Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.</p>
 <p>Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur <a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python">la documentation Python</a>.</p>
 <p>Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :</p>
@@ -180,7 +180,7 @@
 </pre></div>
 
 
-<h4>On assemble le tout</h4>
+<h2>On assemble le tout</h2>
 <p>Pour une image cliquable avec un effet diaporama, il faut donc écrire en Markdown :</p>
 <div class="highlight"><pre><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">Mon</span> <span class="n">Image</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span> <span class="s">&quot;Mon Image&quot;</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
 </pre></div>
