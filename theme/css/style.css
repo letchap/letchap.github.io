@@ -23,7 +23,7 @@
     background-color: #f2f2f2;
 }
 
-table.codehilitetable {
+.highlighttable {
     table-layout: fixed;
     width:100%;
     border: none;
