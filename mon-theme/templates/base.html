@@ -1,121 +1,157 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:og="http://ogp.me/ns#"
-      xmlns:fb="https://www.facebook.com/2008/fbml">
+<!doctype html>
+<html class="no-js" lang="en">
+<!--[if'IE'9]><html'class="lt#ie10"'lang="en"'>'<![endif]-->
+
 <head>
-    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="{{ AUTHOR }}">
-	
-    <!-- Style -->
-    <link href="{{ SITEURL }}/theme/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="{{ SITEURL }}/theme/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{{ SITEURL }}/theme/css/pygments.css" rel="stylesheet">
-    <link href="{{ SITEURL }}/theme/css/style.css" rel="stylesheet" type="text/css"/>
-    
-	<!-- JavaScript plugins (requires jQuery) -->
-    <script src="http://code.jquery.com/jquery.js"></script>
-	
-	<!-- Syndication -->
-    {% if FEED_ALL_ATOM %}
-        <link href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate"
-              title="{{ SITENAME }} ATOM Feed"/>
-    {% endif %}
-    {% if FEED_ALL_RSS %}
-        <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="alternate"
-              title="{{ SITENAME }} RSS Feed"/>
-    {% endif %}
-	
-	<!-- Google analytics -->
-    {% include 'includes/ga.html' %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="{{ AUTHOR }}">
+  <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+
+  <!-- Style -->
+  
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/foundation.min.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/normalize.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pygments.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/foundation-icons.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/lightbox.css" type="text/css"/>
+
+  <script src="{{ SITEURL }}/theme/js/vendor/modernizr.js"></script>
+
+  <!-- Syndication -->
+  
+  <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"/>
 
 </head>
 
 <body>
-<div class="container">
 
-    <!-- Banner
-    ================================================== -->
+<!--'body'content'here'-->
+  <!-- Nav Bar -->
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="{{ SITEURL }}">
+           Accueil
+          </a>
+         </h1>
+      </li>
+    </ul>
 
-        <div class="site-header" id="banner">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1><a href="{{ SITEURL }}">{{ SITENAME }}</a></h1>
-                    <p class="lead">{{ SITESUBTITLE }}</p>
-                </div>
-            </div>
+    <section class="top-bar-section">
+      <ul class="left">
+        {% for page in PAGES %}
+        <li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+      </ul>
+
+      <ul class="right">
+        <li><a href="{{ SITEURL }}/archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+        <li><a href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="subscribe-rss"
+             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+        <li class="has-form">  
+          <form action="{{ SIMPLE_SEARCH }}" method="get">
+            <div class="row collapse">
+              <div class="large-9 small-10 columns" >
+                <input type="search" name="q" results="0" placeholder="Search">
+                <input type="hidden" name="q" value="site:{{ ABSURL }}" />
+              </div>
+            </div>    
+          </form>
+        </li>       
+      </ul>
+    </section>
+  </nav>
+
+ 
+
+
+  <!-- End Nav -->
+
+
+  <!-- Main Page Content and Sidebar -->
+<section role="main">
+    <div class="myheader">
+      <div class="row">
+        <div class="large-12 large-centered columns">
+          <h1><a href="{{ SITEURL }}">{{ SITENAME }}</a></h1>
+          {% if SITESUBTITLE %}
+          <h2><small>{{ SITESUBTITLE }}</small></h2>
+          {% endif %}
         </div>
+      </div>
+    </div>
 
-    <!-- Navbar
-    ================================================== -->
-    <nav class="navbar navbar-default" role="navigation">
-    	<div class="container">
-    		<div class="navbar-header">
-    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-    				<span class="sr-only">Toggle navigation</span>
-    				<span class="icon-bar"></span>
-    				<span class="icon-bar"></span>
-    				<span class="icon-bar"></span>
-    			</button>
-    			<a class="navbar-brand" href="{{ SITEURL }}">Accueil</a>
-    		</div>
-    		<div class="navbar-collapse collapse navbar-responsive-collapse">
-    			<ul class="nav navbar-nav">
-    				{% for title, link in MENUITEMS %}
-    					<li><a href="{{ link }}">{{ title }}</a></li>
-    				{% endfor %}
-    				{% if DISPLAY_PAGES_ON_MENU %}
-    					{% for page in PAGES %}
-    						<li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
-    					{% endfor %}
-    				{% endif %}
-    				{% if DISPLAY_CATEGORIES_ON_MENU %}
-    					{% for cat, null in categories %}
-    						<li {% if cat == category %}class="active"{% endif %}>
-    							<a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a>
-    						</li>
-    					{% endfor %}
-    				{% endif %}
-    			</ul>
-    			<ul class="nav navbar-nav navbar-right">
-    				<li><a href="{{ SITEURL }}/archives.html"><i class="icon-th-list"></i>Archives</a></li>
-    				<li><a href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="subscribe-rss"
-    					title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
-    				<form class="navbar-form navbar-right" action="{{ SIMPLE_SEARCH }}" method="get">
-    					<fieldset role="search">
-    					<input type="hidden" name="q" value="site:{{ ABSURL }}" />  
-    					<input type="search" class="form-control col-lg-8" name="q" results="0" placeholder="Search" />  
-    					</fieldset>
-    				</form>  
-    			</ul>
-    		</div><!-- /.navbar-collapse -->
-        </div><!-- /.container -->
-    </nav><!-- /.navbar -->	
-</div><!-- /.container -->
+  <div class="row">
+ 
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      {% block content %}
+      {% endblock %}
+    </div>
 
+    <!-- End Main Content -->    
+    
+    <!-- Sidebar -->
+    
+    <aside class="large-3 columns">
+	  <div class="panel">
+		<ul class="side-nav">
+		  {% if SOCIAL %}
+		  <li class="heading">Social</h4></li>
+		  {% for name, link in SOCIAL %}
+		  <li>
+			<a href="{{ link }}">
+			<i class="fi-social-{{ name }} medium"></i> {{ name }}
+			</a>
+		  </li>
+		  {% endfor %}
+		  {% endif %}
+		  <li class="divider">
+		  <li class="heading">Categories</h4></li>
+		  {% for cat, null in categories %}
+		  <li><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+		  {% endfor %}
+		</ul>
+	  </div>
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+ 
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="http://getpelican.com/">Site généré par Pelican</a></li>
+         </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ SITEURL }}/theme/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
 	
-	<!-- Articles & sidebar
-	================================================== -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-9">
-				{% block content %}
-				{% endblock %}
-			</div>
-			<div class="col-lg-3 well well-sm" id="sidebar">
-				{% include 'includes/sidebar.html' %}
-			</div>
-		</div>
-	</div>
-
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="{{ SITEURL }}/theme/js/bootstrap.min.js"></script>
-
-	<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-	<script src="{{ SITEURL }}/theme/js/respond.min.js"></script>
+	<script src="{{ SITEURL }}/theme/js/lightbox-2.6.min.js"></script>
+  
 	
 	<!-- Disqus -->
 	{% include 'includes/disqus_script.html' %}

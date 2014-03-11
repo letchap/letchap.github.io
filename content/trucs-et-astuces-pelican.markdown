@@ -86,20 +86,25 @@ Une exception que je n'ai pas réussi à gérer dans style.css, j'ai supprimé d
 
 ### RSS
 
-J'ai commencé par paramétrer un flux RSS dans le fichier de configuration, que j'ai rendu accessible dans ma barre de navigation.
+J'ai commencé par paramétrer un flux RSS dans le fichier de configuration, que j'ai rendu accessible dans ma barre de navigation. Je n'ai pas vraiment suivi les recommandations de la documentation, j'ai plutôt fait une adaptation à ma sauce.
 
-Dans le fichier pelicanconf.py
+Tout d'abord, dans le fichier pelicanconf.py, j'ai simplement ajouté une ligne, ce qui ne génèrera qu'un seul fichier atom.xml pour tous les posts, c'est largement suffisant, pas besoin de catégories ni de sous-dossier feed.
 
-	FEED_ALL_RSS = 'atom.xml'
+	FEED_ALL_ATOM = 'atom.xml'
 
-Et dans le fichier base.html
-	
+**LE PLUS IMPORTANT** est dans le fichier base.html. Il ne faut surtout, surtout, surtout pas faire ce qui est écrit partout, à savoir paramétrer le lien RSS avec l'adresse du site comme ceci :
+
 	:::html
-	<ul class="nav navbar-nav navbar-right">
-		<li><a href="{{ SITEURL }}/archives.html"><i class="icon-th-list"></i>Archives</a></li>
-		<li><a href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="subscribe-rss"
-			title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
-	</ul>
+	<li><a href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="subscribe-rss"
+		title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
+
+Il faut impérativement le paramètrer sans référence au site comme celà :
+
+	:::html
+	<li><a href="/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="subscribe-rss"
+		title="Subscribe via RSS"><i class="icon-rss"></i></a></li>
+
+Sinon, le risque est d'avoir des liens vers les articles tous bizarres dans les aggrégateurs de flux.
 
 ### La recherche sur le site avec google
 

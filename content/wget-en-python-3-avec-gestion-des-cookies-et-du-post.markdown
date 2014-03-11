@@ -4,14 +4,14 @@ Category: Python
 Tags: bash, cookie, post data, Python, urllib, wget
 Slug: wget-en-python-3-avec-gestion-des-cookies-et-du-post
 
-Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data.
+Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3
 
 ### La commande Wget dans un petit script :
 
 	#!bash
 	#!/bin/bash
-	login="xxxxx"
-	pass="xxxxx"
+	login=$login
+	pass=$password
 
 	#Récupération des premiers cookies
 	wget -dO /dev/null --cookies=on --keep-session-cookies --save-cookies=cookies.txt "https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure"
@@ -22,9 +22,9 @@ Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cooki
 	#Troisième passage pour se connecter
 	wget -dO index.html --cookies=on --keep-session-cookies --save-cookies=cookies.txt --load-cookies=cookies.txt --post-data  "connexioncompte_2numSecuriteSociale=$login&amp;connexioncompte_2codeConfidentiel=$pass&amp;connexioncompte_2actionEvt=connecter&amp;submit=validerFormulaire(this)" "https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure"
 
-Pour expliquer un peu ce qui se passe, il faut faire plusieurs passages pour récupérer les cookies. Sur les deux premiers, je ne conserve pas de fichiers de sortie en envoyant les fichiers vers /dev/null.
+Nous allons être obligé de faire plusieurs passages pour récupérer les cookies. Sur les deux premiers passages, je ne conserve pas de fichiers de sortie en envoyant le résultat de la requête vers /dev/null. En revanche, mes cookies seront bien conservés dans le fichiers cookies.txt grâce à l'option --save-cookies. 
 
-Le point important est de bien mettre les load et save cookies, et de remplir correctement la partie post. Pour savoir ce qu'il faut mettre dans le post, un petit coup d'extension web developer de firefox fera l'affaire.
+Pour le post, un petit coup d'extension web developer de firefox fera l'affaire. Cela permet d'identifier les zones de formulaires à remplir.
 
 ### La même chose en Python 3
 
@@ -34,7 +34,6 @@ Le point important est de bien mettre les load et save cookies, et de remplir co
 	import http.cookiejar
 
 	#Le fichier qui va stocker les cookies
-	COOKIEFILE = 'cookies.lwp'
 	cj = http.cookiejar.LWPCookieJar
 
 	#Des raccourcis pour lancer les requêtes
@@ -64,8 +63,8 @@ Le point important est de bien mettre les load et save cookies, et de remplir co
 	   else:
 	       return handle
 
-	login = 'xxxxxx'
-	password = 'xxxxxx'
+	login = $login
+	password = $password
 
 	url = "https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure"
 	values = {'connexioncompte_2numSecuriteSociale' : login,

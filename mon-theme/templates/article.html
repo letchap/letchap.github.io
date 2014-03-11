@@ -1,28 +1,35 @@
 {% extends "base.html" %}
 {% block title %}{{ article.title }}{% endblock %}
 {% block content %}
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="{{ SITEURL }}/{{ article.url }}"
-                       rel="bookmark"
-                       title="Permalink to {{ article.title }}">
-                        {{ article.title }}
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-                        {% include "includes/article_info.html" %}
-                    </div>
-                </div>
-                {{ article.content }}
-            </div>
-            <!-- /.entry-content -->
-            {% include 'includes/comments.html' %}
-        </article>
-    </section>
+<section>
+  <header>
+	<h1>
+	  <a href="{{ SITEURL }}/{{ article.url }}"
+		rel="bookmark"
+		title="Permalink to {{ article.title }}">
+		{{ article.title }}
+	  </a>
+	</h1>
+	<hr />
+	<span class="label">Date</span>
+        <i class="fi-calendar size-16"></i> {{ article.locale_date }}
+    </span>
+	
+	{% if article.modified %}
+	<span class="label">Mis à jour le : </span>{{ article.modified }}
+	{% endif %}
+	
+    <span class="label">Category</span>
+    <a href="{{ SITEURL }}/{{ article.category.url }}"> {{ article.category }}</a>
+    <hr />
+  </header>
 
+  <article>	
+    <div>
+	{{ article.content }}
+	</div>
+  </article>
+
+  {% include 'includes/comments.html' %}
+</section>
 {% endblock %}

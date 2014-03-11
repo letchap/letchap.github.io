@@ -14,7 +14,7 @@ Dernier élément, je veux conserver l'adresse letchap.github.io, ce qui m'oblig
 
 C'est parti !
 
-Je commence par me placer dans le répertoire contenant les sources et le site. Je l'ai appelé de manière très originale `blog`. Il doit contenir les répertoires content et output (obtenu par la commande `make html`)
+Je commence par me placer dans le répertoire contenant les sources et le site. Je l'ai appelé de manière très originale `blog`. Il doit contenir les répertoires content et output (obtenu par la commande `make html`):
 
 	:::bash
 	$ cd blog
@@ -66,9 +66,10 @@ Pour créer ma branche source, j'utilise une procédure normalement pas très or
 
 Maintenant le site proprement dit !
 
-Rappelez - vous, toutes les pages sont contenues dans le dossier output. Pour créer et alimenter une branche gh-pages, nous allons utilisé l'utilitaire ghp-import qui s'installe par un `pip install ghp-import`. Je ne sais pas comment ça fonctionne mais cela créé ou met à jour une branche gh-pages avec le contenu du dossier output. Hyper pratique. Il ne reste plus qu'à pousser cette branche sur la branche master de notre dépôt distant(qui se créé à cette occasion).
+Rappelez - vous, toutes les pages sont contenues dans le dossier output. Pour créer et alimenter une branche gh-pages, nous allons utiliser l'utilitaire ghp-import qui s'installe par un `pip install ghp-import`. Je ne sais pas comment ça fonctionne mais cela créé ou met à jour une branche gh-pages avec le contenu du dossier output. Hyper pratique. Il ne reste plus qu'à pousser cette branche sur la branche master de notre dépôt distant (qui se créé à cette occasion).
 
 	:::bash
+	$ make html # génère le dossier output avec le contenu du site
 	$ ghp-import output
 	$ git push origin gh-pages:master
 
@@ -87,3 +88,23 @@ et la mise à jour des pages du site se fera par :
 	$ git push origin gh-pages:master
 
 C'est magique !
+
+Si vous souhaitez blogger depuis un autre ordinateur, il suffit de cloner la branche source distante en local après l'avoir préalablement mise à jour, de supprimer la branche master distante qui contient le site, de regénérer localement la branche gh-pages et de la pousser sur une nouvelle branche master distante,  ce qui donne :
+
+Sur le premier ordinateur :
+
+	$ cd blog
+	$ git add .
+	$ git commit -m "je vais blogger ailleurs"
+	$ git push origin source
+	
+Sur le deuxième ordinateur :
+
+	$ git clone -b source git@github.com:letchap/letchap.github.io.git blog
+	$ git push origin :master # cela supprime la branche master distante
+	$ make html
+	$ ghp-import output
+	$ git push origin gh-pages:master
+	
+
+

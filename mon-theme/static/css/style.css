@@ -1,127 +1,108 @@
-/* Fichier de personalisation de bootstrap 
-   Fichier original du thème pelican-bootstrap3
-   modifié par letchap
+/* Fichier de personalisation de foundation 5
+   par letchap
    */
 
-   
-#sidebar .list-group, #sidebar .list-group-item {
-    background-color: transparent;
+/* Gestion de la barre de recherche */
+
+.top-bar input {
+  height: auto;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  font-size: 0.75rem;
 }
 
-.list-group-item {
-    border: none;
+.myheader h1>a {
+  color: white;
 }
 
-.tag-1 {
-    font-size: 13pt;
+.myheader {
+  background-color: #074e68;
 }
-
-.tag-2 {
-    font-size: 10pt;
-}
-
-.tag-2 {
-    font-size: 8pt;
-}
-
-.tag-4 {
-    font-size: 6pt;
-}
-
-#sidebar {
-    padding-top: 0px;
-}
-
-i {
-    margin-right: 10px;
-}
-
-.entry-content a {
-    text-decoration: none;
-    border-bottom: 1px dotted;
-}
-
-.entry-content a:hover {
-    text-decoration: none;
-    border-bottom: 1px solid;
-}
-
-.entry-content img {
-    max-width: 100%;
-    height: auto;
-}
-
-#categories ul, #tags ul {
-    list-style: none;
-    padding: 0;
-    margin-left: 0;
-}
-
-/* Début des modifications */
-
-/* Modification du style pour afficher le code
-   Fond jaune, pas de retour à ligne, débordement par ascenceur horizontal,
-   largeur fixe de tableau et de colonnes pour le code avec numéro de ligne,
-   et alignement des colonnes en haut du tableau */
-
-.highlight pre {
-    background-color: #fdf6e3;
-    white-space: pre;
-    overflow-x: auto;
-}
-
 
 .linenodiv pre {
-    white-space : pre;
-    overflow-x: auto
+    background-color: #f2f2f2;
 }
-
 
 .highlighttable {
     table-layout: fixed;
     width:100%;
+    border: none;
 }
 
 tbody {
-	vertical-align: top
-	}
+  vertical-align: top;
+  }
 
 td.linenos { 
     width: 5%;
+    padding: 0;
+    font-size: 100%;
+
 }
 
-td.code { 
+td.code{ 
     width: 95%;
+    padding: 0;
+    font-size:100%;
 }
 
-.well {
-	margin-bottom:1px;
-	padding:6px;
+
+code,
+pre {
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  padding: 5px 5px;
+  
 }
 
-/* Modification du style des liens  */
-a {
-	color: inherit;
-	text-decoration:none
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  font-weight: normal;
+  white-space: nowrap;
+  background-color: #f2f2f2;
+
 }
 
-a:hover,
-a:focus {
-	color:#3399f3;
-	text-decoration:none
+p {
+  margin-top: 1.25rem;
 }
 
-/* Ajout d'un style pour le header  */
-
-.site-header {
-    margin-bottom:5px;
-	border-bottom:1px solid #eee
+pre {
+  display: block;
+  font-size: 80%;
+  line-height: 1.3rem;
+  color: #333333;
+  word-break: break-all;
+  overflow-x: auto;
 }
 
-/* Modification du style des liens pour le bloc aside */
-   
-a.list-group-item:hover,
-a.list-group-item:focus {
-  background-color: #3399f3;
+article img {
+  max-width: 100%;
+  height: auto;
 }
+
+.include {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+.size-12 { font-size: 12px; }
+      
+.size-14 { font-size: 14px; }
+      
+.size-16 { font-size: 16px; }
+      
+.size-18 { font-size: 18px; }
+      
+.size-21 { font-size: 21px; }
+      
+.size-24 { font-size: 24px; }
+      
+.size-36 { font-size: 36px; }
+      
+.size-48 { font-size: 48px; }
+      
+.size-60 { font-size: 60px; }
+      
+.size-72 { font-size: 72px; }
 

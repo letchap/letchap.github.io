@@ -75,7 +75,7 @@ def include_code(preprocessor, tag, markup):
     url = '/{0}/{1}'.format(code_dir, src)
     url = re.sub('/+', '/', url)
 
-    open_tag = u"<figure><figcaption class='well well-sm'><span style='text-align: left'>{title}</span>\
+    open_tag = u"<figure><figcaption class='include'><span style='text-align: left'>{title}</span>\
                 <a style='float: right' href='{url}'>Télécharger</a></figcaption>".format(title=title,url=url)
     close_tag = "</figure>"
 		

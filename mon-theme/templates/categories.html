@@ -2,8 +2,8 @@
 {% block title %}{{ SITENAME }} - Categories{% endblock %}
 
 {% block content %}
-    <section id="categories">
-        <h1>Categories for {{ SITENAME }}</h1>
+    <section>
+        <h1>Categories</h1>
         <ul>
             {% for category, articles in categories %}
                 <li><a href="{{ category.url }}">{{ category }}</a></li>

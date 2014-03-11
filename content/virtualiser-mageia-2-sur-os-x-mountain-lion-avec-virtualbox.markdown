@@ -51,7 +51,7 @@ Nous allons installer la dernière version de Mageia 2 en 64 bits, elle est disp
 Dans le dossier que vous récupérez se trouve un fichier .iso, c'est de celui dont nous aurons besoin.
 
 Tous les Mac récents tournent en 64 bits, pour vous en assurer, vous pouvez aller dans le moniteur d'activité, il doit être indiqué Intel (64bits) dans la colonne Type.
-![Moniteur d'activité]({filename}/images/virtualbox/moniteur.png "moniteur d'activité")
+[![Moniteur d'activité]({filename}/images/virtualbox/moniteur.png "moniteur d'activité")]({filename}/images/virtualbox/moniteur.png){: data-lightbox="moniteur" title="moniteur d'activité }
 
 La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur du 32, je n'ai pas essayé, je ne sais pas si cela fonctionne bien.
 
@@ -60,39 +60,39 @@ La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur
 Le vrai travail commence maintenant
 
 Démarrer VirtaulBox et cliquer sur nouveau. Vous saisissez alors le nom de votre distribution, Mageia
-![VirtualBox nouveau]({filename}/images/virtualbox/vb-nouvelle.png "Etape 1 : créer une nouvelle distribution")
+[![VirtualBox nouveau]({filename}/images/virtualbox/vb-nouvelle.png "Etape 1 : créer une nouvelle distribution")]({filename}/images/virtualbox/vb-nouvelle.png){: data-lightbox="virtualbox" title="Etape 1 : créer une nouvelle distribution" }
 
 Ensuite choisissez la taille de la mémoire qui sera utilisé pour faire fonctionner la machine virtuelle. La mémoire vive est partagé avec le système hôte, celle dédiée à VirtualBox ne peut pas être plus de la moitié de la taille totale. Ici, j'ai choisi 2Go.
-![VirtualBox mémoire]({filename}/images/virtualbox/vb-memoire.png "Etape 2 : choisir la taille de la mémoire vive")
+[![VirtualBox mémoire]({filename}/images/virtualbox/vb-memoire.png "Etape 2 : choisir la taille de la mémoire vive")]({filename}/images/virtualbox/vb-memoire.png){: data-lightbox="virtualbox" title="Etape 2 : choisir la taille de la mémoire vive" }
 
 La création d'un disque dur virtuel est proposée (laissez le paramétrage par défaut)
-![VirtualBox disque dur]({filename}/images/virtualbox/vb-disk.png "Etape 3 : choisir le disque dur virtuel")
+[![VirtualBox disque dur]({filename}/images/virtualbox/vb-disk.png "Etape 3 : choisir le disque dur virtuel")]({filename}/images/virtualbox/vb-disk.png){: data-lightbox="virtualbox" title="Etape 3 : choisir le disque dur virtuel" }
 
 Il s'agit d'un disque virtuel avec une extension vdi qui permettra plus tard si besoin d'exporter la machine virtuelle
-![VirtualBox vdi]({filename}/images/virtualbox/vb-vdi.png "Etape 4 : choisir l'extension du disque")
+[![VirtualBox vdi]({filename}/images/virtualbox/vb-vdi.png "Etape 4 : choisir l'extension du disque")]({filename}/images/virtualbox/vb-vdi.png){: data-lightbox="virtualbox" title="Etape 4 : choisir l'extension du disque" }
 
 Conserver le paramétrage de taille de disque dynamiquement allouée. Seul l'espace réellement utilisé sera présent sur le disque dur de la machine hôte. Pour des soucis de performance, il est possible de choisir une taille fixe, mais évidemment, cela prend plus d'espace. A vous de voir.
-![VirtualBox taille allouée]({filename}/images/virtualbox/vb-alloue.png "Etape 5 : choisir la taille dynamiquement allouée")
+[![VirtualBox taille allouée]({filename}/images/virtualbox/vb-alloue.png "Etape 5 : choisir la taille dynamiquement allouée")]({filename}/images/virtualbox/vb-alloue.png){: data-lightbox="virtualbox" title="Etape 5 : choisir la taille dynamiquement allouée" }
 
 8Go par défaut, c'est largement suffisant pour tester une distribution.
-![VirtualBox taille]({filename}/images/virtualbox/vb-taille.png "Etape 6 : choisir la taille du disque")
+[![VirtualBox taille]({filename}/images/virtualbox/vb-taille.png "Etape 6 : choisir la taille du disque")]({filename}/images/virtualbox/vb-taille.png){: data-lightbox="virtualbox" title="Etape 6 : choisir la taille du disque" }
 
 Une fois tous ces éléments paramétrés, il va falloir demander à la machine de démarrer sur l'image disque de Mageia. Pour cela, il faut se rendre dans l'onglet stockage.
-![VirtualBox stockage]({filename}/images/virtualbox/vb-stockage.png "Etape 6 : onglet stockage")
+[![VirtualBox stockage]({filename}/images/virtualbox/vb-stockage.png "Etape 6 : onglet stockage")]({filename}/images/virtualbox/vb-stockage.png){: data-lightbox="virtualbox" title="Etape 6 : onglet stockage" }
 
 Vous cliquez sur l'icone du CD à coté de Lecteur CD/DVD.
-![VirtualBox CD]({filename}/images/virtualbox/vb-cd.png "Etape 7 : charger l'image iso")
+[![VirtualBox CD]({filename}/images/virtualbox/vb-cd.png "Etape 7 : charger l'image iso")]({filename}/images/virtualbox/vb-cd.png){: data-lightbox="virtualbox" title="Etape 7 : charger l'image iso" }
 
 Et vous choisissez votre fichier iso.
-![VirtualBox iso]({filename}/images/virtualbox/vb-iso.png "Etape 8 : charger l'image iso")
+[![VirtualBox iso]({filename}/images/virtualbox/vb-iso.png "Etape 8 : charger l'image iso")]({filename}/images/virtualbox/vb-iso.png){: data-lightbox="virtualbox" title="Etape 8 : charger l'image iso" }
 
 Vous cliquer alors sur démarrer et lancer l'installation normale de Mageia. Attention, ne télécharger pas les compléments d'installation durant cette étape. C'est très important pour un bon fonctionnement ultérieur de Mageia.
 
 A la fin de l'installation, vous éteignez (power off) la machine virtuelle.
-![VirtualBox power off]({filename}/images/virtualbox/vb-off.png "Etape 9 : éteindre la machine")
+[![VirtualBox power off]({filename}/images/virtualbox/vb-off.png "Etape 9 : éteindre la machine")]({filename}/images/virtualbox/vb-off.png){: data-lightbox="virtualbox" title="Etape 9 : éteindre la machine" }
 
 Puis, vous éjectez le fichier iso (pour ne pas redémarrer l'installation à chaque fois).
-![VirtualBox eject]({filename}/images/virtualbox/vb-eject.png "Etape 10 : éjecter le fichier iso")
+[![VirtualBox eject]({filename}/images/virtualbox/vb-eject.png "Etape 10 : éjecter le fichier iso")]({filename}/images/virtualbox/vb-eject.png){: data-lightbox="virtualbox" title="Etape 10 : éjecter le fichier iso" }
 
 Vous pouvez alors redémarrer Mageia. Une fois sur Mageia, voici quelques petites astuces pour un fonctionnement optimal de la machine virtuelle :
 
@@ -103,7 +103,7 @@ Tout d'abord, installer les compléments de l'installation que nous avons mis de
 Mageia va en même temps installer les VirtualBox guest additions qui permettent notamment de partager un répertoire avec le système hôte. Il n'est donc pas nécessaire d'installer spécifiquement ces guest additions, laissez le CCM faire.
 
 Une petite astuce pour les répertoires partagés, n'oubliez pas d'ajouter votre utilisateur dans le groupe VirtualBox (là encore cela se passe dans le CCM).
-![CCM]({filename}/images/virtualbox/ccm.png "Partager un répertoire")
+[![CCM]({filename}/images/virtualbox/ccm.png "Partager un répertoire")]({filename}/images/virtualbox/ccm.png){: data-lightbox="CCM" title="CCM" }
 
 #### Extension pack
 
