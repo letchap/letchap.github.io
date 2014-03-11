@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="letchap">
-  <title>Cloner son site octopress pour bloguer depuis deux ordinateurs</title>
+  <title>Créer facilement son blog avec Microbe</title>
 
   <!-- Style -->
   
@@ -88,69 +88,26 @@
 <section>
   <header>
 	<h1>
-	  <a href="../../../../2013/04/10/cloner-son-site-octopress-pour-bloguer-depuis-deux-ordinateurs/"
+	  <a href="../../../../2014/03/10/creer-facilement-son-blog-avec-microbe/"
 		rel="bookmark"
-		title="Permalink to Cloner son site octopress pour bloguer depuis deux ordinateurs">
-		Cloner son site octopress pour bloguer depuis deux ordinateurs
+		title="Permalink to Créer facilement son blog avec Microbe">
+		Créer facilement son blog avec Microbe
 	  </a>
 	</h1>
 	<hr />
 	<span class="label">Date</span>
-        <i class="fi-calendar large"></i> Mer 10 avril 2013
+        <i class="fi-calendar large"></i> Lun 10 mars 2014
     </span>
 	
 	
     <span class="label">Category</span>
-    <a href="../../../../category/octopress.html"> Octopress</a>
+    <a href="../../../../category/.html"> </a>
     <hr />
   </header>
 
   <article>	
     <div>
-	<p>Vous avez un nouvel ordinateur, ou vous avez écrasé vos fichiers, ou bien encore vous voulez bloguer à plusieurs, il existe tout un tas de bonnes raisons de vouloir mettre à jour son site Octopress depuis plusieurs ordinateurs.</p>
-<p>Cela se fait de manière assez simple, et avant tout il faut bien comprendre le principe de mise à jour de son site sur Github.</p>
-<h3>Le principe</h3>
-<p>Dans votre dépôt github qui contient votre site, vous allez trouver deux branches :
-- une branche source qui contient les éléments servant à construire le blog. C'est là par exemple que sont créés les nouveaux posts, que sont stockés les fichiers de code ou les images, et bien sûr le fichier de config et le sass.
-- une branche master qui contient le site en lui-même, et rien que le site. Sur l'ordinateur, cette branche se trouve dans le répertoire _deploy</p>
-<p>Ces deux branches sont mises à jour séparément sur github par deux blocs d'instructions différents</p>
-<p>La mise à jour de la branche source va se faire par :</p>
-<div class="highlight"><pre>~/octopress<span class="nv">$ </span>git add .
-~/octopress<span class="nv">$ </span>git commit -m <span class="s1">&#39;mon message&#39;</span>
-~/octopress<span class="nv">$ </span>git push origin <span class="nb">source</span>
-</pre></div>
-
-
-<p>La mise à jour de la branche master se fera elle par :</p>
-<div class="highlight"><pre>~/octopress<span class="nv">$ </span>rake generate
-~/octopress<span class="nv">$ </span>rake deploy
-</pre></div>
-
-
-<p>Il n'est pas nécessaire de mettre à jour la branche source sur github pour avoir un site à jour car il est généré à partir des fichiers sources présent sur l'ordinateur.</p>
-<p>En conséquence, la première étape avant d'installer octopress sur le deuxième ordinateur et de bien mettre à jour à la fois la branche source et la branche master du dépôt github.</p>
-<p>Si vous avez perdu les fichiers de ce premier ordinateur, vous repartirez de la dernière mise à jour du dépôt.</p>
-<h3>L'installation sur le deuxième ordinateur</h3>
-<p>Maintenant que le dépôt sur ces deux branches source et master est à jour, nous allons pouvoir installer Octopress sur le deuxième ordinateur.</p>
-<p>L'installation est exactement la même que celle d'un site vierge dont la procédure est décrite sur le site d'Octopress, à une seule différence près. Nous allons cloner notre site au lieu de cloner le site par défaut.</p>
-<p>D'abord nous clonons notre branche source en créant au passage le répertoire octopress:</p>
-<div class="highlight"><pre><span class="nv">$ </span>git clone -b <span class="nb">source </span>git@github.com:monuser/monuser.github.com.git octopress
-</pre></div>
-
-
-<p>Ensuite, nous nous positionnons sur le répertoire octopress pour cloner la branche master dans le répertoire _deploy que nous créons au passage :</p>
-<div class="highlight"><pre><span class="nv">$ </span>git clone git@github.com:monuser/monuser.github.com.git _deploy
-</pre></div>
-
-
-<p>Tout le reste de la procédure est rigoureusement identique : l'installation de git, de rvm, des bundles, le paramétrage du compte github, ... tout je vous dis.</p>
-<h3>Bloguer depuis deux ordinateurs</h3>
-<p>Pour passer d'un ordinateur à l'autre, il faut d'abord mettre à jour les deux branches avec les instructions vues plus haut à partir du premier ordinateur, puis sur le deuxième, récupérer les derniers fichiers source et master en les ramenant sur votre ordinateur (pull) :</p>
-<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>octopress
-<span class="nv">$ </span>git pull origin <span class="nb">source</span>
-<span class="nv">$ </span><span class="nb">cd </span>_deploy
-<span class="nv">$ </span>git pull origin master
-</pre></div>
+	
 	</div>
   </article>
 
@@ -160,7 +117,7 @@
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_identifier = "2013/04/10/cloner-son-site-octopress-pour-bloguer-depuis-deux-ordinateurs/";
+            var disqus_identifier = "2014/03/10/creer-facilement-son-blog-avec-microbe/";
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
                 var dsq = document.createElement('script');
