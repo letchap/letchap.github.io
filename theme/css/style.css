@@ -74,6 +74,7 @@ pre {
   color: #333333;
   word-break: break-all;
   overflow-x: auto;
+  white-space: pre;
 }
 
 article img {
