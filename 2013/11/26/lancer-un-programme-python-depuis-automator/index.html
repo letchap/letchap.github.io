@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
   <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
   <link rel="stylesheet" href="../../../../theme/css/style.css"/>
-  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
-
-  <script src="../../../../theme/js/vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
 
   <!-- Syndication -->
   
@@ -33,11 +31,7 @@
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1>
-          <a href="../../../..">
-           Accueil
-          </a>
-         </h1>
+        <h1><a href="../../../..">Accueil</a></h1>
       </li>
     </ul>
 
@@ -86,27 +80,18 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 <section>
-  <header>
-	<h1>
-	  <a href="../../../../2013/11/26/lancer-un-programme-python-depuis-automator/"
-		rel="bookmark"
-		title="Permalink to Lancer un programme python depuis automator">
-		Lancer un programme python depuis automator
-	  </a>
-	</h1>
+  <article>
+	<h1><a href="../../../../2013/11/26/lancer-un-programme-python-depuis-automator/" rel="bookmark" title="Permalink to Lancer un programme python depuis automator">Lancer un programme python depuis automator</a></h1>
+	
 	<hr />
-	<span class="label">Date</span>
-        <i class="fi-calendar size-16"></i> Mar 26 novembre 2013
-    </span>
+	
+	<span class="label">Date</span><i class="fi-calendar size-16"></i> Mar 26 novembre 2013
 	
 	
-    <span class="label">Category</span>
-    <a href="../../../../category/mac-os-x.html"> Mac OS X</a>
-    <hr />
-  </header>
-
-  <article>	
-    <div>
+    <span class="label">Category</span><a href="../../../../category/mac-os-x.html"> Mac OS X</a>
+    
+	<hr />
+	
 	<p><a href="../../../../2013/11/25/transformer-un-texte-chinois-en-pdf/">J'ai un joli script python qui me permet de décoder un texte chinois en UTF8 tout en le tranformant en pdf</a>. Maintenant, j'aimerais bien pouvoir le lancer d'un simple clic droit, voir même plusieurs fichiers d'un coup.</p>
 <p>Pour cela, sur Mac OS X, il existe un utilitaire sympa, Automator. Il va nous permettre de créer un service qui lancera le traitement de notre ou de nos fichiers grâce à un clic droit.</p>
 <p>Des éléments complémentaires sont disponibles sur le site <a href="https://developer.apple.com/library/mac/documentation/AppleApplications/Conceptual/AutomatorConcepts/Articles/ShellScriptActions.html">d'apple developper</a></p>
@@ -118,7 +103,7 @@
 <p>Pour débugger le programme, il est bien sûr possible de renvoyer les sorties standard et erreur vers un fichier de log par un petit <code>&gt;&gt; log 2&gt;&amp;1</code>, ce qui peut s'avérer pratique.</p>
 <p>Pour traiter plusieurs fichiers en entrée, il suffit de faire une petite boucle for dans le script shell.</p>
 <p>Cerise sur le gateau, nous allons ajouter une petite notification en fin de traitement pour nous signaler que ce dernier est terminé. C'est beau.</p>
-	</div>
+	
   </article>
 
     <hr />
@@ -147,34 +132,30 @@
     
     <aside class="large-3 columns">
 	  <div class="panel">
-		<ul class="side-nav">
-		  <li class="heading">Social</h4></li>
-		  <li>
-			<a href="http://twitter.com/letchap">
-			<i class="fi-social-twitter medium"></i> twitter
-			</a>
-		  </li>
-		  <li>
-			<a href="http://github.com/letchap">
-			<i class="fi-social-github medium"></i> github
-			</a>
-		  </li>
-		  <li class="divider">
-		  <li class="heading">Categories</h4></li>
-		  <li><a href="../../../../category/conky.html">Conky</a></li>
-		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
-		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
-		  <li><a href="../../../../category/linux.html">Linux</a></li>
-		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
-		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
-		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
-		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
-		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
-		  <li><a href="../../../../category/python.html">Python</a></li>
-		  <li><a href="../../../../category/shell.html">Shell</a></li>
-		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
-		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
-		</ul>
+		
+		  	  
+	
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		    <li>
+			  <a href="http://twitter.com/letchap">
+			  <i class="fi-social-twitter medium"></i> twitter
+			  </a>
+			</li>
+		    <li>
+			  <a href="http://github.com/letchap">
+			  <i class="fi-social-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+		  
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		    <li><a href="http://joacodepel.tk"> Joacode</a></li>
+		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
+		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
+		  </ul>
+		  
 	  </div>
     </aside>
     <!-- End Sidebar -->
@@ -203,8 +184,9 @@
 </section> 
   <!-- End Footer -->
 
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/vendor/jquery.js"></script>
     <script src="../../../../theme/js/foundation.min.js"></script>
+    <script src="../../../../theme/js/vendor/modernizr.js"></script>
     <script>
         $(document).foundation();
     </script>

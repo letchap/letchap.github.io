@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
   <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
   <link rel="stylesheet" href="../../../../theme/css/style.css"/>
-  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
-
-  <script src="../../../../theme/js/vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
 
   <!-- Syndication -->
   
@@ -33,11 +31,7 @@
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1>
-          <a href="../../../..">
-           Accueil
-          </a>
-         </h1>
+        <h1><a href="../../../..">Accueil</a></h1>
       </li>
     </ul>
 
@@ -86,27 +80,18 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 <section>
-  <header>
-	<h1>
-	  <a href="../../../../2013/11/25/transformer-un-texte-chinois-en-pdf/"
-		rel="bookmark"
-		title="Permalink to Transformer un texte chinois en pdf">
-		Transformer un texte chinois en pdf
-	  </a>
-	</h1>
+  <article>
+	<h1><a href="../../../../2013/11/25/transformer-un-texte-chinois-en-pdf/" rel="bookmark" title="Permalink to Transformer un texte chinois en pdf">Transformer un texte chinois en pdf</a></h1>
+	
 	<hr />
-	<span class="label">Date</span>
-        <i class="fi-calendar size-16"></i> Lun 25 novembre 2013
-    </span>
+	
+	<span class="label">Date</span><i class="fi-calendar size-16"></i> Lun 25 novembre 2013
 	
 	
-    <span class="label">Category</span>
-    <a href="../../../../category/python.html"> Python</a>
-    <hr />
-  </header>
-
-  <article>	
-    <div>
+    <span class="label">Category</span><a href="../../../../category/python.html"> Python</a>
+    
+	<hr />
+	
 	<p>Nous sommes tous confrontés un jour au problème de l'encodage, aka "c'est quoi tous ces hiéroglyphes bizarres dans mon document au lieu de mon beau texte en chinois (ou en suédois, en russe, en arabe, ou même en français....)?"</p>
 <p>Bon, je ne vais pas faire un cours sur l'encodage, sachez juste que si vous avez des hiéroglyphes, que vous êtes sur Mac ou Linux, il y a des fortes chances que votre document ne soit pas en unicode mais dans un encodage régional, comme par exemple pour un texte chinois GB2312 (chinois simplifié) ou BIG5 (chinois traditionnel).</p>
 <p>Qu'à cela ne tienne, nous allons convertir notre texte dans un format unicode universel, dans sa version UTF8. Et puis, pour pouvoir lire le texte en toute circonstance et sur toute plateforme, nous allons en faire un pdf</p>
@@ -176,7 +161,7 @@
 
 
 <p>Evidemment, pour tout être normalement constitué, lancer un décodage de cette manière, en ligne de commande, ce n'est pas très pratique, un clic droit sur un ou plusieurs fichiers serait le bienvenue. C'est que nous allons faire tout de suite <a href="../../../../2013/11/26/lancer-un-programme-python-depuis-automator/">dans ce billet</a></p>
-	</div>
+	
   </article>
 
     <hr />
@@ -205,34 +190,30 @@
     
     <aside class="large-3 columns">
 	  <div class="panel">
-		<ul class="side-nav">
-		  <li class="heading">Social</h4></li>
-		  <li>
-			<a href="http://twitter.com/letchap">
-			<i class="fi-social-twitter medium"></i> twitter
-			</a>
-		  </li>
-		  <li>
-			<a href="http://github.com/letchap">
-			<i class="fi-social-github medium"></i> github
-			</a>
-		  </li>
-		  <li class="divider">
-		  <li class="heading">Categories</h4></li>
-		  <li><a href="../../../../category/conky.html">Conky</a></li>
-		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
-		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
-		  <li><a href="../../../../category/linux.html">Linux</a></li>
-		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
-		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
-		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
-		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
-		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
-		  <li><a href="../../../../category/python.html">Python</a></li>
-		  <li><a href="../../../../category/shell.html">Shell</a></li>
-		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
-		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
-		</ul>
+		
+		  	  
+	
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		    <li>
+			  <a href="http://twitter.com/letchap">
+			  <i class="fi-social-twitter medium"></i> twitter
+			  </a>
+			</li>
+		    <li>
+			  <a href="http://github.com/letchap">
+			  <i class="fi-social-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+		  
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		    <li><a href="http://joacodepel.tk"> Joacode</a></li>
+		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
+		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
+		  </ul>
+		  
 	  </div>
     </aside>
     <!-- End Sidebar -->
@@ -261,8 +242,9 @@
 </section> 
   <!-- End Footer -->
 
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/vendor/jquery.js"></script>
     <script src="../../../../theme/js/foundation.min.js"></script>
+    <script src="../../../../theme/js/vendor/modernizr.js"></script>
     <script>
         $(document).foundation();
     </script>

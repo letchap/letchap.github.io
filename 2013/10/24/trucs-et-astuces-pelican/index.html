@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
   <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
   <link rel="stylesheet" href="../../../../theme/css/style.css"/>
-  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
-
-  <script src="../../../../theme/js/vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
 
   <!-- Syndication -->
   
@@ -33,11 +31,7 @@
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1>
-          <a href="../../../..">
-           Accueil
-          </a>
-         </h1>
+        <h1><a href="../../../..">Accueil</a></h1>
       </li>
     </ul>
 
@@ -86,27 +80,18 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 <section>
-  <header>
-	<h1>
-	  <a href="../../../../2013/10/24/trucs-et-astuces-pelican/"
-		rel="bookmark"
-		title="Permalink to Trucs et astuces Pelican">
-		Trucs et astuces Pelican
-	  </a>
-	</h1>
+  <article>
+	<h1><a href="../../../../2013/10/24/trucs-et-astuces-pelican/" rel="bookmark" title="Permalink to Trucs et astuces Pelican">Trucs et astuces Pelican</a></h1>
+	
 	<hr />
-	<span class="label">Date</span>
-        <i class="fi-calendar size-16"></i> Jeu 24 octobre 2013
-    </span>
+	
+	<span class="label">Date</span><i class="fi-calendar size-16"></i> Jeu 24 octobre 2013
 	
 	
-    <span class="label">Category</span>
-    <a href="../../../../category/pelican.html"> Pelican</a>
-    <hr />
-  </header>
-
-  <article>	
-    <div>
+    <span class="label">Category</span><a href="../../../../category/pelican.html"> Pelican</a>
+    
+	<hr />
+	
 	<p>Me voilà donc sous Pelican ! Il m'a fallu un petit moment pour arriver à un résultat publiable, la version par défaut de Pelican ne me convenant pas. Finalement, j'ai effectué un certain nombre de modifications, que ce soit dans la présentation, dans le fichier de configuration, dans les plugins ou même sur la procédure de publication des pages sur Github. Pour la procédure d'installation, je vous renvoie à la documentation officielle.</p>
 <p>Le plus compliqué pour moi a été la mise en forme des blocs de code avec pygments et le CSS associé pour que cela fontionne sur tous les navigateurs. J'ai fait beaucoup de modifications, si vous voulez plus de détails que ce qui est écrit, demandez moi !</p>
 <p>Et maintenant, petit tour d'horizon de ma customisation de Pelican. Vous trouverez les sources de mon thème sur mon <a href="https://github.com/letchap/letchap.github.io/tree/source/mon-theme">compte github</a>.</p>
@@ -310,7 +295,7 @@
 
 <h3>La publication de mes pages Github et de mes sources</h3>
 <p>Le sujet méritait un billet dédié. Il est disponible <a href="../../../../2013/10/16/gerer-la-publication-et-les-sources-dun-site-pelican-sur-github/" title="Gérer la publication et les sources d'un site Pelican sur Github">ici</a>.</p>
-	</div>
+	
   </article>
 
     <hr />
@@ -339,34 +324,30 @@
     
     <aside class="large-3 columns">
 	  <div class="panel">
-		<ul class="side-nav">
-		  <li class="heading">Social</h4></li>
-		  <li>
-			<a href="http://twitter.com/letchap">
-			<i class="fi-social-twitter medium"></i> twitter
-			</a>
-		  </li>
-		  <li>
-			<a href="http://github.com/letchap">
-			<i class="fi-social-github medium"></i> github
-			</a>
-		  </li>
-		  <li class="divider">
-		  <li class="heading">Categories</h4></li>
-		  <li><a href="../../../../category/conky.html">Conky</a></li>
-		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
-		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
-		  <li><a href="../../../../category/linux.html">Linux</a></li>
-		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
-		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
-		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
-		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
-		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
-		  <li><a href="../../../../category/python.html">Python</a></li>
-		  <li><a href="../../../../category/shell.html">Shell</a></li>
-		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
-		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
-		</ul>
+		
+		  	  
+	
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		    <li>
+			  <a href="http://twitter.com/letchap">
+			  <i class="fi-social-twitter medium"></i> twitter
+			  </a>
+			</li>
+		    <li>
+			  <a href="http://github.com/letchap">
+			  <i class="fi-social-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+		  
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		    <li><a href="http://joacodepel.tk"> Joacode</a></li>
+		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
+		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
+		  </ul>
+		  
 	  </div>
     </aside>
     <!-- End Sidebar -->
@@ -395,8 +376,9 @@
 </section> 
   <!-- End Footer -->
 
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/vendor/jquery.js"></script>
     <script src="../../../../theme/js/foundation.min.js"></script>
+    <script src="../../../../theme/js/vendor/modernizr.js"></script>
     <script>
         $(document).foundation();
     </script>

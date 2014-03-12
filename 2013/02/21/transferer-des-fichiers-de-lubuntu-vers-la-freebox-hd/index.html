@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
   <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
   <link rel="stylesheet" href="../../../../theme/css/style.css"/>
-  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
-
-  <script src="../../../../theme/js/vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
 
   <!-- Syndication -->
   
@@ -33,11 +31,7 @@
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1>
-          <a href="../../../..">
-           Accueil
-          </a>
-         </h1>
+        <h1><a href="../../../..">Accueil</a></h1>
       </li>
     </ul>
 
@@ -86,27 +80,18 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 <section>
-  <header>
-	<h1>
-	  <a href="../../../../2013/02/21/transferer-des-fichiers-de-lubuntu-vers-la-freebox-hd/"
-		rel="bookmark"
-		title="Permalink to Transférer des fichiers de Lubuntu vers la freebox HD">
-		Transférer des fichiers de Lubuntu vers la freebox HD
-	  </a>
-	</h1>
+  <article>
+	<h1><a href="../../../../2013/02/21/transferer-des-fichiers-de-lubuntu-vers-la-freebox-hd/" rel="bookmark" title="Permalink to Transférer des fichiers de Lubuntu vers la freebox HD">Transférer des fichiers de Lubuntu vers la freebox HD</a></h1>
+	
 	<hr />
-	<span class="label">Date</span>
-        <i class="fi-calendar size-16"></i> Jeu 21 février 2013
-    </span>
+	
+	<span class="label">Date</span><i class="fi-calendar size-16"></i> Jeu 21 février 2013
 	
 	
-    <span class="label">Category</span>
-    <a href="../../../../category/freebox.html"> Freebox</a>
-    <hr />
-  </header>
-
-  <article>	
-    <div>
+    <span class="label">Category</span><a href="../../../../category/freebox.html"> Freebox</a>
+    
+	<hr />
+	
 	<p>J’adore mon Lubuntu, cependant, il a une petite faiblesse sur les connexions réseau. En natif, le gestionnaire de fichiers PCManFM ne gère ni le FTP ni l’AFP (le protocole de Mac OS X).</p>
 <p>Et sans FTP, c’est compliqué de transférer des fichiers vers la Freebox.</p>
 <p>La première étape, bien sûr, c’est d’avoir autorisé les transferts ftp sur la console de la freebox (mais bon, ce n’est pas un blog sur la freebox, c’est expliqué partout all over ze web).</p>
@@ -135,7 +120,7 @@ lftp freebox:@hd1.freebox.fr:/Disque dur/Video&gt; put /adresse/fichier.avi
 <p>Sur mon PC, c’est beaucoup, beaucoup, beaucoup plus rapide que lftp (transfert entre 1,7 et 2,3 Mo/s chez moi).</p>
 <p>Evidemment, ça fonctionne aussi dans l’autre sens.</p>
 <p>Enfin, les paramètres de la connexion sont sauvegardés dans connexion rapide, donc la 2ème connexion sera très simple.</p>
-	</div>
+	
   </article>
 
     <hr />
@@ -164,34 +149,30 @@ lftp freebox:@hd1.freebox.fr:/Disque dur/Video&gt; put /adresse/fichier.avi
     
     <aside class="large-3 columns">
 	  <div class="panel">
-		<ul class="side-nav">
-		  <li class="heading">Social</h4></li>
-		  <li>
-			<a href="http://twitter.com/letchap">
-			<i class="fi-social-twitter medium"></i> twitter
-			</a>
-		  </li>
-		  <li>
-			<a href="http://github.com/letchap">
-			<i class="fi-social-github medium"></i> github
-			</a>
-		  </li>
-		  <li class="divider">
-		  <li class="heading">Categories</h4></li>
-		  <li><a href="../../../../category/conky.html">Conky</a></li>
-		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
-		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
-		  <li><a href="../../../../category/linux.html">Linux</a></li>
-		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
-		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
-		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
-		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
-		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
-		  <li><a href="../../../../category/python.html">Python</a></li>
-		  <li><a href="../../../../category/shell.html">Shell</a></li>
-		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
-		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
-		</ul>
+		
+		  	  
+	
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		    <li>
+			  <a href="http://twitter.com/letchap">
+			  <i class="fi-social-twitter medium"></i> twitter
+			  </a>
+			</li>
+		    <li>
+			  <a href="http://github.com/letchap">
+			  <i class="fi-social-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+		  
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		    <li><a href="http://joacodepel.tk"> Joacode</a></li>
+		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
+		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
+		  </ul>
+		  
 	  </div>
     </aside>
     <!-- End Sidebar -->
@@ -220,8 +201,9 @@ lftp freebox:@hd1.freebox.fr:/Disque dur/Video&gt; put /adresse/fichier.avi
 </section> 
   <!-- End Footer -->
 
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/vendor/jquery.js"></script>
     <script src="../../../../theme/js/foundation.min.js"></script>
+    <script src="../../../../theme/js/vendor/modernizr.js"></script>
     <script>
         $(document).foundation();
     </script>

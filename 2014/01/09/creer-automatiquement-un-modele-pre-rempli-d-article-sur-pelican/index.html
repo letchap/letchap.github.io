@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
   <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
   <link rel="stylesheet" href="../../../../theme/css/style.css"/>
-  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
-
-  <script src="../../../../theme/js/vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
 
   <!-- Syndication -->
   
@@ -33,11 +31,7 @@
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1>
-          <a href="../../../..">
-           Accueil
-          </a>
-         </h1>
+        <h1><a href="../../../..">Accueil</a></h1>
       </li>
     </ul>
 
@@ -86,27 +80,18 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 <section>
-  <header>
-	<h1>
-	  <a href="../../../../2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican/"
-		rel="bookmark"
-		title="Permalink to Créer automatiquement un modèle pré-rempli d'article sur Pelican">
-		Créer automatiquement un modèle pré-rempli d'article sur Pelican
-	  </a>
-	</h1>
+  <article>
+	<h1><a href="../../../../2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican/" rel="bookmark" title="Permalink to Créer automatiquement un modèle pré-rempli d'article sur Pelican">Créer automatiquement un modèle pré-rempli d'article sur Pelican</a></h1>
+	
 	<hr />
-	<span class="label">Date</span>
-        <i class="fi-calendar size-16"></i> Jeu 09 janvier 2014
-    </span>
+	
+	<span class="label">Date</span><i class="fi-calendar size-16"></i> Jeu 09 janvier 2014
 	
 	
-    <span class="label">Category</span>
-    <a href="../../../../category/pelican.html"> Pelican</a>
-    <hr />
-  </header>
-
-  <article>	
-    <div>
+    <span class="label">Category</span><a href="../../../../category/pelican.html"> Pelican</a>
+    
+	<hr />
+	
 	<p>Depuis mon passage d'Octopress à Pelican, un petit outil me manque : la possibilité de créer un squelette d'article automatiquement à partir du titre, et directement dans le bon répertoire. Sur Octopress, cela se fait par la commande <code>rake new_post['Mon super post!']</code>. Par cette commande, l'en-tête est renseignée avec un certain nombre d'informations comme le titre ou la date, le nom du fichier est généré automatiquement et "slugifié", tout ça dans le bon répertoire.</p>
 <p>Jusqu'à présent, sur Pelican, pour créer un nouvel article, je faisais un copier-coller d'un ancien post, et je modifiais tout à la main. Pas terrible.</p>
 <p>Qu'à cela ne tienne, nous allons faire notre propre script Python pour automatiser tout ça. Le script, le voici, les commentaires sont dedans :</p>
@@ -179,7 +164,7 @@
 <p>J'ai d'abord regardé du côté des outils fournis par Pelican, à savoir make et fabric. Malheureusement, il n'est pas possible de faire un <code>make newpost 'Mon super post!'</code> ou un <code>fab newpost:'Mon super post!'</code>.</p>
 <p>En revanche, aucun problème pour faire <code>python newpost.py 'Mon super post!'</code>.</p>
 <p>Le dernier petit truc pour pouvoir faire plus simplement <code>python newpost 'Mon super post!'</code>, il suffit de créer un répertoire <code>newpost</code> à la racine du blog, et de mettre notre script python dans ce répertoire en le nommant <code>__main__.py</code>.</p>
-	</div>
+	
   </article>
 
     <hr />
@@ -208,34 +193,30 @@
     
     <aside class="large-3 columns">
 	  <div class="panel">
-		<ul class="side-nav">
-		  <li class="heading">Social</h4></li>
-		  <li>
-			<a href="http://twitter.com/letchap">
-			<i class="fi-social-twitter medium"></i> twitter
-			</a>
-		  </li>
-		  <li>
-			<a href="http://github.com/letchap">
-			<i class="fi-social-github medium"></i> github
-			</a>
-		  </li>
-		  <li class="divider">
-		  <li class="heading">Categories</h4></li>
-		  <li><a href="../../../../category/conky.html">Conky</a></li>
-		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
-		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
-		  <li><a href="../../../../category/linux.html">Linux</a></li>
-		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
-		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
-		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
-		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
-		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
-		  <li><a href="../../../../category/python.html">Python</a></li>
-		  <li><a href="../../../../category/shell.html">Shell</a></li>
-		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
-		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
-		</ul>
+		
+		  	  
+	
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		    <li>
+			  <a href="http://twitter.com/letchap">
+			  <i class="fi-social-twitter medium"></i> twitter
+			  </a>
+			</li>
+		    <li>
+			  <a href="http://github.com/letchap">
+			  <i class="fi-social-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+		  
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		    <li><a href="http://joacodepel.tk"> Joacode</a></li>
+		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
+		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
+		  </ul>
+		  
 	  </div>
     </aside>
     <!-- End Sidebar -->
@@ -264,8 +245,9 @@
 </section> 
   <!-- End Footer -->
 
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/vendor/jquery.js"></script>
     <script src="../../../../theme/js/foundation.min.js"></script>
+    <script src="../../../../theme/js/vendor/modernizr.js"></script>
     <script>
         $(document).foundation();
     </script>

@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
   <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
   <link rel="stylesheet" href="../../../../theme/css/style.css"/>
-  <link rel="stylesheet" href="../../../../theme/css/lightbox.css" type="text/css"/>
-
-  <script src="../../../../theme/js/vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
 
   <!-- Syndication -->
   
@@ -33,11 +31,7 @@
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1>
-          <a href="../../../..">
-           Accueil
-          </a>
-         </h1>
+        <h1><a href="../../../..">Accueil</a></h1>
       </li>
     </ul>
 
@@ -86,27 +80,18 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 <section>
-  <header>
-	<h1>
-	  <a href="../../../../2013/07/10/afficher-la-meteo-avec-conky-et-python-3eme-partie/"
-		rel="bookmark"
-		title="Permalink to Afficher la meteo avec conky et python 3ème partie">
-		Afficher la meteo avec conky et python 3ème partie
-	  </a>
-	</h1>
+  <article>
+	<h1><a href="../../../../2013/07/10/afficher-la-meteo-avec-conky-et-python-3eme-partie/" rel="bookmark" title="Permalink to Afficher la meteo avec conky et python 3ème partie">Afficher la meteo avec conky et python 3ème partie</a></h1>
+	
 	<hr />
-	<span class="label">Date</span>
-        <i class="fi-calendar size-16"></i> Mer 10 juillet 2013
-    </span>
+	
+	<span class="label">Date</span><i class="fi-calendar size-16"></i> Mer 10 juillet 2013
 	
 	
-    <span class="label">Category</span>
-    <a href="../../../../category/conky.html"> Conky</a>
-    <hr />
-  </header>
-
-  <article>	
-    <div>
+    <span class="label">Category</span><a href="../../../../category/conky.html"> Conky</a>
+    
+	<hr />
+	
 	<p>Dans les deux premiers épisodes de ce tutoriel, <a href="../../../../2013/07/08/afficher-la-meteo-avec-conky-et-python-1ere-partie/">nous avons créé un programme python</a> récupérant les informations météo sur le site de <a href="http://www.wunderground.com/">wunderground</a>, puis nous avons automatisé ce script <a href="../../../../2013/07/09/afficher-la-meteo-avec-conky-et-python-2eme-partie/">afin qu'il se lance au démarrage de notre session</a>. Il ne reste plus qu'à afficher les informations sur notre bureau.</p>
 <p>Pour cela, nous allons devoir :</p>
 <ul>
@@ -408,7 +393,7 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 - créer les conky
 - créer un script arret/relance des conky
 - créer les entrées pour ce script dans le menu et les touches de raccourcis</p>
-	</div>
+	
   </article>
 
     <hr />
@@ -437,34 +422,30 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
     
     <aside class="large-3 columns">
 	  <div class="panel">
-		<ul class="side-nav">
-		  <li class="heading">Social</h4></li>
-		  <li>
-			<a href="http://twitter.com/letchap">
-			<i class="fi-social-twitter medium"></i> twitter
-			</a>
-		  </li>
-		  <li>
-			<a href="http://github.com/letchap">
-			<i class="fi-social-github medium"></i> github
-			</a>
-		  </li>
-		  <li class="divider">
-		  <li class="heading">Categories</h4></li>
-		  <li><a href="../../../../category/conky.html">Conky</a></li>
-		  <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
-		  <li><a href="../../../../category/freebox.html">Freebox</a></li>
-		  <li><a href="../../../../category/linux.html">Linux</a></li>
-		  <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
-		  <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
-		  <li><a href="../../../../category/mageia.html">Mageia</a></li>
-		  <li><a href="../../../../category/octopress.html">Octopress</a></li>
-		  <li><a href="../../../../category/pelican.html">Pelican</a></li>
-		  <li><a href="../../../../category/python.html">Python</a></li>
-		  <li><a href="../../../../category/shell.html">Shell</a></li>
-		  <li><a href="../../../../category/terminal.html">Terminal</a></li>
-		  <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
-		</ul>
+		
+		  	  
+	
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		    <li>
+			  <a href="http://twitter.com/letchap">
+			  <i class="fi-social-twitter medium"></i> twitter
+			  </a>
+			</li>
+		    <li>
+			  <a href="http://github.com/letchap">
+			  <i class="fi-social-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+		  
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		    <li><a href="http://joacodepel.tk"> Joacode</a></li>
+		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
+		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
+		  </ul>
+		  
 	  </div>
     </aside>
     <!-- End Sidebar -->
@@ -493,8 +474,9 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 </section> 
   <!-- End Footer -->
 
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../../../../theme/js/vendor/jquery.js"></script>
     <script src="../../../../theme/js/foundation.min.js"></script>
+    <script src="../../../../theme/js/vendor/modernizr.js"></script>
     <script>
         $(document).foundation();
     </script>
