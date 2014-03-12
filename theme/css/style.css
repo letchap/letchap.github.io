@@ -107,3 +107,7 @@ article img {
 .size-60 { font-size: 6.0rem; }
 .size-72 { font-size: 7.2rem; }
 
+.vertical-align {
+  display: table-cell; 
+  vertical-align: middle; 
+}
