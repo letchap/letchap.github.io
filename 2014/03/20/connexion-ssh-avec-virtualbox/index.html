@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="letchap">
-  <title>Créer automatiquement un modèle pré-rempli d'article sur Pelican rst</title>
+  <title>Connexion ssh avec VirtualBox</title>
 
   <!-- Style -->
   
@@ -99,33 +99,18 @@
     <div class="large-9 columns" role="content">
 <section>
   <article>
-	<h1><a href="../../../../2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican-rst/" rel="bookmark" title="Permalink to Créer automatiquement un modèle pré-rempli d'article sur Pelican rst">Créer automatiquement un modèle pré-rempli d'article sur Pelican rst</a></h1>
+	<h1><a href="../../../../2014/03/20/connexion-ssh-avec-virtualbox/" rel="bookmark" title="Permalink to Connexion ssh avec VirtualBox">Connexion ssh avec VirtualBox</a></h1>
 	
 	<hr />
-	<i class="fi-calendar size-14"></i>&nbsp;Jeu 09 janvier 2014&nbsp;&nbsp;
-    <i class="fi-price-tag size-14"></i><a href="../../../../category/pelican.html">&nbsp;Pelican</a>
+	<i class="fi-calendar size-14"></i>&nbsp;Jeu 20 mars 2014&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/virtualbox.html">&nbsp;VirtualBox</a>
 	<hr />
 	
-	<p>Depuis mon passage d'Octopress à Pelican, un petit outil me manque : la possibilité de créer un squelette d'article automatiquement à partir du titre, et directement dans le bon répertoire. Sur Octopress, cela se fait par la commande <cite>rake new_post['Mon super post!']</cite>. Par cette commande, l'en-tête est renseignée avec un certain nombre d'informations comme le titre ou la date, le nom du fichier est généré automatiquement et &quot;slugifié&quot;, tout ça dans le bon répertoire.</p>
-<p>Jusqu'à présent, sur Pelican, pour créer un nouvel article, je faisais un copier-coller d'un ancien post, et je modifiais tout à la main. Pas terrible.</p>
-<p>Qu'à cela ne tienne, nous allons faire notre propre script Python pour automatiser tout ça. Le script, le voici, les commentaires sont dedans :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">..</span> <span class="n">include</span><span class="p">::</span> <span class="n">code</span><span class="o">/</span><span class="n">newpost</span><span class="o">.</span><span class="n">py</span>
-        <span class="p">:</span><span class="n">code</span><span class="p">:</span> <span class="n">python</span>
-</pre></div>
-</td></tr></table><p>En résumé, ce script, à partir d'un titre passé en paramètre va générer un nom de fichier &quot;slugifié&quot;, c'est à dire sans caratère accentué, en minuscule et séparé par des tirets, ainsi que l'en-tête de notre fichier. Le fichier de sortie ressemblera à ça :</p>
-<blockquote>
-Title: Mon super post!
-Date: 2014-01-10 23:40
-Category:
-Tags:
-Slug: mon-super-post</blockquote>
-<p>Ce script fonctionne pour un fichier markdown, et pour un article. Rien ne vous empêche de modifier le script à la marge pour une page et en ReST.</p>
-<p>Dernière étape, comment lancer ce script ?</p>
-<p>J'ai d'abord regardé du côté des outils fournis par Pelican, à savoir make et fabric. Malheureusement, il n'est pas possible de faire un <cite>make newpost 'Mon super post!'</cite> ou un <cite>fab newpost:'Mon super post!'</cite>.</p>
-<p>En revanche, aucun problème pour faire <cite>python newpost.py 'Mon super post!'</cite>.</p>
-<p>Le dernier petit truc pour pouvoir faire plus simplement <cite>python newpost 'Mon super post!'</cite>, il suffit de créer un répertoire <cite>newpost</cite> à la racine du blog, et de mettre notre script python dans ce répertoire en le nommant <cite>__main__.py</cite>.</p>
-
+	<p>En conservant le paramétrage par défaut de VirtualBox, il n'est pas possible de créer une connection SSH avec un invité Linux.</p>
+<p>Pour rendre possible cette connection SSH, il faut modifier le paramétrage de l'onglet réseau dans VirtualBox pour le positionner sur "Accès par pont" comme illustré dans l'image ci-dessous. Cela vous permettra d'avoir une adresse au format 192.168.0.xx.</p>
+<p><a data-lightbox="ssh" href="../../../../images/ssh.png" title="SSH"><img alt="SSH" src="../../../../images/ssh.png" title="SSH" /></a></p>
+<p>Pour rappel sur Linux, vous aurez auparavant installé openssh et démarré le service par <code>service ssh start</code>.</p>
+<p>N'oublier de préciser de port 22 lors de votre connection SFTP.</p>
 	
   </article>
 
@@ -135,7 +120,7 @@ Slug: mon-super-post</blockquote>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_identifier = "2014/01/09/creer-automatiquement-un-modele-pre-rempli-d-article-sur-pelican-rst/";
+            var disqus_identifier = "2014/03/20/connexion-ssh-avec-virtualbox/";
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
                 var dsq = document.createElement('script');
