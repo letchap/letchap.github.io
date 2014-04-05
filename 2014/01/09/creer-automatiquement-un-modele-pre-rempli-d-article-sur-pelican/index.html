@@ -109,9 +109,54 @@
 	<p>Depuis mon passage d'Octopress à Pelican, un petit outil me manque : la possibilité de créer un squelette d'article automatiquement à partir du titre, et directement dans le bon répertoire. Sur Octopress, cela se fait par la commande <code>rake new_post['Mon super post!']</code>. Par cette commande, l'en-tête est renseignée avec un certain nombre d'informations comme le titre ou la date, le nom du fichier est généré automatiquement et "slugifié", tout ça dans le bon répertoire.</p>
 <p>Jusqu'à présent, sur Pelican, pour créer un nouvel article, je faisais un copier-coller d'un ancien post, et je modifiais tout à la main. Pas terrible.</p>
 <p>Qu'à cela ne tienne, nous allons faire notre propre script Python pour automatiser tout ça. Le script, le voici, les commentaires sont dedans :</p>
-<figure><figcaption class='include'><span style='text-align: left'>newpost.py</span>                <a style='float: right' href='/code/newpost.py'>Télécharger</a></figcaption>
-
-<div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/usr/bin/python</span>
 <span class="c"># -*- coding: utf8 -*-</span>
 <span class="c">#---------------------</span>
 <span class="c">#newpost.py</span>
@@ -142,7 +187,7 @@
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s">&quot;content/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">slug</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;.markdown&quot;</span><span class="p">)):</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&#39;Ce fichier existe déjà&#39;</span><span class="p">)</span> <span class="c"># bon, comme son nom l&#39;indique, c&#39;est pour tester les doublons</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>   
+    <span class="k">else</span><span class="p">:</span>
 		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s">&quot;content/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">slug</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;.markdown&quot;</span><span class="p">),</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="c"># si je n&#39;ai pas de doublon, je crée le fichier et le squelette de mon post dans content</span>
 			<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Title: &quot;</span> <span class="o">+</span> <span class="n">titre</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 			<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Date: &quot;</span> <span class="o">+</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
@@ -160,15 +205,14 @@
 		<span class="n">titre</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 		<span class="n">newpost</span><span class="p">(</span><span class="n">titre</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 
-
-</figure>
-
+<p><a class="button radius tiny" href="../../../../code/newpost.py" title="Télécharger newpost.py">Télécharger newpost.py</a></p>
 <p>En résumé, ce script, à partir d'un titre passé en paramètre va générer un nom de fichier "slugifié", c'est à dire sans caratère accentué, en minuscule et séparé par des tirets, ainsi que l'en-tête de notre fichier. Le fichier de sortie ressemblera à ça :</p>
-<div class="highlight"><pre><span class="n">Title</span><span class="o">:</span> <span class="n">Mon</span> <span class="kd">super</span> <span class="n">post</span><span class="o">!</span>
+<div class="codehilite"><pre><span class="n">Title</span><span class="o">:</span> <span class="n">Mon</span> <span class="kd">super</span> <span class="n">post</span><span class="o">!</span>
 <span class="n">Date</span><span class="o">:</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">23</span><span class="o">:</span><span class="mi">40</span>
-<span class="n">Category</span><span class="o">:</span> 
-<span class="n">Tags</span><span class="o">:</span> 
+<span class="n">Category</span><span class="o">:</span>
+<span class="n">Tags</span><span class="o">:</span>
 <span class="n">Slug</span><span class="o">:</span> <span class="n">mon</span><span class="o">-</span><span class="kd">super</span><span class="o">-</span><span class="n">post</span>
 </pre></div>
 

@@ -111,12 +111,44 @@
 <p>Cette procédure est valable pour les distributions Linux se basant sur init.d comme Debian, et donc Crunchbang qui est la distribution sur laquelle a été fait cette automatisation.</p>
 <p>Pour cela, il suffit de suivre les étapes suivantes :</p>
 <h3>Sauver le programme python dans /usr/sbin</h3>
-<p>Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans <code>/usr./sbin</code> doit se faire en mode root par un <code>sudo cp meteo.py /usr/sbin</code>. Ne pas oublier au préalable de rendre le script exécutable par un <code>chmod +x meteo.py</code>. </p>
+<p>Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans <code>/usr./sbin</code> doit se faire en mode root par un <code>sudo cp meteo.py /usr/sbin</code>. Ne pas oublier au préalable de rendre le script exécutable par un <code>chmod +x meteo.py</code>.</p>
 <h3>Créer un script de démarrage /etc/init.d</h3>
 <p>Le fichier <code>/etc/init.d/skeleton</code> est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que <a href="http://www.gavinj.net/2012/06/building-python-daemon-process.html">j'ai trouvé ici</a>, puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire <code>/etc/init.d/</code>, en faisant <code>$ sudo geany /etc/init.d/meteo</code> par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).</p>
-<figure><figcaption class='include'><span style='text-align: left'>meteo</span>                <a style='float: right' href='/code/meteo'>Télécharger</a></figcaption>
-
-<div class="highlight"><pre><span class="c">#! /bin/sh</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#! /bin/sh</span>
 <span class="c">### BEGIN INIT INFO</span>
 <span class="c"># Provides:          meteo</span>
 <span class="c"># Required-Start:    $all</span>
@@ -152,17 +184,16 @@
 
 <span class="nb">exit </span>0
 </pre></div>
+</td></tr></table>
 
-
-</figure>
-
+<p><a class="button radius tiny" href="../../../../code/meteo" title="Télécharger meteo">Télécharger meteo</a></p>
 <p>Ensuite, il ne faut pas oublier de rendre le script exécutable par :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo chmod +x meteo
+<div class="codehilite"><pre><span class="nv">$ </span>sudo chmod +x meteo
 </pre></div>
 
 
 <p>Pour tester si votre script fonctionne correctement, vous pouvez faire :</p>
-<div class="highlight"><pre><span class="nv">$ </span>service /etc/init.d/meteo start
+<div class="codehilite"><pre><span class="nv">$ </span>service /etc/init.d/meteo start
 <span class="nv">$ </span>ps -ef | grep meteo
 root      2355     1  0 21:01 ?        00:00:00 python /usr/sbin/meteo.py start
 </pre></div>
@@ -170,13 +201,13 @@ root      2355     1  0 21:01 ?        00:00:00 python /usr/sbin/meteo.py start
 
 <p>Vous devriez voir votre service dans la liste des processus actifs.</p>
 <p>Pour arrêter le service, il suffit de faire :</p>
-<div class="highlight"><pre><span class="nv">$ </span>service /etc/init.d/meteo stop
+<div class="codehilite"><pre><span class="nv">$ </span>service /etc/init.d/meteo stop
 </pre></div>
 
 
 <h3>Inclure le service au démarrage</h3>
 <p>Pour ajouter le script à la liste de démarrage, vous devez lancer la commande suivante à partir du répertoire /etc/init.d/</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo update-rc.d meteo defaults
+<div class="codehilite"><pre><span class="nv">$ </span>sudo update-rc.d meteo defaults
 </pre></div>
 
 
@@ -188,14 +219,14 @@ root      2355     1  0 21:01 ?        00:00:00 python /usr/sbin/meteo.py start
 <p>Maintenant que tout part à la poubelle, je n'ai plus d'infos sur le démon, mais je n'ai plus de problème.</p>
 <h4>Astuce 2</h4>
 <p>Pour être sûr d'avoir paramétré correctement le script meteo dans /etc/init.d, , il faut savoir dans quel runlevel se lance Crunchbang.</p>
-<div class="highlight"><pre><span class="nv">$ </span>who -r
+<div class="codehilite"><pre><span class="nv">$ </span>who -r
          niveau d<span class="err">&#39;</span>exécution 2 2013-07-09 21:01                   <span class="nv">dernier</span><span class="o">=</span>S
 </pre></div>
 
 
-<p>Nous voyons dans mon cas particulier que ma session démarre avec un runlevel 2. Ca tombe bien, c'est ce que j'ai défini sur la ligne <code># Default-Start:     2 3 4 5</code>. </p>
+<p>Nous voyons dans mon cas particulier que ma session démarre avec un runlevel 2. Ca tombe bien, c'est ce que j'ai défini sur la ligne <code># Default-Start:     2 3 4 5</code>.</p>
 <p>Et lorsque que j'ai lancé la commande update-rc.d, un lien s'est créé dans le répertoire /etc/rc2.d listant les services concernés par le runlevel 2, la lettre S signifiant Start (K voulant dire Kill), et le numéro 05 précisant que le service démarrera après tous ceux ayant un numéro inférieur.</p>
-<div class="highlight"><pre><span class="nv">$ls</span> -l /etc/rc2.d/
+<div class="codehilite"><pre><span class="nv">$ls</span> -l /etc/rc2.d/
 lrwxrwxrwx 1 root root  15 juil.  5 21:45 S05meteo -&gt; ../init.d/meteo
 </pre></div>
 

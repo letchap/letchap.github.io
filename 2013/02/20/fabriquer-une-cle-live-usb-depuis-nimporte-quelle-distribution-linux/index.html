@@ -114,18 +114,18 @@
 <p>Ouvrez une fenêtre de terminal</p>
 <p>Si vous n’êtes pas familier des commandes cd pour se balader dans les répertoires à partir du terminal, vous aurez copié au préalable votre fichier .iso à la racine de votre répertoire personnel.</p>
 <h3>1) Isohybrid</h3>
-<div class="highlight"><pre><span class="nv">$ </span>isohybrid image.iso
+<div class="codehilite"><pre><span class="nv">$ </span>isohybrid image.iso
 </pre></div>
 
 
 <p>Les fichiers .iso sont plutôt destinés à être gravé sur CD, cette commande permet de copier le fichier .iso en toute sérénité sur la clé USB (de créer une version hybrid de l’image disque).</p>
 <p>Si vous n'avez pas la commande isohybrid, il faut installer syslinux comme ceci (sous Ubuntu ou apparenté)</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install syslinux
+<div class="codehilite"><pre><span class="nv">$ </span>sudo apt-get install syslinux
 </pre></div>
 
 
 <h3>2) df –h</h3>
-<div class="highlight"><pre><span class="nv">$ </span>df -h
+<div class="codehilite"><pre><span class="nv">$ </span>df -h
 Sys. de fichiers Taille Utilisé Dispo Uti% Monté sur
 /dev/sda1           37G     12G   23G  35% /
 udev               241M    4,0K  241M   1% /dev
@@ -141,7 +141,7 @@ none               248M     72K  248M   1% /run/shm
 <p>Si vous n’êtes jamais entré dans le terminal, je dois vous mettre en garde, cette commande peut être dangereuse. Mal utilisée, elle peut complètement effacer votre disque dur.</p>
 <p>Si vous avez déjà utilisé le terminal, je dois vous mettre en garde, cette commande peut être dangereuse. Mal utilisée, elle peut complètement effacer votre disque dur.</p>
 <p>Ces précautions prises, en fait c’est très simple, il suffit de taper la commande de la manière suivante :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo dd <span class="k">if</span><span class="o">=</span>image.iso <span class="nv">of</span><span class="o">=</span>/dev/sdb
+<div class="codehilite"><pre><span class="nv">$ </span>sudo dd <span class="k">if</span><span class="o">=</span>image.iso <span class="nv">of</span><span class="o">=</span>/dev/sdb
 </pre></div>
 
 

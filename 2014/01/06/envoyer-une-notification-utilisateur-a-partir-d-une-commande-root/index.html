@@ -116,13 +116,13 @@
 <p>Enfin, pour ne faire cette opération que le temps de l'exécution de la commande, nous allons utiliser la commande <code>env</code> qui permet justement de définir une variable le temps de la commande.</p>
 <p>Un dernier point avant d'afficher la solution. Mais où récupère t-on les authorisations de l'utlisateur ?</p>
 <p>Pour cela, il faut connaître son gestionnaire d'affichage, ou Display Manager dans la langue de Stallman. Les plus connus sont gdm ou kdm. Bon sur Crunchbang, c'est slim (sur Archlinux aussi d'ailleurs). Pour s'en assurer, il suffit de faire :</p>
-<div class="highlight"><pre><span class="nv">$ </span>cat /etc/X11/default-display-manager
+<div class="codehilite"><pre><span class="nv">$ </span>cat /etc/X11/default-display-manager
 /usr/bin/slim
 </pre></div>
 
 
 <p>Les informations qui nous intéressent vont se trouver dans le fichier <code>/etc/slim.conf</code>.</p>
-<div class="highlight"><pre><span class="nv">$ </span>cat /etc/slim.conf
+<div class="codehilite"><pre><span class="nv">$ </span>cat /etc/slim.conf
 <span class="c"># Xauth file for server</span>
 authfile           /var/run/slim.auth
 </pre></div>
@@ -130,7 +130,7 @@ authfile           /var/run/slim.auth
 
 <p>Voilà, les authorisations de l'utilisateur se trouvent dans le fichier <code>/var/run/slim.auth</code>.</p>
 <p>Il ne reste plus qu'à compiler tout ça, et la solution est :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo env <span class="nv">DISPLAY</span><span class="o">=</span>:0 xauth merge /var/run/slim.auth &amp; ma_commande
+<div class="codehilite"><pre><span class="nv">$ </span>sudo env <span class="nv">DISPLAY</span><span class="o">=</span>:0 xauth merge /var/run/slim.auth &amp; ma_commande
 </pre></div>
 	
   </article>

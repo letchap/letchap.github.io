@@ -108,7 +108,7 @@
 	
 	<p>Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3</p>
 <h3>La commande Wget dans un petit script :</h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -119,7 +119,7 @@
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/bin/bash</span>
 <span class="nv">login</span><span class="o">=</span><span class="nv">$login</span>
 <span class="nv">pass</span><span class="o">=</span><span class="nv">$password</span>
 
@@ -137,7 +137,7 @@ wget -dO index.html --cookies<span class="o">=</span>on --keep-session-cookies -
 <p>Nous allons être obligé de faire plusieurs passages pour récupérer les cookies. Sur les deux premiers passages, je ne conserve pas de fichiers de sortie en envoyant le résultat de la requête vers /dev/null. En revanche, mes cookies seront bien conservés dans le fichiers cookies.txt grâce à l'option --save-cookies. </p>
 <p>Pour le post, un petit coup d'extension web developer de firefox fera l'affaire. Cela permet d'identifier les zones de formulaires à remplir.</p>
 <h3>La même chose en Python 3</h3>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -189,7 +189,7 @@ wget -dO index.html --cookies<span class="o">=</span>on --keep-session-cookies -
 50
 51
 52
-53</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python3.2</span>
+53</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/usr/bin/python3.2</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">urllib.parse</span><span class="o">,</span> <span class="nn">urllib.error</span>
 <span class="kn">import</span> <span class="nn">http.cookiejar</span>
 

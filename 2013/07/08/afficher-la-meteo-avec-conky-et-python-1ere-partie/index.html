@@ -122,12 +122,10 @@
 <p>La première étape consiste à s'inscrire sur le site de wunderground <a href="http://www.wunderground.com/weather/api/d/login.html" title="S'inscrire sur Weather Underground">à cette adresse</a> pour obtenir une clé pour l'API. En bonus, vous avez à votre disposition des outils pour tester une requête et des exemples de code dans différents langages, dont Python.</p>
 <p>L'inscription est gratuite dans la limite d'une utilisation non commerciale et de 10 requêtes par minute. Parfait pour un usage privé.</p>
 <h3>Le script</h3>
-<p>Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky. </p>
+<p>Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky.</p>
 <p>Ce script est largement inspiré d'une part du tutoriel python sur <a href="http://www.fullcirclemag.fr/?pages/Numéros">full circle HS n°2</a> et sur <a href="http://www.archlinux.fr/forum/viewtopic.php?t=9981&amp;p=107541">ce forum</a>.</p>
 <p>Tous les commentaires sont dans le script.</p>
-<figure><figcaption class='include'><span style='text-align: left'>meteo.py</span>                <a style='float: right' href='/code/meteo.py'>Télécharger</a></figcaption>
-
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
   3
   4
@@ -306,13 +304,13 @@
 177
 178
 179
-180</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+180</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/usr/bin/python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
 <span class="c">#----------------------------------------------------</span>
 <span class="c"># Créé par letchap</span>
 <span class="c"># meteo.py</span>
 <span class="c">#----------------------------------------------------</span>
-<span class="sd">&quot;&quot;&quot; récupère les informations météo grace à l&#39;API du site wunderground.com &quot;&quot;&quot;</span> 
+<span class="sd">&quot;&quot;&quot; récupère les informations météo grace à l&#39;API du site wunderground.com &quot;&quot;&quot;</span>
 
 <span class="c">#import pour les infos meteo</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
@@ -323,11 +321,11 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">daemon</span> <span class="kn">import</span> <span class="n">runner</span>
 
-<span class="c">#=========================================================== </span>
+<span class="c">#===========================================================</span>
 <span class="c">#       La classe</span>
-<span class="c">#===========================================================        </span>
+<span class="c">#===========================================================</span>
 
-<span class="k">class</span> <span class="nc">App</span><span class="p">():</span> 
+<span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
     <span class="c"># Tout ça, c&#39;est pour le démon</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stdin_path</span> <span class="o">=</span> <span class="s">&#39;/dev/null&#39;</span>
@@ -335,13 +333,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stderr_path</span> <span class="o">=</span> <span class="s">&#39;/dev/null&#39;</span> <span class="c"># J&#39;ai remplacé /dev/tty par dev/null pour éviter les plantages au démarrage par init.d</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pidfile_path</span> <span class="o">=</span> <span class="s">&#39;/tmp/meteo.pid&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pidfile_timeout</span> <span class="o">=</span> <span class="mi">5</span>
-    
+
     <span class="c"># Bien appelé la fonction &#39;run&#39; pour le démon</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
-    
-        
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+
         <span class="k">while</span> <span class="bp">True</span><span class="p">:</span> <span class="c"># C&#39;est le début de ma boucle pour démoniser mon programme</span>
-        
+
             <span class="c">###############################################</span>
             <span class="c">#           Le corps du programme             #</span>
             <span class="c">###############################################</span>
@@ -349,7 +347,7 @@
             <span class="c"># Je récupère les informations fournies par wunderground grâce à leur api, au format json,</span>
             <span class="c"># en une seule fois (forecast et conditions), et en français</span>
             <span class="c"># Un exemple de code est fourni sur le site wunderground</span>
-        
+
             <span class="c"># Je charge ma page meteo</span>
                 <span class="n">page_json</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://api.wunderground.com/api/macleapi/forecast/conditions/lang:FR/q/France/Paris.json?paris=I75003PA1&#39;</span><span class="p">)</span>
                 <span class="c"># Je lis la page</span>
@@ -358,8 +356,8 @@
                 <span class="n">parsed_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
                 <span class="c"># Et je peux fermer ma page meteo, je n&#39;en ai plus besoin</span>
                 <span class="n">page_json</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="k">except</span><span class="p">:</span> 
-                <span class="k">print</span> <span class="s">&#39;Les informations météo ne sont pas accessibles sur le site wunderground.com&#39;</span> 
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;Les informations météo ne sont pas accessibles sur le site wunderground.com&#39;</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c"># pour sortir du programme si la requête n&#39;aboutit pas</span>
 
             <span class="c"># Je récupère les informations du jour stokées sur le tag &quot;current_observation&quot;</span>
@@ -378,26 +376,26 @@
             <span class="n">feelslike_c</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s">&#39;current_observation&#39;</span><span class="p">][</span><span class="s">&#39;feelslike_c&#39;</span><span class="p">]</span> <span class="c"># la température ressentie</span>
             <span class="n">visibility</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s">&#39;current_observation&#39;</span><span class="p">][</span><span class="s">&#39;visibility_km&#39;</span><span class="p">]</span> <span class="c"># la visibilité en km</span>
             <span class="n">UV</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s">&#39;current_observation&#39;</span><span class="p">][</span><span class="s">&#39;UV&#39;</span><span class="p">]</span> <span class="c"># l&#39;indice UV</span>
-            
+
             <span class="c"># Un petit test sur l&#39;indice UV qui peut être négatif</span>
             <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">UV</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;-1&#39;</span><span class="p">:</span>
                 <span class="n">UV</span> <span class="o">=</span> <span class="mi">0</span>
-            
+
             <span class="c"># Une petite transformation de la tendance atmosphérique</span>
-            
+
             <span class="k">if</span> <span class="n">pressure_trend</span> <span class="o">==</span> <span class="s">&#39;-&#39;</span><span class="p">:</span>
                 <span class="n">pressure_trend</span> <span class="o">=</span> <span class="s">&#39;en baisse&#39;</span>
             <span class="k">elif</span> <span class="n">pressure_trend</span> <span class="o">==</span> <span class="s">&#39;+&#39;</span><span class="p">:</span>
                 <span class="n">pressure_trend</span> <span class="o">=</span> <span class="s">&#39;en hausse&#39;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">pressure_trend</span> <span class="o">=</span> <span class="s">&#39;stable&#39;</span>
-            
+
             <span class="c"># J&#39;écris ces informations dans un fichier qui servira plus tard pour le conky meteo.</span>
-            <span class="c"># En ouvrant le fichier en mode &#39;w&#39;, j&#39;écrase le fichier meteo.txt précédent </span>
-            <span class="c"># Je transforme tous les chiffres en chaînes de caractères et j&#39;encode tous les textes français en UTF8    </span>
+            <span class="c"># En ouvrant le fichier en mode &#39;w&#39;, j&#39;écrase le fichier meteo.txt précédent</span>
+            <span class="c"># Je transforme tous les chiffres en chaînes de caractères et j&#39;encode tous les textes français en UTF8</span>
             <span class="c"># Je n&#39;ai pas besoin de fermer le fichier en utilisant &quot;with open&quot;</span>
 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/home/letchap/tmp/meteo.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/home/letchap/tmp/meteo.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Meteo = &quot;</span> <span class="o">+</span> <span class="n">current_weather</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Ville = &quot;</span> <span class="o">+</span> <span class="n">city</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Derniere_observation = &quot;</span> <span class="o">+</span> <span class="n">last_observation</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
@@ -410,9 +408,9 @@
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Tend_pres = &quot;</span> <span class="o">+</span> <span class="n">pressure_trend</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span> <span class="c">#Ok, l&#39;utf8 ne sert à rien là</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Visibilite = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">visibility</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; km</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;Indice_UV = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">UV</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-            
-            
-            
+
+
+
             <span class="c"># Je récupère les prévisions sous le tag &quot;simpleforecast&quot;, en bouclant sur chacune des périodes</span>
             <span class="n">forecast</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s">&#39;forecast&#39;</span><span class="p">][</span><span class="s">&#39;simpleforecast&#39;</span><span class="p">][</span><span class="s">&#39;forecastday&#39;</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">forecast</span><span class="p">:</span>
@@ -442,8 +440,8 @@
                     <span class="n">date</span> <span class="o">=</span> <span class="s">&#39;jour3&#39;</span>
                 <span class="k">elif</span> <span class="n">period</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
                     <span class="n">date</span> <span class="o">=</span> <span class="s">&#39;jour4&#39;</span>
-                
-                <span class="c"># Encore un petit test pour les icones. Je combine icon et skyicon pour avoir la représentation graphique </span>
+
+                <span class="c"># Encore un petit test pour les icones. Je combine icon et skyicon pour avoir la représentation graphique</span>
                 <span class="c"># la plus proche de la réalité en particulier &quot;partiellement couvert et pluvieux&quot; qui n&#39;existe pas</span>
                 <span class="c"># D&#39;abord je définis 3 listes pour l&#39;orage, la pluie et la neige</span>
                 <span class="n">orage</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;tstorms&#39;</span><span class="p">,</span><span class="s">&#39;chancetstorms&#39;</span><span class="p">,</span><span class="s">&#39;nt_tstorms&#39;</span><span class="p">,</span> <span class="s">&#39;nt_chancetstorms&#39;</span><span class="p">]</span>
@@ -458,28 +456,28 @@
                     <span class="n">icone</span> <span class="o">=</span> <span class="n">skyicon</span><span class="o">+</span><span class="s">&quot;snow&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">icone</span> <span class="o">=</span> <span class="n">icon</span>
-                
+
                 <span class="c"># J&#39;écris à la suite, grâce à l&#39;option &#39;a&#39; append au lieu de &#39;w&#39;</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/home/letchap/tmp/meteo.txt&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_jour = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">jour</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_mois = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mois</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span> 
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_annee = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">annee</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>     
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_mois = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mois</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_annee = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">annee</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_jour_sem = &quot;</span>  <span class="o">+</span> <span class="n">jour_sem</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>  <span class="c"># C&#39;est du luxe, il n&#39;y a pas d&#39;accent dans les jours de la semaine</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_tempmax = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempmax</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; °C</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>     
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_tempmin = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempmin</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; °C</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>                              
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_tempmax = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempmax</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; °C</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_tempmin = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempmin</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; °C</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_conditions = &quot;</span> <span class="o">+</span> <span class="n">condition</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_icone = &quot;</span> <span class="o">+</span> <span class="n">icone</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_pop = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pop</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;%</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>            
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_hauteur_precip = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hauteur_precip</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; mm</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>            
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_hauteur_neige = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hauteur_neige</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; cm</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>            
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_vent = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vent</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; km/h</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>            
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_dir_vent = &quot;</span>  <span class="o">+</span> <span class="n">vent_dir</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>             
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_tx_himidite = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tx_humidite</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;%</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>            
-    
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_pop = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pop</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;%</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_hauteur_precip = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hauteur_precip</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; mm</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_hauteur_neige = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hauteur_neige</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; cm</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_vent = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vent</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; km/h</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_dir_vent = &quot;</span>  <span class="o">+</span> <span class="n">vent_dir</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s">&quot;_tx_himidite = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tx_humidite</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;%</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
             <span class="c">############################################</span>
             <span class="c">#             Le fin du programme          #</span>
             <span class="c">############################################</span>
-            
+
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span> <span class="c"># C&#39;est la fin de ma boucle de démonisation. La temporisation est de 120 secondes</span>
 
 <span class="c"># Toujours commencer la lecture d&#39;un programme python par la fin. C&#39;est là qu&#39;on lance le démon</span>
@@ -489,11 +487,10 @@
 </pre></div>
 </td></tr></table>
 
-</figure>
-
+<p><a class="button radius tiny" href="../../../../code/meteo.py" title="Télécharger meteo.py">Télécharger meteo.py</a></p>
 <p>Pour mieux comprendre la façon dont sont récupérées les données, prenons un exemple avec un morceau de fichier json et le code Python correspondant. Nous allons récupérer l'information concernant la ville.</p>
 <p>Le morceau du fichier JSON qui nous intéresse ressemble à çà :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -510,7 +507,7 @@
 15
 16
 17
-18</pre></div></td><td class="code"><div class="highlight"><pre><span class="s2">&quot;current_observation&quot;</span><span class="o">:</span>  <span class="p">{</span>
+18</pre></div></td><td class="code"><div class="codehilite"><pre><span class="s2">&quot;current_observation&quot;</span><span class="o">:</span>  <span class="p">{</span>
         <span class="s2">&quot;image&quot;</span><span class="o">:</span>  <span class="p">{</span>
           <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png&quot;</span><span class="p">,</span>
           <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Weather Underground&quot;</span><span class="p">,</span>
@@ -531,13 +528,13 @@
 </pre></div>
 </td></tr></table>
 
-<p>Pour trouver la bonne information, il suffit de suivre les branches de l'arbre. L'information "Paris" se trouve dans "city", qui se trouve dans "display_location" qui se trouve dans "current_observation". Ce qui se traduira en python par : </p>
-<div class="highlight"><pre><span class="nx">city</span> <span class="o">=</span> <span class="nx">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;display_location&#39;</span><span class="p">][</span><span class="s1">&#39;city&#39;</span><span class="p">]</span>
+<p>Pour trouver la bonne information, il suffit de suivre les branches de l'arbre. L'information "Paris" se trouve dans "city", qui se trouve dans "display_location" qui se trouve dans "current_observation". Ce qui se traduira en python par :</p>
+<div class="codehilite"><pre><span class="nx">city</span> <span class="o">=</span> <span class="nx">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;display_location&#39;</span><span class="p">][</span><span class="s1">&#39;city&#39;</span><span class="p">]</span>
 </pre></div>
 
 
 <p>Le fichier texte final ressemble à ça :</p>
-<div class="highlight"><pre><span class="n">Meteo</span> <span class="o">=</span> <span class="n">Ciel</span> <span class="n">d</span><span class="err">é</span><span class="n">gag</span><span class="err">é</span>
+<div class="codehilite"><pre><span class="n">Meteo</span> <span class="o">=</span> <span class="n">Ciel</span> <span class="n">d</span><span class="err">é</span><span class="n">gag</span><span class="err">é</span>
 <span class="n">Ville</span> <span class="o">=</span> <span class="n">Paris</span>
 <span class="n">Derniere_observation</span> <span class="o">=</span> <span class="n">Last</span> <span class="n">Updated</span> <span class="n">on</span> <span class="n">juillet</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">20</span><span class="o">:</span><span class="mo">05</span> <span class="n">CEST</span>
 <span class="n">Temperature</span> <span class="o">=</span> <span class="mf">27.1</span> <span class="err">°</span><span class="n">C</span>
@@ -611,7 +608,7 @@
 <h3>Le démon</h3>
 <p>Afin de pouvoir interroger régulièrement le site Wunderground, nous allons "démoniser" le programme, c'est à dire que nous allons lui demander de se déclencher à intervalle régulier (dans le script 120 secondes)</p>
 <p>Pour cela, il suffit de suivre l'exemple suivant, en ayant installé préalablement python-daemon par un <code>sudo apt-get install python-daemon</code>.</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -630,10 +627,10 @@
 17
 18
 19
-20</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">time</span>
+20</pre></div></td><td class="code"><div class="codehilite"><pre><span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">daemon</span> <span class="kn">import</span> <span class="n">runner</span>
 
-<span class="k">class</span> <span class="nc">App</span><span class="p">():</span> 
+<span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stdin_path</span> <span class="o">=</span> <span class="s">&#39;/dev/null&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stdout_path</span> <span class="o">=</span> <span class="s">&#39;/dev/null&#39;</span>
@@ -654,19 +651,19 @@
 </td></tr></table>
 
 <p>Le programme ainsi démonisé se lance par :</p>
-<div class="highlight"><pre><span class="nv">$ </span>python meteo.py start
+<div class="codehilite"><pre><span class="nv">$ </span>python meteo.py start
 </pre></div>
 
 
 <p>Vous voir le résultat par exemple par un :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>ps -ef | grep meteo
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span class="nv">$ </span>ps -ef | grep meteo
 root      2413     1  0 22:30 ?        00:00:00 python /usr/sbin/meteo.py start
 </pre></div>
 </td></tr></table>
 
 <p>Il s'arrête par :</p>
-<div class="highlight"><pre><span class="nv">$ </span>python meteo.py stop
+<div class="codehilite"><pre><span class="nv">$ </span>python meteo.py stop
 </pre></div>
 
 

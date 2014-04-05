@@ -133,7 +133,7 @@
 <img alt="grub Mageia" src="../../../../images/grub_mageia.png" title="Grub Mageia" /></p>
 <p>Au redémarrage, vous serez toujours sur le GRUB de Lubuntu et vous n'aurez toujours pas accès à Mageia. </p>
 <p>Pour vous en convaincre, vous pouvez taper la commande fdisk et voir que la petite étoile dans la colonne amorce est bien devant la partition sda1 où se trouve Lubuntu.</p>
-<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">localhost</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">fdisk</span> <span class="o">-</span><span class="n">l</span>
+<div class="codehilite"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">localhost</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">fdisk</span> <span class="o">-</span><span class="n">l</span>
 
 <span class="n">P</span><span class="err">é</span><span class="n">riph</span><span class="err">é</span><span class="n">rique</span> <span class="n">Amorce</span>  <span class="n">D</span><span class="err">é</span><span class="n">but</span>        <span class="n">Fin</span>      <span class="n">Blocs</span>     <span class="n">Id</span>  <span class="n">Syst</span><span class="err">è</span><span class="n">me</span>
 <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span>   <span class="o">*</span>        <span class="mi">2048</span>    <span class="mi">43006004</span>    <span class="mi">21501978</span><span class="o">+</span>  <span class="mi">83</span>  <span class="n">Linux</span>
@@ -146,7 +146,7 @@
 
 
 <p>Ou encore avec l'outil parted, nous voyons que le numéro 1 (ou sda1) est bien la partition de démarrage</p>
-<div class="highlight"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">localhost</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">parted</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span> <span class="n">print</span>
+<div class="codehilite"><pre><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">localhost</span> <span class="o">~</span><span class="p">]</span><span class="err">#</span> <span class="n">parted</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span> <span class="n">print</span>
 <span class="n">Mod</span><span class="err">è</span><span class="n">le</span><span class="o">:</span> <span class="n">ATA</span> <span class="n">TOSHIBA</span> <span class="n">MK4021GA</span> <span class="p">(</span><span class="n">scsi</span><span class="p">)</span>
 <span class="n">Disque</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span> <span class="o">:</span> <span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>
 <span class="n">Taille</span> <span class="n">des</span> <span class="n">secteurs</span> <span class="p">(</span><span class="n">logiques</span><span class="o">/</span><span class="n">physiques</span><span class="p">)</span><span class="o">:</span> <span class="mi">512</span><span class="n">B</span><span class="o">/</span><span class="mi">512</span><span class="n">B</span>
@@ -167,7 +167,7 @@
 <h3>Le chaînage</h3>
 <p>Nous allons dire au GRUB de Lubuntu de chaîner sur le GRUB de Mageia. Pour cela nous allons ajouter une entrée Mageia dans le GRUB de Lubuntu.</p>
 <p>Pour cela, il suffit d'ouvrir de fichier 40_custom <a href="../../../../2013/02/23/demarrer-sur-une-cle-usb-sans-passer-par-le-bios/">(le même qui contient mon entrée pour Plop Manager)</a> et d'ajouter les lignes suivantes :</p>
-<div class="highlight"><pre><span class="n">menuentry</span> <span class="s">&quot;Mageia&quot;</span> <span class="p">{</span>
+<div class="codehilite"><pre><span class="n">menuentry</span> <span class="s">&quot;Mageia&quot;</span> <span class="p">{</span>
 <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">chainloader</span> <span class="o">+</span><span class="mi">1</span>
 <span class="p">}</span>
@@ -176,7 +176,7 @@
 
 <p>Ici, (hd0,5) signifie sda5. (hd1,4) signifierait sdb4 par exemple. </p>
 <p>Ensuite nous mettons à jour Grub par la commande suivante :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo update-grub
+<div class="codehilite"><pre><span class="nv">$ </span>sudo update-grub
 </pre></div>
 
 

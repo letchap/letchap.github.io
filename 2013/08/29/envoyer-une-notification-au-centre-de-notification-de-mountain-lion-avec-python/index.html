@@ -110,15 +110,13 @@
 <p>Ce qui est décrit ci-dessous est librement inspiré de cet <a href="http://dbader.org/blog/alfred-timer-extension" title="A countdown timer extension for Alfred">article en anglais</a>.</p>
 <p>Pour pouvoir envoyer un message dans le centre de notification de Mountain Lion et afficher une pop-up, il faut obligatoirement que l'application soit reconnu par Apple via le "bundle identifier". Pour mon petit programme Python à moi, je ne vais pas demander un identifiant, alors pour pouvoir malgré tout envoyer un message, je vais adopter la stratégie du coucou et emprunter un bundle identifier existant. Par exemple celui de du programme Python Launcher (puisque que je lance un programme Python). Je vais donc faire croire au centre de notification que c'est l'application Python Launcher qui envoie un message.</p>
 <p>Tout d'abord, comment récupérer le bundler identifier? Avec la commande suivante dans le terminal :</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">osascript</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">id</span> <span class="n">of</span> <span class="n">app</span> <span class="s">&quot;Python Launcher&quot;</span><span class="err">&#39;</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">osascript</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">id</span> <span class="n">of</span> <span class="n">app</span> <span class="s">&quot;Python Launcher&quot;</span><span class="err">&#39;</span>
 <span class="n">org</span><span class="p">.</span><span class="n">python</span><span class="p">.</span><span class="n">PythonLauncher</span>
 </pre></div>
 
 
 <p>Maintenant, décorons !</p>
-<figure><figcaption class='include'><span style='text-align: left'>decorateur.py</span>                <a style='float: right' href='/code/decorateur.py'>Télécharger</a></figcaption>
-
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -182,7 +180,7 @@
 62
 63
 64
-65</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+65</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/usr/bin/python</span>
 <span class="kn">import</span> <span class="nn">objc</span>
 
 <span class="c">########################################################################</span>
@@ -228,7 +226,7 @@
 <span class="sd">    we modify `bundleIdentifier` to return a fake bundle identifier.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># Return Python Launcher&#39;s bundle identifier to display the Python Launcher logo.</span>
-    
+
     <span class="k">return</span> <span class="s">&#39;org.python.PythonLauncher&#39;</span>
 
 
@@ -241,31 +239,30 @@
     <span class="sd">&quot;&quot;&quot;Display a NSUserNotification on Mac OS X &gt;= 10.8&quot;&quot;&quot;</span>
     <span class="n">NSUserNotification</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s">&#39;NSUserNotification&#39;</span><span class="p">)</span>
     <span class="n">NSUserNotificationCenter</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s">&#39;NSUserNotificationCenter&#39;</span><span class="p">)</span>
-    
+
     <span class="n">notification</span> <span class="o">=</span> <span class="n">NSUserNotification</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
     <span class="n">notification</span><span class="o">.</span><span class="n">setTitle_</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="n">notification</span><span class="o">.</span><span class="n">setInformativeText_</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    
+
     <span class="n">NSUserNotificationCenter</span><span class="o">.</span><span class="n">defaultUserNotificationCenter</span><span class="p">()</span><span class="o">.</span><span class="n">deliverNotification_</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
 </pre></div>
 </td></tr></table>
 
-</figure>
-
+<p><a class="button radius tiny" href="../../../../code/decorateur.py" title="Télécharger decorateur.py">Télécharger decorateur.py</a></p>
 <p>Le principe de base est de "décorer" la fonction renvoyant le bundle identifier, c'est à dire que nous affectons son comportement temporairement (mais sans la modifier), pour qu'elle renvoie l'identifiant que nous lui passons. Pour cela, nous utilisons un décorateur Python. Pour plus d'informations sur le fonctionnement des décorateurs, vous pouvez aller sur le <a href="http://www.siteduzero.com/informatique/tutoriels/apprenez-a-programmer-en-python/les-decorateurs" title="Les décorateurs Python">site du zéro</a> ou sur <a href="http://sametmax.com/comprendre-les-decorateurs-python-pas-a-pas-partie-1/" title="Les décorateurs Python première partie">le blog de Sam et Max</a>.</p>
 <p>Ensuite dans la fonction notify(), nous envoyons un message au centre de notification de Mountain Lion qui pensera que c'est l'application Python Launcher qui envoie le flux. Colossale feinte de sioux !</p>
 <p>Le résultat en image</p>
 <p><img alt="exemple notification" src="../../../../images/notif.png" /></p>
 <p>Le tout s'appuie sur le projet PyObjC qui développe une passerelle entre Python et ObjC et dont vous trouverez la documentation <a href="http://pythonhosted.org/pyobjc/" title="Python ObjC">ici</a>.</p>
 <p>Contrairement au paquet pync (un wrapper Python de terminal-notifier qui permet d'envoyer des messages au centre de notification depuis le terminal) qui ne sait pas envoyer des messages hors d'une session du terminal, ici, il sera possible d'envoyer des notifications même si le programme est déclenché en mode batch par launchd.</p>
-<p>Voilà, c'est tout pour Mac OS X pour le moment, la prochaine fois, retour sur Linux. </p>
+<p>Voilà, c'est tout pour Mac OS X pour le moment, la prochaine fois, retour sur Linux.</p>
 <p>Pour la petite histoire, ce qu'on vient de faire tient en trois lignes de code sous Linux grâce à la bibliothèque pynotify :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">pynotify</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s">&quot;Free.py&quot;</span><span class="p">)</span>
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">pynotify</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s">&quot;Free.py&quot;</span><span class="p">)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">pynotify</span><span class="o">.</span><span class="n">Notification</span><span class="p">(</span>
     <span class="s">&quot;Titre</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="c"># Titre</span>
     <span class="s">&quot;Message&quot;</span><span class="p">,</span> <span class="c"># Message</span>

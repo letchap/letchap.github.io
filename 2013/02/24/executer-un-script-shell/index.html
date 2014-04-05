@@ -108,14 +108,14 @@
 	
 	<p>Nous avons fait deux beaux scripts en shell pour utiliser la commande <a href="../../../../2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/" title="Convertir des fichiers flac en m4a grâce à un script shell">avconv</a>. Nous avons enregistré nos scripts dans des fichiers monscript.sh. Maintenant comment exécuter ces scripts ?</p>
 <p>La première chose à faire est de rendre exécutable le script par la commande :</p>
-<div class="highlight"><pre><span class="nv">$ </span>chmod +x monscript.sh
+<div class="codehilite"><pre><span class="nv">$ </span>chmod +x monscript.sh
 </pre></div>
 
 
 <p>Ensuite, deux façons de lancer le script.</p>
 <h1>Vous êtes encore en train de travailler sur votre script :</h1>
 <p>Le plus simple est de lancer le script en se plaçant dans le répertoire de travail où il se trouve et de taper la commande suivante :</p>
-<div class="highlight"><pre><span class="nv">$ </span>./monscript.sh
+<div class="codehilite"><pre><span class="nv">$ </span>./monscript.sh
 </pre></div>
 
 
@@ -127,7 +127,7 @@
 <li>dans ~/bin : le programme n'est accessible que par nous</li>
 </ul>
 <p>Par bonheur, sur la version 12.04 de Lubuntu par exemple, pas besoin de modifier le PATH pour ajouter notre répertoire bin personnel. Il suffit de le créer pour qu'il soit reconnu. En effet, dans le fichier home/.profile, nous trouvons les lignes suivantes :</p>
-<div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -d <span class="s2">&quot;$HOME/bin&quot;</span> <span class="o">]</span> ; <span class="k">then</span>
+<div class="codehilite"><pre><span class="k">if</span> <span class="o">[</span> -d <span class="s2">&quot;$HOME/bin&quot;</span> <span class="o">]</span> ; <span class="k">then</span>
 <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$HOME/bin:$PATH&quot;</span>
 <span class="k">fi</span>
 </pre></div>

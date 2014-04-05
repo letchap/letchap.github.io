@@ -120,14 +120,12 @@
 <p>Tout d'abord, il faut installer conky. Sur Crunchbang, il est installé par défaut, sinon <code>sudo apt-get install conky</code></p>
 <p>Ensuite, nous allons réaliser non pas un mais quatre script conky, un par jour de prévision. Conky ne sait pas gérer les colonnes, à moins de bidouiller avec la commande ${goto}. Donc nous allons coller quatre conky pour réaliser une jolie présentation.</p>
 <p>Voilà, à la suite, les quatre fichiers. Ces fichiers sont à copier dans le répertoire /home/monuser/.conky/ :</p>
-<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo</span>                <a style='float: right' href='/code/conkyrc_meteo'>Télécharger</a></figcaption>
-
-<div class="highlight"><pre><span class="c">##############################################</span>
-<span class="c"># Paramètres</span>
-<span class="c">##############################################</span>
+<div class="codehilite"><pre>##############################################
+# Paramètres
+##############################################
 background yes
 use_xft yes
-xftfont Walkway:size<span class="o">=</span>9
+xftfont Walkway:size=9
 xftalpha 1
 update_interval 1.0
 total_run_times 0
@@ -142,209 +140,191 @@ draw_shades no
 draw_outline no
 draw_borders no
 draw_graph_borders no
-default_color <span class="c">#b5b5b5</span>
-alignment top_left <span class="c">## on centre la fenêtre sur l&#39;écran à l&#39;ouverture</span>
+default_color #b5b5b5
+alignment top_left ## on centre la fenêtre sur l&#39;écran à l&#39;ouverture
 gap_x 30
 gap_y 70
-border_inner_margin 5 <span class="c">## marge entre le texte et la bordure</span>
-border_outer_margin 5 <span class="c">## marge entre la bordure et le bord de la fenêtre.</span>
+border_inner_margin 5 ## marge entre le texte et la bordure
+border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
 no_buffers yes
 uppercase no
 override_utf8_locale yes
-<span class="c">##############################################</span>
-<span class="c"># Affichage</span>
-<span class="c">##############################################</span>
+##############################################
+# Affichage
+##############################################
 TEXT
-<span class="c"># D&#39;abord, je place les images</span>
-<span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour1_icone ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print &quot;${image ~/images/icone_meteo/&quot; $3 &quot;.png -p 30,0 -s 128x128}&quot;}&#39;</span><span class="k">}</span>
+# D&#39;abord, je place les images
+<span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">jour1_icone</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print &quot;${image ~/images/icone_meteo/&quot; $3 &quot;.png -p 30,0 -s 128x128</span><span class="cp">}</span>&quot;}&#39;}
 
-<span class="c"># Je place le texte</span>
-<span class="k">${</span><span class="nv">color</span><span class="p"> #b5b5b5</span><span class="k">}${</span><span class="nv">voffset</span><span class="p"> -30</span><span class="k">}${</span><span class="nv">goto</span><span class="p"> 260</span><span class="k">}${</span><span class="nv">font</span><span class="p"> size=12:</span><span class="nv">bold</span><span class="k">}</span>Aujourd<span class="s1">&#39;hui à ${execp grep Derniere_observation ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$8</span><span class="o">}</span><span class="s1">&#39;} à Paris${font}</span>
-<span class="s1">${voffset 10}${goto 240}Temp. actuelle : $alignr${execp grep Temperature ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${voffset 3}${goto 240}Temp. ressentie : $alignr${execp grep Ressentie ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${voffset 3}${goto 240}Proba. de précip. : $alignr${execp grep jour1_pop ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${voffset 3}${goto 240}Vent : $alignr de ${execp grep Dir_vent ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span><span class="o">}</span><span class="s1">&#39;} à ${execp grep Vent ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${voffset 3}${goto 240}Pression atmos. : $alignr${execp grep Pression ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;}${execp grep Tend_pres ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="s2">&quot; &quot;</span> <span class="nv">$3</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${voffset 3}${goto 240}Humidité : $alignr${execp grep Humidite ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${voffset 3}${goto 240}Visibilité : $alignr${execp grep Visibilite ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${font bold}${goto 50}${execp grep Meteo ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span> <span class="s2">&quot; &quot;</span> <span class="nv">$5</span><span class="o">}</span><span class="s1">&#39;}${font}${goto 240}Indice UV : $alignr${execp grep Indice_UV ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span><span class="o">}</span><span class="s1">&#39;} ${font}</span>
-<span class="s1">${voffset 3}${goto 240}Hauteur de précipitation : $alignr${execp grep jour1_hauteur_precip ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;}</span>
-<span class="s1">${font bold}${goto 50}${execp grep jour1_tempmax ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;} |  ${font}${execp grep jour1_tempmin ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="s1">&#39;}${goto 240}Hauteur de neige : $alignr${execp grep jour1_hauteur_neige ~/tmp/meteo.txt | awk -F &quot; &quot; &#39;</span><span class="o">{</span>print <span class="nv">$3</span> <span class="s2">&quot; &quot;</span> <span class="nv">$4</span><span class="o">}</span><span class="err">&#39;</span><span class="o">}</span>
-<span class="k">${</span><span class="nv">hr</span><span class="p"> 2</span><span class="k">}</span>
-<span class="k">${</span><span class="nv">voffset</span><span class="p"> -40</span><span class="k">}</span>
+# Je place le texte
+<span class="cp">${</span><span class="n">color</span> <span class="c">#b5b5b5</span><span class="cp">}${</span><span class="n">voffset</span> <span class="o">-</span><span class="mi">30</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">260</span><span class="cp">}${</span><span class="n">font</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">:</span><span class="n">bold</span><span class="cp">}</span>Aujourd&#39;hui à <span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Derniere_observation</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $8</span><span class="cp">}</span>&#39;} à Paris<span class="cp">${</span><span class="n">font</span><span class="cp">}</span>
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">10</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Temp. actuelle : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Temperature</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">3</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Temp. ressentie : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Ressentie</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">3</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Proba. de précip. : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">jour1_pop</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">3</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Vent : <span class="nv">$alignr</span> de <span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Dir_vent</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3</span><span class="cp">}</span>&#39;} à <span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Vent</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">3</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Pression atmos. : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Pression</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}<span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Tend_pres</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print &quot; &quot; $3</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">3</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Humidité : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Humidite</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">3</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Visibilité : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Visibilite</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">font</span> <span class="n">bold</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">50</span><span class="cp">}${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Meteo</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4 &quot; &quot; $5</span><span class="cp">}</span>&#39;}<span class="cp">${</span><span class="n">font</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Indice UV : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">Indice_UV</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3</span><span class="cp">}</span>&#39;} <span class="cp">${</span><span class="n">font</span><span class="cp">}</span>
+<span class="cp">${</span><span class="n">voffset</span> <span class="mi">3</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Hauteur de précipitation : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">jour1_hauteur_precip</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">font</span> <span class="n">bold</span><span class="cp">}${</span><span class="n">goto</span> <span class="mi">50</span><span class="cp">}${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">jour1_tempmax</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;} |  <span class="cp">${</span><span class="n">font</span><span class="cp">}${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">jour1_tempmin</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}<span class="cp">${</span><span class="n">goto</span> <span class="mi">240</span><span class="cp">}</span>Hauteur de neige : <span class="nv">$alignr</span><span class="cp">${</span><span class="n">execp</span> <span class="n">grep</span> <span class="n">jour1_hauteur_neige</span> <span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">meteo</span><span class="o">.</span><span class="n">txt</span> <span class="o">|</span> <span class="n">awk</span> <span class="o">-</span><span class="n">F</span> <span class="s">&quot; &quot;</span> <span class="s">&#39;{print $3 &quot; &quot; $4</span><span class="cp">}</span>&#39;}
+<span class="cp">${</span><span class="n">hr</span> <span class="mi">2</span><span class="cp">}</span>
+<span class="cp">${</span><span class="n">voffset</span> <span class="o">-</span><span class="mi">40</span><span class="cp">}</span>
 </pre></div>
 
 
-</figure>
-
-<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo_jour2</span>                <a style='float: right' href='/code/conkyrc_meteo_jour2'>Télécharger</a></figcaption>
-
-<div class="highlight"><pre><span class="c">##############################################</span>
-<span class="c"># Paramètres</span>
-<span class="c">##############################################</span>
-background yes
-use_xft yes
-xftfont Walkway:size<span class="o">=</span>9
-xftalpha 1
-update_interval 1.0
-total_run_times 0
-own_window yes
-own_window_transparent yes
-own_window_type desktop
-own_window_hints undecorated,sticky,skip_taskbar,skip_pager
-double_buffer yes
-minimum_size 180 200
-maximum_width 180
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
-default_color <span class="c">#b5b5b5</span>
-alignment top_left <span class="c">## on centre la fenêtre sur l&#39;écran à l&#39;ouverture</span>
-gap_x 30
-gap_y 320
-border_inner_margin 5 <span class="c">## marge entre le texte et la bordure</span>
-border_outer_margin 5 <span class="c">## marge entre la bordure et le bord de la fenêtre.</span>
-no_buffers yes
-uppercase no
-override_utf8_locale yes
-<span class="c">##############################################</span>
-<span class="c"># Affichage</span>
-<span class="c">##############################################</span>
-TEXT
-<span class="c"># D&#39;abord, je place les images</span>
-<span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_icone ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print &quot;${image ~/images/icone_meteo/&quot; $3 &quot;.png -p 58,10 -s 64x64}&quot;}&#39;</span><span class="k">}</span>
-
-<span class="c"># Je place le texte</span>
-<span class="k">${</span><span class="nv">color</span><span class="p"> #b5b5b5</span><span class="k">}</span><span class="nv">$alignc</span><span class="k">${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">voffset</span><span class="p"> -40</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour2_jour_sem ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span>
-<span class="nv">$alignc</span><span class="k">${</span><span class="nv">voffset</span><span class="p"> 70</span><span class="k">}${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour2_conditions ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4 &quot; &quot; $5}&#39;</span><span class="k">}</span>
-<span class="nv">$alignc</span><span class="k">${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour2_tempmax ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span> | <span class="k">${</span><span class="nv">font</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour2_tempmin ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-<span class="k">${</span><span class="nv">voffset</span><span class="p"> 10</span><span class="k">}</span>Précip. % : <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_pop ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span>
-Précip. h: <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_hauteur_precip ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-Neige : <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_hauteur_neige ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}</span>de <span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_dir_vent ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span> à <span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_vent ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-</pre></div>
-
-
-</figure>
-
-<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo_jour3</span>                <a style='float: right' href='/code/conkyrc_meteo_jour3'>Télécharger</a></figcaption>
-
-<div class="highlight"><pre><span class="c">##############################################</span>
-<span class="c"># Paramètres</span>
-<span class="c">##############################################</span>
-background yes
-use_xft yes
-xftfont Walkway:size<span class="o">=</span>9
-xftalpha 1
-update_interval 1.0
-total_run_times 0
-own_window yes
-own_window_transparent yes
-own_window_type desktop
-own_window_hints undecorated,sticky,skip_taskbar,skip_pager
-double_buffer yes
-minimum_size 180 200
-maximum_width 180
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
-default_color <span class="c">#b5b5b5</span>
-alignment top_left <span class="c">## on centre la fenêtre sur l&#39;écran à l&#39;ouverture</span>
-gap_x 220
-gap_y 320
-border_inner_margin 5 <span class="c">## marge entre le texte et la bordure</span>
-border_outer_margin 5 <span class="c">## marge entre la bordure et le bord de la fenêtre.</span>
-no_buffers yes
-uppercase no
-override_utf8_locale yes
-<span class="c">##############################################</span>
-<span class="c"># Affichage</span>
-<span class="c">##############################################</span>
-TEXT
-<span class="c"># D&#39;abord, je place les images</span>
-<span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour3_icone ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print &quot;${image ~/images/icone_meteo/&quot; $3 &quot;.png -p 58,10 -s 64x64}&quot;}&#39;</span><span class="k">}</span>
-
-<span class="c"># Je place le texte</span>
-<span class="k">${</span><span class="nv">color</span><span class="p"> #b5b5b5</span><span class="k">}</span><span class="nv">$alignc</span><span class="k">${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">voffset</span><span class="p"> -40</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour3_jour_sem ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span>
-<span class="nv">$alignc</span><span class="k">${</span><span class="nv">voffset</span><span class="p"> 70</span><span class="k">}${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour3_conditions ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4 &quot; &quot; $5}&#39;</span><span class="k">}</span>
-<span class="nv">$alignc</span><span class="k">${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour3_tempmax ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span> | <span class="k">${</span><span class="nv">font</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour3_tempmin ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-<span class="k">${</span><span class="nv">voffset</span><span class="p"> 10</span><span class="k">}</span>Précip. % : <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour3_pop ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span>
-Précip. h: <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour3_hauteur_precip ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-Neige : <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour3_hauteur_neige ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}</span>de <span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour3_dir_vent ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span> à <span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour3_vent ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-</pre></div>
-
-
-</figure>
-
-<figure><figcaption class='include'><span style='text-align: left'>conkyrc_meteo_jour4</span>                <a style='float: right' href='/code/conkyrc_meteo_jour4'>Télécharger</a></figcaption>
-
-<div class="highlight"><pre><span class="c">##############################################</span>
-<span class="c"># Paramètres</span>
-<span class="c">##############################################</span>
-background yes
-use_xft yes
-xftfont Walkway:size<span class="o">=</span>9
-xftalpha 1
-update_interval 1.0
-total_run_times 0
-own_window yes
-own_window_transparent yes
-own_window_type desktop
-own_window_hints undecorated,sticky,skip_taskbar,skip_pager
-double_buffer yes
-minimum_size 180 200
-maximum_width 180
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
-default_color <span class="c">#b5b5b5</span>
-alignment top_left <span class="c">## on centre la fenêtre sur l&#39;écran à l&#39;ouverture</span>
-gap_x 410
-gap_y 320
-border_inner_margin 5 <span class="c">## marge entre le texte et la bordure</span>
-border_outer_margin 5 <span class="c">## marge entre la bordure et le bord de la fenêtre.</span>
-no_buffers yes
-uppercase no
-override_utf8_locale yes
-<span class="c">##############################################</span>
-<span class="c"># Affichage</span>
-<span class="c">##############################################</span>
-TEXT
-<span class="c"># D&#39;abord, je place les images</span>
-<span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour4_icone ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print &quot;${image ~/images/icone_meteo/&quot; $3 &quot;.png -p 58,10 -s 64x64}&quot;}&#39;</span><span class="k">}</span>
-
-<span class="c"># Je place le texte</span>
-<span class="k">${</span><span class="nv">color</span><span class="p"> #b5b5b5</span><span class="k">}</span><span class="nv">$alignc</span><span class="k">${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">voffset</span><span class="p"> -40</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour4_jour_sem ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span>
-<span class="nv">$alignc</span><span class="k">${</span><span class="nv">voffset</span><span class="p"> 70</span><span class="k">}${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour4_conditions ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4 &quot; &quot; $5}&#39;</span><span class="k">}</span>
-<span class="nv">$alignc</span><span class="k">${</span><span class="nv">font</span><span class="p"> bold</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour4_tempmax ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span> | <span class="k">${</span><span class="nv">font</span><span class="k">}${</span><span class="nv">execp</span><span class="p"> grep jour4_tempmin ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-<span class="k">${</span><span class="nv">voffset</span><span class="p"> 10</span><span class="k">}</span>Précip. % : <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour4_pop ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span>
-Précip. h: <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour4_hauteur_precip ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-Neige : <span class="nv">$alignr</span><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour4_hauteur_neige ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}</span>de <span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour4_dir_vent ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3}&#39;</span><span class="k">}</span> à <span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour4_vent ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print $3 &quot; &quot; $4}&#39;</span><span class="k">}</span>
-</pre></div>
-
-
-</figure>
-
+<p><a class="button radius tiny" href="../../../../code/conkyrc_meteo" title="Télécharger conkyrc_meteo">Télécharger conkyrc_meteo</a>
+    ##############################################
+    # Paramètres
+    ##############################################
+    background yes
+    use_xft yes
+    xftfont Walkway:size=9
+    xftalpha 1
+    update_interval 1.0
+    total_run_times 0
+    own_window yes
+    own_window_transparent yes
+    own_window_type desktop
+    own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+    double_buffer yes
+    minimum_size 180 200
+    maximum_width 180
+    draw_shades no
+    draw_outline no
+    draw_borders no
+    draw_graph_borders no
+    default_color #b5b5b5
+    alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
+    gap_x 30
+    gap_y 320
+    border_inner_margin 5 ## marge entre le texte et la bordure
+    border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+    no_buffers yes
+    uppercase no
+    override_utf8_locale yes
+    ##############################################
+    # Affichage
+    ##############################################
+    TEXT
+    # D'abord, je place les images
+    ${execp grep jour2_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
+  <br />
+    # Je place le texte
+    ${color #b5b5b5}$alignc${font bold}${voffset -40}${execp grep jour2_jour_sem ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+    $alignc${voffset 70}${font bold}${execp grep jour2_conditions ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}
+    $alignc${font bold}${execp grep jour2_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} | ${font}${execp grep jour2_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    ${voffset 10}Précip. % : $alignr${execp grep jour2_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+    Précip. h: $alignr${execp grep jour2_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    Neige : $alignr${execp grep jour2_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    Vent : ${alignr}de ${execp grep jour2_dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep jour2_vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+  <br />
+<a class="button radius tiny" href="../../../../code/conkyrc_meteo_jour2" title="Télécharger conkyrc_meteo_jour2">Télécharger conkyrc_meteo_jour2</a>
+    ##############################################
+    # Paramètres
+    ##############################################
+    background yes
+    use_xft yes
+    xftfont Walkway:size=9
+    xftalpha 1
+    update_interval 1.0
+    total_run_times 0
+    own_window yes
+    own_window_transparent yes
+    own_window_type desktop
+    own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+    double_buffer yes
+    minimum_size 180 200
+    maximum_width 180
+    draw_shades no
+    draw_outline no
+    draw_borders no
+    draw_graph_borders no
+    default_color #b5b5b5
+    alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
+    gap_x 220
+    gap_y 320
+    border_inner_margin 5 ## marge entre le texte et la bordure
+    border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+    no_buffers yes
+    uppercase no
+    override_utf8_locale yes
+    ##############################################
+    # Affichage
+    ##############################################
+    TEXT
+    # D'abord, je place les images
+    ${execp grep jour3_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
+  <br />
+    # Je place le texte
+    ${color #b5b5b5}$alignc${font bold}${voffset -40}${execp grep jour3_jour_sem ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+    $alignc${voffset 70}${font bold}${execp grep jour3_conditions ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}
+    $alignc${font bold}${execp grep jour3_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} | ${font}${execp grep jour3_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    ${voffset 10}Précip. % : $alignr${execp grep jour3_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+    Précip. h: $alignr${execp grep jour3_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    Neige : $alignr${execp grep jour3_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    Vent : ${alignr}de ${execp grep jour3_dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep jour3_vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+  <br />
+<a class="button radius tiny" href="../../../../code/conkyrc_meteo_jour3" title="Télécharger conkyrc_meteo_jour3">Télécharger conkyrc_meteo_jour3</a>
+    ##############################################
+    # Paramètres
+    ##############################################
+    background yes
+    use_xft yes
+    xftfont Walkway:size=9
+    xftalpha 1
+    update_interval 1.0
+    total_run_times 0
+    own_window yes
+    own_window_transparent yes
+    own_window_type desktop
+    own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+    double_buffer yes
+    minimum_size 180 200
+    maximum_width 180
+    draw_shades no
+    draw_outline no
+    draw_borders no
+    draw_graph_borders no
+    default_color #b5b5b5
+    alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
+    gap_x 410
+    gap_y 320
+    border_inner_margin 5 ## marge entre le texte et la bordure
+    border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+    no_buffers yes
+    uppercase no
+    override_utf8_locale yes
+    ##############################################
+    # Affichage
+    ##############################################
+    TEXT
+    # D'abord, je place les images
+    ${execp grep jour4_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
+  <br />
+    # Je place le texte
+    ${color #b5b5b5}$alignc${font bold}${voffset -40}${execp grep jour4_jour_sem ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+    $alignc${voffset 70}${font bold}${execp grep jour4_conditions ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}
+    $alignc${font bold}${execp grep jour4_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} | ${font}${execp grep jour4_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    ${voffset 10}Précip. % : $alignr${execp grep jour4_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+    Précip. h: $alignr${execp grep jour4_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    Neige : $alignr${execp grep jour4_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+    Vent : ${alignr}de ${execp grep jour4_dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep jour4_vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+  <br />
+<a class="button radius tiny" href="../../../../code/conkyrc_meteo_jour4" title="Téléchargerconkyrc_meteo_jour4">Télécharger conkyrc_meteo_jour4</a></p>
 <p>Pour positionner les différentes informations, il faut jouer d'abord avec minimum_size, maximum_with, gap_x, gap_y pour les quatre fenêtres, puis avec alignr, alignc, goto et voffset pour le contenu de chacune des fenêtres.</p>
 <p>La documentation conky est <a href="http://conky.sourceforge.net/documentation.html">ici</a></p>
 <p>L'astuce pour récupérer les infos, je l'ai trouvé <a href="http://www.archlinux.fr/forum/viewtopic.php?t=9981&amp;p=107541">sur ce forum</a>, le même qui m'avait permis de créer le squelette du programme python. Tout tient dans la ligne suivante :</p>
-<div class="highlight"><pre><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_icone ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print &quot;${image ~/images/icone_meteo/&quot; $3 &quot;.png -p 58,10 -s 64x64}&quot;}&#39;</span><span class="k">}</span>
+<div class="codehilite"><pre><span class="k">${</span><span class="nv">execp</span><span class="p"> grep jour2_icone ~/tmp/meteo.txt | awk -F </span><span class="s2">&quot; &quot;</span><span class="p"> </span><span class="s1">&#39;{print &quot;${image ~/images/icone_meteo/&quot; $3 &quot;.png -p 58,10 -s 64x64}&quot;}&#39;</span><span class="k">}</span>
 </pre></div>
 
 
-<p>Cela me permet d'aller récupérer dans le fichier meteo.txt le nom de l'icone et de l'afficher dans mon conky. Pour bien comprendre cette ligne, il faut connaître les commandes grep, awk et les tubes. Vous trouverez une saine lecture concernant les commandes unix <a href="http://framabook.org/unix-pour-aller-plus-loin-avec-la-ligne-de-commande/">chez framabook</a>. </p>
-<p>Nous voyons l'importance dans le programme python de ne pas générer de doublon dans le nom des informations, sinon cela interdit le bon fonctionnement de grep. </p>
+<p>Cela me permet d'aller récupérer dans le fichier meteo.txt le nom de l'icone et de l'afficher dans mon conky. Pour bien comprendre cette ligne, il faut connaître les commandes grep, awk et les tubes. Vous trouverez une saine lecture concernant les commandes unix <a href="http://framabook.org/unix-pour-aller-plus-loin-avec-la-ligne-de-commande/">chez framabook</a>.</p>
+<p>Nous voyons l'importance dans le programme python de ne pas générer de doublon dans le nom des informations, sinon cela interdit le bon fonctionnement de grep.</p>
 <h3>L'appel et la fermeture du conky météo</h3>
 <p>Je ne souhaite pas avoir en permanence les informations météo affichées sur mon bureau mais uniquement à la demande. Pour cela nous allons créer un petit programme de démarrage/arrêt du conky et créer des raccourcis dans le menu openbox et dans celui définissant les touches de raccourcis.</p>
 <p>Le programme le voici :</p>
-<figure><figcaption class='include'><span style='text-align: left'>startstopmeteo.sh</span>                <a style='float: right' href='/code/startstopmeteo.sh'>Télécharger</a></figcaption>
-
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -357,12 +337,12 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 11
 12
 13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/sh</span>
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/bin/sh</span>
 <span class="c"># cliquer pour démarrer, cliquer pour arrêter</span>
 
 <span class="nv">TEST</span><span class="o">=</span><span class="k">$(</span>ps -ef | grep conky | grep meteo<span class="k">)</span>
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$TEST&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span>; <span class="k">then </span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$TEST&quot;</span> !<span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">]</span>; <span class="k">then</span>
 <span class="k">    </span><span class="nb">exec </span>ps -ef | grep conky | grep meteo | awk <span class="s1">&#39;{print $2}&#39;</span>| xargs <span class="nb">kill</span>
 <span class="k">else</span>
 <span class="k">    </span>conky -c ~/.conky/.conkyrc_meteo
@@ -374,10 +354,9 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 </pre></div>
 </td></tr></table>
 
-</figure>
-
+<p><a class="button radius tiny" href="../../../../code/startstopmeteo.sh" title="startstopmeteo.sh">Télécharger startstopmeteo.sh</a></p>
 <p>Il ne reste plus qu'à créer une entrée dans le fichier menu.xml, par exemple comme ci :</p>
-<div class="highlight"><pre><span class="nt">&lt;item</span> <span class="na">label=</span><span class="s">&quot;Meteo&quot;</span><span class="nt">&gt;</span>
+<div class="codehilite"><pre><span class="nt">&lt;item</span> <span class="na">label=</span><span class="s">&quot;Meteo&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;action</span> <span class="na">name=</span><span class="s">&quot;Execute&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;command&gt;</span>
             startstopmeteo.sh
@@ -388,7 +367,7 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 
 
 <p>Et une entrée dans le fichier rc.xml pour les touches de raccourcis, comme cela :</p>
-<div class="highlight"><pre><span class="c">&lt;!-- Meteo --&gt;</span>
+<div class="codehilite"><pre><span class="c">&lt;!-- Meteo --&gt;</span>
 <span class="nt">&lt;keybind</span> <span class="na">key=</span><span class="s">&quot;W-A-m&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;action</span> <span class="na">name=</span><span class="s">&quot;Execute&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;command&gt;</span>~/bin/startstopmeteo.sh<span class="nt">&lt;/command&gt;</span>
@@ -397,16 +376,18 @@ Vent : <span class="k">${</span><span class="nv">alignr</span><span class="k">}<
 </pre></div>
 
 
-<p>Et voilà, c'est fini. Une météo en un clic ! </p>
-<p>Pour résumer, il vous faut :
-- s'inscrire sur le site de wunderground
-- créer un script python pour récupérer les informations de wunderground
-- le démoniser
-- le lancer au démarrage de l'ordinateur
-- récupérer de jolies icones
-- créer les conky
-- créer un script arret/relance des conky
-- créer les entrées pour ce script dans le menu et les touches de raccourcis</p>
+<p>Et voilà, c'est fini. Une météo en un clic !</p>
+<p>Pour résumer, il vous faut :</p>
+<ul>
+<li>s'inscrire sur le site de wunderground</li>
+<li>créer un script python pour récupérer les informations de wunderground</li>
+<li>le démoniser</li>
+<li>le lancer au démarrage de l'ordinateur</li>
+<li>récupérer de jolies icones</li>
+<li>créer les conky</li>
+<li>créer un script arret/relance des conky</li>
+<li>créer les entrées pour ce script dans le menu et les touches de raccourcis</li>
+</ul>
 	
   </article>
 

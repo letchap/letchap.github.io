@@ -111,9 +111,57 @@
 <p>Qu'à cela ne tienne, nous allons convertir notre texte dans un format unicode universel, dans sa version UTF8. Et puis, pour pouvoir lire le texte en toute circonstance et sur toute plateforme, nous allons en faire un pdf</p>
 <p>Pour cela, nous allons utiliser deux bibliothèques tierces de Python, chardet qui permet de deviner l'encodage de notre fichier texte de départ (très pratique si nous ne le connaissons pas) et pyfpdf qui permet de créer un fichier pdf (plus simple à utiliser que reportlab). Les deux bibliothèques s'installent avec pip. la documentation pyfpdf est <a href="http://code.google.com/p/pyfpdf/">ici</a>.</p>
 <p>Allez, le programme python. Les commentaires sont dans le code.</p>
-<figure><figcaption class='include'><span style='text-align: left'>txt2pdf.py</span>                <a style='float: right' href='/code/txt2pdf.py'>Télécharger</a></figcaption>
-
-<div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/usr/bin/python</span>
 <span class="c"># -*- coding: utf8 -*-</span>
 <span class="c">#---------------------</span>
 <span class="c">#txt2pdf.py</span>
@@ -165,12 +213,11 @@
 		<span class="n">filename</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 		<span class="n">decodage</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
+</td></tr></table>
 
-
-</figure>
-
+<p><a class="button radius tiny" href="../../../../code/txt2pdf.py" title="Télécharger txt2pdf.py">Télécharger txt2pdf.py</a></p>
 <p>Voilà, il n'y a plus qu'à lancer le programme par un beau</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">txt2pdf</span><span class="p">.</span><span class="n">py</span> <span class="n">montexte</span><span class="p">.</span><span class="n">txt</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">txt2pdf</span><span class="p">.</span><span class="n">py</span> <span class="n">montexte</span><span class="p">.</span><span class="n">txt</span>
 </pre></div>
 
 

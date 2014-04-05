@@ -16,28 +16,28 @@
 &lt;h3&gt;Installation de VirtualBox Guest Additions&lt;/h3&gt;
 &lt;p&gt;Les Guest Additions permettent notamment l'affichage en plein écran.&lt;/p&gt;
 &lt;p&gt;Tout d'abord :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get install build-essential linux-headers-&lt;span class="sb"&gt;`&lt;/span&gt;uname -r&lt;span class="sb"&gt;`&lt;/span&gt; dkms
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get install build-essential linux-headers-&lt;span class="sb"&gt;`&lt;/span&gt;uname -r&lt;span class="sb"&gt;`&lt;/span&gt; dkms
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Les Guest Additions se trouvent dans une image disque virtuelle que nous montons en sélectionnant "Installer les Guest Additions" dans le menu Devices (périphérique) de VirtualBox&lt;/p&gt;
 &lt;p&gt;Le disque devrait apparaître dans le gestionnaire de fichier, dans mon cas il est monté sur /media/cdrom0&lt;/p&gt;
 &lt;p&gt;Il ne reste plus qu'à lancer la procédure d'installation :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo sh /media/cdrom0/VBoxLinuxAdditions.run
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo sh /media/cdrom0/VBoxLinuxAdditions.run
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;Dossier partage&lt;/h3&gt;
 &lt;p&gt;Un deuxième gros intérêt des Guest Additions est la possibilité de partager des fichiers entre le système hôte et le système invité. Après avoir créer un dossier partage sur le système hôte, par défaut, il se retrouvere dans le répertoire Media (dossier commençant par "sf_") de votre Crunchbang virtualisé mais ne sera pas accessible à l'utilisateur. Pour donner les droits d'accès à ce dossier, il faut ajouter l'utilisateur au groupe Vbox.&lt;/p&gt;
 &lt;p&gt;Pour cela, il faut éditer le fichier /etc/groups, repérer la ligne commençant par vboxsf et ajouter son nom de user, par exemple :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;vboxsf&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1001&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;letchap&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;vboxsf&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1001&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;letchap&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;Modification du clavier&lt;/h3&gt;
 &lt;p&gt;La procédure d'installation de Crunchbang ne permet pas de choisir le clavier. Par défaut, il installe un clavier azerty "classique". Je n'ai donc pas eu la possibilité de paramétrer le clavier Mac. Ce qui pose quelques petits problèmes quand je veux taper "-" par exemple, ou des crochets.&lt;/p&gt;
 &lt;p&gt;Il est possible de changer la configuration du clavier à partir du terminal, pour cela il faut éditer les fichier /etc/default/keyboard et le renseigner de la manière suivante :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;XKBMODEL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;pc105&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;XKBMODEL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;pc105&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;XKBLAYOUT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fr&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;XKBVARIANT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;mac&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;XKBOPTIONS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;
@@ -53,7 +53,7 @@
 &lt;ul&gt;
 &lt;li&gt;Ca ne prend pas de place (il faut compter 8 Go pour être tranquille),&lt;/li&gt;
 &lt;li&gt;Ca tourne de manière fluide avec 512 Mo de RAM dédiée (j'ai mis 2 Go quand même pour Mageia 2),&lt;/li&gt;
-&lt;li&gt;Ca ne touche pas à Mountain Lion, &lt;/li&gt;
+&lt;li&gt;Ca ne touche pas à Mountain Lion,&lt;/li&gt;
 &lt;li&gt;Ca permet de partager des fichiers entre Mountain Lion et Mageia très facilement,&lt;/li&gt;
 &lt;li&gt;Ca reconnaît les port usb,&lt;/li&gt;
 &lt;li&gt;Ca se sauvegarde,&lt;/li&gt;
@@ -64,7 +64,7 @@
 &lt;p&gt;Il n'existe pas énormément de logiciel de virtualisation sur Max OS X, et le seul gratuit est VirtualBox. Les deux autres sont VMware et Parallel Desktop.&lt;/p&gt;
 &lt;p&gt;Pour virtualiser, j'ai donc utilisé le logiciel Virtualbox. Les différentes étapes sont :&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;L'installation de Virtualbox &lt;/li&gt;
+&lt;li&gt;L'installation de Virtualbox&lt;/li&gt;
 &lt;li&gt;Le téléchargement de l'image disque Mageia 2&lt;/li&gt;
 &lt;li&gt;L'installation de Mageia 2 dans VirtualBox&lt;/li&gt;
 &lt;li&gt;L'installation des compléments (VirtualBox guest additions)&lt;/li&gt;
@@ -76,7 +76,7 @@
 &lt;p&gt;Nous allons installer la dernière version de Mageia 2 en 64 bits, elle est disponible au téléchargement sur &lt;a href="http://www.mageia.org/fr/downloads/" title="Mageia"&gt;cette page&lt;/a&gt;. Personnellement j'utilise le torrent avec transmission, c'est plus rapide et plus sûr.&lt;/p&gt;
 &lt;p&gt;Dans le dossier que vous récupérez se trouve un fichier .iso, c'est de celui dont nous aurons besoin.&lt;/p&gt;
 &lt;p&gt;Tous les Mac récents tournent en 64 bits, pour vous en assurer, vous pouvez aller dans le moniteur d'activité, il doit être indiqué Intel (64bits) dans la colonne Type.
-&lt;a d_activité="d'activité" data-lightbox="moniteur" href="http://letchap.github.io/images/virtualbox/moniteur.png" title="&amp;quot;moniteur"&gt;&lt;img alt="Moniteur d'activité" src="http://letchap.github.io/images/virtualbox/moniteur.png" title="moniteur d'activité" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;a data-lightbox="moniteur" href="http://letchap.github.io/images/virtualbox/moniteur.png" title="moniteur d'activité"&gt;&lt;img alt="Moniteur d'activité" src="http://letchap.github.io/images/virtualbox/moniteur.png" title="moniteur d'activité" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur du 32, je n'ai pas essayé, je ne sais pas si cela fonctionne bien.&lt;/p&gt;
 &lt;h4&gt;Démarrer VirtualBox et installer Mageia&lt;/h4&gt;
 &lt;p&gt;Le vrai travail commence maintenant&lt;/p&gt;

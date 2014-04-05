@@ -26,7 +26,7 @@
 &lt;img alt="grub Mageia" src="http://letchap.github.io/images/grub_mageia.png" title="Grub Mageia" /&gt;&lt;/p&gt;
 &lt;p&gt;Au redémarrage, vous serez toujours sur le GRUB de Lubuntu et vous n'aurez toujours pas accès à Mageia. &lt;/p&gt;
 &lt;p&gt;Pour vous en convaincre, vous pouvez taper la commande fdisk et voir que la petite étoile dans la colonne amorce est bien devant la partition sda1 où se trouve Lubuntu.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;localhost&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;fdisk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;localhost&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;fdisk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;
 
 &lt;span class="n"&gt;P&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;riph&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;rique&lt;/span&gt; &lt;span class="n"&gt;Amorce&lt;/span&gt;  &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;but&lt;/span&gt;        &lt;span class="n"&gt;Fin&lt;/span&gt;      &lt;span class="n"&gt;Blocs&lt;/span&gt;     &lt;span class="n"&gt;Id&lt;/span&gt;  &lt;span class="n"&gt;Syst&lt;/span&gt;&lt;span class="err"&gt;è&lt;/span&gt;&lt;span class="n"&gt;me&lt;/span&gt;
 &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda1&lt;/span&gt;   &lt;span class="o"&gt;*&lt;/span&gt;        &lt;span class="mi"&gt;2048&lt;/span&gt;    &lt;span class="mi"&gt;43006004&lt;/span&gt;    &lt;span class="mi"&gt;21501978&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;  &lt;span class="mi"&gt;83&lt;/span&gt;  &lt;span class="n"&gt;Linux&lt;/span&gt;
@@ -39,7 +39,7 @@
 
 
 &lt;p&gt;Ou encore avec l'outil parted, nous voyons que le numéro 1 (ou sda1) est bien la partition de démarrage&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;localhost&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;parted&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda&lt;/span&gt; &lt;span class="n"&gt;print&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;localhost&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;parted&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda&lt;/span&gt; &lt;span class="n"&gt;print&lt;/span&gt;
 &lt;span class="n"&gt;Mod&lt;/span&gt;&lt;span class="err"&gt;è&lt;/span&gt;&lt;span class="n"&gt;le&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ATA&lt;/span&gt; &lt;span class="n"&gt;TOSHIBA&lt;/span&gt; &lt;span class="n"&gt;MK4021GA&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;scsi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;Disque&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;GB&lt;/span&gt;
 &lt;span class="n"&gt;Taille&lt;/span&gt; &lt;span class="n"&gt;des&lt;/span&gt; &lt;span class="n"&gt;secteurs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;logiques&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;physiques&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;512&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;
@@ -60,7 +60,7 @@
 &lt;h3&gt;Le chaînage&lt;/h3&gt;
 &lt;p&gt;Nous allons dire au GRUB de Lubuntu de chaîner sur le GRUB de Mageia. Pour cela nous allons ajouter une entrée Mageia dans le GRUB de Lubuntu.&lt;/p&gt;
 &lt;p&gt;Pour cela, il suffit d'ouvrir de fichier 40_custom &lt;a href="http://letchap.github.io/2013/02/23/demarrer-sur-une-cle-usb-sans-passer-par-le-bios/"&gt;(le même qui contient mon entrée pour Plop Manager)&lt;/a&gt; et d'ajouter les lignes suivantes :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;menuentry&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Mageia&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;menuentry&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Mageia&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hd0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;chainloader&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -69,7 +69,7 @@
 
 &lt;p&gt;Ici, (hd0,5) signifie sda5. (hd1,4) signifierait sdb4 par exemple. &lt;/p&gt;
 &lt;p&gt;Ensuite nous mettons à jour Grub par la commande suivante :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo update-grub
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo update-grub
 &lt;/pre&gt;&lt;/div&gt;
 
 

@@ -3,25 +3,25 @@
 &lt;p&gt;Ce post est très largement inspiré du wiki Debian disponible &lt;a href="http://wiki.debian.org/NvidiaGraphicsDrivers#NVIDIA_Proprietary_Driver" title="wiki Debian"&gt;à cette adresse&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Puis - je installer des pilotes non-libres ?&lt;/h3&gt;
 &lt;p&gt;La première étape consiste à vérifier que nous pouvons installer des paquets non-libres, comme celui contenant le pilote nvidia qui nous intéresse. Par défaut, sur Crunchbang Waldorf, c'est le cas. Pour s'en assurer, il suffit de vérifier la présence de "non-free" dans la liste des sources. La commande :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat /etc/apt/sources.list
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat /etc/apt/sources.list
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;devrait vous renvoyer :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;## DEBIAN&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;## DEBIAN&lt;/span&gt;
 &lt;span class="k"&gt;deb&lt;/span&gt; &lt;span class="s"&gt;http://http.debian.net/debian/&lt;/span&gt; &lt;span class="kp"&gt;wheezy&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt; &lt;span class="kp"&gt;contrib&lt;/span&gt; &lt;span class="kp"&gt;non-free&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;S'il n'est pas présent, ajouter ces deux lignes en éditant le fichier :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo nano /etc/apt/sources.list
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo nano /etc/apt/sources.list
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;Quel pilote ?&lt;/h3&gt;
 &lt;p&gt;La deuxième étape consiste à savoir quel pilote installer en fonction de sa carte graphique. Pour cela nous allons utiliser  nvidia-detect qui s'installe par synaptic ou à partir d'un terminal avec la commande &lt;code&gt;sudo apt-get install nvidia-detect&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Ensuite, sur le terminal, la commande nvidia-detect vous renverra les informations sur la carte graphique et le pilote à installer.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;nvidia&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;detect&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;nvidia&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;detect&lt;/span&gt;
 &lt;span class="n"&gt;Detected&lt;/span&gt; &lt;span class="n"&gt;NVIDIA&lt;/span&gt; &lt;span class="n"&gt;GPUs&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
 &lt;span class="mo"&gt;01&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;00.0&lt;/span&gt; &lt;span class="n"&gt;VGA&lt;/span&gt; &lt;span class="n"&gt;compatible&lt;/span&gt; &lt;span class="n"&gt;controller&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mo"&gt;0300&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;NVIDIA&lt;/span&gt; &lt;span class="n"&gt;Corporation&lt;/span&gt; &lt;span class="n"&gt;NV34M&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;GeForce&lt;/span&gt; &lt;span class="n"&gt;FX&lt;/span&gt; &lt;span class="n"&gt;Go5200&lt;/span&gt; &lt;span class="mi"&gt;32&lt;/span&gt;&lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="n"&gt;de&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;032&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rev&lt;/span&gt; &lt;span class="n"&gt;a1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;Your&lt;/span&gt; &lt;span class="n"&gt;card&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;only&lt;/span&gt; &lt;span class="n"&gt;supported&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="mf"&gt;173.14&lt;/span&gt; &lt;span class="n"&gt;legacy&lt;/span&gt; &lt;span class="n"&gt;drivers&lt;/span&gt; &lt;span class="n"&gt;series&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
@@ -33,7 +33,7 @@
 
 &lt;h3&gt;J'installe mon pilote&lt;/h3&gt;
 &lt;p&gt;Le pilote s'installe avec les deux commandes suivantes dans le terminal :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get update
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get update
 &lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get -r install linux-headers-&lt;span class="k"&gt;$(&lt;/span&gt;uname -r|sed &lt;span class="s1"&gt;&amp;#39;s,[^-]*-[^-]*-,,&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt; nvidia-kernel-legacy-173xx-dkms
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -41,12 +41,12 @@
 &lt;p&gt;Cela va également installer les dépendances, et notamment le paquet nvidia-glx-legacy-173xx.&lt;/p&gt;
 &lt;h3&gt;Mon pilote n'est pas détecté par défaut&lt;/h3&gt;
 &lt;p&gt;La dernière étape consiste à faire reconnaître le pilote par le système, qui n'est pas détecté automatiquement par défaut. Pour cela, il faut créer un fichier de configuration :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo nano /etc/X11/xorg.conf.d/20-nvidia.conf
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo nano /etc/X11/xorg.conf.d/20-nvidia.conf
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;et ajouter les lignes suivantes :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Section&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;Section&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;
     &lt;span class="n"&gt;Identifier&lt;/span&gt;     &lt;span class="s"&gt;&amp;quot;Mon pilote graphique&amp;quot;&lt;/span&gt;
     &lt;span class="n"&gt;Driver&lt;/span&gt;         &lt;span class="s"&gt;&amp;quot;Nvidia&amp;quot;&lt;/span&gt;
     &lt;span class="n"&gt;Option&lt;/span&gt;         &lt;span class="s"&gt;&amp;quot;NoLogo&amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1&amp;quot;&lt;/span&gt;

@@ -114,14 +114,14 @@
 - une branche master qui contient le site en lui-même, et rien que le site. Sur l'ordinateur, cette branche se trouve dans le répertoire _deploy</p>
 <p>Ces deux branches sont mises à jour séparément sur github par deux blocs d'instructions différents</p>
 <p>La mise à jour de la branche source va se faire par :</p>
-<div class="highlight"><pre>~/octopress<span class="nv">$ </span>git add .
+<div class="codehilite"><pre>~/octopress<span class="nv">$ </span>git add .
 ~/octopress<span class="nv">$ </span>git commit -m <span class="s1">&#39;mon message&#39;</span>
 ~/octopress<span class="nv">$ </span>git push origin <span class="nb">source</span>
 </pre></div>
 
 
 <p>La mise à jour de la branche master se fera elle par :</p>
-<div class="highlight"><pre>~/octopress<span class="nv">$ </span>rake generate
+<div class="codehilite"><pre>~/octopress<span class="nv">$ </span>rake generate
 ~/octopress<span class="nv">$ </span>rake deploy
 </pre></div>
 
@@ -133,19 +133,19 @@
 <p>Maintenant que le dépôt sur ces deux branches source et master est à jour, nous allons pouvoir installer Octopress sur le deuxième ordinateur.</p>
 <p>L'installation est exactement la même que celle d'un site vierge dont la procédure est décrite sur le site d'Octopress, à une seule différence près. Nous allons cloner notre site au lieu de cloner le site par défaut.</p>
 <p>D'abord nous clonons notre branche source en créant au passage le répertoire octopress:</p>
-<div class="highlight"><pre><span class="nv">$ </span>git clone -b <span class="nb">source </span>git@github.com:monuser/monuser.github.com.git octopress
+<div class="codehilite"><pre><span class="nv">$ </span>git clone -b <span class="nb">source </span>git@github.com:monuser/monuser.github.com.git octopress
 </pre></div>
 
 
 <p>Ensuite, nous nous positionnons sur le répertoire octopress pour cloner la branche master dans le répertoire _deploy que nous créons au passage :</p>
-<div class="highlight"><pre><span class="nv">$ </span>git clone git@github.com:monuser/monuser.github.com.git _deploy
+<div class="codehilite"><pre><span class="nv">$ </span>git clone git@github.com:monuser/monuser.github.com.git _deploy
 </pre></div>
 
 
 <p>Tout le reste de la procédure est rigoureusement identique : l'installation de git, de rvm, des bundles, le paramétrage du compte github, ... tout je vous dis.</p>
 <h3>Bloguer depuis deux ordinateurs</h3>
 <p>Pour passer d'un ordinateur à l'autre, il faut d'abord mettre à jour les deux branches avec les instructions vues plus haut à partir du premier ordinateur, puis sur le deuxième, récupérer les derniers fichiers source et master en les ramenant sur votre ordinateur (pull) :</p>
-<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>octopress
+<div class="codehilite"><pre><span class="nv">$ </span><span class="nb">cd </span>octopress
 <span class="nv">$ </span>git pull origin <span class="nb">source</span>
 <span class="nv">$ </span><span class="nb">cd </span>_deploy
 <span class="nv">$ </span>git pull origin master

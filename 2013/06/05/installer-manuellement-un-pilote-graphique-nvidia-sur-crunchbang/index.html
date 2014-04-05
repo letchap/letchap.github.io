@@ -110,25 +110,25 @@
 <p>Ce post est très largement inspiré du wiki Debian disponible <a href="http://wiki.debian.org/NvidiaGraphicsDrivers#NVIDIA_Proprietary_Driver" title="wiki Debian">à cette adresse</a></p>
 <h3>Puis - je installer des pilotes non-libres ?</h3>
 <p>La première étape consiste à vérifier que nous pouvons installer des paquets non-libres, comme celui contenant le pilote nvidia qui nous intéresse. Par défaut, sur Crunchbang Waldorf, c'est le cas. Pour s'en assurer, il suffit de vérifier la présence de "non-free" dans la liste des sources. La commande :</p>
-<div class="highlight"><pre><span class="nv">$ </span>cat /etc/apt/sources.list
+<div class="codehilite"><pre><span class="nv">$ </span>cat /etc/apt/sources.list
 </pre></div>
 
 
 <p>devrait vous renvoyer :</p>
-<div class="highlight"><pre><span class="c">## DEBIAN</span>
+<div class="codehilite"><pre><span class="c">## DEBIAN</span>
 <span class="k">deb</span> <span class="s">http://http.debian.net/debian/</span> <span class="kp">wheezy</span> <span class="kp">main</span> <span class="kp">contrib</span> <span class="kp">non-free</span>
 </pre></div>
 
 
 <p>S'il n'est pas présent, ajouter ces deux lignes en éditant le fichier :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo nano /etc/apt/sources.list
+<div class="codehilite"><pre><span class="nv">$ </span>sudo nano /etc/apt/sources.list
 </pre></div>
 
 
 <h3>Quel pilote ?</h3>
 <p>La deuxième étape consiste à savoir quel pilote installer en fonction de sa carte graphique. Pour cela nous allons utiliser  nvidia-detect qui s'installe par synaptic ou à partir d'un terminal avec la commande <code>sudo apt-get install nvidia-detect</code>.</p>
 <p>Ensuite, sur le terminal, la commande nvidia-detect vous renverra les informations sur la carte graphique et le pilote à installer.</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">nvidia</span><span class="o">-</span><span class="n">detect</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">nvidia</span><span class="o">-</span><span class="n">detect</span>
 <span class="n">Detected</span> <span class="n">NVIDIA</span> <span class="n">GPUs</span><span class="o">:</span>
 <span class="mo">01</span><span class="o">:</span><span class="mf">00.0</span> <span class="n">VGA</span> <span class="n">compatible</span> <span class="n">controller</span> <span class="p">[</span><span class="mo">0300</span><span class="p">]</span><span class="o">:</span> <span class="n">NVIDIA</span> <span class="n">Corporation</span> <span class="n">NV34M</span> <span class="p">[</span><span class="n">GeForce</span> <span class="n">FX</span> <span class="n">Go5200</span> <span class="mi">32</span><span class="n">M</span><span class="o">/</span><span class="mi">64</span><span class="n">M</span><span class="p">]</span> <span class="p">[</span><span class="mi">10</span><span class="n">de</span><span class="o">:</span><span class="mo">032</span><span class="mi">8</span><span class="p">]</span> <span class="p">(</span><span class="n">rev</span> <span class="n">a1</span><span class="p">)</span>
 <span class="n">Your</span> <span class="n">card</span> <span class="n">is</span> <span class="n">only</span> <span class="n">supported</span> <span class="n">up</span> <span class="n">to</span> <span class="n">the</span> <span class="mf">173.14</span> <span class="n">legacy</span> <span class="n">drivers</span> <span class="n">series</span><span class="p">.</span>
@@ -140,7 +140,7 @@
 
 <h3>J'installe mon pilote</h3>
 <p>Le pilote s'installe avec les deux commandes suivantes dans le terminal :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get update
+<div class="codehilite"><pre><span class="nv">$ </span>sudo apt-get update
 <span class="nv">$ </span>sudo apt-get -r install linux-headers-<span class="k">$(</span>uname -r|sed <span class="s1">&#39;s,[^-]*-[^-]*-,,&#39;</span><span class="k">)</span> nvidia-kernel-legacy-173xx-dkms
 </pre></div>
 
@@ -148,12 +148,12 @@
 <p>Cela va également installer les dépendances, et notamment le paquet nvidia-glx-legacy-173xx.</p>
 <h3>Mon pilote n'est pas détecté par défaut</h3>
 <p>La dernière étape consiste à faire reconnaître le pilote par le système, qui n'est pas détecté automatiquement par défaut. Pour cela, il faut créer un fichier de configuration :</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo nano /etc/X11/xorg.conf.d/20-nvidia.conf
+<div class="codehilite"><pre><span class="nv">$ </span>sudo nano /etc/X11/xorg.conf.d/20-nvidia.conf
 </pre></div>
 
 
 <p>et ajouter les lignes suivantes :</p>
-<div class="highlight"><pre><span class="n">Section</span> <span class="s">&quot;Device&quot;</span>
+<div class="codehilite"><pre><span class="n">Section</span> <span class="s">&quot;Device&quot;</span>
     <span class="n">Identifier</span>     <span class="s">&quot;Mon pilote graphique&quot;</span>
     <span class="n">Driver</span>         <span class="s">&quot;Nvidia&quot;</span>
     <span class="n">Option</span>         <span class="s">&quot;NoLogo&quot;</span> <span class="s">&quot;1&quot;</span>

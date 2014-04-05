@@ -7,14 +7,14 @@
 - une branche master qui contient le site en lui-même, et rien que le site. Sur l'ordinateur, cette branche se trouve dans le répertoire _deploy&lt;/p&gt;
 &lt;p&gt;Ces deux branches sont mises à jour séparément sur github par deux blocs d'instructions différents&lt;/p&gt;
 &lt;p&gt;La mise à jour de la branche source va se faire par :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;~/octopress&lt;span class="nv"&gt;$ &lt;/span&gt;git add .
+&lt;div class="codehilite"&gt;&lt;pre&gt;~/octopress&lt;span class="nv"&gt;$ &lt;/span&gt;git add .
 ~/octopress&lt;span class="nv"&gt;$ &lt;/span&gt;git commit -m &lt;span class="s1"&gt;&amp;#39;mon message&amp;#39;&lt;/span&gt;
 ~/octopress&lt;span class="nv"&gt;$ &lt;/span&gt;git push origin &lt;span class="nb"&gt;source&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;La mise à jour de la branche master se fera elle par :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;~/octopress&lt;span class="nv"&gt;$ &lt;/span&gt;rake generate
+&lt;div class="codehilite"&gt;&lt;pre&gt;~/octopress&lt;span class="nv"&gt;$ &lt;/span&gt;rake generate
 ~/octopress&lt;span class="nv"&gt;$ &lt;/span&gt;rake deploy
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -26,19 +26,19 @@
 &lt;p&gt;Maintenant que le dépôt sur ces deux branches source et master est à jour, nous allons pouvoir installer Octopress sur le deuxième ordinateur.&lt;/p&gt;
 &lt;p&gt;L'installation est exactement la même que celle d'un site vierge dont la procédure est décrite sur le site d'Octopress, à une seule différence près. Nous allons cloner notre site au lieu de cloner le site par défaut.&lt;/p&gt;
 &lt;p&gt;D'abord nous clonons notre branche source en créant au passage le répertoire octopress:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone -b &lt;span class="nb"&gt;source &lt;/span&gt;git@github.com:monuser/monuser.github.com.git octopress
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone -b &lt;span class="nb"&gt;source &lt;/span&gt;git@github.com:monuser/monuser.github.com.git octopress
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Ensuite, nous nous positionnons sur le répertoire octopress pour cloner la branche master dans le répertoire _deploy que nous créons au passage :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone git@github.com:monuser/monuser.github.com.git _deploy
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone git@github.com:monuser/monuser.github.com.git _deploy
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Tout le reste de la procédure est rigoureusement identique : l'installation de git, de rvm, des bundles, le paramétrage du compte github, ... tout je vous dis.&lt;/p&gt;
 &lt;h3&gt;Bloguer depuis deux ordinateurs&lt;/h3&gt;
 &lt;p&gt;Pour passer d'un ordinateur à l'autre, il faut d'abord mettre à jour les deux branches avec les instructions vues plus haut à partir du premier ordinateur, puis sur le deuxième, récupérer les derniers fichiers source et master en les ramenant sur votre ordinateur (pull) :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;octopress
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;octopress
 &lt;span class="nv"&gt;$ &lt;/span&gt;git pull origin &lt;span class="nb"&gt;source&lt;/span&gt;
 &lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;_deploy
 &lt;span class="nv"&gt;$ &lt;/span&gt;git pull origin master
@@ -52,7 +52,7 @@
 &lt;h3&gt;Setup des pages Github&lt;/h3&gt;
 &lt;p&gt;Il se peut que la saisie de l'adresse URL du dépôt est été mal faite (avec des gros doigts, j'en parle parce que ça m'est arrivé) au moment du &lt;code&gt;rake setup_github_pages&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Pour vérifier que l'on ne sait pas trompé :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git remote -v
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git remote -v
 origin  git@github.com:letchap/letchap.github.com.git &lt;span class="o"&gt;(&lt;/span&gt;fetch&lt;span class="o"&gt;)&lt;/span&gt;
 origin  git@github.com:letchap/letchap.github.com.git &lt;span class="o"&gt;(&lt;/span&gt;push&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -61,17 +61,17 @@ origin  git@github.com:letchap/letchap.github.com.git &lt;span class="o"&gt;(&lt
 &lt;h3&gt;RVM is not a function&lt;/h3&gt;
 &lt;p&gt;Au moment de lancer &lt;code&gt;$ RVM use&lt;/code&gt;, j'ai eu un message d'erreur indiquant &lt;code&gt;RVM is not a function&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;En fait, par défaut, les binaires sont installés dans $HOME/.rvm et ne sont pas accessibles via le terminal. Pour corriger cela, il faut ajouter les lignes suivantes dans le fichier /home/your-name/.bashrc.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[[&lt;/span&gt; -s &lt;span class="s2"&gt;&amp;quot;$HOME/.rvm/scripts/rvm&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;source&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$HOME/.rvm/scripts/rvm&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="o"&gt;[[&lt;/span&gt; -s &lt;span class="s2"&gt;&amp;quot;$HOME/.rvm/scripts/rvm&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;source&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$HOME/.rvm/scripts/rvm&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;Réinstallation de Ruby avec openssl&lt;/h3&gt;
 &lt;p&gt;La dernière difficulté est survenue au moment du déploiement du site avec le message d'erreur suivant :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;require &lt;span class="s2"&gt;&amp;quot;openssl&amp;quot;&lt;/span&gt; &lt;span class="c"&gt;# &amp;gt; LoadError: cannot load such file -- openssl&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;require &lt;span class="s2"&gt;&amp;quot;openssl&amp;quot;&lt;/span&gt; &lt;span class="c"&gt;# &amp;gt; LoadError: cannot load such file -- openssl&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Je ne sais pas pourquoi Ruby ne peut pas utiliser mon openssl installé par défaut, la solution de contournement que j'ai trouvé sur le site &lt;a href="https://rvm.io/packages/openssl/"&gt;RVM&lt;/a&gt; a été d'installer un nouveau paquet openssl et de réinstaller Ruby.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;rvm pkg install openssl
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;rvm pkg install openssl
 &lt;span class="nv"&gt;$ &lt;/span&gt;rvm reinstall 1.9.3 --with-openssl-dir&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$rvm_path&lt;/span&gt;/usr
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="Octopress"></category><category term="Ruby"></category><category term="RVM"></category><category term="Github"></category><category term="SSH"></category></entry></feed>

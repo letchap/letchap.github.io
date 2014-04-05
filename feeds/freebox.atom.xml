@@ -8,7 +8,7 @@
 &lt;h3&gt;2ème solution : lftp dans le terminal&lt;/h3&gt;
 &lt;p&gt;C’est pareil que ftp, mais en plus simple, et là, j’ai tout compris.&lt;/p&gt;
 &lt;p&gt;Ci dessous, tout ce qu'il y a à faire :&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;lftp freebox:@hd1.freebox.fr
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;lftp freebox:@hd1.freebox.fr
 lftp freebox:@hd1.freebox.fr:~&amp;gt; &lt;span class="nb"&gt;cd &lt;/span&gt;Disque&lt;span class="se"&gt;\ &lt;/span&gt;dur/Video
 &lt;span class="nb"&gt;cd &lt;/span&gt;ok, &lt;span class="nv"&gt;cwd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/Disque dur/Video
 lftp freebox:@hd1.freebox.fr:/Disque dur/Video&amp;gt; put /adresse/fichier.avi

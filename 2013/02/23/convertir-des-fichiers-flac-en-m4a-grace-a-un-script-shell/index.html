@@ -113,7 +113,7 @@
 <li>Copier le dossier d’origine contenant les fichiers audios à convertir dans le répertoire musique avec les fichiers convertis.</li>
 </ul>
 <p>C’est parti, voici le code :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
@@ -121,7 +121,7 @@
 6
 7
 8
-9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span class="c">#!/bin/bash</span>
 <span class="k">for </span>file in <span class="k">$(</span>find ~ -type f -name <span class="s2">&quot;*.flac&quot;</span><span class="k">)</span>; <span class="k">do</span>
 <span class="nv">rep</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span> <span class="nv">$file</span> | sed –re <span class="s2">&quot;s/^[[:punct:][:alnum:]]+\/([[:alnum:]]+)\/[[:alnum:]]+\.flac/\1/&quot;</span><span class="k">)</span>
 <span class="nv">titre</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$file</span><span class="k">)</span>

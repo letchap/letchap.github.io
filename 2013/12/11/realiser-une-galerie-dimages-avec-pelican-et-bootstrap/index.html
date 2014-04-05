@@ -118,7 +118,7 @@
 <li>copier lightbox.css dans le répertoire <code>/css</code></li>
 <li>
 <p>déclarer les scripts js et le fichier css dans le fichier base.hmtl</p>
-<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;{{ SITEURL }}/theme/js/jquery-1.10.2.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="codehilite"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;{{ SITEURL }}/theme/js/jquery-1.10.2.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;{{ SITEURL }}/theme/js/lightbox-2.6.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/theme/css/lightbox.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
@@ -127,7 +127,7 @@
 </li>
 </ul>
 <p>La syntaxe html pour activer lightbox est la suivante : </p>
-<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title=</span><span class="s">&quot;Mon Image&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mon Image&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+<div class="codehilite"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title=</span><span class="s">&quot;Mon Image&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mon Image&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
 </pre></div>
 
 
@@ -142,26 +142,26 @@
 </ul>
 <h4>Créer un lien sur une image en Markdown</h4>
 <p>Pour créer un lien, la syntaxe Markdown est la suivante :</p>
-<div class="highlight"><pre><span class="p">[</span><span class="n">lien</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com)</span>
+<div class="codehilite"><pre><span class="p">[</span><span class="n">lien</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com)</span>
 <span class="n">ou</span> <span class="n">sur</span> <span class="n">Pelican</span> <span class="n">pour</span> <span class="n">un</span> <span class="n">lien</span> <span class="n">interne</span>
 <span class="p">[</span><span class="n">lien</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monarticle</span><span class="p">.</span><span class="n">markdown</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Pour insérer une image :</p>
-<div class="highlight"><pre><span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
 <span class="n">ou</span> <span class="n">sur</span> <span class="n">Pelican</span>
 <span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Pour créer un lien sur une image, nous allons simplement combiner les deux </p>
-<div class="highlight"><pre><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">alt</span> <span class="n">text</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Ce qui nous donnera bien en sortie html :</p>
-<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;alt text&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+<div class="codehilite"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;alt text&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
 </pre></div>
 
 
@@ -169,23 +169,23 @@
 <p>Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.</p>
 <p>Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur <a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python">la documentation Python</a>.</p>
 <p>Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :</p>
-<div class="highlight"><pre><span class="p">[</span><span class="n">lien</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
+<div class="codehilite"><pre><span class="p">[</span><span class="n">lien</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
 </pre></div>
 
 
 <p>Ce qui se traduira par :</p>
-<div class="highlight"><pre><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;path/to/monimage.png&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;path/to/monimage.png&quot;</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span><span class="o">&gt;</span>
 </pre></div>
 
 
 <h4>On assemble le tout</h4>
 <p>Pour une image cliquable avec un effet diaporama, il faut donc écrire en Markdown :</p>
-<div class="highlight"><pre><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">Mon</span> <span class="n">Image</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span> <span class="s">&quot;Mon Image&quot;</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
+<div class="codehilite"><pre><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">Mon</span> <span class="n">Image</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span> <span class="s">&quot;Mon Image&quot;</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span> <span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">}</span>
 </pre></div>
 
 
 <p>Pour obtenir :</p>
-<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title=</span><span class="s">&quot;Mon Image&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mon Image&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+<div class="codehilite"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title=</span><span class="s">&quot;Mon Image&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mon Image&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
 </pre></div>
 
 

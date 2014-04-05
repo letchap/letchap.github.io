@@ -109,7 +109,7 @@
 	<p>Sous Linux, il existe un utilitaire qui permet de déclencher des travaux de manière périodique. Il s'agit de cron. Cet utilitaire très pratique présente pour moi un énorme inconvient, il nécessite d'avoir un ordinateur constamment allumé. Heureusement, il existe un deuxième utilitaire anacron qui lui permet de lancer des travaux a posteriori si l'ordinateur était éteint au moment du déclenchement programmé. Et là, autre petit soucis, anacron ne se lance qu'en root (contrairement à cron qui se lance en mode utilisateur).</p>
 <p>Heureusement, il est possible de créer un anacron non-root. Pour cela, il faut :</p>
 <h3>1) Créer un fichier anacrontab dans son répertoire personnel par exemple ~/user/etc/anacrontab, à l'image de celui présent dans /etc/anacrontab</h3>
-<div class="highlight"><pre><span class="cp"># /etc/anacrontab: configuration file for anacron</span>
+<div class="codehilite"><pre><span class="cp"># /etc/anacrontab: configuration file for anacron</span>
 
 <span class="cp"># See anacron(8) and anacrontab(5) for details.</span>
 
@@ -130,13 +130,13 @@
 </ul>
 <h3>2) Donner les droits utilisateur sur le répertoire contenant le "compteur" d'anacron, c'est à dire la date de dernière utilisation.</h3>
 <p>Pour cela, nous commençons par créer un group anacron dans /etc/group et nous y ajoutons notre user</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">addgroup</span> <span class="n">anacron</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">addgroup</span> <span class="n">anacron</span>
 <span class="err">$</span> <span class="n">adduser</span> <span class="n">user</span> <span class="n">anacron</span>
 </pre></div>
 
 
 <p>Puis nous modifions les droits sur le fichier /var/spool/anacron</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">chown</span> <span class="n">root</span><span class="p">.</span><span class="n">anacron</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">spool</span><span class="o">/</span><span class="n">anacron</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">chown</span> <span class="n">root</span><span class="p">.</span><span class="n">anacron</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">spool</span><span class="o">/</span><span class="n">anacron</span>
 <span class="err">$</span> <span class="n">chmod</span> <span class="n">g</span><span class="o">+</span><span class="n">w</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">spool</span><span class="o">/</span><span class="n">anacron</span>
 </pre></div>
 
@@ -144,7 +144,7 @@
 <p>Comme nous sommes dans le groupe anacron, tout va bien.</p>
 <h3>3) Ne reste plus qu'à lancer notre anacron au démarrage de l'ordinateur</h3>
 <p>Cela se fait dans le fichier .profile de l'utlisateur en ajoutant la ligne suivante</p>
-<div class="highlight"><pre><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">anacron</span> <span class="o">-</span><span class="n">t</span> <span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">anacrontab</span>
+<div class="codehilite"><pre><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">anacron</span> <span class="o">-</span><span class="n">t</span> <span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">anacrontab</span>
 </pre></div>
 
 
