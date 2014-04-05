@@ -66,145 +66,151 @@ TEXT
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo" title="Télécharger conkyrc_meteo"&gt;Télécharger conkyrc_meteo&lt;/a&gt;
-    ##############################################
-    # Paramètres
-    ##############################################
-    background yes
-    use_xft yes
-    xftfont Walkway:size=9
-    xftalpha 1
-    update_interval 1.0
-    total_run_times 0
-    own_window yes
-    own_window_transparent yes
-    own_window_type desktop
-    own_window_hints undecorated,sticky,skip_taskbar,skip_pager
-    double_buffer yes
-    minimum_size 180 200
-    maximum_width 180
-    draw_shades no
-    draw_outline no
-    draw_borders no
-    draw_graph_borders no
-    default_color #b5b5b5
-    alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
-    gap_x 30
-    gap_y 320
-    border_inner_margin 5 ## marge entre le texte et la bordure
-    border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
-    no_buffers yes
-    uppercase no
-    override_utf8_locale yes
-    ##############################################
-    # Affichage
-    ##############################################
-    TEXT
-    # D'abord, je place les images
-    ${execp grep jour2_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
-  &lt;br /&gt;
-    # Je place le texte
-    ${color #b5b5b5}$alignc${font bold}${voffset -40}${execp grep jour2_jour_sem ~/tmp/meteo.txt | awk -F " " '{print $3}'}
-    $alignc${voffset 70}${font bold}${execp grep jour2_conditions ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}
-    $alignc${font bold}${execp grep jour2_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} | ${font}${execp grep jour2_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    ${voffset 10}Précip. % : $alignr${execp grep jour2_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
-    Précip. h: $alignr${execp grep jour2_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    Neige : $alignr${execp grep jour2_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    Vent : ${alignr}de ${execp grep jour2_dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep jour2_vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-  &lt;br /&gt;
-&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo_jour2" title="Télécharger conkyrc_meteo_jour2"&gt;Télécharger conkyrc_meteo_jour2&lt;/a&gt;
-    ##############################################
-    # Paramètres
-    ##############################################
-    background yes
-    use_xft yes
-    xftfont Walkway:size=9
-    xftalpha 1
-    update_interval 1.0
-    total_run_times 0
-    own_window yes
-    own_window_transparent yes
-    own_window_type desktop
-    own_window_hints undecorated,sticky,skip_taskbar,skip_pager
-    double_buffer yes
-    minimum_size 180 200
-    maximum_width 180
-    draw_shades no
-    draw_outline no
-    draw_borders no
-    draw_graph_borders no
-    default_color #b5b5b5
-    alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
-    gap_x 220
-    gap_y 320
-    border_inner_margin 5 ## marge entre le texte et la bordure
-    border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
-    no_buffers yes
-    uppercase no
-    override_utf8_locale yes
-    ##############################################
-    # Affichage
-    ##############################################
-    TEXT
-    # D'abord, je place les images
-    ${execp grep jour3_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
-  &lt;br /&gt;
-    # Je place le texte
-    ${color #b5b5b5}$alignc${font bold}${voffset -40}${execp grep jour3_jour_sem ~/tmp/meteo.txt | awk -F " " '{print $3}'}
-    $alignc${voffset 70}${font bold}${execp grep jour3_conditions ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}
-    $alignc${font bold}${execp grep jour3_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} | ${font}${execp grep jour3_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    ${voffset 10}Précip. % : $alignr${execp grep jour3_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
-    Précip. h: $alignr${execp grep jour3_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    Neige : $alignr${execp grep jour3_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    Vent : ${alignr}de ${execp grep jour3_dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep jour3_vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-  &lt;br /&gt;
-&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo_jour3" title="Télécharger conkyrc_meteo_jour3"&gt;Télécharger conkyrc_meteo_jour3&lt;/a&gt;
-    ##############################################
-    # Paramètres
-    ##############################################
-    background yes
-    use_xft yes
-    xftfont Walkway:size=9
-    xftalpha 1
-    update_interval 1.0
-    total_run_times 0
-    own_window yes
-    own_window_transparent yes
-    own_window_type desktop
-    own_window_hints undecorated,sticky,skip_taskbar,skip_pager
-    double_buffer yes
-    minimum_size 180 200
-    maximum_width 180
-    draw_shades no
-    draw_outline no
-    draw_borders no
-    draw_graph_borders no
-    default_color #b5b5b5
-    alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
-    gap_x 410
-    gap_y 320
-    border_inner_margin 5 ## marge entre le texte et la bordure
-    border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
-    no_buffers yes
-    uppercase no
-    override_utf8_locale yes
-    ##############################################
-    # Affichage
-    ##############################################
-    TEXT
-    # D'abord, je place les images
-    ${execp grep jour4_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
-  &lt;br /&gt;
-    # Je place le texte
-    ${color #b5b5b5}$alignc${font bold}${voffset -40}${execp grep jour4_jour_sem ~/tmp/meteo.txt | awk -F " " '{print $3}'}
-    $alignc${voffset 70}${font bold}${execp grep jour4_conditions ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}
-    $alignc${font bold}${execp grep jour4_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} | ${font}${execp grep jour4_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    ${voffset 10}Précip. % : $alignr${execp grep jour4_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
-    Précip. h: $alignr${execp grep jour4_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    Neige : $alignr${execp grep jour4_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-    Vent : ${alignr}de ${execp grep jour4_dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep jour4_vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
-  &lt;br /&gt;
-&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo_jour4" title="Téléchargerconkyrc_meteo_jour4"&gt;Télécharger conkyrc_meteo_jour4&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo" title="Télécharger conkyrc_meteo"&gt;Télécharger conkyrc_meteo&lt;/a&gt;&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;##############################################
+# Paramètres
+##############################################
+background yes
+use_xft yes
+xftfont Walkway:size=9
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 180 200
+maximum_width 180
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color #b5b5b5
+alignment top_left ## on centre la fenêtre sur l&amp;#39;écran à l&amp;#39;ouverture
+gap_x 30
+gap_y 320
+border_inner_margin 5 ## marge entre le texte et la bordure
+border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+no_buffers yes
+uppercase no
+override_utf8_locale yes
+##############################################
+# Affichage
+##############################################
+TEXT
+# D&amp;#39;abord, je place les images
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_icone&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print &amp;quot;${image ~/images/icone_meteo/&amp;quot; $3 &amp;quot;.png -p 58,10 -s 64x64&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;}&amp;#39;}
+
+# Je place le texte
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="c"&gt;#b5b5b5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_jour_sem&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="mi"&gt;70&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_conditions&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4 &amp;quot; &amp;quot; $5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_tempmax&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;} | &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_tempmin&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;Précip. % : &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_pop&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Précip. h: &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_hauteur_precip&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Neige : &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_hauteur_neige&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Vent : &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;alignr&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;de &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_dir_vent&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;} à &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour2_vent&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo_jour2" title="Télécharger conkyrc_meteo_jour2"&gt;Télécharger conkyrc_meteo_jour2&lt;/a&gt;&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;##############################################
+# Paramètres
+##############################################
+background yes
+use_xft yes
+xftfont Walkway:size=9
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 180 200
+maximum_width 180
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color #b5b5b5
+alignment top_left ## on centre la fenêtre sur l&amp;#39;écran à l&amp;#39;ouverture
+gap_x 220
+gap_y 320
+border_inner_margin 5 ## marge entre le texte et la bordure
+border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+no_buffers yes
+uppercase no
+override_utf8_locale yes
+##############################################
+# Affichage
+##############################################
+TEXT
+# D&amp;#39;abord, je place les images
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_icone&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print &amp;quot;${image ~/images/icone_meteo/&amp;quot; $3 &amp;quot;.png -p 58,10 -s 64x64&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;}&amp;#39;}
+
+# Je place le texte
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="c"&gt;#b5b5b5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_jour_sem&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="mi"&gt;70&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_conditions&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4 &amp;quot; &amp;quot; $5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_tempmax&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;} | &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_tempmin&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;Précip. % : &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_pop&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Précip. h: &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_hauteur_precip&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Neige : &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_hauteur_neige&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Vent : &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;alignr&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;de &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_dir_vent&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;} à &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour3_vent&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo_jour3" title="Télécharger conkyrc_meteo_jour3"&gt;Télécharger conkyrc_meteo_jour3&lt;/a&gt;&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;##############################################
+# Paramètres
+##############################################
+background yes
+use_xft yes
+xftfont Walkway:size=9
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 180 200
+maximum_width 180
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color #b5b5b5
+alignment top_left ## on centre la fenêtre sur l&amp;#39;écran à l&amp;#39;ouverture
+gap_x 410
+gap_y 320
+border_inner_margin 5 ## marge entre le texte et la bordure
+border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+no_buffers yes
+uppercase no
+override_utf8_locale yes
+##############################################
+# Affichage
+##############################################
+TEXT
+# D&amp;#39;abord, je place les images
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_icone&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print &amp;quot;${image ~/images/icone_meteo/&amp;quot; $3 &amp;quot;.png -p 58,10 -s 64x64&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;}&amp;#39;}
+
+# Je place le texte
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="c"&gt;#b5b5b5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_jour_sem&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="mi"&gt;70&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_conditions&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4 &amp;quot; &amp;quot; $5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="nv"&gt;$alignc&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt; &lt;span class="n"&gt;bold&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_tempmax&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;} | &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;font&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_tempmin&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;voffset&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;Précip. % : &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_pop&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Précip. h: &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_hauteur_precip&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Neige : &lt;span class="nv"&gt;$alignr&lt;/span&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_hauteur_neige&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+Vent : &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;alignr&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;de &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_dir_vent&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;} à &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;execp&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt; &lt;span class="n"&gt;jour4_vent&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;meteo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{print $3 &amp;quot; &amp;quot; $4&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;#39;}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a class="button radius tiny" href="http://letchap.github.io/code/conkyrc_meteo_jour4" title="Téléchargerconkyrc_meteo_jour4"&gt;Télécharger conkyrc_meteo_jour4&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Pour positionner les différentes informations, il faut jouer d'abord avec minimum_size, maximum_with, gap_x, gap_y pour les quatre fenêtres, puis avec alignr, alignc, goto et voffset pour le contenu de chacune des fenêtres.&lt;/p&gt;
 &lt;p&gt;La documentation conky est &lt;a href="http://conky.sourceforge.net/documentation.html"&gt;ici&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;L'astuce pour récupérer les infos, je l'ai trouvé &lt;a href="http://www.archlinux.fr/forum/viewtopic.php?t=9981&amp;amp;p=107541"&gt;sur ce forum&lt;/a&gt;, le même qui m'avait permis de créer le squelette du programme python. Tout tient dans la ligne suivante :&lt;/p&gt;
