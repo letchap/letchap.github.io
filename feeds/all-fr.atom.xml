@@ -1,5 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-03-20T22:03:00+01:00</updated><entry><title>Connexion ssh avec VirtualBox</title><link href="http://letchap.github.io/2014/03/20/connexion-ssh-avec-virtualbox/" rel="alternate"></link><updated>2014-03-20T22:03:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-20:2014/03/20/connexion-ssh-avec-virtualbox/</id><summary type="html">&lt;p&gt;En conservant le paramétrage par défaut de VirtualBox, il n'est pas possible de créer une connection SSH avec un invité Linux.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-04-05T10:51:00+02:00</updated><entry><title>Mon extension markdown pour inclure du code à partir d'un fichier</title><link href="http://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="alternate"></link><updated>2014-04-05T10:51:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-05:2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/</id><summary type="html">&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
+&lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de code. Pour que l'opération soit la plus simple pour la maintenance du site et pour le lecteur qui souhaiterait utiliser le code, je mets le code dans un fichier que je rends téléchargeable.&lt;/p&gt;
+&lt;p&gt;Malheureusement, il n'est pas possible avec la syntaxe Markdown d'intégrer le contenu d'un fichier source.&lt;/p&gt;
+&lt;p&gt;Jusqu'à présent, pour contourner ce problème, j'utilisais un plugin Pelican nommé liquid_tags, inspiré du plugin liquid d'Octopress.&lt;/p&gt;
+&lt;p&gt;Pour moi, cela restait une façon de contourner une absence de fonctionnalité de markdown par ailleurs offerte par ReStructered Text dans une de ces directives. Pourquoi markdown ne pourrait - il pas interpréter un tag comme par exemple {% include_code file.py %} ? La réponse est assez simple : ce n'est pas fait pour ça.&lt;/p&gt;
+&lt;p&gt;En revanche, avec un peu de python, ça va devenir possible ...&lt;/p&gt;
+&lt;h3&gt;Un petit détour par le module markdown de python.&lt;/h3&gt;
+&lt;p&gt;Le module markdown de Python, en plus de pouvoir interpétrer la syntaxe classique markdown, offre un certain nombre d'extensions comme par exemple la possibilité d'ajouter une coloration syntaxique sur un bloc de code. Par défaut, Pelican prend en compte ces extensions. Il est possible de les paramétrer plus finement dans le fichier pelicanconf.py dans le champ MD_EXTENSIONS.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MD_EXTENSIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;codehilite&lt;/span&gt;&lt;span class="sc"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;extra&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;J'utilise déjà ces extensions (l'extension attribute lists) pour ajouter un attribut dans des balises &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;, comme je le décris &lt;a href="http://letchap.github.io/2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/"&gt;dans ce post&lt;/a&gt;, chose que ne permet évidemment pas nativement markdown.&lt;/p&gt;
+&lt;p&gt;En plus de ces extensions "standard", il est possible de créer ces propres extensions markdown en python. C'est exactement ce que nous allons faire pour insérer le contenu d'un fichier source dans notre fichier markdown. Puis, une fois cette extension personnelle créée, nous allons la déclarer à Pelican.&lt;/p&gt;
+&lt;h3&gt;Créons notre extension markdown&lt;/h3&gt;
+&lt;p&gt;Pour créer sa propre extension markdown, il est indispensable de se rendre sur le site python et &lt;a href="http://pythonhosted.org/Markdown/extensions/api.html"&gt;de lire le chapitre sur l'API&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;La logique de mon extension est la suivante : "Avant de passer mon fichier au processeur markdown, je vais lire le contenu de mon fichier markdown, et dès que je tombe sur le tag {% code content/monfichier.py %}, je récupère le contenu du fichier source, que j'indente. Ensuite, je rends la main au processeur markdown".&lt;/p&gt;
+&lt;p&gt;Concrétement, en python, cela donne les quelques lignes suivantes, les commentaires sont dans le code.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nb"&gt;from&lt;/span&gt; &lt;span class="nx"&gt;__future__&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;absolute_import&lt;/span&gt;
+&lt;span class="nb"&gt;from&lt;/span&gt; &lt;span class="nx"&gt;__future__&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;unicode_literals&lt;/span&gt;
+&lt;span class="nb"&gt;from&lt;/span&gt; &lt;span class="nx"&gt;.&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;Extension&lt;/span&gt;
+&lt;span class="nb"&gt;from&lt;/span&gt; &lt;span class="bp"&gt;..&lt;/span&gt;&lt;span class="nx"&gt;preprocessors&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;Preprocessor&lt;/span&gt;
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;re&lt;/span&gt;
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;codecs&lt;/span&gt;
+
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;L&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;expression régulière permettant de trouver le tag dans le texte&lt;/span&gt;
+&lt;span class="s1"&gt;# {% code monfichier.py %}&lt;/span&gt;
+&lt;span class="s1"&gt;CODE_RE = re.compile(r&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="nb"&gt;code&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="nx"&gt;P&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;src&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="p"&gt;^&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;*) \%}&amp;#39;)
+
+
+class CodePreprocessor(Preprocessor):
+&amp;quot;&amp;quot;&amp;quot; Le pré-processor
+ Je lis les lignes de mon fichier markdown
+ Je les mets une à une dans une liste
+ Dès que je trouve une correspondance à mon expression régulière
+ J&amp;#39;ouvre le fichier source
+ Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour le bloc de code markdown
+ Je complète ma liste avec ces lignes
+ Quand j&amp;#39;ai tout lu, je renvoie la liste pour la suite du traitement markdown&amp;quot;&amp;quot;&amp;quot;
+
+    def run(self, lines):
+        new_lines = &lt;span class="cp"&gt;[]&lt;/span&gt;;
+        for line in lines :
+            m = CODE_RE.match(line)
+            if m:
+                filein = m.group(&amp;#39;src&amp;#39;)
+                for line in codecs.open(filein, &amp;#39;r&amp;#39;, encoding=&amp;quot;utf-8&amp;quot;):
+                    new_lines.append(&amp;#39;    &amp;#39; + line.rstrip())
+            else :
+                new_lines.append(line)
+        return new_lines
+
+
+class CodeExtension(Extension):
+# Déclaration de mon extension
+    def extendMarkdown(self, md, md_globals):
+        md.preprocessors.add(&amp;#39;code&amp;#39;, CodePreprocessor(md),&amp;#39;&amp;gt;reference&amp;#39;)
+
+def makeExtension(configs=None):
+    return CodeExtension(configs=configs)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a class="button radius tiny" href="http://letchap.github.io/code/code.py" title="code.py"&gt;Télécharger code.py&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Testons cette extension&lt;/h3&gt;
+&lt;p&gt;Pour tester cette extension, vous pouvez lancer la commande suivante dans le terminal.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;markdown_py&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="n"&gt;montexte&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Installons l'extension&lt;/h3&gt;
+&lt;p&gt;Pour installer cette extension, il suffit de la copier dans le répertoire ...&lt;/p&gt;
+&lt;h3&gt;Utilisons cette extension avec Pelican&lt;/h3&gt;
+&lt;p&gt;Pour installer cette extension avec Pelican, il suffit de la déclarer dans le fichier pelicanconf.py dans le champ MD_EXTENSION&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MD_EXTENSIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="sc"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;codehilite&lt;/span&gt;&lt;span class="sc"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;extra&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Cherry on ze cake&lt;/h3&gt;
+&lt;p&gt;J'aimerais bien avoir un joli bouton pour télécharger mon fichier source. Nous allons donc utiliser l'extension attribute list dont nous parlions précédemment pour ajouter une classe bouton à notre lien html (en l'occurrence un bouton foundation) :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;charger&lt;/span&gt; &lt;span class="n"&gt;monfichier&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;&lt;span class="p"&gt;]({&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;monfichier&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;button&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Télécharger monfichier.py&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Le tour est joué, plus besoin de plugin Pelican, l'extension sera disponible pour tous vos projets markdown.&lt;/p&gt;</summary><category term=""></category></entry><entry><title>Connexion ssh avec VirtualBox</title><link href="http://letchap.github.io/2014/03/20/connexion-ssh-avec-virtualbox/" rel="alternate"></link><updated>2014-03-20T22:03:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-20:2014/03/20/connexion-ssh-avec-virtualbox/</id><summary type="html">&lt;p&gt;En conservant le paramétrage par défaut de VirtualBox, il n'est pas possible de créer une connection SSH avec un invité Linux.&lt;/p&gt;
 &lt;p&gt;Pour rendre possible cette connection SSH, il faut modifier le paramétrage de l'onglet réseau dans VirtualBox pour le positionner sur "Accès par pont". Cela vous permettra d'avoir une adresse au format 192.168.0.xx.&lt;/p&gt;
 &lt;p&gt;Pour rappel sur Linux, vous aurez auparavant installé openssh et démarré le service par &lt;code&gt;service ssh start&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;N'oublier de préciser de port 22 lors de votre connection SFTP.&lt;/p&gt;</summary><category term="VirtualBox"></category><category term="SSH"></category><category term="Crunchbang"></category></entry><entry><title>Microbe</title><link href="http://letchap.github.io/2014/03/17/microbe/" rel="alternate"></link><updated>2014-03-17T20:11:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-17:2014/03/17/microbe/</id><summary type="html">&lt;p&gt;Vous avez un serveur à la maison : votre ordinateur est allumé en permanence ou vous avez un raspberry pi.&lt;/p&gt;
