@@ -7,6 +7,7 @@ import codecs
 
 
 # L'expression régulière permettant de trouver le tag dans le texte
+
 CODE_RE = re.compile(r'\{% code ?(?P<src>[^\}]*) \%}')
 
 class CodePreprocessor(Preprocessor):

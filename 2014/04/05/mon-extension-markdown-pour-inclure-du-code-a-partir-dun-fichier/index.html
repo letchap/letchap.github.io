@@ -133,6 +133,7 @@
 
 
 <span class="err">#</span> <span class="nx">L</span><span class="s1">&#39;expression régulière permettant de trouver le tag dans le texte</span>
+
 <span class="s1">CODE_RE = re.compile(r&#39;</span><span class="o">\</span><span class="p">{</span><span class="o">%</span> <span class="nb">code</span> <span class="o">?</span><span class="p">(</span><span class="o">?</span><span class="nx">P</span><span class="o">&lt;</span><span class="nb">src</span><span class="o">&gt;</span><span class="err">[</span><span class="p">^</span><span class="o">\</span><span class="p">}</span><span class="cp">]</span>*) \%}&#39;)
 
 class CodePreprocessor(Preprocessor):
@@ -178,7 +179,7 @@ def makeExtension(configs=None):
 
 
 <h3>Installons l'extension</h3>
-<p>Pour installer cette extension, il suffit de la copier dans le répertoire ...</p>
+<p>Pour installer cette extension, il suffit de la copier dans le répertoire contenant les extensions markdown python.</p>
 <h3>Utilisons cette extension avec Pelican</h3>
 <p>Pour installer cette extension avec Pelican, il suffit de la déclarer dans le fichier pelicanconf.py dans le champ MD_EXTENSION</p>
 <div class="codehilite"><pre><span class="n">MD_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="err">&#39;</span><span class="n">code</span><span class="sc">&#39;,&#39;</span><span class="n">codehilite</span><span class="sc">&#39;,&#39;</span><span class="n">extra</span><span class="err">&#39;</span><span class="p">]</span>

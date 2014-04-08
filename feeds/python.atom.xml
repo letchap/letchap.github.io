@@ -26,6 +26,7 @@
 
 
 &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;L&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;expression régulière permettant de trouver le tag dans le texte&lt;/span&gt;
+
 &lt;span class="s1"&gt;CODE_RE = re.compile(r&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="nb"&gt;code&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="nx"&gt;P&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;src&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="p"&gt;^&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;*) \%}&amp;#39;)
 
 class CodePreprocessor(Preprocessor):
@@ -71,7 +72,7 @@ def makeExtension(configs=None):
 
 
 &lt;h3&gt;Installons l'extension&lt;/h3&gt;
-&lt;p&gt;Pour installer cette extension, il suffit de la copier dans le répertoire ...&lt;/p&gt;
+&lt;p&gt;Pour installer cette extension, il suffit de la copier dans le répertoire contenant les extensions markdown python.&lt;/p&gt;
 &lt;h3&gt;Utilisons cette extension avec Pelican&lt;/h3&gt;
 &lt;p&gt;Pour installer cette extension avec Pelican, il suffit de la déclarer dans le fichier pelicanconf.py dans le champ MD_EXTENSION&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;MD_EXTENSIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="sc"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;codehilite&lt;/span&gt;&lt;span class="sc"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;extra&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
