@@ -103,7 +103,7 @@
 	
 	<hr />
 	<i class="fi-calendar size-14"></i>&nbsp;Sam 05 avril 2014&nbsp;&nbsp;
-    <i class="fi-price-tag size-14"></i><a href="../../../../category/.html">&nbsp;</a>
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/python.html">&nbsp;Python</a>
 	<hr />
 	
 	<p>J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.</p>
@@ -138,14 +138,17 @@
 
 
 class CodePreprocessor(Preprocessor):
-&quot;&quot;&quot; Le pré-processor
+&quot;&quot;&quot;
+ Le pré-processor
  Je lis les lignes de mon fichier markdown
  Je les mets une à une dans une liste
  Dès que je trouve une correspondance à mon expression régulière
  J&#39;ouvre le fichier source
  Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour le bloc de code markdown
  Je complète ma liste avec ces lignes
- Quand j&#39;ai tout lu, je renvoie la liste pour la suite du traitement markdown&quot;&quot;&quot;
+ Quand j&#39;ai tout lu, je renvoie la liste pour la suite du traitement  markdown
+
+&quot;&quot;&quot;
 
     def run(self, lines):
         new_lines = <span class="cp">[]</span>;
@@ -224,7 +227,6 @@ def makeExtension(configs=None):
 		
 		  <h4>Catégories</h4>
 		  <ul class="side-nav">
-		    <li><a href="../../../../category/.html"></a></li>
 		    <li><a href="../../../../category/conky.html">Conky</a></li>
 		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
 		    <li><a href="../../../../category/freebox.html">Freebox</a></li>

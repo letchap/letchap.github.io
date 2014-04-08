@@ -12,14 +12,17 @@ CODE_RE = re.compile(r'\{% code ?(?P<src>[^\}]*) \%}')
 
 
 class CodePreprocessor(Preprocessor):
-""" Le pré-processor
+"""
+ Le pré-processor
  Je lis les lignes de mon fichier markdown
  Je les mets une à une dans une liste
  Dès que je trouve une correspondance à mon expression régulière
  J'ouvre le fichier source
  Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour le bloc de code markdown
  Je complète ma liste avec ces lignes
- Quand j'ai tout lu, je renvoie la liste pour la suite du traitement markdown"""
+ Quand j'ai tout lu, je renvoie la liste pour la suite du traitement  markdown
+
+"""
 
     def run(self, lines):
         new_lines = [];

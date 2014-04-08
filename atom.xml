@@ -31,14 +31,17 @@
 
 
 class CodePreprocessor(Preprocessor):
-&amp;quot;&amp;quot;&amp;quot; Le pré-processor
+&amp;quot;&amp;quot;&amp;quot;
+ Le pré-processor
  Je lis les lignes de mon fichier markdown
  Je les mets une à une dans une liste
  Dès que je trouve une correspondance à mon expression régulière
  J&amp;#39;ouvre le fichier source
  Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour le bloc de code markdown
  Je complète ma liste avec ces lignes
- Quand j&amp;#39;ai tout lu, je renvoie la liste pour la suite du traitement markdown&amp;quot;&amp;quot;&amp;quot;
+ Quand j&amp;#39;ai tout lu, je renvoie la liste pour la suite du traitement  markdown
+
+&amp;quot;&amp;quot;&amp;quot;
 
     def run(self, lines):
         new_lines = &lt;span class="cp"&gt;[]&lt;/span&gt;;
@@ -84,7 +87,7 @@ def makeExtension(configs=None):
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Le tour est joué, plus besoin de plugin Pelican, l'extension sera disponible pour tous vos projets markdown.&lt;/p&gt;</summary><category term=""></category></entry><entry><title>Connexion ssh avec VirtualBox</title><link href="http://letchap.github.io/2014/03/20/connexion-ssh-avec-virtualbox/" rel="alternate"></link><updated>2014-03-20T22:03:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-20:2014/03/20/connexion-ssh-avec-virtualbox/</id><summary type="html">&lt;p&gt;En conservant le paramétrage par défaut de VirtualBox, il n'est pas possible de créer une connection SSH avec un invité Linux.&lt;/p&gt;
+&lt;p&gt;Le tour est joué, plus besoin de plugin Pelican, l'extension sera disponible pour tous vos projets markdown.&lt;/p&gt;</summary><category term="Python"></category><category term="Pelican"></category><category term="Markdown"></category></entry><entry><title>Connexion ssh avec VirtualBox</title><link href="http://letchap.github.io/2014/03/20/connexion-ssh-avec-virtualbox/" rel="alternate"></link><updated>2014-03-20T22:03:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-20:2014/03/20/connexion-ssh-avec-virtualbox/</id><summary type="html">&lt;p&gt;En conservant le paramétrage par défaut de VirtualBox, il n'est pas possible de créer une connection SSH avec un invité Linux.&lt;/p&gt;
 &lt;p&gt;Pour rendre possible cette connection SSH, il faut modifier le paramétrage de l'onglet réseau dans VirtualBox pour le positionner sur "Accès par pont". Cela vous permettra d'avoir une adresse au format 192.168.0.xx.&lt;/p&gt;
 &lt;p&gt;Pour rappel sur Linux, vous aurez auparavant installé openssh et démarré le service par &lt;code&gt;service ssh start&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;N'oublier de préciser de port 22 lors de votre connection SFTP.&lt;/p&gt;</summary><category term="VirtualBox"></category><category term="SSH"></category><category term="Crunchbang"></category></entry><entry><title>Microbe</title><link href="http://letchap.github.io/2014/03/17/microbe/" rel="alternate"></link><updated>2014-03-17T20:11:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-17:2014/03/17/microbe/</id><summary type="html">&lt;p&gt;Vous avez un serveur à la maison : votre ordinateur est allumé en permanence ou vous avez un raspberry pi.&lt;/p&gt;
