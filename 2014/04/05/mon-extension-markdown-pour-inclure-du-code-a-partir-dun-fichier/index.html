@@ -138,17 +138,16 @@
 
 
 class CodePreprocessor(Preprocessor):
-&quot;&quot;&quot;
- Le pré-processor
- Je lis les lignes de mon fichier markdown
- Je les mets une à une dans une liste
- Dès que je trouve une correspondance à mon expression régulière
- J&#39;ouvre le fichier source
- Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour le bloc de code markdown
- Je complète ma liste avec ces lignes
- Quand j&#39;ai tout lu, je renvoie la liste pour la suite du traitement  markdown
 
-&quot;&quot;&quot;
+# Le pré-processor
+# Je lis les lignes de mon fichier markdown
+# Je les mets une à une dans une liste
+# Dès que je trouve une correspondance à mon expression régulière
+# J&#39;ouvre le fichier source
+# Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour # le bloc de code markdown
+# Je complète ma liste avec ces lignes
+# Quand j&#39;ai tout lu, je renvoie la liste pour la suite du traitement
+# markdown
 
     def run(self, lines):
         new_lines = <span class="cp">[]</span>;
