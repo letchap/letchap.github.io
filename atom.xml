@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-04-28T22:36:00+02:00</updated><entry><title>Quel langage de programmation choisir pour débuter</title><link href="http://letchap.github.io/2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/" rel="alternate"></link><updated>2014-04-28T22:36:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-28:2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/</id><summary type="html"></summary><category term=""></category></entry><entry><title>Mon extension markdown pour inclure du code à partir d'un fichier</title><link href="http://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="alternate"></link><updated>2014-04-05T10:51:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-05:2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/</id><summary type="html">&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-04-28T22:36:00+02:00</updated><entry><title>Quel langage de programmation choisir pour débuter</title><link href="http://letchap.github.io/2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/" rel="alternate"></link><updated>2014-04-28T22:36:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-28:2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/</id><summary type="html">&lt;p&gt;Il y a de cela un an et demi, après avoir installé mon premier Linux, j'ai cherché un langage de programmation pour débutant. Je voulais réaliser des petits programmes simples pour me faciliter certaines tâches comme récupérer des documents sur internet ou convertir des fichiers.&lt;/p&gt;
+&lt;p&gt;La toute première question que je me suis posé fut : "Mais quel langage je vais bien pouvoir choisir ?". Question d'autant plus ardue que je n'y connaissais vraiment rien.&lt;/p&gt;
+&lt;p&gt;Evidemment, j'avais entendu parlé de certains langages comme Java ou C++, mais dès les premières recherches, je lis qu'en Java, tout objet est une classe. Rédhibitoire pour moi, les classes, quand on n'a jamais fait de programmation, ce n'est pas instinctif.&lt;/p&gt;
+&lt;p&gt;De la même manière, je connaissais php de nom, mais rapidement, je me rends compte que c'est surtout utile pour monter un site web.&lt;/p&gt;
+&lt;p&gt;Le premier langage sur lequel je tombe alors est Perl. Et dès l'introduction, je lis la devise Perl qui décomplexe n'importe quel amateur "Il y a toujours plusieurs façons de faire". Je me dis alors que je suis sur la bonne voie. Malheureusement, je pense que pour un débutant, Perl est un peu aride car très condensé. En une seule ligne, il est possible d'effectuer beaucoup de tâches, du coup, la relecture du code est un peu complexe. Il y a un gros ticket d'entrée.&lt;/p&gt;
+&lt;p&gt;Et puis, au hasard d'une lecture, en l'occurrence full circle magazine, je tombe sur &lt;a href="http://www.fullcirclemag.fr/?post/2012/06/07/Numéro-spécial-PYTHON%2C-volume-1"&gt;un tutoriel pour Python&lt;/a&gt;. Le premier article d'une longue série concerne le programme "Hello world" qui tient dans la ligne suivante :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello world!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Difficile de faire plus simple.&lt;/p&gt;
+&lt;p&gt;A titre de comparaison, les "Hello world" en Perl, Java et C++ paraissent plus trapus.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nx"&gt;Perl&lt;/span&gt;
+&lt;span class="nx"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello world!&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="nb"&gt;Java&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;HelloWorld&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;static&lt;/span&gt; &lt;span class="bp"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt; args) {
+    System.out.println(&amp;quot;Hello world!&amp;quot;);
+    }
+}
+
+C++
+#include &lt;span class="nt"&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;
+
+int main()
+{
+    std::cout &lt;span class="err"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &amp;quot;Hello, new world!&amp;quot; &lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt; std::endl&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+    &lt;span class="na"&gt;return&lt;/span&gt; &lt;span class="na"&gt;0&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Encore un petit exemple pour illustrer la facilité d'utilisation de Python : pour déclarer une variable, il suffit de faire :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;toto&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nous avons déclaré la variable x en lui affectant la valeur &lt;code&gt;toto&lt;/code&gt;. Un jeu d'enfant !&lt;/p&gt;
+&lt;p&gt;Python est un langage bien adapté pour les débutants car :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;comme nous venons de le voir, sa syntaxe est très simple,&lt;/li&gt;
+&lt;li&gt;il n'exige pas l'utilisation de classes. Il est possible de très rapidement de faire un programme complet sans une seule classe,&lt;/li&gt;
+&lt;li&gt;il est multi-plateforme. Pour moi qui travaille à la fois sur Linux et sur OSX, je n'ai pas besoin de réécrire de code, il tourne sur les deux systèmes (et sur Windows bien sûr même si je ne l'ai jamais expérimenté),&lt;/li&gt;
+&lt;li&gt;il est très documenté. Il est toujours possible également d'attrappé de bouts de code à droite à gauche qui vont faire le travail sans avoir forcément tout compris au début,&lt;/li&gt;
+&lt;li&gt;Il y a des informations partout, y compris en français, ce qui est plus facile pour démarrer, même si on est familier de la langue de Shakespeare,&lt;/li&gt;
+&lt;li&gt;il est capable de tout faire : du web, des maths, des interfaces, ... rien ne lui est interdit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pour vous donner un petit exemple, en partant de zéro, j'ai pu au bout de quatre mois à écrire un petit programme qui se connecte sur un site internet et qui récupère un fichier. &lt;a href="http://letchap.github.io/2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/"&gt;Le programme se trouve ici&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Ensuite, comme j'ai pu le lire un peu partout, il faut sans doute 10 ans pour maîtriser un langage. Et c'est là encore un gros avantage de Python, il permet d'appendre à son rythme sans attendre 10 ans pour se faire plaisir. On peut commencer à écrire des programmes simples et puis, avec un peu plus d'expérience, on attaque les classes. Mais encore une fois, ce n'est pas une obligation. De la même manière, on peut appendre module par module : le module de traitement d'image, le module d'interface graphique, la connexion à une base de données ... A son rythme je vous dis... Et si un jour vous voulez l'utiliser de manière professionnelle, pas de soucis, il est aussi fait pour ça.&lt;/p&gt;
+&lt;p&gt;Si vous êtes convaincu par Python, quelques petites astuces pour démarrer :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;apprendre à utiliser la ligne de commande en parallèle (si vous êtes sur Linux ou Mac). C'est important pour lancer un programme python, mais également pour installer des modules complémentaires python (via la commande &lt;code&gt;pip&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;lire, lire et lire&lt;/li&gt;
+&lt;li&gt;faire des essais, se tromper, lire, refaire des essais, et miracle, ça fonctionne&lt;/li&gt;
+&lt;li&gt;utiliser la ligne de commande python pour tester son script en direct&lt;/li&gt;
+&lt;li&gt;bien comprendre le système d'encodage (aka c'est quoi UTF8 ?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Des liens utiles :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.python.org"&gt;le site officiel de python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://fr.openclassrooms.com/informatique/python/cours"&gt;Openclassroom (ex site du Zéro)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Exit()&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="Python"></category><category term="Java"></category><category term="C++"></category><category term="Perl"></category></entry><entry><title>Mon extension markdown pour inclure du code à partir d'un fichier</title><link href="http://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="alternate"></link><updated>2014-04-05T10:51:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-05:2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/</id><summary type="html">&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
 &lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de code. Pour que l'opération soit la plus simple pour la maintenance du site et pour le lecteur qui souhaiterait utiliser le code, je mets le code dans un fichier que je rends téléchargeable.&lt;/p&gt;
 &lt;p&gt;Malheureusement, il n'est pas possible avec la syntaxe Markdown d'intégrer le contenu d'un fichier source.&lt;/p&gt;
 &lt;p&gt;Jusqu'à présent, pour contourner ce problème, j'utilisais un plugin Pelican nommé liquid_tags, inspiré du plugin liquid d'Octopress.&lt;/p&gt;

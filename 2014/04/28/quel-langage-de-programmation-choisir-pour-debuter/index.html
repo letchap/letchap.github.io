@@ -103,10 +103,75 @@
 	
 	<hr />
 	<i class="fi-calendar size-14"></i>&nbsp;Lun 28 avril 2014&nbsp;&nbsp;
-    <i class="fi-price-tag size-14"></i><a href="../../../../category/.html">&nbsp;</a>
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/python.html">&nbsp;Python</a>
 	<hr />
 	
-	
+	<p>Il y a de cela un an et demi, après avoir installé mon premier Linux, j'ai cherché un langage de programmation pour débutant. Je voulais réaliser des petits programmes simples pour me faciliter certaines tâches comme récupérer des documents sur internet ou convertir des fichiers.</p>
+<p>La toute première question que je me suis posé fut : "Mais quel langage je vais bien pouvoir choisir ?". Question d'autant plus ardue que je n'y connaissais vraiment rien.</p>
+<p>Evidemment, j'avais entendu parlé de certains langages comme Java ou C++, mais dès les premières recherches, je lis qu'en Java, tout objet est une classe. Rédhibitoire pour moi, les classes, quand on n'a jamais fait de programmation, ce n'est pas instinctif.</p>
+<p>De la même manière, je connaissais php de nom, mais rapidement, je me rends compte que c'est surtout utile pour monter un site web.</p>
+<p>Le premier langage sur lequel je tombe alors est Perl. Et dès l'introduction, je lis la devise Perl qui décomplexe n'importe quel amateur "Il y a toujours plusieurs façons de faire". Je me dis alors que je suis sur la bonne voie. Malheureusement, je pense que pour un débutant, Perl est un peu aride car très condensé. En une seule ligne, il est possible d'effectuer beaucoup de tâches, du coup, la relecture du code est un peu complexe. Il y a un gros ticket d'entrée.</p>
+<p>Et puis, au hasard d'une lecture, en l'occurrence full circle magazine, je tombe sur <a href="http://www.fullcirclemag.fr/?post/2012/06/07/Numéro-spécial-PYTHON%2C-volume-1">un tutoriel pour Python</a>. Le premier article d'une longue série concerne le programme "Hello world" qui tient dans la ligne suivante :</p>
+<div class="codehilite"><pre><span class="n">print</span><span class="p">(</span><span class="s">&quot;Hello world!&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Difficile de faire plus simple.</p>
+<p>A titre de comparaison, les "Hello world" en Perl, Java et C++ paraissent plus trapus.</p>
+<div class="codehilite"><pre><span class="nx">Perl</span>
+<span class="nx">print</span> <span class="s2">&quot;Hello world!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+
+<span class="nb">Java</span>
+<span class="k">public</span> <span class="nf">class</span> <span class="nx">HelloWorld</span> <span class="p">{</span>
+<span class="k">public</span> <span class="nf">static</span> <span class="bp">void</span> <span class="nx">main</span><span class="p">(</span><span class="kt">String</span><span class="err">[</span><span class="cp">]</span> args) {
+    System.out.println(&quot;Hello world!&quot;);
+    }
+}
+
+C++
+#include <span class="nt">&lt;iostream&gt;</span>
+
+int main()
+{
+    std::cout <span class="err">&lt;&lt;</span> &quot;Hello, new world!&quot; <span class="err">&lt;</span><span class="nt">&lt; std::endl</span><span class="err">;</span>
+    <span class="na">return</span> <span class="na">0</span><span class="err">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>Encore un petit exemple pour illustrer la facilité d'utilisation de Python : pour déclarer une variable, il suffit de faire :</p>
+<div class="codehilite"><pre><span class="n">x</span><span class="o">=</span><span class="err">&#39;</span><span class="n">toto</span><span class="err">&#39;</span>
+</pre></div>
+
+
+<p>Nous avons déclaré la variable x en lui affectant la valeur <code>toto</code>. Un jeu d'enfant !</p>
+<p>Python est un langage bien adapté pour les débutants car :</p>
+<ul>
+<li>comme nous venons de le voir, sa syntaxe est très simple,</li>
+<li>il n'exige pas l'utilisation de classes. Il est possible de très rapidement de faire un programme complet sans une seule classe,</li>
+<li>il est multi-plateforme. Pour moi qui travaille à la fois sur Linux et sur OSX, je n'ai pas besoin de réécrire de code, il tourne sur les deux systèmes (et sur Windows bien sûr même si je ne l'ai jamais expérimenté),</li>
+<li>il est très documenté. Il est toujours possible également d'attrappé de bouts de code à droite à gauche qui vont faire le travail sans avoir forcément tout compris au début,</li>
+<li>Il y a des informations partout, y compris en français, ce qui est plus facile pour démarrer, même si on est familier de la langue de Shakespeare,</li>
+<li>il est capable de tout faire : du web, des maths, des interfaces, ... rien ne lui est interdit.</li>
+</ul>
+<p>Pour vous donner un petit exemple, en partant de zéro, j'ai pu au bout de quatre mois à écrire un petit programme qui se connecte sur un site internet et qui récupère un fichier. <a href="../../../../2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/">Le programme se trouve ici</a>.</p>
+<p>Ensuite, comme j'ai pu le lire un peu partout, il faut sans doute 10 ans pour maîtriser un langage. Et c'est là encore un gros avantage de Python, il permet d'appendre à son rythme sans attendre 10 ans pour se faire plaisir. On peut commencer à écrire des programmes simples et puis, avec un peu plus d'expérience, on attaque les classes. Mais encore une fois, ce n'est pas une obligation. De la même manière, on peut appendre module par module : le module de traitement d'image, le module d'interface graphique, la connexion à une base de données ... A son rythme je vous dis... Et si un jour vous voulez l'utiliser de manière professionnelle, pas de soucis, il est aussi fait pour ça.</p>
+<p>Si vous êtes convaincu par Python, quelques petites astuces pour démarrer :</p>
+<ul>
+<li>apprendre à utiliser la ligne de commande en parallèle (si vous êtes sur Linux ou Mac). C'est important pour lancer un programme python, mais également pour installer des modules complémentaires python (via la commande <code>pip</code>)</li>
+<li>lire, lire et lire</li>
+<li>faire des essais, se tromper, lire, refaire des essais, et miracle, ça fonctionne</li>
+<li>utiliser la ligne de commande python pour tester son script en direct</li>
+<li>bien comprendre le système d'encodage (aka c'est quoi UTF8 ?)</li>
+</ul>
+<p>Des liens utiles :</p>
+<ul>
+<li><a href="https://www.python.org">le site officiel de python</a></li>
+<li>
+<p><a href="http://fr.openclassrooms.com/informatique/python/cours">Openclassroom (ex site du Zéro)</a></p>
+<p>Exit()</p>
+</li>
+</ul>
 	
   </article>
 
@@ -139,7 +204,6 @@
 		
 		  <h4>Catégories</h4>
 		  <ul class="side-nav">
-		    <li><a href="../../../../category/.html"></a></li>
 		    <li><a href="../../../../category/conky.html">Conky</a></li>
 		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
 		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
