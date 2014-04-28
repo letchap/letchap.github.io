@@ -60,10 +60,7 @@ int main()
 &lt;p&gt;Des liens utiles :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://www.python.org"&gt;le site officiel de python&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href="http://fr.openclassrooms.com/informatique/python/cours"&gt;Openclassroom (ex site du Zéro)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Exit()&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://fr.openclassrooms.com/informatique/python/cours"&gt;Openclassroom (ex site du Zéro)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</summary><category term="Python"></category><category term="Java"></category><category term="C++"></category><category term="Perl"></category></entry><entry><title>Mon extension markdown pour inclure du code à partir d'un fichier</title><link href="http://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="alternate"></link><updated>2014-04-05T10:51:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-05:2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/</id><summary type="html">&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
 &lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de code. Pour que l'opération soit la plus simple pour la maintenance du site et pour le lecteur qui souhaiterait utiliser le code, je mets le code dans un fichier que je rends téléchargeable.&lt;/p&gt;
 &lt;p&gt;Malheureusement, il n'est pas possible avec la syntaxe Markdown d'intégrer le contenu d'un fichier source.&lt;/p&gt;
