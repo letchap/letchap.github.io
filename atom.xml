@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-04-28T22:36:00+02:00</updated><entry><title>Quel langage de programmation choisir pour débuter</title><link href="http://letchap.github.io/2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/" rel="alternate"></link><updated>2014-04-28T22:36:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-28:2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/</id><summary type="html">&lt;p&gt;Il y a de cela un an et demi, après avoir installé mon premier Linux, j'ai cherché un langage de programmation pour débutant. Je voulais réaliser des petits programmes simples pour me faciliter certaines tâches comme récupérer des documents sur internet ou convertir des fichiers.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-08-06T20:56:00+02:00</updated><entry><title>Utiliser locate sur OSX</title><link href="http://letchap.github.io/2014/08/06/utiliser-locate-sur-osx/" rel="alternate"></link><updated>2014-08-06T20:56:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-08-06:2014/08/06/utiliser-locate-sur-osx/</id><summary type="html">&lt;p&gt;J'aime bien la commande locate pour rechercher un élément sur le ou les disques de mon ordinateur. Elle permet de chercher des fichiers système que ne connait pas spotlight. Par rapport à la commande find, elle est beaucoup plus rapide car elle crée une base de données avec l'ensemble des fichiers et le chemin associée.&lt;/p&gt;
+&lt;p&gt;Seule contrainte : avoir une base de données à jour. Et là, grosse surprise, ma base n'est pas à jour, la commande locate ne sert à rien. La misère !&lt;/p&gt;
+&lt;p&gt;Reprenons par le commencement. Pour activer la commande locate qui ne l'est pas par défaut, il faut lancer cette commande dans le terminal :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;launchctl&lt;/span&gt; &lt;span class="n"&gt;load&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;LaunchDaemons&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apple&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;locate&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plist&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pour savoir comment fonctionne la programmation de travaux avec launchd, je vous renvoie &lt;a href="http://letchap.github.io/2013/08/08/demarrage-automatique-de-travaux-avec-launchd/" title="démarrage automatique de travaux avec launchd"&gt;à un précédent article.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Que contient le fichier plist ? Pour le savoir :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;cat&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Library&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;LaunchDaemons&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;apple&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;locate&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plist&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ce qui donne :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;plist&lt;/span&gt; &lt;span class="na"&gt;version=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1.0&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Label&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;com.apple.locate&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Disabled&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;ProgramArguments&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;array&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;/usr/libexec/locate.updatedb&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/array&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;LowPriorityIO&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Nice&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;5&lt;span class="nt"&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;KeepAlive&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;PathState&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;/var/db/locate.database&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;lt;false/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;StartCalendarInterval&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Hour&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;3&lt;span class="nt"&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Minute&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;15&lt;span class="nt"&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Weekday&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;6&lt;span class="nt"&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;AbandonProcessGroup&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/plist&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Et là, oh surprise, la commande de mise à jour de la base à savoir &lt;code&gt;/usr/libexec/locate.updatedb&lt;/code&gt; ne se déclenche que le samedi à 3h15. Aucune chance d'avoir une base de données à jour.&lt;/p&gt;
+&lt;p&gt;Heureusement, il est toujours possible de lancer la mise à jour à la main avec&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;libexec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;locate&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;updatedb&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;C'est un peu long, mais au moins, je suis sûr du résultat du locate.&lt;/p&gt;</summary><category term="locate"></category><category term="launchctl"></category><category term="Mac OS X"></category></entry><entry><title>Quel langage de programmation choisir pour débuter</title><link href="http://letchap.github.io/2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/" rel="alternate"></link><updated>2014-04-28T22:36:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-28:2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/</id><summary type="html">&lt;p&gt;Il y a de cela un an et demi, après avoir installé mon premier Linux, j'ai cherché un langage de programmation pour débutant. Je voulais réaliser des petits programmes simples pour me faciliter certaines tâches comme récupérer des documents sur internet ou convertir des fichiers.&lt;/p&gt;
 &lt;p&gt;La toute première question que je me suis posé fut : "Mais quel langage je vais bien pouvoir choisir ?". Question d'autant plus ardue que je n'y connaissais vraiment rien.&lt;/p&gt;
 &lt;p&gt;Evidemment, j'avais entendu parlé de certains langages comme Java ou C++, mais dès les premières recherches, je lis qu'en Java, tout objet est une classe. Rédhibitoire pour moi, les classes, quand on n'a jamais fait de programmation, ce n'est pas instinctif.&lt;/p&gt;
 &lt;p&gt;De la même manière, je connaissais php de nom, mais rapidement, je me rends compte que c'est surtout utile pour monter un site web.&lt;/p&gt;
@@ -455,9 +513,7 @@ authfile           /var/run/slim.auth
 &lt;li&gt;copier le répertoire img dans le répertoire &lt;code&gt;/static&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;copier les fichiers jquery-1.10.2.min.js et lightbox-2.6.min.js dans le répertoire &lt;code&gt;/static/js&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;copier lightbox.css dans le répertoire &lt;code&gt;/css&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;déclarer les scripts js et le fichier css dans le fichier base.hmtl&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{{ SITEURL }}/theme/js/jquery-1.10.2.min.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;li&gt;déclarer les scripts js et le fichier css dans le fichier base.hmtl&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{{ SITEURL }}/theme/js/jquery-1.10.2.min.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
 &lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{{ SITEURL }}/theme/js/lightbox-2.6.min.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
 &lt;span class="nt"&gt;&amp;lt;link&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{{ SITEURL }}/theme/css/lightbox.css&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rel=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/css&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -2896,9 +2952,7 @@ avconv -i &lt;span class="nv"&gt;$file&lt;/span&gt; -c:a aac -strict experimenta
 &lt;p&gt;Derniers éléments d’informations si vous souhaitez vous lancer dans l’écriture d’un script :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;il faut changer les droits du script pour le rendre exécutable : chmod +x monscript.sh&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;il se lance de la manière suivante (attention aux chemins des répertoires où se trouvent les fichiers et le programme, nous verrons plus tard comment simplifier les lancements):&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./monscript.sh
+&lt;li&gt;il se lance de la manière suivante (attention aux chemins des répertoires où se trouvent les fichiers et le programme, nous verrons plus tard comment simplifier les lancements):&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./monscript.sh
 &lt;/pre&gt;&lt;/div&gt;
 
 

@@ -180,9 +180,7 @@ avconv -i &lt;span class="nv"&gt;$file&lt;/span&gt; -c:a aac -strict experimenta
 &lt;p&gt;Derniers éléments d’informations si vous souhaitez vous lancer dans l’écriture d’un script :&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;il faut changer les droits du script pour le rendre exécutable : chmod +x monscript.sh&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;il se lance de la manière suivante (attention aux chemins des répertoires où se trouvent les fichiers et le programme, nous verrons plus tard comment simplifier les lancements):&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./monscript.sh
+&lt;li&gt;il se lance de la manière suivante (attention aux chemins des répertoires où se trouvent les fichiers et le programme, nous verrons plus tard comment simplifier les lancements):&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./monscript.sh
 &lt;/pre&gt;&lt;/div&gt;
 
 
