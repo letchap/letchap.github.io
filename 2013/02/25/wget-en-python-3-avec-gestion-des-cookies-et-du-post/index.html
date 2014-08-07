@@ -208,36 +208,36 @@ wget -dO index.html --cookies<span class="o">=</span>on --keep-session-cookies -
 <span class="c">#Notre fonction pour ouvrir les pages html avec gestion des cookies et de l&#39;encodage</span>
 <span class="c">#avec gestion du retour du code erreur</span>
 <span class="k">def</span> <span class="nf">requete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-<span class="err">  </span> <span class="n">data</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-<span class="err">  </span> <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
-<span class="err">  </span> <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="err">  </span> <span class="k">try</span><span class="p">:</span>
-<span class="err">      </span> <span class="n">handle</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
-<span class="err">  </span> <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-<span class="err">      </span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="s">&#39;reason&#39;</span><span class="p">):</span>
-<span class="err">          </span> <span class="k">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="err">          </span> <span class="k">print</span><span class="p">(</span><span class="s">&#39;Reason:&#39;</span><span class="p">,</span><span class="n">err</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span><span class="err">         </span> 
-<span class="err">      </span> <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="s">&#39;code&#39;</span><span class="p">):</span>
-<span class="err">          </span> <span class="k">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="err">          </span> <span class="k">print</span><span class="p">(</span><span class="s">&#39;Code erreur&#39;</span><span class="p">,</span><span class="n">err</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
-<span class="err">  </span> <span class="k">else</span><span class="p">:</span>
-<span class="err">      </span> <span class="k">return</span> <span class="n">handle</span>
+   <span class="n">data</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+   <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+   <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+   <span class="k">try</span><span class="p">:</span>
+       <span class="n">handle</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+   <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+       <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="s">&#39;reason&#39;</span><span class="p">):</span>
+           <span class="k">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+           <span class="k">print</span><span class="p">(</span><span class="s">&#39;Reason:&#39;</span><span class="p">,</span><span class="n">err</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>          
+       <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="s">&#39;code&#39;</span><span class="p">):</span>
+           <span class="k">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+           <span class="k">print</span><span class="p">(</span><span class="s">&#39;Code erreur&#39;</span><span class="p">,</span><span class="n">err</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+   <span class="k">else</span><span class="p">:</span>
+       <span class="k">return</span> <span class="n">handle</span>
 
 <span class="n">login</span> <span class="o">=</span> <span class="err">$</span><span class="n">login</span>
 <span class="n">password</span> <span class="o">=</span> <span class="err">$</span><span class="n">password</span>
 
 <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&quot;</span>
 <span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;connexioncompte_2numSecuriteSociale&#39;</span> <span class="p">:</span> <span class="n">login</span><span class="p">,</span>
-<span class="err">        </span> <span class="s">&#39;connexioncompte_2codeConfidentiel&#39;</span> <span class="p">:</span> <span class="n">password</span><span class="p">,</span>
-<span class="err">        </span> <span class="s">&#39;connexioncompte_2actionEvt&#39;</span> <span class="p">:</span> <span class="s">&#39;connecter&#39;</span><span class="p">,</span>
-<span class="err">        </span> <span class="s">&quot;submit&quot;</span> <span class="p">:</span> <span class="s">&quot;validerFormulaire(this)&quot;</span><span class="p">}</span>
+         <span class="s">&#39;connexioncompte_2codeConfidentiel&#39;</span> <span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+         <span class="s">&#39;connexioncompte_2actionEvt&#39;</span> <span class="p">:</span> <span class="s">&#39;connecter&#39;</span><span class="p">,</span>
+         <span class="s">&quot;submit&quot;</span> <span class="p">:</span> <span class="s">&quot;validerFormulaire(this)&quot;</span><span class="p">}</span>
 
 <span class="c">#Deux passages pour récupérer les cookies puis le cookie sécurisé</span>
 <span class="n">handle</span> <span class="o">=</span> <span class="n">requete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
 <span class="n">handle</span> <span class="o">=</span> <span class="n">requete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s">&#39;These are the cookies we have received so far :&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">cookie</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cj</span><span class="p">):</span>
-<span class="err">  </span> <span class="k">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s">&#39;  :  &#39;</span><span class="p">,</span> <span class="n">cookie</span><span class="p">)</span>
+   <span class="k">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s">&#39;  :  &#39;</span><span class="p">,</span> <span class="n">cookie</span><span class="p">)</span>
 
 <span class="n">the_page</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;the_page.html&quot;</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span>
 <span class="n">the_page</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
@@ -285,6 +285,7 @@ wget -dO index.html --cookies<span class="o">=</span>on --keep-session-cookies -
 		
 		  <h4>Catégories</h4>
 		  <ul class="side-nav">
+		    <li><a href="../../../../category/.html"></a></li>
 		    <li><a href="../../../../category/conky.html">Conky</a></li>
 		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
 		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
