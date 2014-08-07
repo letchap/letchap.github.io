@@ -109,15 +109,14 @@
 	<p>Après quelques mois de pratique de Python, je viens enfin de comprendre à quoi servent les environnements virtuels. C'est un peu toujours la même chose. On lit, on expérimente, on ne comprend pas bien pourquoi on fait telle action, et un jour, on a le déclic. Evidemment, j'ai bien lu un peu partout que les environnements virtuels c'est super, que ça permet d'isoler des sources, que cela ne pollue pas le reste du système, etc ... Jusqu'à présent, pour moi, cela ne restait que des mots. Et facta est lux.</p>
 <h3>La création d'un projet dans un environnement virtuel avec un dépôt git</h3>
 <p>Quelque soit le projet, la méthode que je suis est désormais la suivante :</p>
-<div class="codehilite"><pre><span class="o">-</span> <span class="n">je</span> <span class="n">cr</span><span class="err">é</span><span class="n">e</span> <span class="n">un</span> <span class="n">r</span><span class="err">é</span><span class="n">pertoire</span>
-<span class="o">-</span> <span class="n">je</span> <span class="n">me</span> <span class="n">positionne</span> <span class="n">dans</span> <span class="n">le</span> <span class="n">r</span><span class="err">é</span><span class="n">pertoire</span> <span class="n">et</span> <span class="n">je</span> <span class="n">cr</span><span class="err">é</span><span class="n">e</span> <span class="n">un</span> <span class="n">d</span><span class="err">é</span><span class="n">p</span><span class="err">ô</span><span class="n">t</span> <span class="n">git</span>
-<span class="o">-</span> <span class="n">je</span> <span class="n">cr</span><span class="err">é</span><span class="n">e</span> <span class="n">un</span> <span class="n">environnement</span> <span class="n">virtuel</span> <span class="n">en</span> <span class="n">choisissant</span> <span class="n">ma</span> <span class="n">version</span> <span class="n">Python</span>
-<span class="o">-</span> <span class="n">j</span><span class="err">&#39;</span><span class="n">exclue</span> <span class="n">les</span> <span class="n">sources</span> <span class="n">et</span> <span class="n">biblioth</span><span class="err">è</span><span class="n">ques</span> <span class="n">de</span> <span class="n">l</span><span class="err">&#39;</span><span class="n">environnement</span> <span class="n">virtuel</span> <span class="n">de</span> <span class="n">mon</span> <span class="n">d</span><span class="err">é</span><span class="n">p</span><span class="err">ô</span><span class="n">t</span>
-<span class="o">-</span> <span class="n">je</span> <span class="n">fais</span> <span class="n">un</span> <span class="n">premier</span> <span class="n">commit</span> <span class="n">de</span> <span class="n">mon</span> <span class="n">d</span><span class="err">é</span><span class="n">p</span><span class="err">ô</span><span class="n">t</span>
-<span class="o">-</span> <span class="n">je</span> <span class="n">peux</span> <span class="n">activer</span> <span class="n">l</span><span class="err">&#39;</span><span class="n">environnement</span> <span class="n">virtuel</span> <span class="n">et</span> <span class="n">installer</span> <span class="n">les</span> <span class="n">sources</span> <span class="n">dont</span> <span class="n">j</span><span class="err">&#39;</span><span class="n">ai</span> <span class="n">besoin</span> <span class="n">pour</span> <span class="n">travailler</span>
-</pre></div>
-
-
+<ul>
+<li>je crée un répertoire</li>
+<li>je me positionne dans le répertoire et je crée un dépôt git</li>
+<li>je crée un environnement virtuel en choisissant ma version Python</li>
+<li>j'exclue les sources et bibliothèques de l'environnement virtuel de mon dépôt</li>
+<li>je fais un premier commit de mon dépôt</li>
+<li>je peux activer l'environnement virtuel et installer les sources dont j'ai besoin pour travailler</li>
+</ul>
 <p>Ce qui nous donne :</p>
 <div class="codehilite"><pre><span class="err">$</span> <span class="n">mkdir</span> <span class="n">monprojet</span>
 <span class="err">$</span> <span class="n">cd</span> <span class="n">monprojet</span>
@@ -139,16 +138,15 @@
 <p>Mon site est généré grâce au CMS Pelican écrit en python. Actuellement il est en version 3.4 et tourne en Python 2.7. Les sources de Python et Pelican sont dans un environnement virtuel. Les sources du site sont dans un dépôt git. J'utilise également Ruby et notamment le gem Sass, qui eux sont installés sur le système.</p>
 <p>Je veux tester la version 3.4 de Pelican en Python 3.3, sans toucher à l'existant, puis si l'essai est concluant, en faire la version de production.</p>
 <p>Les différentes étapes vont être les suivantes :</p>
-<div class="codehilite"><pre><span class="o">-</span> <span class="n">r</span><span class="err">é</span><span class="n">cuperer</span> <span class="n">la</span> <span class="n">liste</span> <span class="n">des</span> <span class="n">biblioth</span><span class="err">è</span><span class="n">ques</span> <span class="n">tierces</span> <span class="n">install</span><span class="err">é</span><span class="n">es</span> <span class="n">sur</span> <span class="n">l</span><span class="err">&#39;</span><span class="n">environnement</span> <span class="n">virtuel</span> <span class="n">de</span> <span class="n">d</span><span class="err">é</span><span class="n">part</span>
-<span class="o">-</span> <span class="n">bien</span> <span class="n">mettre</span> <span class="err">à</span> <span class="n">jour</span> <span class="n">le</span> <span class="n">d</span><span class="err">é</span><span class="n">p</span><span class="err">ô</span><span class="n">t</span> <span class="n">avec</span> <span class="n">les</span> <span class="n">sources</span> <span class="n">du</span> <span class="n">site</span>
-<span class="o">-</span> <span class="n">cloner</span> <span class="n">les</span> <span class="n">sources</span> <span class="n">du</span> <span class="n">site</span> <span class="n">dans</span> <span class="n">un</span> <span class="n">nouveau</span> <span class="n">dossier</span>
-<span class="o">-</span> <span class="n">cr</span><span class="err">é</span><span class="n">er</span> <span class="n">un</span> <span class="n">nouvel</span> <span class="n">environnement</span> <span class="n">virtuel</span>
-<span class="o">-</span> <span class="n">y</span> <span class="n">installer</span> <span class="n">Python</span> <span class="mf">3.3</span><span class="p">,</span> <span class="n">Pelican</span> <span class="mf">3.4</span> <span class="n">et</span> <span class="n">les</span> <span class="n">autres</span> <span class="n">biblioth</span><span class="err">è</span><span class="n">ques</span> <span class="n">n</span><span class="err">é</span><span class="n">cessaires</span> <span class="n">au</span> <span class="n">fonctionnement</span> <span class="n">de</span> <span class="n">Pelican</span>
-<span class="o">-</span> <span class="n">faire</span> <span class="n">les</span> <span class="n">tests</span> <span class="n">avec</span> <span class="n">ce</span> <span class="n">nouvel</span> <span class="n">environnement</span><span class="p">,</span> <span class="n">donc</span> <span class="n">sans</span> <span class="n">toucher</span> <span class="err">à</span> <span class="n">l</span><span class="err">&#39;</span><span class="n">ancien</span>
-<span class="o">-</span> <span class="n">si</span> <span class="n">tout</span> <span class="n">est</span> <span class="n">bon</span><span class="p">,</span> <span class="err">ç</span><span class="n">a</span> <span class="n">devient</span> <span class="n">le</span> <span class="n">nouvel</span> <span class="n">environnement</span><span class="p">,</span> <span class="n">vous</span> <span class="n">pouvez</span> <span class="n">suprimmer</span> <span class="n">l</span><span class="err">&#39;</span><span class="n">ancien</span>
-</pre></div>
-
-
+<ul>
+<li>récuperer la liste des bibliothèques tierces installées sur l'environnement virtuel de départ</li>
+<li>bien mettre à jour le dépôt avec les sources du site</li>
+<li>cloner les sources du site dans un nouveau dossier</li>
+<li>créer un nouvel environnement virtuel</li>
+<li>y installer Python 3.3, Pelican 3.4 et les autres bibliothèques nécessaires au fonctionnement de Pelican</li>
+<li>faire les tests avec ce nouvel environnement, donc sans toucher à l'ancien</li>
+<li>si tout est bon, ça devient le nouvel environnement, vous pouvez suprimmer l'ancien</li>
+</ul>
 <p>Ce qui nous donne</p>
 <div class="codehilite"><pre><span class="err">$</span> <span class="n">cd</span> <span class="n">blog2</span><span class="mf">.7</span>
 <span class="err">$</span> <span class="n">pip</span> <span class="n">freeze</span> <span class="o">&gt;</span> <span class="n">source</span><span class="p">.</span><span class="n">txt</span>
@@ -161,7 +159,7 @@
 </pre></div>
 
 
-<p>Voilà, il ne reste plsu qu'à tester le site sous ce nouvel environnement, et si vous êtes content de résultat, supprimer l'ancien environnement. Si vous n'êtes pas satisfait du résultat, il suffit de supprimer le nouvel environnmement et d'annuler les modifications dans git.</p>
+<p>Voilà, il ne reste plus qu'à tester le site sous ce nouvel environnement, et si vous êtes content du résultat, supprimer l'ancien environnement. Si vous n'êtes pas satisfait, il suffit de supprimer le nouvel environnement et d'annuler les modifications dans git.</p>
 	
   </article>
 
