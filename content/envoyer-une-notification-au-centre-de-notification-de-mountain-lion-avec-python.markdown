@@ -17,7 +17,8 @@ Tout d'abord, comment récupérer le bundler identifier? Avec la commande suivan
 
 Maintenant, décorons !
 
-{% include_code decorateur.py %}
+{% code content/code/decorateur.py %}
+[Télécharger decorateur.py]({filename}/code/decorateur.py){: class="button radius tiny" title="Télécharger decorateur.py" }
 
 Le principe de base est de "décorer" la fonction renvoyant le bundle identifier, c'est à dire que nous affectons son comportement temporairement (mais sans la modifier), pour qu'elle renvoie l'identifiant que nous lui passons. Pour cela, nous utilisons un décorateur Python. Pour plus d'informations sur le fonctionnement des décorateurs, vous pouvez aller sur le [site du zéro](http://www.siteduzero.com/informatique/tutoriels/apprenez-a-programmer-en-python/les-decorateurs "Les décorateurs Python") ou sur [le blog de Sam et Max](http://sametmax.com/comprendre-les-decorateurs-python-pas-a-pas-partie-1/ "Les décorateurs Python première partie").
 
@@ -31,10 +32,10 @@ Le tout s'appuie sur le projet PyObjC qui développe une passerelle entre Python
 
 Contrairement au paquet pync (un wrapper Python de terminal-notifier qui permet d'envoyer des messages au centre de notification depuis le terminal) qui ne sait pas envoyer des messages hors d'une session du terminal, ici, il sera possible d'envoyer des notifications même si le programme est déclenché en mode batch par launchd.
 
-Voilà, c'est tout pour Mac OS X pour le moment, la prochaine fois, retour sur Linux. 
+Voilà, c'est tout pour Mac OS X pour le moment, la prochaine fois, retour sur Linux.
 
 Pour la petite histoire, ce qu'on vient de faire tient en trois lignes de code sous Linux grâce à la bibliothèque pynotify :
-	
+
 	#!python
     pynotify.init("Free.py")
     n = pynotify.Notification(
@@ -42,4 +43,3 @@ Pour la petite histoire, ce qu'on vient de faire tient en trois lignes de code s
         "Message", # Message
         "/home/letchap/Image/application_pdf.png") # Image
     n.show()
-

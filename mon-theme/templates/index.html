@@ -3,13 +3,13 @@
   {% if articles %}
     {% for article in (articles_page.object_list if articles_page else articles) %}
     <article>
-      <header class="heading">
       <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
-      <div>{{ article.summary }}
-		<a class="button radius tiny" href="{{ SITEURL }}/{{ article.url }}">la suite ...</a>
-      </div>
-    </header>
-    </article>
+	  
+      {{ article.summary }}
+	  
+	  <a class="button radius tiny" href="{{ SITEURL }}/{{ article.url }}">la suite ...</a>
+    
+	</article>
     <hr />
     {% endfor %}
   {% endif %}

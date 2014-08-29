@@ -7,7 +7,7 @@ Slug: afficher-la-meteo-avec-conky-et-python-1ere-partie
 Sur mon joli bureau openbox sur Crunchbang, j'aimerais pouvoir afficher à la demande les informations concernant la meteo au moyen d'un raccourci clavier ou d'un menu, puis refermer la fenêtre quand je n'en ai plus besoin. Evidemment, je veux des infos fraîches, avec un affichage sympa, et en consommant très peu de ressources machine.
 
 Tout d'abord, le résultat final :
- 
+
 ![memo markdown]({filename}/images/conky_meteo.png "écran conky")
 
 Pour réaliser cela, nous allons mettre en oeuvre plusieurs élements :
@@ -31,13 +31,14 @@ L'inscription est gratuite dans la limite d'une utilisation non commerciale et d
 
 ### Le script
 
-Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky. 
+Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky.
 
 Ce script est largement inspiré d'une part du tutoriel python sur [full circle HS n°2](http://www.fullcirclemag.fr/?pages/Numéros) et sur [ce forum](http://www.archlinux.fr/forum/viewtopic.php?t=9981&p=107541).
 
 Tous les commentaires sont dans le script.
 
-{% include_code meteo.py %}
+{% code content/code/meteo.py %}
+[Télécharger meteo.py]({filename}/code/meteo.py){: class="button radius tiny" title="Télécharger meteo.py" }
 
 Pour mieux comprendre la façon dont sont récupérées les données, prenons un exemple avec un morceau de fichier json et le code Python correspondant. Nous allons récupérer l'information concernant la ville.
 
@@ -63,13 +64,13 @@ Le morceau du fichier JSON qui nous intéresse ressemble à çà :
 			  "elevation": "47.00000000"
 			},
 
-Pour trouver la bonne information, il suffit de suivre les branches de l'arbre. L'information "Paris" se trouve dans "city", qui se trouve dans "display_location" qui se trouve dans "current_observation". Ce qui se traduira en python par : 
-	
+Pour trouver la bonne information, il suffit de suivre les branches de l'arbre. L'information "Paris" se trouve dans "city", qui se trouve dans "display_location" qui se trouve dans "current_observation". Ce qui se traduira en python par :
+
 	:::javascript
     city = parsed_json['current_observation']['display_location']['city']
 
 Le fichier texte final ressemble à ça :
-	
+
 	Meteo = Ciel dégagé
 	Ville = Paris
 	Derniere_observation = Last Updated on juillet 9, 20:05 CEST
@@ -150,16 +151,16 @@ Pour cela, il suffit de suivre l'exemple suivant, en ayant installé préalablem
 	import time
 	from daemon import runner
 
-	class App(): 
+	class App():
 		def __init__(self):
 			self.stdin_path = '/dev/null'
 			self.stdout_path = '/dev/null'
 			self.stderr_path = '/dev/null'
 			self.pidfile_path = '/tmp/meteo.pid'
 			self.pidfile_timeout = 5
-		
-		def run(self): 
-			
+
+		def run(self):
+
 			while True:
 				# Le corps du programme
 				time.sleep(1200)
@@ -169,12 +170,12 @@ Pour cela, il suffit de suivre l'exemple suivant, en ayant installé préalablem
 	daemon_runner.do_action()
 
 Le programme ainsi démonisé se lance par :
-	
+
 	:::bash
     $ python meteo.py start
 
 Vous voir le résultat par exemple par un :
-	
+
 	#!bash
     $ ps -ef | grep meteo
     root      2413     1  0 22:30 ?        00:00:00 python /usr/sbin/meteo.py start

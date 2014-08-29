@@ -18,7 +18,7 @@ La virtualisation permet de démarrer une session de n'importe quelle distributi
 
 - Ca ne prend pas de place (il faut compter 8 Go pour être tranquille),
 - Ca tourne de manière fluide avec 512 Mo de RAM dédiée (j'ai mis 2 Go quand même pour Mageia 2),
-- Ca ne touche pas à Mountain Lion, 
+- Ca ne touche pas à Mountain Lion,
 - Ca permet de partager des fichiers entre Mountain Lion et Mageia très facilement,
 - Ca reconnaît les port usb,
 - Ca se sauvegarde,
@@ -33,14 +33,14 @@ Il n'existe pas énormément de logiciel de virtualisation sur Max OS X, et le s
 
 Pour virtualiser, j'ai donc utilisé le logiciel Virtualbox. Les différentes étapes sont :
 
-- L'installation de Virtualbox 
+- L'installation de Virtualbox
 - Le téléchargement de l'image disque Mageia 2
 - L'installation de Mageia 2 dans VirtualBox
 - L'installation des compléments (VirtualBox guest additions)
 - L'installation des compléments (VirtualBox extension pack)
 
 
-#### Installer Virtualbox. 
+#### Installer Virtualbox.
 
 C'est une installation classique sur OS X par les paquets dmg. Il est disponible au téléchargement [ici](https://www.virtualbox.org/wiki/Downloads "VirtualBox")
 
@@ -51,7 +51,7 @@ Nous allons installer la dernière version de Mageia 2 en 64 bits, elle est disp
 Dans le dossier que vous récupérez se trouve un fichier .iso, c'est de celui dont nous aurons besoin.
 
 Tous les Mac récents tournent en 64 bits, pour vous en assurer, vous pouvez aller dans le moniteur d'activité, il doit être indiqué Intel (64bits) dans la colonne Type.
-[![Moniteur d'activité]({filename}/images/virtualbox/moniteur.png "moniteur d'activité")]({filename}/images/virtualbox/moniteur.png){: data-lightbox="moniteur" title="moniteur d'activité }
+[![Moniteur d'activité]({filename}/images/virtualbox/moniteur.png "moniteur d'activité")]({filename}/images/virtualbox/moniteur.png){: data-lightbox="moniteur" title="moniteur d'activité" }
 
 La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur du 32, je n'ai pas essayé, je ne sais pas si cela fonctionne bien.
 

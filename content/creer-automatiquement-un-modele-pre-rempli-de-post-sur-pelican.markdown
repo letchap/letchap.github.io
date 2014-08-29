@@ -10,14 +10,15 @@ Jusqu'à présent, sur Pelican, pour créer un nouvel article, je faisais un cop
 
 Qu'à cela ne tienne, nous allons faire notre propre script Python pour automatiser tout ça. Le script, le voici, les commentaires sont dedans :
 
-{% include_code newpost.py lang:python %}
+{% code content/code/newpost.py %}
+[Télécharger newpost.py]({filename}/code/newpost.py){: class="button radius tiny" title="Télécharger newpost.py" }
 
 En résumé, ce script, à partir d'un titre passé en paramètre va générer un nom de fichier "slugifié", c'est à dire sans caratère accentué, en minuscule et séparé par des tirets, ainsi que l'en-tête de notre fichier. Le fichier de sortie ressemblera à ça :
 
     Title: Mon super post!
     Date: 2014-01-10 23:40
-    Category: 
-    Tags: 
+    Category:
+    Tags:
     Slug: mon-super-post
 
 Ce script fonctionne pour un fichier markdown, et pour un article. Rien ne vous empêche de modifier le script à la marge pour une page et en ReST.

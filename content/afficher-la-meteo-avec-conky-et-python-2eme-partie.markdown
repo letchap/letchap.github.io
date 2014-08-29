@@ -14,22 +14,23 @@ Pour cela, il suffit de suivre les étapes suivantes :
 
 ### Sauver le programme python dans /usr/sbin
 
-Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans `/usr./sbin` doit se faire en mode root par un `sudo cp meteo.py /usr/sbin`. Ne pas oublier au préalable de rendre le script exécutable par un `chmod +x meteo.py`. 
+Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans `/usr./sbin` doit se faire en mode root par un `sudo cp meteo.py /usr/sbin`. Ne pas oublier au préalable de rendre le script exécutable par un `chmod +x meteo.py`.
 
 
 ### Créer un script de démarrage /etc/init.d
 
 Le fichier `/etc/init.d/skeleton` est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que [j'ai trouvé ici](http://www.gavinj.net/2012/06/building-python-daemon-process.html), puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire `/etc/init.d/`, en faisant `$ sudo geany /etc/init.d/meteo` par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).
 
-{% include_code meteo lang:bash %}
+{% code content/code/meteo %}
+[Télécharger meteo]({filename}/code/meteo){: class="button radius tiny" title="Télécharger meteo" }
 
 Ensuite, il ne faut pas oublier de rendre le script exécutable par :
-	
+
 	:::bash
     $ sudo chmod +x meteo
 
 Pour tester si votre script fonctionne correctement, vous pouvez faire :
-    
+
 	:::bash
 	$ service /etc/init.d/meteo start
 	$ ps -ef | grep meteo
@@ -70,8 +71,8 @@ Pour être sûr d'avoir paramétré correctement le script meteo dans /etc/init.
 	:::bash
     $ who -r
              niveau d'exécution 2 2013-07-09 21:01                   dernier=S
-	
-Nous voyons dans mon cas particulier que ma session démarre avec un runlevel 2. Ca tombe bien, c'est ce que j'ai défini sur la ligne `# Default-Start:     2 3 4 5`. 
+
+Nous voyons dans mon cas particulier que ma session démarre avec un runlevel 2. Ca tombe bien, c'est ce que j'ai défini sur la ligne `# Default-Start:     2 3 4 5`.
 
 Et lorsque que j'ai lancé la commande update-rc.d, un lien s'est créé dans le répertoire /etc/rc2.d listant les services concernés par le runlevel 2, la lettre S signifiant Start (K voulant dire Kill), et le numéro 05 précisant que le service démarrera après tous ceux ayant un numéro inférieur.
 

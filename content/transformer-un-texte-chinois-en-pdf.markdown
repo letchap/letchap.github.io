@@ -14,7 +14,8 @@ Pour cela, nous allons utiliser deux bibliothèques tierces de Python, chardet q
 
 Allez, le programme python. Les commentaires sont dans le code.
 
-{% include_code txt2pdf.py lang:python %}
+{% code content/code/txt2pdf.py %}
+[Télécharger txt2pdf.py]({filename}/code/txt2pdf.py){: class="button radius tiny" title="Télécharger txt2pdf.py" }
 
 Voilà, il n'y a plus qu'à lancer le programme par un beau
 

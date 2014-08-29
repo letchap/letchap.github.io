@@ -9,6 +9,7 @@ La solution fut tout simplement d'installer Linux, et plus précisément Lubuntu
 Ce fut l'occasion aussi d'apprendre mon premier langage de programmation, Python, particulièrement bien adapté pour les débutants, mais aussi très apprécié des professionels.
 
 La transition vers Linux fut d'autant plus facile que je venais du monde de Mac OS X. Partageant la même base, à savoir UNIX, les similitudes dans l'utilisation des deux systèmes sont assez fortes :
+
 - même organisation des fichiers
 - même gestion des utilisateurs et des droits
 - une gestion du multi-bureau

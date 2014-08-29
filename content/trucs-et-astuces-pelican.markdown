@@ -79,7 +79,8 @@ Par défaut, nous avons besoin de 3 fichiers CSS pour gérer le style bootstrap,
 
 Toutes les modifications ou surcharges sont à faire dans un fichier spécifique qui est nommé style.css dans le thème bootstrap3 et que j'ai un peu adapté à mes besoins, surtout pour les insertions de blocs de code. Tous les commentaires sont dans le code.
 
-{% include_code style.css lang:css %}
+{% code content/code/style.css %}
+[Télécharger style.css]({filename}/code/style.css){: class="button radius tiny" title="Télécharger style.css" }
 
 Une exception que je n'ai pas réussi à gérer dans style.css, j'ai supprimé dans le fichier bootstrap.css, pour la balise pre, la mise en forme word-wrap: word-break. Sinon, impossible d'avoir un ascenseur horizontal dans le bloc de code.
 
@@ -112,7 +113,7 @@ Le fichier de configuration est un outil magique car il permet de définir ses p
 
 	SIMPLE_SEARCH = 'http://google.com/search'
 	ABSURL = 'letchap.github.io'
-	
+
 Puis, j'ai ajouté un formulaire de recherche dans la barre de navigation en ajoutant les lignes suivantes dans le fichier base.html.
 
 	:::html
@@ -136,17 +137,17 @@ Je n'utilise qu'un seul plugin, celui permet d'insérer et de télécharger du c
 
 J'ai ajouté `# -*- coding: utf-8 -*-` en tête du fichier
 
-J'ai remplacé 
+J'ai remplacé
 
 	:::python
 	code = open(code_path).read()
-	
+
 par
 
 	:::python
 	code = open(code_path).read().decode('utf8')
 
-Enfin, j'ai remplacé 
+Enfin, j'ai remplacé
 
 	:::python
     open_tag = ("<figure class='code'>\n<figcaption><span>{title}</span> "
@@ -164,8 +165,3 @@ par
 ### La publication de mes pages Github et de mes sources
 
 Le sujet méritait un billet dédié. Il est disponible [ici]({filename}/gerer-la-publication-et-les-sources-dun-site-pelican-sur-github.markdown "Gérer la publication et les sources d'un site Pelican sur Github").
-
-
-
-
-

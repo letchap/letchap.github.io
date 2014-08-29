@@ -28,10 +28,17 @@ Ensuite, nous allons réaliser non pas un mais quatre script conky, un par jour 
 
 Voilà, à la suite, les quatre fichiers. Ces fichiers sont à copier dans le répertoire /home/monuser/.conky/ :
 
-{% include_code conkyrc_meteo lang:bash %}
-{% include_code conkyrc_meteo_jour2 lang:bash %}
-{% include_code conkyrc_meteo_jour3 lang:bash %}
-{% include_code conkyrc_meteo_jour4 lang:bash %}
+{% code content/code/conkyrc_meteo %}
+[Télécharger conkyrc_meteo]({filename}/code/conkyrc_meteo){: class="button radius tiny" title="Télécharger conkyrc_meteo" }
+
+{% code content/code/conkyrc_meteo_jour2 %}
+[Télécharger conkyrc_meteo_jour2]({filename}/code/conkyrc_meteo_jour2){: class="button radius tiny" title="Télécharger conkyrc_meteo_jour2" }
+
+{% code content/code/conkyrc_meteo_jour3 %}
+[Télécharger conkyrc_meteo_jour3]({filename}/code/conkyrc_meteo_jour3){: class="button radius tiny" title="Télécharger conkyrc_meteo_jour3" }
+
+{% code content/code/conkyrc_meteo_jour4 %}
+[Télécharger conkyrc_meteo_jour4]({filename}/code/conkyrc_meteo_jour4){: class="button radius tiny" title="Téléchargerconkyrc_meteo_jour4" }
 
 
 Pour positionner les différentes informations, il faut jouer d'abord avec minimum_size, maximum_with, gap_x, gap_y pour les quatre fenêtres, puis avec alignr, alignc, goto et voffset pour le contenu de chacune des fenêtres.
@@ -43,9 +50,9 @@ L'astuce pour récupérer les infos, je l'ai trouvé [sur ce forum](http://www.a
 	:::bash
     ${execp grep jour2_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
 
-Cela me permet d'aller récupérer dans le fichier meteo.txt le nom de l'icone et de l'afficher dans mon conky. Pour bien comprendre cette ligne, il faut connaître les commandes grep, awk et les tubes. Vous trouverez une saine lecture concernant les commandes unix [chez framabook](http://framabook.org/unix-pour-aller-plus-loin-avec-la-ligne-de-commande/). 
+Cela me permet d'aller récupérer dans le fichier meteo.txt le nom de l'icone et de l'afficher dans mon conky. Pour bien comprendre cette ligne, il faut connaître les commandes grep, awk et les tubes. Vous trouverez une saine lecture concernant les commandes unix [chez framabook](http://framabook.org/unix-pour-aller-plus-loin-avec-la-ligne-de-commande/).
 
-Nous voyons l'importance dans le programme python de ne pas générer de doublon dans le nom des informations, sinon cela interdit le bon fonctionnement de grep. 
+Nous voyons l'importance dans le programme python de ne pas générer de doublon dans le nom des informations, sinon cela interdit le bon fonctionnement de grep.
 
 ### L'appel et la fermeture du conky météo
 
@@ -53,7 +60,9 @@ Je ne souhaite pas avoir en permanence les informations météo affichées sur m
 
 Le programme le voici :
 
-{% include_code startstopmeteo.sh %}
+{% code content/code/startstopmeteo.sh %}
+[Télécharger startstopmeteo.sh]({filename}/code/startstopmeteo.sh){: class="button radius tiny" title="startstopmeteo.sh" }
+
 
 Il ne reste plus qu'à créer une entrée dans le fichier menu.xml, par exemple comme ci :
 
@@ -76,9 +85,10 @@ Et une entrée dans le fichier rc.xml pour les touches de raccourcis, comme cela
       </action>
     </keybind>
 
-Et voilà, c'est fini. Une météo en un clic ! 
+Et voilà, c'est fini. Une météo en un clic !
 
 Pour résumer, il vous faut :
+
 - s'inscrire sur le site de wunderground
 - créer un script python pour récupérer les informations de wunderground
 - le démoniser
@@ -87,6 +97,3 @@ Pour résumer, il vous faut :
 - créer les conky
 - créer un script arret/relance des conky
 - créer les entrées pour ce script dans le menu et les touches de raccourcis
-
-
-

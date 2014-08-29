@@ -11,6 +11,8 @@
   font-size: 0.75rem;
 }
 
+/* Gestion d'un bandeau sous la topbar */
+
 .myheader h1>a {
   color: white;
 }
@@ -19,11 +21,13 @@
   background-color: #074e68;
 }
 
+/* Gestion des blocs de code */
+
 .linenodiv pre {
     background-color: #f2f2f2;
 }
 
-.highlighttable {
+.codehilitetable {
     table-layout: fixed;
     width:100%;
     border: none;
@@ -33,14 +37,14 @@ tbody {
   vertical-align: top;
   }
 
-td.linenos { 
+td.linenos {
     width: 5%;
     padding: 0;
     font-size: 100%;
 
 }
 
-td.code{ 
+td.code{
     width: 95%;
     padding: 0;
     font-size:100%;
@@ -50,8 +54,6 @@ td.code{
 code,
 pre {
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  padding: 5px 5px;
-  
 }
 
 code {
@@ -69,16 +71,13 @@ p {
 
 pre {
   display: block;
+  padding: 5px 5px;
   font-size: 80%;
   line-height: 1.3rem;
   color: #333333;
   word-break: break-all;
+  white-space: pre;
   overflow-x: auto;
-}
-
-article img {
-  max-width: 100%;
-  height: auto;
 }
 
 .include {
@@ -86,23 +85,25 @@ article img {
   padding: 10px;
 }
 
-.size-12 { font-size: 12px; }
-      
-.size-14 { font-size: 14px; }
-      
-.size-16 { font-size: 16px; }
-      
-.size-18 { font-size: 18px; }
-      
-.size-21 { font-size: 21px; }
-      
-.size-24 { font-size: 24px; }
-      
-.size-36 { font-size: 36px; }
-      
-.size-48 { font-size: 48px; }
-      
-.size-60 { font-size: 60px; }
-      
-.size-72 { font-size: 72px; }
 
+/* Gestion des images pour les diaporamas */
+img {max-width: inherit;}
+
+article img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Gestion de la taille des icones */
+
+.size-12 { font-size: 1.2rem; }
+.size-14 { font-size: 1.4rem; }
+.size-16 { font-size: 1.6rem; }
+.size-18 { font-size: 1.8rem; }
+.size-21 { font-size: 2.1rem; }
+.size-24 { font-size: 2.4rem; }
+.size-36 { font-size: 3.6rem; }
+.size-48 { font-size: 4.8rem; }
+.size-60 { font-size: 6.0rem; }
+.size-72 { font-size: 7.2rem; }

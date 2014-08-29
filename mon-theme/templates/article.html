@@ -2,32 +2,16 @@
 {% block title %}{{ article.title }}{% endblock %}
 {% block content %}
 <section>
-  <header>
-	<h1>
-	  <a href="{{ SITEURL }}/{{ article.url }}"
-		rel="bookmark"
-		title="Permalink to {{ article.title }}">
-		{{ article.title }}
-	  </a>
-	</h1>
+  <article>
+	<h1><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title }}">{{ article.title }}</a></h1>
+	
 	<hr />
-	<span class="label">Date</span>
-        <i class="fi-calendar size-16"></i> {{ article.locale_date }}
-    </span>
+	<i class="fi-calendar size-14"></i>&nbsp;{{ article.locale_date }}&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="{{ SITEURL }}/{{ article.category.url }}">&nbsp;{{ article.category }}</a>
+	<hr />
 	
-	{% if article.modified %}
-	<span class="label">Mis à jour le : </span>{{ article.modified }}
-	{% endif %}
-	
-    <span class="label">Category</span>
-    <a href="{{ SITEURL }}/{{ article.category.url }}"> {{ article.category }}</a>
-    <hr />
-  </header>
-
-  <article>	
-    <div>
 	{{ article.content }}
-	</div>
+	
   </article>
 
   {% include 'includes/comments.html' %}

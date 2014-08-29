@@ -15,13 +15,14 @@
   <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pygments.css"/>
   <link rel="stylesheet" href="{{ SITEURL }}/theme/css/foundation-icons.css"/>
   <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css"/>
-  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/lightbox.css" type="text/css"/>
-
-  <script src="{{ SITEURL }}/theme/js/vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/lightbox.css"/>
 
   <!-- Syndication -->
   
-  <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"/>
+  <link href="/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"/>
+
+  <!-- Google analytics -->
+    {% include 'includes/ga.html' %}
 
 </head>
 
@@ -33,11 +34,7 @@
     <ul class="title-area">
       <!-- Title Area -->
       <li class="name">
-        <h1>
-          <a href="{{ SITEURL }}">
-           Accueil
-          </a>
-         </h1>
+        <h1><a href="{{ SITEURL }}">Accueil</a></h1>
       </li>
     </ul>
 
@@ -50,7 +47,7 @@
 
       <ul class="right">
         <li><a href="{{ SITEURL }}/archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
-        <li><a href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/atom+xml" rel="subscribe-rss"
+        <li><a href="/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="subscribe-rss"
              title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
         <li class="has-form">  
           <form action="{{ SIMPLE_SEARCH }}" method="get">
@@ -99,23 +96,36 @@
     
     <aside class="large-3 columns">
 	  <div class="panel">
-		<ul class="side-nav">
-		  {% if SOCIAL %}
-		  <li class="heading">Social</h4></li>
-		  {% for name, link in SOCIAL %}
-		  <li>
-			<a href="{{ link }}">
-			<i class="fi-social-{{ name }} medium"></i> {{ name }}
-			</a>
-		  </li>
-		  {% endfor %}
-		  {% endif %}
-		  <li class="divider">
-		  <li class="heading">Categories</h4></li>
+		
+		  <h4>Catégories</h4>
+		  <ul class="side-nav">
 		  {% for cat, null in categories %}
-		  <li><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+		    <li><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
 		  {% endfor %}
-		</ul>
+		  </ul>
+		  	  
+		  {% if SOCIAL %}
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		  {% for name, link in SOCIAL %}
+		    <li>
+			  <a href="{{ link }}">
+			  <i class="fi-social-{{ name }} medium"></i> {{ name }}
+			  </a>
+			</li>
+		  {% endfor %}
+		  </ul>
+		  {% endif %}
+		  
+		  {% if LINKS %}
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		  {% for name, link in LINKS %}
+		    <li><a href="{{ link }}"> {{ name }}</a></li>
+		  {% endfor %}
+		  </ul>
+		  {% endif %}
+		  
 	  </div>
     </aside>
     <!-- End Sidebar -->
@@ -144,8 +154,9 @@
 </section> 
   <!-- End Footer -->
 
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ SITEURL }}/theme/js/vendor/jquery.js"></script>
     <script src="{{ SITEURL }}/theme/js/foundation.min.js"></script>
+    <script src="{{ SITEURL }}/theme/js/vendor/modernizr.js"></script>
     <script>
         $(document).foundation();
     </script>
