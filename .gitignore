@@ -6,4 +6,7 @@ develop_server.sh
 .DS_Store
 pelicanconf.py
 mon-pelican
+zf-theme/bower_components
+zf-theme/.*
+zf-theme/node_modules
 
