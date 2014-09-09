@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+<section>
+  <article>
+	<h2><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title }}">{{ article.title }}</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;{{ article.locale_date }}&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="{{ SITEURL }}/{{ article.category.url }}">&nbsp;{{ article.category }}</a>
+	<hr />
+	
+	{{ article.content }}
+	
+  </article>
+
+  {% include 'includes/comments.html' %}
+</section>
+{% endblock %}

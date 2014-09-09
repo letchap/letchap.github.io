@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<!--[if'IE'9]><html'class="lt#ie10"'lang="en"'>'<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="{{ AUTHOR }}">
+  <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+
+  <!-- Style -->
+  
+  <!--link rel="stylesheet" href="{{ SITEURL }}/theme/css/normalize.css"/-->
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/app.css"/>
+
+
+  <!--link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css"/-->
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pygments.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/foundation-icons.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/lightbox.css"/>
+
+  <!-- Syndication -->
+  
+  <link href="/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"/>
+
+  <!-- Google analytics -->
+    {% include 'includes/ga.html' %}
+
+</head>
+
+<body>
+
+<!--'body'content'here'-->
+  <!-- Nav Bar -->
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1><a href="{{ SITEURL }}">Accueil</a></h1>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="left">
+        {% for page in PAGES %}
+        <li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+      </ul>
+
+      <ul class="right">
+        <li><a href="{{ SITEURL }}/archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+        <li><a href="/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="subscribe-rss"
+             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+        <li class="has-form">  
+          <form action="{{ SIMPLE_SEARCH }}" method="get">
+            <div class="row collapse">
+              <div class="large-9 small-10 columns" >
+                <input type="search" name="q" results="0" placeholder="Search">
+                <input type="hidden" name="q" value="site:{{ ABSURL }}" />
+              </div>
+            </div>    
+          </form>
+        </li>       
+      </ul>
+    </section>
+  </nav>
+
+ 
+
+
+  <!-- End Nav -->
+
+
+  <!-- Main Page Content and Sidebar -->
+<section role="main">
+    <div class="myheader">
+      <div class="row">
+        <div class="large-12 large-centered columns">
+          <h2><a href="{{ SITEURL }}">{{ SITENAME }}</a></h2>
+          {% if SITESUBTITLE %}
+          <h2><small>{{ SITESUBTITLE }}</small></h2>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  <div class="row">
+ 
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <!-- End Main Content -->    
+    
+    <!-- Sidebar -->
+    
+    <aside class="large-3 columns">
+	  <div class="panel">
+		
+		  <h4>Catégories</h4>
+		  <ul class="side-nav">
+		  {% for cat, null in categories %}
+		    <li><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+		  {% endfor %}
+		  </ul>
+		  	  
+		  {% if SOCIAL %}
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		  {% for name, link in SOCIAL %}
+		    <li>
+			  <a href="{{ link }}">
+			  <i class="fi-social-{{ name }} medium"></i> {{ name }}
+			  </a>
+			</li>
+		  {% endfor %}
+		  </ul>
+		  {% endif %}
+		  
+		  {% if LINKS %}
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		  {% for name, link in LINKS %}
+		    <li><a href="{{ link }}"> {{ name }}</a></li>
+		  {% endfor %}
+		  </ul>
+		  {% endif %}
+		  
+	  </div>
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+ 
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="http://getpelican.com/">Site généré par Pelican</a></li>
+         </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="{{ SITEURL }}/theme/js/vendor/jquery.js"></script>
+    <script src="{{ SITEURL }}/theme/js/foundation.min.js"></script>
+    <script src="{{ SITEURL }}/theme/js/vendor/modernizr.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="{{ SITEURL }}/theme/js/lightbox-2.6.min.js"></script>
+  
+	
+	<!-- Disqus -->
+	{% include 'includes/disqus_script.html' %}
+
+</body>
+</html>
