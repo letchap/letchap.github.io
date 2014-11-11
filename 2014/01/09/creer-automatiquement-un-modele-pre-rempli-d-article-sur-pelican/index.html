@@ -40,6 +40,22 @@
         })();
 
     </script>
+  <!-- Piwik analytics -->
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik-letchap.rhcloud.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik-letchap.rhcloud.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
 
 </head>
 
@@ -211,13 +227,17 @@
 
 <p><a class="button radius tiny" href="../../../../code/newpost.py" title="Télécharger newpost.py">Télécharger newpost.py</a></p>
 <p>En résumé, ce script, à partir d'un titre passé en paramètre va générer un nom de fichier "slugifié", c'est à dire sans caratère accentué, en minuscule et séparé par des tirets, ainsi que l'en-tête de notre fichier. Le fichier de sortie ressemblera à ça :</p>
-<div class="codehilite"><pre><span class="n">Title</span><span class="o">:</span> <span class="n">Mon</span> <span class="kd">super</span> <span class="n">post</span><span class="o">!</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">Title</span><span class="o">:</span> <span class="n">Mon</span> <span class="kd">super</span> <span class="n">post</span><span class="o">!</span>
 <span class="n">Date</span><span class="o">:</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span> <span class="mi">23</span><span class="o">:</span><span class="mi">40</span>
 <span class="n">Category</span><span class="o">:</span>
 <span class="n">Tags</span><span class="o">:</span>
 <span class="n">Slug</span><span class="o">:</span> <span class="n">mon</span><span class="o">-</span><span class="kd">super</span><span class="o">-</span><span class="n">post</span>
 </pre></div>
-
+</td></tr></table>
 
 <p>Ce script fonctionne pour un fichier markdown, et pour un article. Rien ne vous empêche de modifier le script à la marge pour une page et en ReST.</p>
 <p>Dernière étape, comment lancer ce script ?</p>

@@ -102,13 +102,17 @@
 
 &lt;p&gt;&lt;a class="button radius tiny" href="http://letchap.github.io/code/newpost.py" title="Télécharger newpost.py"&gt;Télécharger newpost.py&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;En résumé, ce script, à partir d'un titre passé en paramètre va générer un nom de fichier "slugifié", c'est à dire sans caratère accentué, en minuscule et séparé par des tirets, ainsi que l'en-tête de notre fichier. Le fichier de sortie ressemblera à ça :&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Mon&lt;/span&gt; &lt;span class="kd"&gt;super&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Mon&lt;/span&gt; &lt;span class="kd"&gt;super&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
 &lt;span class="n"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;
 &lt;span class="n"&gt;Category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
 &lt;span class="n"&gt;Tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
 &lt;span class="n"&gt;Slug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;mon&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kd"&gt;super&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
 &lt;p&gt;Ce script fonctionne pour un fichier markdown, et pour un article. Rien ne vous empêche de modifier le script à la marge pour une page et en ReST.&lt;/p&gt;
 &lt;p&gt;Dernière étape, comment lancer ce script ?&lt;/p&gt;

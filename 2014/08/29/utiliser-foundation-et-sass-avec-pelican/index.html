@@ -40,6 +40,22 @@
         })();
 
     </script>
+  <!-- Piwik analytics -->
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik-letchap.rhcloud.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik-letchap.rhcloud.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
 
 </head>
 
@@ -302,7 +318,7 @@
 <p>Puis lancer le navigateur sur localhost:8000. Et à chaque modification de n'importe quel fichier Pelican, les modifcations apparaîtrons immédiatement sur le site. C'est magique !</p>
 <p>Maintenant, il ne me reste plus qu'à essayer de "tuer" mon fichier style.css pour exploiter tout le potentiel de Sass. Ce sera pour de prochains épisodes.</p>
 <h3>Un dernier point avec git</h3>
-<p>A la création d'un nouveau projet Foundation, un dépôt git est automatiquement créé (pour grunt je crois). Comme il se crée à l'intérieur de mon dépôt git existant (celui qui contient mon site pelican), ça met un peu le bazar quand je veux committer mes modifications. La solution la plus imple que j'ai trouvé jusqu'à présent est de supprimer le répertoire .git de mon projet Foundation, ce qui n'empêche pas les mises à jour futures avec grunt.</p>
+<p>A la création d'un nouveau projet Foundation, un dépôt git est automatiquement créé (pour grunt je crois). Comme il se crée à l'intérieur de mon dépôt git existant (celui qui contient mon site pelican), ça met un peu le bazar quand je veux committer mes modifications. La solution la plus simple que j'ai trouvée jusqu'à présent est de supprimer le répertoire .git de mon projet Foundation, ce qui n'empêche pas les mises à jour futures avec grunt.</p>
 	
   </article>
 
