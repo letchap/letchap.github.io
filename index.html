@@ -23,25 +23,7 @@
   
   <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
 
-  <!-- Google analytics -->
-    <script type="text/javascript">
-
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-37436504-2']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-
-    </script>
   <!-- Piwik analytics -->
-<!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
   _paq.push(['trackPageView']);
@@ -55,7 +37,6 @@
   })();
 </script>
 <noscript><p><img src="//piwik-letchap.rhcloud.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
 
 </head>
 
@@ -79,13 +60,13 @@
       <ul class="right">
         <li><a href="./archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
         <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
-             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>   
         <li class="has-form">  
-          <form action="http://google.com/search" method="get">
+          <form action="https://duckduckgo.com" method="get">
             <div class="row collapse">
               <div class="large-9 small-10 columns" >
                 <input type="search" name="q" results="0" placeholder="Search">
-                <input type="hidden" name="q" value="site:letchap.github.io" />
+                <input type="hidden" name="sites" value="letchap.github.io" />
               </div>
             </div>    
           </form>
