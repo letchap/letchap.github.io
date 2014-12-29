@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-11-29T15:27:00+01:00</updated><entry><title>Utilisation de Sass avec Pelican et Foundation</title><link href="http://letchap.github.io/2014/11/29/utilisation-de-sass-avec-pelican-et-foundation/" rel="alternate"></link><updated>2014-11-29T15:27:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-11-29:2014/11/29/utilisation-de-sass-avec-pelican-et-foundation/</id><summary type="html">&lt;p&gt;Dans le dernier billet, nous avons vu comment nous mettre à l’aise avec Pelican et Foundation tout en nous préparant à utiliser Sass. Nous allons tirer profit de tout cela pour simplifier le fichier de configuration css personnel attaché au site.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2014-12-29T21:41:00+01:00</updated><entry><title>J'ai dégooglisé mon Pelican</title><link href="http://letchap.github.io/2014/12/29/jai-degooglise-mon-pelican/" rel="alternate"></link><updated>2014-12-29T21:41:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-12-29:2014/12/29/jai-degooglise-mon-pelican/</id><summary type="html">&lt;p&gt;Mon blog Pelican est libre, mais il cache des solutions propriétaires :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;il est hébergé par Github&lt;/li&gt;
+&lt;li&gt;il gère les commentaires avec Disqus&lt;/li&gt;
+&lt;li&gt;le trafic est analysé par google analytics&lt;/li&gt;
+&lt;li&gt;il utilise google search pour les recherches sur le site&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Je vais dans cet article me concentrer sur la dégooglisation, à savoir, remplacer google analytics et google search.&lt;/p&gt;
+&lt;h3&gt;J'ai remplacé Google analytics par Piwik&lt;/h3&gt;
+&lt;p&gt;Pendant longtemps j'ai buté sur le fait que je ne suis pas auto-hébergé et donc, difficile de monter des solutions libres dans ce cas. Et puis j'ai découvert openshift de Red Hat. Cela me permet d'avoir une infrastructure cloud sous licence libre (Apache licence 2.0) sur laquelle je peux installer jusqu'à trois applications gratuitement.&lt;/p&gt;
+&lt;p&gt;La plateforme va me permettre dans un premier temps d'héberger ma solution d'analyse de trafic, puis de commentaires, et finalement mon site.&lt;/p&gt;
+&lt;p&gt;Chaque chose en son temps, je commence par l'analyse de trafic et le remplacement de google analytics. La solution sera Piwik. Piwik est un outil d'analyse de trafic web opensource (licence GPL v3). Pour plus d'information sur Piwik, vous pouvez vous rendre sur leur site à cette adresse. La seule contrainte de Piwik est de posséder son propre serveur, ou d'en utiliser un. Pour moi, ce sera donc le Iass (Infrastructure as a service) d'openshift.&lt;/p&gt;
+&lt;h4&gt;Créer un compte Openshift et installer Piwik&lt;/h4&gt;
+&lt;p&gt;Le tutoriel est &lt;a href="https://github.com/openshift/piwik-openshift-quickstart" title="Piwik Openshift Quickstart"&gt;à cette adresse&lt;/a&gt;. Je ne peux pas mieux expliquer, donc, le plus simple, c'est de suivre le lien.&lt;/p&gt;
+&lt;p&gt;Quelques petits conseils néanmoins :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Il faut vérifier que la bonne version de Ruby est bien installée&lt;/li&gt;
+&lt;li&gt;L'installation se fait par le terminal, pas par le site openshift&lt;/li&gt;
+&lt;li&gt;Il faut bien vérifier l'échange de clé ssh. Si vous avez déjà utilisé git, le concept ne doit pas poser de problème.&lt;/li&gt;
+&lt;li&gt;Une fois Piwik installé, penser à configurer votre site&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Remplacer google analytics par Piwik dans Pelican&lt;/h4&gt;
+&lt;p&gt;Pour installer piwik, il suffit d'installer ce script à la place du script de google analytics.&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  var _paq = _paq || &lt;span class="cp"&gt;[]&lt;/span&gt;;
+  _paq.push(&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;trackPageView&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;);
+  _paq.push(&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;enableLinkTracking&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;);
+  (function() {
+    var u=&amp;quot;//piwik-letchap.rhcloud.com/&amp;quot;;
+    _paq.push(&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;setTrackerUrl&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;u&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;piwik.php&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;);
+    _paq.push(&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;setSiteId&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;);
+    var d=document, g=d.createElement(&amp;#39;script&amp;#39;), s=d.getElementsByTagName(&amp;#39;script&amp;#39;)&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;;
+    g.type=&amp;#39;text/javascript&amp;#39;; g.async=true; g.defer=true; g.src=u+&amp;#39;piwik.js&amp;#39;; s.parentNode.insertBefore(g,s);
+  })();
+&lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;noscript&amp;gt;&amp;lt;p&amp;gt;&amp;lt;img&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;//piwik-letchap.rhcloud.com/piwik.php?idsite=1&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;style=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;border:0;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;alt=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/noscript&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h3&gt;Je suis complétement dégooglisé&lt;/h3&gt;
+&lt;p&gt;Pour finir, j'avais un formulaire de recherche sur le site qui utilisait google :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;navbar-form navbar-right&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://google.com/search&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;fieldset&lt;/span&gt; &lt;span class="na"&gt;role=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;search&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;hidden&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;q&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;site:letchap.github.io&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;  
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;search&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;form-control col-lg-8&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;q&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;results=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;placeholder=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Search&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;  
+&lt;span class="nt"&gt;&amp;lt;/fieldset&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;J'ai remplacé google par duckduckgo, ce qui se traduit dans le formulaire par :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;https://duckduckgo.com&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;row collapse&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;large-9 small-10 columns&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;search&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;q&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;results=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;placeholder=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Search&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;hidden&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sites&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;letchap.github.io&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;    
+&lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Au prochaine épisode, nous essaierons de nous passer de Disqus.&lt;/p&gt;</summary><category term="degooglisons"></category><category term="piwik"></category><category term="openshift"></category><category term="duckduckgo"></category></entry><entry><title>Utilisation de Sass avec Pelican et Foundation</title><link href="http://letchap.github.io/2014/11/29/utilisation-de-sass-avec-pelican-et-foundation/" rel="alternate"></link><updated>2014-11-29T15:27:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-11-29:2014/11/29/utilisation-de-sass-avec-pelican-et-foundation/</id><summary type="html">&lt;p&gt;Dans le dernier billet, nous avons vu comment nous mettre à l’aise avec Pelican et Foundation tout en nous préparant à utiliser Sass. Nous allons tirer profit de tout cela pour simplifier le fichier de configuration css personnel attaché au site.&lt;/p&gt;
 &lt;p&gt;Pour rappel, voici le fichier d’origine :&lt;/p&gt;
 &lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;  1
   2

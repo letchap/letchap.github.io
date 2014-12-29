@@ -1,0 +1,316 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<!--[if'IE'9]><html'class="lt#ie10"'lang="en"'>'<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="letchap">
+  <title>J'ai dégooglisé mon Pelican</title>
+
+  <!-- Style -->
+  
+  <!--link rel="stylesheet" href="../../../../theme/css/normalize.css"/-->
+  <link rel="stylesheet" href="../../../../theme/css/app.css"/>
+
+
+  <!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+  <link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+  <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+
+  <!-- Syndication -->
+  
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+  <!-- Piwik analytics -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik-letchap.rhcloud.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik-letchap.rhcloud.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+
+</head>
+
+<body>
+
+<!--'body'content'here'-->
+  <!-- Nav Bar -->
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1><a href="../../../..">Accueil</a></h1>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="left">
+        <li><a href="../../../../pages/a-propos.html">A propos</a></li>
+      </ul>
+
+      <ul class="right">
+        <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+        <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+             title="Subscribe via RSS"><i class="fi-rss"></i></a></li>   
+        <li class="has-form">  
+          <form action="https://duckduckgo.com" method="get">
+            <div class="row collapse">
+              <div class="large-9 small-10 columns" >
+                <input type="search" name="q" results="0" placeholder="Search">
+                <input type="hidden" name="sites" value="letchap.github.io" />
+              </div>
+            </div>    
+          </form>
+        </li>       
+      </ul>
+    </section>
+  </nav>
+
+ 
+
+
+  <!-- End Nav -->
+
+
+  <!-- Main Page Content and Sidebar -->
+<section role="main">
+    <div class="myheader">
+      <div class="row">
+        <div class="large-12 large-centered columns">
+          <h2><a href="../../../..">letchap</a></h2>
+          <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+        </div>
+      </div>
+    </div>
+
+  <div class="row">
+ 
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+<section>
+  <article>
+	<h2><a href="../../../../2014/12/29/jai-degooglise-mon-pelican/" rel="bookmark" title="Permalink to J'ai dégooglisé mon Pelican">J'ai dégooglisé mon Pelican</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Lun 29 décembre 2014&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/pelican.html">&nbsp;Pelican</a>
+	<hr />
+	
+	<p>Mon blog Pelican est libre, mais il cache des solutions propriétaires :</p>
+<ul>
+<li>il est hébergé par Github</li>
+<li>il gère les commentaires avec Disqus</li>
+<li>le trafic est analysé par google analytics</li>
+<li>il utilise google search pour les recherches sur le site</li>
+</ul>
+<p>Je vais dans cet article me concentrer sur la dégooglisation, à savoir, remplacer google analytics et google search.</p>
+<h3>J'ai remplacé Google analytics par Piwik</h3>
+<p>Pendant longtemps j'ai buté sur le fait que je ne suis pas auto-hébergé et donc, difficile de monter des solutions libres dans ce cas. Et puis j'ai découvert openshift de Red Hat. Cela me permet d'avoir une infrastructure cloud sous licence libre (Apache licence 2.0) sur laquelle je peux installer jusqu'à trois applications gratuitement.</p>
+<p>La plateforme va me permettre dans un premier temps d'héberger ma solution d'analyse de trafic, puis de commentaires, et finalement mon site.</p>
+<p>Chaque chose en son temps, je commence par l'analyse de trafic et le remplacement de google analytics. La solution sera Piwik. Piwik est un outil d'analyse de trafic web opensource (licence GPL v3). Pour plus d'information sur Piwik, vous pouvez vous rendre sur leur site à cette adresse. La seule contrainte de Piwik est de posséder son propre serveur, ou d'en utiliser un. Pour moi, ce sera donc le Iass (Infrastructure as a service) d'openshift.</p>
+<h4>Créer un compte Openshift et installer Piwik</h4>
+<p>Le tutoriel est <a href="https://github.com/openshift/piwik-openshift-quickstart" title="Piwik Openshift Quickstart">à cette adresse</a>. Je ne peux pas mieux expliquer, donc, le plus simple, c'est de suivre le lien.</p>
+<p>Quelques petits conseils néanmoins :</p>
+<ul>
+<li>Il faut vérifier que la bonne version de Ruby est bien installée</li>
+<li>L'installation se fait par le terminal, pas par le site openshift</li>
+<li>Il faut bien vérifier l'échange de clé ssh. Si vous avez déjà utilisé git, le concept ne doit pas poser de problème.</li>
+<li>Une fois Piwik installé, penser à configurer votre site</li>
+</ul>
+<h4>Remplacer google analytics par Piwik dans Pelican</h4>
+<p>Pour installer piwik, il suffit d'installer ce script à la place du script de google analytics.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="codehilite"><pre><span class="nt">&lt;script</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+  var _paq = _paq || <span class="cp">[]</span>;
+  _paq.push(<span class="cp">[</span><span class="s1">&#39;trackPageView&#39;</span><span class="cp">]</span>);
+  _paq.push(<span class="cp">[</span><span class="s1">&#39;enableLinkTracking&#39;</span><span class="cp">]</span>);
+  (function() {
+    var u=&quot;//piwik-letchap.rhcloud.com/&quot;;
+    _paq.push(<span class="cp">[</span><span class="s1">&#39;setTrackerUrl&#39;</span><span class="p">,</span> <span class="nx">u</span><span class="o">+</span><span class="s1">&#39;piwik.php&#39;</span><span class="cp">]</span>);
+    _paq.push(<span class="cp">[</span><span class="s1">&#39;setSiteId&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="cp">]</span>);
+    var d=document, g=d.createElement(&#39;script&#39;), s=d.getElementsByTagName(&#39;script&#39;)<span class="cp">[</span><span class="mi">0</span><span class="cp">]</span>;
+    g.type=&#39;text/javascript&#39;; g.async=true; g.defer=true; g.src=u+&#39;piwik.js&#39;; s.parentNode.insertBefore(g,s);
+  })();
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;noscript&gt;&lt;p&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;//piwik-letchap.rhcloud.com/piwik.php?idsite=1&quot;</span> <span class="na">style=</span><span class="s">&quot;border:0;&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;&lt;/p&gt;&lt;/noscript&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<h3>Je suis complétement dégooglisé</h3>
+<p>Pour finir, j'avais un formulaire de recherche sur le site qui utilisait google :</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">&quot;navbar-form navbar-right&quot;</span> <span class="na">action=</span><span class="s">&quot;http://google.com/search&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;fieldset</span> <span class="na">role=</span><span class="s">&quot;search&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;q&quot;</span> <span class="na">value=</span><span class="s">&quot;site:letchap.github.io&quot;</span> <span class="nt">/&gt;</span>  
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;search&quot;</span> <span class="na">class=</span><span class="s">&quot;form-control col-lg-8&quot;</span> <span class="na">name=</span><span class="s">&quot;q&quot;</span> <span class="na">results=</span><span class="s">&quot;0&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Search&quot;</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;/fieldset&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<p>J'ai remplacé google par duckduckgo, ce qui se traduit dans le formulaire par :</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;https://duckduckgo.com&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row collapse&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;large-9 small-10 columns&quot;</span> <span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;search&quot;</span> <span class="na">name=</span><span class="s">&quot;q&quot;</span> <span class="na">results=</span><span class="s">&quot;0&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;Search&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;sites&quot;</span> <span class="na">value=</span><span class="s">&quot;letchap.github.io&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>    
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<p>Au prochaine épisode, nous essaierons de nous passer de Disqus.</p>
+	
+  </article>
+
+    <hr />
+    <section>
+        <h2>Commentaires</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_identifier = "2014/12/29/jai-degooglise-mon-pelican/";
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = 'http://letchap.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </section>
+</section>
+    </div>
+
+    <!-- End Main Content -->    
+    
+    <!-- Sidebar -->
+    
+    <aside class="large-3 columns">
+	  <div class="panel">
+		
+		  <h4>Catégories</h4>
+		  <ul class="side-nav">
+		    <li><a href="../../../../category/.html"></a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+		  	  
+		  <h4>Social</h4>
+		  <ul class="side-nav">
+		    <li>
+			  <a href="http://twitter.com/letchap">
+			  <i class="fi-social-twitter medium"></i> twitter
+			  </a>
+			</li>
+		    <li>
+			  <a href="http://github.com/letchap">
+			  <i class="fi-social-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+		  
+		  <h4>Blogroll</h4>
+		  <ul class="side-nav">
+		    <li><a href="http://joacodepel.tk"> Joacode</a></li>
+		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
+		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
+		  </ul>
+		  
+	  </div>
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+ 
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="http://getpelican.com/">Site généré par Pelican</a></li>
+         </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/vendor/jquery.js"></script>
+    <script src="../../../../theme/js/foundation.min.js"></script>
+    <script src="../../../../theme/js/vendor/modernizr.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+	
+	<!-- Disqus -->
+<script type="text/javascript">
+    var disqus_shortname = 'letchap';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://letchap.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</body>
+</html>
