@@ -109,14 +109,14 @@
 <ul>
 <li>il est hébergé par Github</li>
 <li>il gère les commentaires avec Disqus</li>
-<li>le trafic est analysé par google analytics</li>
+<li>le trafic est analysé par Google analytics</li>
 <li>il utilise google search pour les recherches sur le site</li>
 </ul>
-<p>Je vais dans cet article me concentrer sur la dégooglisation, à savoir, remplacer google analytics et google search.</p>
+<p>Je vais dans cet article me concentrer sur la dégooglisation, à savoir, remplacer Google analytics et Google search.</p>
 <h3>J'ai remplacé Google analytics par Piwik</h3>
-<p>Pendant longtemps j'ai buté sur le fait que je ne suis pas auto-hébergé et donc, difficile de monter des solutions libres dans ce cas. Et puis j'ai découvert openshift de Red Hat. Cela me permet d'avoir une infrastructure cloud sous licence libre (Apache licence 2.0) sur laquelle je peux installer jusqu'à trois applications gratuitement.</p>
+<p>Pendant longtemps j'ai buté sur le fait que je ne suis pas auto-hébergé et donc, difficile de monter des solutions libres dans ce cas. Et puis j'ai découvert Openshift de Red Hat. Cela me permet d'avoir une infrastructure cloud sous licence libre (Apache licence 2.0) sur laquelle je peux installer jusqu'à trois applications gratuitement.</p>
 <p>La plateforme va me permettre dans un premier temps d'héberger ma solution d'analyse de trafic, puis de commentaires, et finalement mon site.</p>
-<p>Chaque chose en son temps, je commence par l'analyse de trafic et le remplacement de google analytics. La solution sera Piwik. Piwik est un outil d'analyse de trafic web opensource (licence GPL v3). Pour plus d'information sur Piwik, vous pouvez vous rendre sur leur site à cette adresse. La seule contrainte de Piwik est de posséder son propre serveur, ou d'en utiliser un. Pour moi, ce sera donc le Iass (Infrastructure as a service) d'openshift.</p>
+<p>Chaque chose en son temps, je commence par l'analyse de trafic et le remplacement de google analytics. La solution sera Piwik. Piwik est un outil d'analyse de trafic web opensource (licence GPL v3). Pour plus d'information sur Piwik, vous pouvez vous rendre sur leur site <a href="http://fr.piwik.org" title="Piwik">à cette adresse</a>. La seule contrainte de Piwik est de posséder son propre serveur, ou d'en utiliser un. Pour moi, ce sera donc le Iass (Infrastructure as a service) d'Openshift.</p>
 <h4>Créer un compte Openshift et installer Piwik</h4>
 <p>Le tutoriel est <a href="https://github.com/openshift/piwik-openshift-quickstart" title="Piwik Openshift Quickstart">à cette adresse</a>. Je ne peux pas mieux expliquer, donc, le plus simple, c'est de suivre le lien.</p>
 <p>Quelques petits conseils néanmoins :</p>
@@ -126,7 +126,7 @@
 <li>Il faut bien vérifier l'échange de clé ssh. Si vous avez déjà utilisé git, le concept ne doit pas poser de problème.</li>
 <li>Une fois Piwik installé, penser à configurer votre site</li>
 </ul>
-<h4>Remplacer google analytics par Piwik dans Pelican</h4>
+<h4>Remplacer Google analytics par Piwik dans Pelican</h4>
 <p>Pour installer piwik, il suffit d'installer ce script à la place du script de google analytics.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -172,7 +172,7 @@
 </pre></div>
 </td></tr></table>
 
-<p>J'ai remplacé google par duckduckgo, ce qui se traduit dans le formulaire par :</p>
+<p>J'ai remplacé google par Duckduckgo, ce qui se traduit dans le formulaire par :</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
