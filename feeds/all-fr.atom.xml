@@ -1,5 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2015-03-10T22:16:00+01:00</updated><entry><title>J'arrive pas à me décider</title><link href="http://letchap.github.io/2015/03/10/jarrive-pas-a-me-decider/" rel="alternate"></link><updated>2015-03-10T22:16:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-03-10:2015/03/10/jarrive-pas-a-me-decider/</id><summary type="html">&lt;p&gt;Le papa de ma distribution préférée vient d'annoncer la fin de l'aventure Crunchbang. Me voilà donc à la recherche d'une solution de remplacement.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2015-03-11T19:30:00+01:00</updated><entry><title>Installer Archlinux avec XFCE</title><link href="http://letchap.github.io/2015/03/11/installer-archlinux-avec-xfce/" rel="alternate"></link><updated>2015-03-11T19:30:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-03-11:2015/03/11/installer-archlinux-avec-xfce/</id><summary type="html">&lt;p&gt;L'annonce de l'arrêt de Crunchbang, une distribution basée sur Debian et Openbox, ma distribution par défaut, m'a fait prendre conscience que j'avais tout intérêt à me monter tout seul la distribution qui me convient, avec une solution pérenne.&lt;/p&gt;
+&lt;p&gt;A partir de ce moment, je bute sur l'éternelle question : Que choisir ?&lt;/p&gt;
+&lt;p&gt;J'ai besoin d'une distribution légère, récente, pérenne. Je veux pouvoir installer uniquement ce dont j'ai besoin. &lt;/p&gt;
+&lt;p&gt;J'ai refait un énième tour des disributions existantes, et j'ai choisi par élimination :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Récente : je vais quitter un peu Debian qui a des cycles de livraison très espacés&lt;/li&gt;
+&lt;li&gt;Pérenne : une distribution majeure : Debian, Fedora, OpenSUSE, Ubuntu, ...&lt;/li&gt;
+&lt;li&gt;Une distribution légère : exit Mageia, Linux Mint, Centos, Ubuntu, Fedora, ...&lt;/li&gt;
+&lt;li&gt;Un bureau léger : XFCE ou LXDE ou Openbox&lt;/li&gt;
+&lt;li&gt;Joli : avec XFCE, j'ai un bureau uniforme avec des applications par défaut adaptés à l'environnement graphique de XFCE, pas besoin de me battre avec les différentes version de GTK ou QT. Et personnalisable à l'envie.&lt;/li&gt;
+&lt;li&gt;Pas d'installation par défaut : Archlinux ou Gentoo pour pouvoir choisir et installer exactement ce dont j'ai besoin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ce sera donc une Archlinux avec un bureau XFCE.&lt;/p&gt;
+&lt;p&gt;Archlinux, c'est quand même plus pour les barbus. Mais avec un peu de patience et de longueur de temps, rien n'est impossible. &lt;a href="https://wiki.archilinux.fr/Installation" title="Installation Archlinux en français"&gt;La documentation d'installation en français est très bien faite&lt;/a&gt;, il ne manque que très peu d'information pour y arriver même sans tout comprendre. Un minimum de connaissance de la ligne de commande est nécessaire malgré tout.&lt;/p&gt;
+&lt;p&gt;Je ne vais donc pas paraphraser ce qui est dans le guide d'installation qui est parfait, je vais simplement noter les quelques points sur lesquels j'ai butés et compléter avec l'installation sur virtualbox et avec le bureau xfce car le guide d'installation s'arrête juste avant l'installation du bureau.&lt;/p&gt;
+&lt;h3&gt;Trucs et astuces pendant l'installation&lt;/h3&gt;
+&lt;h4&gt;Partitionnement&lt;/h4&gt;
+&lt;p&gt;Personnellement j'ai utilisé fdisk.&lt;/p&gt;
+&lt;p&gt;Il suffit d'un petit &lt;code&gt;fdisk /dev/sda&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Puis créer les nouvelles partitions avec la commande &lt;code&gt;n&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Laisser les choix par défaut et ne renseigner que la taille des partitions&lt;/p&gt;
+&lt;p&gt;Sauvegarder avec la commande &lt;code&gt;w&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;Amorçage&lt;/h4&gt;
+&lt;p&gt;J'ai utilisé GRUB, simplement parce que je le connais alors que je ne connais pas syslinux.&lt;/p&gt;
+&lt;h4&gt;SOS installation&lt;/h4&gt;
+&lt;p&gt;Une faute de frappe est si vite arrivée, en cas problème sur le système que vous venez de construire, il est toujours possible de redémarrer sur l'iso puis de monter la partition contenant le système et de "chrooter" dessus.&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mnt&lt;/span&gt;
+&lt;span class="n"&gt;arch&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mnt&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;A partir de là, vous pouvez corriger les petites erreurs sans être obligé de tout reconstruire.&lt;/p&gt;
+&lt;p&gt;A la fin de la procédure d'installation, vous avez Archlinux installé avec un compte root et un utilisateur, sans environnement graphique. Il est temps d'installer xfce.&lt;/p&gt;
+&lt;h3&gt;Installation de l'environnement graphique&lt;/h3&gt;
+&lt;p&gt;Au redémarrage, nous allons nous connecter en root pour les installations suivantes&lt;/p&gt;
+&lt;h4&gt;Réseau&lt;/h4&gt;
+&lt;p&gt;A la fin de la procédure d'installation, après le démarrage, il ne faut pas oublier de démarrer le service dhcpcd pour avoir accès au réseau.&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;systemctl&lt;/span&gt; &lt;span class="n"&gt;enable&lt;/span&gt; &lt;span class="n"&gt;dhcpcd&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h4&gt;Virtualbox&lt;/h4&gt;
+&lt;p&gt;En toute logique, la première étape avant l'installation de Xfce, c'est d'installer le système graphique Xorg. Mais là, je vais utiliser une voie un peu détournée, je vais directement installer les additions invité de virtualbox qui embarque le serveur xorg. Il ne va prendre que les éléments dont il a besoin, sans installer tous les drivers video. De plus, pas besoin de monter l'iso des additions invité, cela se fait par l'installation de paquets. Vraiment hyper pratique&lt;/p&gt;
+&lt;p&gt;Avec un simple :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pacman&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;S&lt;/span&gt; &lt;span class="n"&gt;virtualbox&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;guest&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;j'aurais mon serveur Xorg, mesa, virtualbox-guest-modules, etc...&lt;/p&gt;
+&lt;p&gt;J'ai buté par contre sur plusieurs petit trucs bêtes pour le partage de répertoire avec le host :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;il faut créer un répertoire /media qui n'existe pas à l'installation de Archlinux. C'est là que par défaut est monté le répertoire partagé&lt;/li&gt;
+&lt;li&gt;pour un montage automatique, il faut démarrer le service virtualboxclient par un &lt;code&gt;systemctl enable virtualboxclient&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pour le reste, il suffit de suivre &lt;a href="https://wiki.archlinux.org/index.php/VirtualBox 'Wiki Archlinux sur VirtualBox en anglais"&gt;le wiki d'Archlinux sur virtualbox&lt;/a&gt;.&lt;/p&gt;
+&lt;h4&gt;Xfce&lt;/h4&gt;
+&lt;p&gt;Le plus facile, installer xfce :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pacman&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;S&lt;/span&gt; &lt;span class="n"&gt;xfce4&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;puis pour le démarrer :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;startxfce4&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h3&gt;Un peu de confort&lt;/h3&gt;
+&lt;h4&gt;slim&lt;/h4&gt;
+&lt;p&gt;J'ai installé un petit gestionnaire de démarrage pour lancer xfce tout seul. J'ai choisi slim, là encore parce que je le connais.&lt;/p&gt;
+&lt;p&gt;Pour l'installer : &lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pacman&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;S&lt;/span&gt; &lt;span class="n"&gt;slim&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Comme j'ai crée mon utilisateur avant d'installer xorg-init, je dois d'abord copier le fichier .xinitrc sur mon répertoire&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;cp&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ect&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;skel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;}.&lt;/span&gt;&lt;span class="n"&gt;xinitrc&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Ensuite, penser à décommenter la ligne dans $HOME/.xinitrc &lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;exec&lt;/span&gt; &lt;span class="n"&gt;startxfce4&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Pour un login automatique, aller dans le fichier &lt;code&gt;/etc/slim.conf&lt;/code&gt; et décommenter la ligne &lt;code&gt;auto_login&lt;/code&gt; en remplaçant &lt;code&gt;no&lt;/code&gt;par &lt;code&gt;yes&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;sudo&lt;/h4&gt;
+&lt;p&gt;La commande sudo devient vite indispensable quand vous êtes connectés avec votre compte et que vous voulez installer des paquets.&lt;/p&gt;
+&lt;p&gt;Elle s'installe tout simplement avec :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pacman&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;S&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Puis, il convient d'aller dans le fichier &lt;code&gt;/etc/sudoers&lt;/code&gt; et d'ajouter la ligne suivante.&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;monuser&lt;/span&gt; &lt;span class="n"&gt;ALL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ALL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;ALL&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Vous pouvez aussi installer gksu, très pratique si vous voulez lancer thunar en root.&lt;/p&gt;</summary><category term="Archlinux"></category><category term="XFCE"></category><category term="Virtualbox"></category></entry><entry><title>J'arrive pas à me décider</title><link href="http://letchap.github.io/2015/03/10/jarrive-pas-a-me-decider/" rel="alternate"></link><updated>2015-03-10T22:16:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-03-10:2015/03/10/jarrive-pas-a-me-decider/</id><summary type="html">&lt;p&gt;Le papa de ma distribution préférée vient d'annoncer la fin de l'aventure Crunchbang. Me voilà donc à la recherche d'une solution de remplacement.&lt;/p&gt;
 &lt;p&gt;C'est trop facile, il y a tellement de choix...&lt;/p&gt;
 &lt;p&gt;Cette fois, j'arrête la bidouille, je me prends une distribution clé en main. Hop, va pour Ubuntu. En fait non, je n'aime pas le bureau Unity. Ce sera plutôt Mageia. C'est sympa, mais vraiment trop clé en main, il faut que je puisse bidouiller un minimum quand même.&lt;/p&gt;
 &lt;p&gt;Revenons aux basiques, une Debian minimale avec Openbox, comme Crunchbang. Mais si c'est pour mettre du Gnome dedans pour avoir un bureau un peu joli... Qu'à cela ne tienne, une Debian minimale avec XFCE alors. Oui mais bon, attendre plusieurs années pour avoir la dernière version de XFCE, c'est long.&lt;/p&gt;
@@ -530,7 +628,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;p&gt;Hyper pratique !&lt;/p&gt;</summary><category term=""></category></entry><entry><title>Utiliser Foundation et Sass avec Pelican</title><link href="http://letchap.github.io/2014/08/29/utiliser-foundation-et-sass-avec-pelican/" rel="alternate"></link><updated>2014-08-29T21:38:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-08-29:2014/08/29/utiliser-foundation-et-sass-avec-pelican/</id><summary type="html">&lt;p&gt;Lorsque j'ai créé le site avec Pelican, j'ai cherché un framework responsive et le premier sur lequel je suis tombé sans trop chercher fut &lt;a href="http://getbootstrap.com" title="Bootstrap"&gt;Bootstrap&lt;/a&gt;. En testant le CMS &lt;a href="https://gitorious.org/get_microbe" title="Get Microbe"&gt;Microbe&lt;/a&gt;, j'ai découvert un nouveau framework : &lt;a href="http://foundation.zurb.com" title="Foundation"&gt;Foundation&lt;/a&gt;. Voyant du Bootstrap partout, je me suis décidé à passer sur Foundation. En terme de fonctionnalités, il n'existe pas une énorme différence entre les deux, dans tous les cas un système de grille permet de gérer les différentes tailles d'écran en partant du principe que le site est d'abord créé pour des écrans mobiles,  un fichier style de base très complet est fourni en standard et quelques applets javascript agrémente le tout. Le passage de Bootstrap à Foundation n'était motivé que par l'esthétique pour ne pas avoir un site "qui a le même look que les autres".&lt;/p&gt;
+&lt;p&gt;Hyper pratique !&lt;/p&gt;</summary><category term="Foundation"></category><category term="Sass"></category><category term="Pelican"></category></entry><entry><title>Utiliser Foundation et Sass avec Pelican</title><link href="http://letchap.github.io/2014/08/29/utiliser-foundation-et-sass-avec-pelican/" rel="alternate"></link><updated>2014-08-29T21:38:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-08-29:2014/08/29/utiliser-foundation-et-sass-avec-pelican/</id><summary type="html">&lt;p&gt;Lorsque j'ai créé le site avec Pelican, j'ai cherché un framework responsive et le premier sur lequel je suis tombé sans trop chercher fut &lt;a href="http://getbootstrap.com" title="Bootstrap"&gt;Bootstrap&lt;/a&gt;. En testant le CMS &lt;a href="https://gitorious.org/get_microbe" title="Get Microbe"&gt;Microbe&lt;/a&gt;, j'ai découvert un nouveau framework : &lt;a href="http://foundation.zurb.com" title="Foundation"&gt;Foundation&lt;/a&gt;. Voyant du Bootstrap partout, je me suis décidé à passer sur Foundation. En terme de fonctionnalités, il n'existe pas une énorme différence entre les deux, dans tous les cas un système de grille permet de gérer les différentes tailles d'écran en partant du principe que le site est d'abord créé pour des écrans mobiles,  un fichier style de base très complet est fourni en standard et quelques applets javascript agrémente le tout. Le passage de Bootstrap à Foundation n'était motivé que par l'esthétique pour ne pas avoir un site "qui a le même look que les autres".&lt;/p&gt;
 &lt;p&gt;Comme la logique entre Bootstrap et Fondation est la même, la migration de l'un vers l'autre se fait sans douleur.&lt;/p&gt;
 &lt;p&gt;Foundation apporte néanmoins deux fonctionnalités supplémentaires assez intéressantes : l'utilisation de &lt;a href="http://sass-lang.com" title="Sass"&gt;Sass&lt;/a&gt; et de &lt;a href="http://gruntjs.com" title="Grunt"&gt;Grunt&lt;/a&gt;. Sur le site de Foundation, &lt;a href="http://foundation.zurb.com/docs/sass.html"&gt;une page est dédiée à l'installation&lt;/a&gt; de ces deux fonctionnalités qui sont liées. Ils existent pas mal de tutoriels en anglais qui expliquent comment créer un nouveau projet Fondation avec Sass. &lt;/p&gt;
 &lt;p&gt;Ce que nous allons voir plus particulièrement ensemble est l'utilisation de ces deux outils avec Pelican. Mais tout d'abord ...&lt;/p&gt;
