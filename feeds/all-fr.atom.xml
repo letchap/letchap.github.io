@@ -160,7 +160,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;p&gt;En ayant préalablement installer requirejs et uglyjs.&lt;/p&gt;
+&lt;p&gt;En ayant préalablement installer requirejs et uglyfyjs.&lt;/p&gt;
 &lt;h4&gt;Ne reste plus qu'à pousser&lt;/h4&gt;
 &lt;p&gt;Il ne reste plus qu'à pousser le tout sur openshift &lt;/p&gt;
 &lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
