@@ -1,5 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2015-03-21T11:32:00+01:00</updated><entry><title>Petite blague suite à la clean install Yosemite</title><link href="http://letchap.github.io/2015/03/21/petite-blague-suite-a-la-clean-install-yosemite/" rel="alternate"></link><updated>2015-03-21T11:32:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-03-21:2015/03/21/petite-blague-suite-a-la-clean-install-yosemite/</id><summary type="html">&lt;p&gt;Après une clean install de Yosemite sur mon iMac mi-2010, j'ai rencontré un problème de consommation excessive de CPU par le programme "Distributeur des actions de dossier".&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="http://letchap.github.io/" rel="alternate"></link><link href="http://letchap.github.io/feeds/all-fr.atom.xml" rel="self"></link><id>http://letchap.github.io/</id><updated>2015-05-01T16:19:00+02:00</updated><entry><title>J'ai dédisqusisé mon Pelican</title><link href="http://letchap.github.io/2015/05/01/jai-dedisqusise-mon-pelican/" rel="alternate"></link><updated>2015-05-01T16:19:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-05-01:2015/05/01/jai-dedisqusise-mon-pelican/</id><summary type="html">&lt;p&gt;Deuxième étape dans la recherche de solutions libres autour de mon blog Pelican : remplacer le gestionnaire de commentaires Disquss par Isso.&lt;/p&gt;
+&lt;p&gt;Isso est un gestionnaire de commentaires open source et écrit en Python. Autant dire qu'il est donc parfait. Pour plus d'information vous pouvez aller voir sur le &lt;a href="http://posativ.org/isso/" title="Isso"&gt;site d'Isso&lt;/a&gt; dès maintenant mais nous allons largement y revenir.&lt;/p&gt;
+&lt;p&gt;Ma seule difficulté, comme d'habitude, est de ne pas avoir de serveur à la maison, donc, encore une fois, je vais utiliser openshift. Et là, contrairement à l'installation de piwik sur openshift qui se fait de manière très simple en 3 lignes de commandes grâce à la disponibilité d'un cartrigde piwik, pour Isso, il faut tout faire à la main.&lt;/p&gt;
+&lt;h3&gt;J'ai commencé par tatonner&lt;/h3&gt;
+&lt;p&gt;Sur le site de Isso, deux procédures d'installation sont décrites : une en utilisant &lt;code&gt;pip install&lt;/code&gt;, et une plus manuelle&lt;/p&gt;
+&lt;p&gt;Ma première erreur fut de croire que Isso s'installe sur Openshift comme avec un simple &lt;code&gt;pip install&lt;/code&gt;. La procédure que je m'attendais à appliquer était :
+    rhc app create isso python-3.3&lt;/p&gt;
+&lt;p&gt;Je mets à jour les fichiers de paramétrage wsgi.py et isso.conf comme indiqué sur le site de Isso puis :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;isso my love&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Et là, comme par miracle, j'aurais eu isso installé. Que nenni, il manque les fichiers javascript &lt;code&gt;embed.min.js&lt;/code&gt; et &lt;code&gt;count.min.js&lt;/code&gt; indispensables pour faire tourner le client.&lt;/p&gt;
+&lt;p&gt;Pour s'en apercevoir, la commande super utile à consommer sans modération est :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;rhc&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="n"&gt;tail&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;isso&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;qui permet de lire les logs (en particulier d'erreur) de l'application sur Openshift. Et là, on a une belle erreur &lt;code&gt;400 fichier non trouvé&lt;/code&gt; sur le &lt;code&gt;GET embed.min.js&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Je n'ai pas compris pourquoi avec &lt;code&gt;pip install&lt;/code&gt; en local, j'ai bien la création de mes fichiers javascript mais pas en créant l'application sur Openshift, en attendant, passage au plan B, l'installation manuelle de Isso sur openshift.&lt;/p&gt;
+&lt;h3&gt;La procédure garantie à 100% pour l'installation de Isso sur openshift est la suivante :&lt;/h3&gt;
+&lt;p&gt;Je me suis largement inspiré du dépôt &lt;a href="https://github.com/commentedit/commented.it/wiki/How-to-install-on-OpenShift" title="Commentedit"&gt;commentedit&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Je crée une application Isso sur Openshift&lt;/h4&gt;
+&lt;p&gt;Dans une fenêtre du terminal, j'entre la commande suivante :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;rhc&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="n"&gt;create&lt;/span&gt; &lt;span class="n"&gt;isso&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;3.3&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/posativ/isso.git&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h4&gt;Je paramètre mon application&lt;/h4&gt;
+&lt;p&gt;Je me place dans le répertoire de mon application nouvellement créée :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;isso&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Première chose à faire, récupérer l'UUID de mon application, grâce à la commande &lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;rhc&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;show&lt;/span&gt; &lt;span class="n"&gt;isso&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Je crée un répertoire share et un fichier de configuration &lt;code&gt;/share/isso.conf&lt;/code&gt; avec le contenu suivant :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;[general]&lt;/span&gt;
+&lt;span class="na"&gt;dbpath&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/var/lib/openshift/UUID/app-root/data/comment.db &lt;/span&gt;
+&lt;span class="na"&gt;host&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;http://letchap.github.io&lt;/span&gt;
+&lt;span class="na"&gt;max-age&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;15m&lt;/span&gt;
+&lt;span class="na"&gt;notify&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;smtp&lt;/span&gt;
+&lt;span class="na"&gt;log-file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+
+&lt;span class="k"&gt;[moderation]&lt;/span&gt;
+&lt;span class="na"&gt;enabled&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;true&lt;/span&gt;
+&lt;span class="na"&gt;purge-after&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;30d&lt;/span&gt;
+
+&lt;span class="k"&gt;[server]&lt;/span&gt;
+&lt;span class="na"&gt;listen&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;http://localhost:8080&lt;/span&gt;
+&lt;span class="na"&gt;reload&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;off&lt;/span&gt;
+&lt;span class="na"&gt;profile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;off&lt;/span&gt;
+
+&lt;span class="k"&gt;[smtp]&lt;/span&gt;
+&lt;span class="na"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;$username&lt;/span&gt;
+&lt;span class="na"&gt;password&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;$password&lt;/span&gt;
+&lt;span class="na"&gt;host&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;smtp.gmx.com&lt;/span&gt;
+&lt;span class="na"&gt;port&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;25&lt;/span&gt;
+&lt;span class="na"&gt;security&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;starttls&lt;/span&gt;
+&lt;span class="na"&gt;to&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;$mail&lt;/span&gt;
+&lt;span class="na"&gt;from&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;$mail&lt;/span&gt;
+&lt;span class="na"&gt;timeout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;10&lt;/span&gt;
+
+&lt;span class="k"&gt;[guard]&lt;/span&gt;
+&lt;span class="na"&gt;enabled&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;true&lt;/span&gt;
+&lt;span class="na"&gt;ratelimit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;2&lt;/span&gt;
+&lt;span class="na"&gt;direct-reply&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;3&lt;/span&gt;
+&lt;span class="na"&gt;reply-to-self&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;false&lt;/span&gt;
+
+&lt;span class="k"&gt;[markup]&lt;/span&gt;
+&lt;span class="na"&gt;options&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;strikethrough, autolink, fenced_code, no_intra_emphasis&lt;/span&gt;
+&lt;span class="na"&gt;allowed-elements&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="na"&gt;allowed-attributes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+
+&lt;span class="k"&gt;[hash]&lt;/span&gt;
+&lt;span class="na"&gt;salt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;Eech7co8Ohloopo9Ol6baimi&lt;/span&gt;
+&lt;span class="na"&gt;algorithm&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;pbkdf2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Il est important de tout renseigner, sinon il y aura des problèmes de lecture de fichier.&lt;/p&gt;
+&lt;p&gt;Puis je crée un fichier wsgi.py avec le contenu suivant :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;site&lt;/span&gt;
+&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;addsitedir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;OPENSHIFT_PYTHON_DIR&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/virtenv/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;isso&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;make_app&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;
+&lt;span class="n"&gt;application&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;make_app&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;OPENSHIFT_REPO_DIR&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/share/isso.conf&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Enfin je supprime ces quelques lignes dans .gitignore puisque je vais créer les fichiers manuellement et les pousser sur openshift :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isso&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;embed&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;min&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isso&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;embed&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isso&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;min&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isso&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h4&gt;Je créé mes fichiers javascript&lt;/h4&gt;
+&lt;p&gt;Il faut créer les fichiers javascript &lt;code&gt;embed.min.js&lt;/code&gt; et &lt;code&gt;count.min.js&lt;/code&gt; manuellement avec la commande suivante :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+&lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;js&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;En ayant préalablement installer requirejs et uglyjs.&lt;/p&gt;
+&lt;h4&gt;Ne reste plus qu'à pousser&lt;/h4&gt;
+&lt;p&gt;Il ne reste plus qu'à pousser le tout sur openshift &lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Et c&amp;#39;est parti...&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h3&gt;Et le client ...&lt;/h3&gt;
+&lt;p&gt;Sur le client, il suffit d'ajouter ces quelques lignes &lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;data-isso=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;https://commentedit-YOUR_DOMAIN.rhcloud.com/&amp;quot;&lt;/span&gt;
+    &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;https://isso-letchap.rhcloud.com/js/embed.min.js&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;section&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;isso-thread&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/section&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h3&gt;L'import des données Disqus&lt;/h3&gt;
+&lt;p&gt;La dernière étape est d'importer les commentaires de Disqus. Pour cela, il faut d'abord aller sur le site de Disqus et exporter les commentaires.&lt;/p&gt;
+&lt;p&gt;Après, je l'ai fait un peu brutal. Je me suis connecté en ssh sur openshift par un &lt;code&gt;rhc ssh isso&lt;/code&gt; et j'ai créé un fichier disqus.xml dans le répertoire &lt;code&gt;app-root/data&lt;/code&gt; et j'ai collé le contenu de mon fichier d'export.&lt;/p&gt;
+&lt;p&gt;Puis j'ai lancé la commande :&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;isso&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;share&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;isso&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt; &lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;disqus&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xml&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;Et voilà, c'est fini. Ne reste plus qu'à supprimer son compte Disqus.&lt;/p&gt;</summary><category term="Pelican"></category><category term="Isso"></category><category term="Disqus"></category><category term="Openshift"></category></entry><entry><title>Petite blague suite à la clean install Yosemite</title><link href="http://letchap.github.io/2015/03/21/petite-blague-suite-a-la-clean-install-yosemite/" rel="alternate"></link><updated>2015-03-21T11:32:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-03-21:2015/03/21/petite-blague-suite-a-la-clean-install-yosemite/</id><summary type="html">&lt;p&gt;Après une clean install de Yosemite sur mon iMac mi-2010, j'ai rencontré un problème de consommation excessive de CPU par le programme "Distributeur des actions de dossier".&lt;/p&gt;
 &lt;p&gt;La solution de contournenment pour retrouver un ordinateur qui fonctionne normalement est de décocher l'utilisation des actions de dossiers :&lt;/p&gt;
 &lt;p&gt;Dans le finder faire un clic droit sur un dossier, n'importe lequel.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="clic droit dossier" src="http://letchap.github.io/images/blagueyosemite/clicdroit.png" /&gt;&lt;/p&gt;
