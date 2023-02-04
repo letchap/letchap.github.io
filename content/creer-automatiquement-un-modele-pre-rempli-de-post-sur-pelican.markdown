@@ -10,7 +10,7 @@ Jusqu'à présent, sur Pelican, pour créer un nouvel article, je faisais un cop
 
 Qu'à cela ne tienne, nous allons faire notre propre script Python pour automatiser tout ça. Le script, le voici, les commentaires sont dedans :
 
-{% code content/code/newpost.py %}
+{% addcode content/code/newpost.py %}
 [Télécharger newpost.py]({static}/code/newpost.py){: class="button small" title="Télécharger newpost.py" }
 
 En résumé, ce script, à partir d'un titre passé en paramètre va générer un nom de fichier "slugifié", c'est à dire sans caratère accentué, en minuscule et séparé par des tirets, ainsi que l'en-tête de notre fichier. Le fichier de sortie ressemblera à ça :

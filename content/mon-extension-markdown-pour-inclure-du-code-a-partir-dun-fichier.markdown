@@ -30,11 +30,11 @@ En plus de ces extensions "standard", il est possible de créer ces propres exte
 
 Pour créer sa propre extension markdown, il est indispensable de se rendre sur le site python et [de lire le chapitre sur l'API](http://pythonhosted.org/Markdown/extensions/api.html).
 
-La logique de mon extension est la suivante : "Avant de passer mon fichier au processeur markdown, je vais lire le contenu de mon fichier markdown, et dès que je tombe sur le tag {% code content/monfichier.py %}, je récupère le contenu du fichier source, que j'indente. Ensuite, je rends la main au processeur markdown".
+La logique de mon extension est la suivante : "Avant de passer mon fichier au processeur markdown, je vais lire le contenu de mon fichier markdown, et dès que je tombe sur le tag {% addcode content/monfichier.py %}, je récupère le contenu du fichier source, que j'indente. Ensuite, je rends la main au processeur markdown".
 
 Concrétement, en python, cela donne les quelques lignes suivantes, les commentaires sont dans le code.
 
-{% code content/code/code.py %}
+{% addcode content/code/code.py %}
 [Télécharger code.py]({static}/code/code.py){: class="button small" title="code.py" }
 
 ### Testons cette extension

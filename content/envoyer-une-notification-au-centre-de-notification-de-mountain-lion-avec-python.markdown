@@ -17,7 +17,7 @@ Tout d'abord, comment récupérer le bundler identifier? Avec la commande suivan
 
 Maintenant, décorons !
 
-{% code content/code/decorateur.py %}
+{% addcode content/code/decorateur.py %}
 [Télécharger decorateur.py]({static}/code/decorateur.py){: class="button small" title="Télécharger decorateur.py" }
 
 Le principe de base est de "décorer" la fonction renvoyant le bundle identifier, c'est à dire que nous affectons son comportement temporairement (mais sans la modifier), pour qu'elle renvoie l'identifiant que nous lui passons. Pour cela, nous utilisons un décorateur Python. Pour plus d'informations sur le fonctionnement des décorateurs, vous pouvez aller sur le [site du zéro](http://www.siteduzero.com/informatique/tutoriels/apprenez-a-programmer-en-python/les-decorateurs "Les décorateurs Python") ou sur [le blog de Sam et Max](http://sametmax.com/comprendre-les-decorateurs-python-pas-a-pas-partie-1/ "Les décorateurs Python première partie").

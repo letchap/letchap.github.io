@@ -9,7 +9,7 @@ Dans le dernier billet, nous avons vu comment nous mettre à l’aise avec Pelic
 
 Pour rappel, voici le fichier d’origine :
 
-{% code content/code/style2.css %}
+{% addcode content/code/style2.css %}
 
 
 ### Un peu de nettoyage
@@ -50,7 +50,7 @@ Maintenant que j'ai défini ma police de caractère pour les blocs de code dans 
 
 Le fichier après passage à la moulinette sass ressemblera alors à ça :
 
-{% code content/code/_style.scss %}
+{% addcode content/code/_style.scss %}
 
 Plus concis quand même.
 

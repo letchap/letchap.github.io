@@ -28,16 +28,16 @@ Ensuite, nous allons réaliser non pas un mais quatre script conky, un par jour 
 
 Voilà, à la suite, les quatre fichiers. Ces fichiers sont à copier dans le répertoire /home/monuser/.conky/ :
 
-{% code content/code/conkyrc_meteo %}
+{% addcode content/code/conkyrc_meteo %}
 [Télécharger conkyrc_meteo]({static}/code/conkyrc_meteo){: class="button small" title="Télécharger conkyrc_meteo" }
 
-{% code content/code/conkyrc_meteo_jour2 %}
+{% addcode content/code/conkyrc_meteo_jour2 %}
 [Télécharger conkyrc_meteo_jour2]({static}/code/conkyrc_meteo_jour2){: class="button small" title="Télécharger conkyrc_meteo_jour2" }
 
-{% code content/code/conkyrc_meteo_jour3 %}
+{% addcode content/code/conkyrc_meteo_jour3 %}
 [Télécharger conkyrc_meteo_jour3]({static}/code/conkyrc_meteo_jour3){: class="button small" title="Télécharger conkyrc_meteo_jour3" }
 
-{% code content/code/conkyrc_meteo_jour4 %}
+{% addcode content/code/conkyrc_meteo_jour4 %}
 [Télécharger conkyrc_meteo_jour4]({static}/code/conkyrc_meteo_jour4){: class="button small" title="Téléchargerconkyrc_meteo_jour4" }
 
 
@@ -60,7 +60,7 @@ Je ne souhaite pas avoir en permanence les informations météo affichées sur m
 
 Le programme le voici :
 
-{% code content/code/startstopmeteo.sh %}
+{% addcode content/code/startstopmeteo.sh %}
 [Télécharger startstopmeteo.sh]({static}/code/startstopmeteo.sh){: class="button small" title="startstopmeteo.sh" }
 
 

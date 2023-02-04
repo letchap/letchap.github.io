@@ -37,7 +37,7 @@ Ce script est largement inspiré d'une part du tutoriel python sur [full circle 
 
 Tous les commentaires sont dans le script.
 
-{% code content/code/meteo.py %}
+{% addcode content/code/meteo.py %}
 [Télécharger meteo.py]({static}/code/meteo.py){: class="button small" title="Télécharger meteo.py" }
 
 Pour mieux comprendre la façon dont sont récupérées les données, prenons un exemple avec un morceau de fichier json et le code Python correspondant. Nous allons récupérer l'information concernant la ville.

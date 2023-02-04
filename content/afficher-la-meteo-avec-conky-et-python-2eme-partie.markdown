@@ -21,7 +21,7 @@ Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du progra
 
 Le fichier `/etc/init.d/skeleton` est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que [j'ai trouvé ici](http://www.gavinj.net/2012/06/building-python-daemon-process.html), puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire `/etc/init.d/`, en faisant `$ sudo geany /etc/init.d/meteo` par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).
 
-{% code content/code/meteo %}
+{% addcode content/code/meteo %}
 [Télécharger meteo]({static}/code/meteo){: class="button small" title="Télécharger meteo" }
 
 Ensuite, il ne faut pas oublier de rendre le script exécutable par :
