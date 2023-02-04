@@ -6,4 +6,4 @@ develop_server.sh
 .DS_Store
 pelicanconf.py
 mon-pelican
-
+yarn.lock
