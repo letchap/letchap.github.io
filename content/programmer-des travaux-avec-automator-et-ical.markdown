@@ -14,27 +14,27 @@ Et bien, tout ça ne sert à rien. Dans OS X Mavericks, la programmation périod
 
 Nous lançons Automator en choisissant "Alarme Calendrier"
 
-[![Automator]({filename}/images/ical/automator.png "Automator")]({filename}/images/ical/automator.png){: data-lightbox="automator" title="Automator" }
+[![Automator]({static}/images/ical/automator.png "Automator")]({static}/images/ical/automator.png){: data-lightbox="automator" title="Automator" }
 
 
 ### Création d'un workflow Automator
 
 Puis, nous définissons notre processus Automator avec l'execution d'un programme Ptyhon à partir du termenial et l'envoi d'une notification.
 
-[![Shell]({filename}/images/ical/shell.png "Automator")]({filename}/images/ical/shell.png){: data-lightbox="automator" title="Workflow Automator" }
+[![Shell]({static}/images/ical/shell.png "Automator")]({static}/images/ical/shell.png){: data-lightbox="automator" title="Workflow Automator" }
 
 ### Sauvegarde du workflow
 
 Nous enregistrons le processus qui va s'inscrire dans iCal.
 
-[![Save]({filename}/images/ical/save.png "Save")]({filename}/images/ical/save.png){: data-lightbox="automator" title="Sauvegarde du Workflow" }
+[![Save]({static}/images/ical/save.png "Save")]({static}/images/ical/save.png){: data-lightbox="automator" title="Sauvegarde du Workflow" }
 
 ### Dans iCal
 
 Il ne reste plus qu'à programmer sa périodicité.
 
-[![iCal]({filename}/images/ical/ical.png "iCal")]({filename}/images/ical/ical.png){: data-lightbox="automator" title="iCal" }
+[![iCal]({static}/images/ical/ical.png "iCal")]({static}/images/ical/ical.png){: data-lightbox="automator" title="iCal" }
 
-[![Périodicité]({filename}/images/ical/periode.png "Périodicité")]({filename}/images/ical/periode.png){: data-lightbox="automator" title="Périodicité" }
+[![Périodicité]({static}/images/ical/periode.png "Périodicité")]({static}/images/ical/periode.png){: data-lightbox="automator" title="Périodicité" }
 
 C'est plus simple, mais évidemment, beaucoup moins fun que de tout faire à la main.

@@ -1,0 +1,81 @@
+/*@import "settings" normalement je n'en ai pas besoin*/
+
+/* Fichier de personalisation de foundation 5
+   par letchap
+   */
+
+/* Gestion d'un bandeau sous la topbar */
+
+.myheader h2>a {
+  color: white;
+}
+
+.myheader {
+  background-color: #074e68;
+}
+
+/* Gestion des blocs de code */
+
+
+/*http://kevinyap.ca/2013/12/styling-code-blocks-using-pelican/*/
+
+
+.codehilitetable {
+    font-size: $base-font-size;
+    overflow: auto;
+    display: block;
+    border: $table-border-style $table-border-size $table-border-color;
+    border-radius: $global-radius;
+    background-color: #fdf6e3;
+}
+
+.linenos {
+    border-right: $table-border-style $table-border-size $table-border-color;
+    background-color: $secondary-color;
+    padding: 0 0.8em;
+}
+
+.codehilite {
+    padding: 0 1em;
+    margin: 1em 0;
+    display: block;
+}
+
+code {
+    white-space: nowrap;
+    background-color: $secondary-color;
+    font-size: rem-calc(14);
+}
+
+
+pre {
+  line-height: 1.3rem;
+  color: $code-color;
+  font-family: $code-font-family;
+  word-break: break-all;
+  white-space: pre;
+  font-size: rem-calc(14);
+}
+
+
+/* Gestion des images pour les diaporamas */
+img {max-width: inherit;}
+
+article img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Gestion de la taille des icones */
+
+.size-12 { font-size: rem-calc(12); }
+.size-14 { font-size: rem-calc(14); }
+.size-16 { font-size: rem-calc(16); }
+.size-18 { font-size: rem-calc(18); }
+.size-21 { font-size: rem-calc(21); }
+.size-24 { font-size: rem-calc(24); }
+.size-36 { font-size: rem-calc(36); }
+.size-48 { font-size: rem-calc(48); }
+.size-60 { font-size: rem-calc(60); }
+.size-72 { font-size: rem-calc(72); }

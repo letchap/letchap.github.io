@@ -29,16 +29,16 @@ Ensuite, nous allons réaliser non pas un mais quatre script conky, un par jour 
 Voilà, à la suite, les quatre fichiers. Ces fichiers sont à copier dans le répertoire /home/monuser/.conky/ :
 
 {% code content/code/conkyrc_meteo %}
-[Télécharger conkyrc_meteo]({filename}/code/conkyrc_meteo){: class="button radius tiny" title="Télécharger conkyrc_meteo" }
+[Télécharger conkyrc_meteo]({static}/code/conkyrc_meteo){: class="button small" title="Télécharger conkyrc_meteo" }
 
 {% code content/code/conkyrc_meteo_jour2 %}
-[Télécharger conkyrc_meteo_jour2]({filename}/code/conkyrc_meteo_jour2){: class="button radius tiny" title="Télécharger conkyrc_meteo_jour2" }
+[Télécharger conkyrc_meteo_jour2]({static}/code/conkyrc_meteo_jour2){: class="button small" title="Télécharger conkyrc_meteo_jour2" }
 
 {% code content/code/conkyrc_meteo_jour3 %}
-[Télécharger conkyrc_meteo_jour3]({filename}/code/conkyrc_meteo_jour3){: class="button radius tiny" title="Télécharger conkyrc_meteo_jour3" }
+[Télécharger conkyrc_meteo_jour3]({static}/code/conkyrc_meteo_jour3){: class="button small" title="Télécharger conkyrc_meteo_jour3" }
 
 {% code content/code/conkyrc_meteo_jour4 %}
-[Télécharger conkyrc_meteo_jour4]({filename}/code/conkyrc_meteo_jour4){: class="button radius tiny" title="Téléchargerconkyrc_meteo_jour4" }
+[Télécharger conkyrc_meteo_jour4]({static}/code/conkyrc_meteo_jour4){: class="button small" title="Téléchargerconkyrc_meteo_jour4" }
 
 
 Pour positionner les différentes informations, il faut jouer d'abord avec minimum_size, maximum_with, gap_x, gap_y pour les quatre fenêtres, puis avec alignr, alignc, goto et voffset pour le contenu de chacune des fenêtres.
@@ -61,7 +61,7 @@ Je ne souhaite pas avoir en permanence les informations météo affichées sur m
 Le programme le voici :
 
 {% code content/code/startstopmeteo.sh %}
-[Télécharger startstopmeteo.sh]({filename}/code/startstopmeteo.sh){: class="button radius tiny" title="startstopmeteo.sh" }
+[Télécharger startstopmeteo.sh]({static}/code/startstopmeteo.sh){: class="button small" title="startstopmeteo.sh" }
 
 
 Il ne reste plus qu'à créer une entrée dans le fichier menu.xml, par exemple comme ci :

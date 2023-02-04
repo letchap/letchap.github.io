@@ -10,7 +10,7 @@ Le markdown est une synthaxe qui permet d'écrire de manière assez naturelle de
 
 Pour une utilisation optimale dans Octopress, le markdown est à mixer avec les plugins pour l'insertion de code ou d'images par exemple.
 
-![memo markdown]({filename}/images/memo_markdown_letchap.png "mon memo markdown")
+![memo markdown]({static}/images/memo_markdown_letchap.png "mon memo markdown")
 
-Il est disponible au téléchargement au format pdf [ici]({filename}/downloads/memo_markdown_letchap.pdf "memo markdown").
+Il est disponible au téléchargement au format pdf [ici]({static}/downloads/memo_markdown_letchap.pdf "memo markdown").
 

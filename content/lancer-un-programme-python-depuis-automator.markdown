@@ -12,7 +12,7 @@ Des éléments complémentaires sont disponibles sur le site [d'apple developper
 
 Pour créer un service, je commence par choisir "service" dans automator puis, je choisis "exécuter un script Shell" 
 
-[![Automator]({filename}/images/automator.png "Automator")]({filename}/images/automator.png){: data-lightbox="automator" title="Automator" }
+[![Automator]({static}/images/automator.png "Automator")]({static}/images/automator.png){: data-lightbox="automator" title="Automator" }
 
 A ce stade, vous avez deux possibilités : vous pouvez au choix saisir vos lignes de script python en sélectionnant /usr/bin/python dans l'interpréteur, ou alors vous pouvez préférez un script shell permettant de lancer le programme python. Je préfère nettement cette deuxième solution pour deux raisons : il n'existe qu'une seule version du programme python, et vous pouvez trapper les erreurs dans un fichier de log.
 

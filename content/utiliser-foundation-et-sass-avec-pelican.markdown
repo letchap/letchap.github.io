@@ -222,5 +222,7 @@ Puis lancer le navigateur sur localhost:8000. Et à chaque modification de n'imp
 
 Maintenant, il ne me reste plus qu'à essayer de "tuer" mon fichier style.css pour exploiter tout le potentiel de Sass. Ce sera pour de prochains épisodes.
 
+### Un dernier point avec git
 
+A la création d'un nouveau projet Foundation, un dépôt git est automatiquement créé (pour grunt je crois). Comme il se crée à l'intérieur de mon dépôt git existant (celui qui contient mon site pelican), ça met un peu le bazar quand je veux committer mes modifications. La solution la plus simple que j'ai trouvée jusqu'à présent est de supprimer le répertoire .git de mon projet Foundation, ce qui n'empêche pas les mises à jour futures avec grunt.
 

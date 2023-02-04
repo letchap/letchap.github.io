@@ -35,7 +35,7 @@ La logique de mon extension est la suivante : "Avant de passer mon fichier au pr
 Concrétement, en python, cela donne les quelques lignes suivantes, les commentaires sont dans le code.
 
 {% code content/code/code.py %}
-[Télécharger code.py]({filename}/code/code.py){: class="button radius tiny" title="code.py" }
+[Télécharger code.py]({static}/code/code.py){: class="button small" title="code.py" }
 
 ### Testons cette extension
 

@@ -41,7 +41,7 @@ Pour installer Mageia 2 à coté de Lubuntu, le programme d'installation va vous
 A la fin de l'installation, le paramétrage le plus important à ne pas manquer est celui du chargeur d'amorçage. Vous vous souvenez que le GRUB de Lubuntu est sur sda1. Par défaut, Mageia écrit un nouveau chargeur de démarrage GRUB dans le MBR, en essayant de récupérer les chargeurs d'amorçage existants, mais avec celui de Lubuntu, cela ne fonctionne pas. Et au redémarrage, vous n'aurez plus accès à Lubuntu. Il faut donc configurer le chargeur d'amorçage Mageia pour qu'il pointe sur sda5. 
 
 Une illustration en image : choisir sda5 dans le menu déroulant.
-![grub Mageia]({filename}/images/grub_mageia.png "Grub Mageia")
+![grub Mageia]({static}/images/grub_mageia.png "Grub Mageia")
 
 Au redémarrage, vous serez toujours sur le GRUB de Lubuntu et vous n'aurez toujours pas accès à Mageia. 
 

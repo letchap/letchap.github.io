@@ -1,0 +1,21 @@
+1) créer un projet à partir du clone github
+2) nettoyer le projet
+    - supprimer le répertoire cache
+    - supprimer le répertoire mon-theme
+    - supprimer le fichier output.html (qui servait à faire les tests MD)
+    - supprimer le répertoire mon-theme
+3) installer virtualenv (file/settings/projets/python interpreteur)
+4) installer la nouvelle version de pelican
+    - python -m pip install pelican
+    - python -m pip install "pelican[markdown]"
+    - pelican-quickstart
+5) récupérer le fichier de config de la nouvelle version (nouveau MD)
+6) récupérer les fichiers content
+7) installer le fichier d'extension MD dans venv/lib/python3.10/site-packages/markdown/extensions
+8) installer la nouvelle version 6 de foundation
+    - git clone https://github.com/foundation/foundation-sites-template F6-theme
+    - cd F6-theme
+    - yarn install
+    - yarn start pour voir les modifs sass
+9) pour pelican modification de la structure du répertoire thème et du fichier customizer.js
+

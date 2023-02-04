@@ -80,7 +80,7 @@ Par défaut, nous avons besoin de 3 fichiers CSS pour gérer le style bootstrap,
 Toutes les modifications ou surcharges sont à faire dans un fichier spécifique qui est nommé style.css dans le thème bootstrap3 et que j'ai un peu adapté à mes besoins, surtout pour les insertions de blocs de code. Tous les commentaires sont dans le code.
 
 {% code content/code/style.css %}
-[Télécharger style.css]({filename}/code/style.css){: class="button radius tiny" title="Télécharger style.css" }
+[Télécharger style.css]({static}/code/style.css){: class="button small" title="Télécharger style.css" }
 
 Une exception que je n'ai pas réussi à gérer dans style.css, j'ai supprimé dans le fichier bootstrap.css, pour la balise pre, la mise en forme word-wrap: word-break. Sinon, impossible d'avoir un ascenseur horizontal dans le bloc de code.
 

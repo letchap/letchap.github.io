@@ -8,7 +8,7 @@ Sur mon joli bureau openbox sur Crunchbang, j'aimerais pouvoir afficher à la de
 
 Tout d'abord, le résultat final :
 
-![memo markdown]({filename}/images/conky_meteo.png "écran conky")
+![memo markdown]({static}/images/conky_meteo.png "écran conky")
 
 Pour réaliser cela, nous allons mettre en oeuvre plusieurs élements :
 
@@ -38,7 +38,7 @@ Ce script est largement inspiré d'une part du tutoriel python sur [full circle 
 Tous les commentaires sont dans le script.
 
 {% code content/code/meteo.py %}
-[Télécharger meteo.py]({filename}/code/meteo.py){: class="button radius tiny" title="Télécharger meteo.py" }
+[Télécharger meteo.py]({static}/code/meteo.py){: class="button small" title="Télécharger meteo.py" }
 
 Pour mieux comprendre la façon dont sont récupérées les données, prenons un exemple avec un morceau de fichier json et le code Python correspondant. Nous allons récupérer l'information concernant la ville.
 

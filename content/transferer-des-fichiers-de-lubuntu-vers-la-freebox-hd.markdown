@@ -42,7 +42,7 @@ Je suis venu à Filezilla par hasard, en créant la première version du blog so
 
 Sur l’écran d’accueil, il suffit de renseigner les informations comme illustrer ci-dessous :
 
-![Connexion Filezilla]({filename}/images/filezilla.png)
+![Connexion Filezilla]({static}/images/filezilla.png)
 
 La fenêtre de gauche est le navigateur de votre disque dur, celle de droite celle de la Freebox. Déployer le répertoire de la Freebox où vous souhaitez transférer le fichier. Il suffit alors de sélectionner le fichier de votre disque dur à transférer, et de faire un clic droit et de choisir "Envoyer".
 
