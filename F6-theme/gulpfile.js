@@ -18,7 +18,7 @@ function sass() {
     .pipe($.postcss([
       autoprefixer()
     ]))
-    .pipe(gulp.dest('css'))
+    .pipe(gulp.dest('static/css')) //letchap
     .pipe(browserSync.stream());
 };
 

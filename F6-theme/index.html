@@ -8,17 +8,30 @@
 	<title>letchap</title>
 
 	<!-- Style -->
-	<link rel="stylesheet" href="css/app.css"/> <!--#TODO changer le path -->
+	<link rel="stylesheet" href="./static/css/app.css"/> <!--#TODO changer le path -->
 
 	<!--link rel="stylesheet" href="./theme/css/style.css"/-->
-	<link rel="stylesheet" href="./theme/css/pygments.css"/>
-    <link rel="stylesheet" href="./theme/css/foundation-icons.css"/>
-    <link rel="stylesheet" href="./theme/css/lightbox.css"/>
+	<link rel="stylesheet" href="./static/css/pygments.css"/>
+    <link rel="stylesheet" href="./static/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="./static/css/lightbox.css"/>
 
     <!-- Syndication -->
     <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
 
     <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
 
   </head>
 
@@ -59,7 +72,7 @@
     <!-- Nav Bar -->
 
     <!-- Header -->
-    <header class="callout large primary" id="myheader">
+    <header class="callout large" id="myheader">
       <div class="text-left">
                   <h2><a href=".">letchap</a></h2>
         </div>
@@ -74,7 +87,7 @@
   <!-- Main Page Content and Sidebar -->
 <section role="main">
             <div class="grid-container">
-<div class="grid-x grid-padding-x grid-padding-y" id="content">
+<div class="grid-x grid-margin-x grid-margin-y">
 
 
 
@@ -84,7 +97,7 @@
     <article>
       <h2><a href="./2015/05/19/deploiement-automatique-de-isso-sur-openshift/">Déploiement automatique de Isso sur Openshift</a></h2>
 	  
-      <p>Je viens à peine de <a href="{filename/}jai-dedisqusise-mon-pelican.markdown">déployer le service de commentaire Isso à la mimine</a> que, pouf, un nouveau dépôt vient de sortir pour installer en une ligne de commande Isso sur Openshift. Je ne l'ai pas testé (puisque je viens de me fader l'install à la main), mais par contre …</p>
+      <p>Je viens à peine de <a href="./2015/05/01/jai-dedisqusise-mon-pelican/">déployer le service de commentaire Isso à la mimine</a> que, pouf, un nouveau dépôt vient de sortir pour installer en une ligne de commande Isso sur Openshift. Je ne l'ai pas testé (puisque je viens de me fader l'install à la main), mais par contre …</p>
 	  
 	  <a class="button radius tiny" href="./2015/05/19/deploiement-automatique-de-isso-sur-openshift/">la suite ...</a>
     
@@ -215,8 +228,9 @@
     
     <!-- Sidebar -->
     
- <div class="medium-3 cell" data-sticky-container>
-            <div class="sticky" data-sticky data-anchor="content">
+ <div class="medium-3 cell">
+
+                <div class="callout large secondary">
 
 
 		  <h4>Catégories</h4>
@@ -248,7 +262,7 @@
 			  </a>
 			</li>
 		    <li>
-			  <a href="http://github.com/letchap">
+			  <a href="https://github.com/letchap">
 			  <i class="fi-social-github medium"></i> github
 			  </a>
 			</li>
@@ -260,7 +274,7 @@
 		    <li><a href="http://microbe.joacodepel.tk"> Microbe</a></li>
 		    <li><a href="http://crunchbanglinux-fr.org"> Crunchbang</a></li>
 		  </ul>
-
+                </div>
 	  </div>
 </div>
     <!-- End Sidebar -->
@@ -288,26 +302,18 @@
 </section> 
   <!-- End Footer -->
 
-    <script src="./theme/js/vendor/jquery.js"></script>
+    <script src="./theme/js/jquery.js"></script>
     <script src="./theme/js/foundation.min.js"></script>
-    <script src="./theme/js/vendor/modernizr.js"></script>
-    <script>
+     <script>
         $(document).foundation();
     </script>
 	
 	<script src="./theme/js/lightbox-2.6.min.js"></script>
   
-	
+
+
+    <script src="./theme/js/app.js"></script>
 	<!-- Disqus -->
-<script type="text/javascript">
-    var disqus_shortname = 'letchap';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'http://letchap.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-</script>
 
 </body>
 </html>
