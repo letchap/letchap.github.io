@@ -1,0 +1,45 @@
+##############################################
+# Paramètres
+##############################################
+background yes
+use_xft yes
+xftfont Walkway:size=9
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 180 200
+maximum_width 180
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color #b5b5b5
+alignment top_left ## on centre la fenêtre sur l'écran à l'ouverture
+gap_x 410
+gap_y 320
+border_inner_margin 5 ## marge entre le texte et la bordure
+border_outer_margin 5 ## marge entre la bordure et le bord de la fenêtre.
+no_buffers yes
+uppercase no
+override_utf8_locale yes
+##############################################
+# Affichage
+##############################################
+TEXT
+# D'abord, je place les images
+${execp grep jour4_icone ~/tmp/meteo.txt | awk -F " " '{print "${image ~/images/icone_meteo/" $3 ".png -p 58,10 -s 64x64}"}'}
+
+# Je place le texte
+${color #b5b5b5}$alignc${font bold}${voffset -40}${execp grep jour4_jour_sem ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+$alignc${voffset 70}${font bold}${execp grep jour4_conditions ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4 " " $5}'}
+$alignc${font bold}${execp grep jour4_tempmax ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'} | ${font}${execp grep jour4_tempmin ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+${voffset 10}Précip. % : $alignr${execp grep jour4_pop ~/tmp/meteo.txt | awk -F " " '{print $3}'}
+Précip. h: $alignr${execp grep jour4_hauteur_precip ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+Neige : $alignr${execp grep jour4_hauteur_neige ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+Vent : ${alignr}de ${execp grep jour4_dir_vent ~/tmp/meteo.txt | awk -F " " '{print $3}'} à ${execp grep jour4_vent ~/tmp/meteo.txt | awk -F " " '{print $3 " " $4}'}
+
