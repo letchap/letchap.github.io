@@ -4,8 +4,11 @@
     {% for article in (articles_page.object_list if articles_page else articles) %}
     <article>
       <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
-	  
-      {{ article.summary }}
+	  	<hr />
+	    <i class="fi-calendar size-14"></i>&nbsp;{{ article.locale_date }}&nbsp;&nbsp;
+        <i class="fi-price-tag size-14"></i><a href="{{ SITEURL }}/{{ article.category.url }}">&nbsp;{{ article.category }}</a>
+        <hr />
+        {{ article.summary }}
 	  
 	  <a class="button small" href="{{ SITEURL }}/{{ article.url }}">la suite ...</a>
     

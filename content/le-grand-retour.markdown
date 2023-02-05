@@ -1,10 +1,10 @@
 Title: Le grand retour
 Date: 2023-02-04 22:17
-Category: 
+Category: Pelican
 Tags: Pelican, Foundation
 Slug: le-grand-retour
 
-Presque huit années sans avoir écrit un seul article. Et puis l'envie est revenu, aidé par les circonstances. Le fait que mon iMac de 2010 rende l'âme a été le facteur déclenchant. 
+Presque huit années sans avoir écrit un seul article. Et puis l'envie est revenue, aidé par les circonstances. Le fait que mon iMac de 2010 rende l'âme a été le facteur déclenchant. 
 
 Je n'avais plus que le PC UNOWHY Y13 de la région île de France sous la main (de mes enfants, mauvais père), pas l'envie de racheter un iMac à plus de 2 000 euros, la solution était toute trouvée : Virer Windows 10 du PC et installer une distribution Linux.
 
