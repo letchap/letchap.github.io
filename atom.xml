@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="https://letchap.github.io/" rel="alternate"></link><link href="https://letchap.github.io/atom.xml" rel="self"></link><id>https://letchap.github.io/</id><updated>2023-02-05T15:31:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Nouveau gestionnaire de commentaires</title><link href="https://letchap.github.io/2023/02/05/nouveau-gestionnaire-de-commentaires/" rel="alternate"></link><published>2023-02-05T15:31:00+01:00</published><updated>2023-02-05T15:31:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-05:/2023/02/05/nouveau-gestionnaire-de-commentaires/</id><summary type="html">&lt;p&gt;Avec la remise en vie du site, je voulais réinstaller un service de commentaires. Je ne veux pas utiliser Disqus (et encore moins depuis qu'ils ont introduit de la publicité) et j'ai la flemme de réinstaller Isso.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap</title><link href="https://letchap.github.io/" rel="alternate"></link><link href="https://letchap.github.io/atom.xml" rel="self"></link><id>https://letchap.github.io/</id><updated>2023-02-08T20:27:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Récupérer la sauvegarde Time Machine sur Linux</title><link href="https://letchap.github.io/2023/02/08/recuperer-la-sauvegarde-time-machine-sur-linux/" rel="alternate"></link><published>2023-02-08T20:27:00+01:00</published><updated>2023-02-08T20:27:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-08:/2023/02/08/recuperer-la-sauvegarde-time-machine-sur-linux/</id><summary type="html">&lt;p&gt;Mon iMac ayant rendu l'âme, j'ai besoin de récupérer certaines données sauvegardées sur Time Machine pour les utiliser sur mon ordinateur tournant sous Ubuntu&lt;/p&gt;
+&lt;p&gt;J'ai trouvé un petit script qui fonctionne très bien à &lt;a href="https://gist.github.com/vjt/5183305"&gt;cette adresse&lt;/a&gt;. Le script date de 2014 mais il fonctionne très bien. J'ai simplement ajouter une …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Mon iMac ayant rendu l'âme, j'ai besoin de récupérer certaines données sauvegardées sur Time Machine pour les utiliser sur mon ordinateur tournant sous Ubuntu&lt;/p&gt;
+&lt;p&gt;J'ai trouvé un petit script qui fonctionne très bien à &lt;a href="https://gist.github.com/vjt/5183305"&gt;cette adresse&lt;/a&gt;. Le script date de 2014 mais il fonctionne très bien. J'ai simplement ajouter une petite modification pour que le programme continue même s'il rencontre une erreur avec un &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;cp&lt;span class="w"&gt; &lt;/span&gt;-van&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$entry&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$dest&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;||&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Je mets à télécharger le script modifié.&lt;/p&gt;
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/copy-from-time-machine.sh" title="copy-from-time-machine.sh"&gt;Télécharger copy-from-time-machine.sh&lt;/a&gt;&lt;/p&gt;</content><category term="Linux"></category><category term="Linux"></category><category term="Mac OS X"></category><category term="Time Machine"></category></entry><entry><title>Nouveau gestionnaire de commentaires</title><link href="https://letchap.github.io/2023/02/05/nouveau-gestionnaire-de-commentaires/" rel="alternate"></link><published>2023-02-05T15:31:00+01:00</published><updated>2023-02-05T15:31:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-05:/2023/02/05/nouveau-gestionnaire-de-commentaires/</id><summary type="html">&lt;p&gt;Avec la remise en vie du site, je voulais réinstaller un service de commentaires. Je ne veux pas utiliser Disqus (et encore moins depuis qu'ils ont introduit de la publicité) et j'ai la flemme de réinstaller Isso.&lt;/p&gt;
 &lt;p&gt;j'ai trouvé un petit utilitaire de commentaires, &lt;a href="https://cusdis.com/"&gt;cusdis&lt;/a&gt;, qu'il est possible d'herbéger soi-même …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Avec la remise en vie du site, je voulais réinstaller un service de commentaires. Je ne veux pas utiliser Disqus (et encore moins depuis qu'ils ont introduit de la publicité) et j'ai la flemme de réinstaller Isso.&lt;/p&gt;
 &lt;p&gt;j'ai trouvé un petit utilitaire de commentaires, &lt;a href="https://cusdis.com/"&gt;cusdis&lt;/a&gt;, qu'il est possible d'herbéger soi-même, mais moi j'ai pris l'option facile dans un premier temps et pour aller vite. Il suffit de cliquer sur l'option hosted service, de créer un compte et de coller le code suivant dans sa page html.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;cusdis_thread&amp;quot;&lt;/span&gt;
@@ -917,37 +924,44 @@ $&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;inst
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://www.python.org"&gt;le site officiel de python&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://fr.openclassrooms.com/informatique/python/cours"&gt;Openclassroom (ex site du Zéro)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="Python"></category><category term="Python"></category><category term="Java"></category><category term="C++"></category><category term="Perl"></category></entry><entry><title>Mon extension markdown pour inclure du code à partir d'un fichier</title><link href="https://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="alternate"></link><published>2014-04-05T10:51:00+02:00</published><updated>2014-04-05T10:51:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-05:/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/</id><summary type="html">&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
-&lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de code. Pour que l'opération soit la plus simple pour la maintenance du site et pour le lecteur …&lt;/p&gt;</summary><content type="html">&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
+&lt;/ul&gt;</content><category term="Python"></category><category term="Python"></category><category term="Java"></category><category term="C++"></category><category term="Perl"></category></entry><entry><title>Mon extension markdown pour inclure du code à partir d'un fichier</title><link href="https://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="alternate"></link><published>2014-04-05T10:51:00+02:00</published><updated>2014-04-05T10:51:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-05:/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/</id><summary type="html">&lt;p&gt;&lt;em&gt;Article mis à jour le 8 Février 2023 pour prendre en compte la montée de version Pelican&lt;/em&gt; &lt;/p&gt;
+&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
+&lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;em&gt;Article mis à jour le 8 Février 2023 pour prendre en compte la montée de version Pelican&lt;/em&gt; &lt;/p&gt;
+&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
 &lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de code. Pour que l'opération soit la plus simple pour la maintenance du site et pour le lecteur qui souhaiterait utiliser le code, je mets le code dans un fichier que je rends téléchargeable.&lt;/p&gt;
 &lt;p&gt;Malheureusement, il n'est pas possible avec la syntaxe Markdown d'intégrer le contenu d'un fichier source.&lt;/p&gt;
 &lt;p&gt;Jusqu'à présent, pour contourner ce problème, j'utilisais un plugin Pelican nommé liquid_tags, inspiré du plugin liquid d'Octopress.&lt;/p&gt;
 &lt;p&gt;Pour moi, cela restait une façon de contourner une absence de fonctionnalité de markdown par ailleurs offerte par ReStructered Text dans une de ces directives. Pourquoi markdown ne pourrait - il pas interpréter un tag comme par exemple {% include_code file.py %} ? La réponse est assez simple : ce n'est pas fait pour ça.&lt;/p&gt;
 &lt;p&gt;En revanche, avec un peu de python, ça va devenir possible ...&lt;/p&gt;
 &lt;h3&gt;Un petit détour par le module markdown de python.&lt;/h3&gt;
-&lt;p&gt;Le module markdown de Python, en plus de pouvoir interpétrer la syntaxe classique markdown, offre un certain nombre d'extensions comme par exemple la possibilité d'ajouter une coloration syntaxique sur un bloc de code. Par défaut, Pelican prend en compte ces extensions. Il est possible de les paramétrer plus finement dans le fichier pelicanconf.py dans le champ MD_EXTENSIONS.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;MD_EXTENSIONS = [&amp;#39;codehilite&amp;#39;,&amp;#39;extra&amp;#39;]
+&lt;p&gt;Le module markdown de Python, en plus de pouvoir interpréter la syntaxe classique markdown, offre un certain nombre d'extensions comme par exemple la possibilité d'ajouter une coloration syntaxique sur un bloc de code. Par défaut, Pelican prend en compte ces extensions. Il est possible de les paramétrer plus finement dans le fichier pelicanconf.py.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;MARKDOWN = {
+&amp;#39;extension_configs&amp;#39;: {
+    &amp;#39;markdown.extensions.codehilite&amp;#39;: {},
+    &amp;#39;markdown.extensions.extra&amp;#39;: {},
+    &amp;#39;markdown.extensions.meta&amp;#39;: {},
+},
+&amp;#39;output_format&amp;#39;: &amp;#39;html5&amp;#39;,
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;J'utilise déjà ces extensions (l'extension attribute lists) pour ajouter un attribut dans des balises &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;, comme je le décris &lt;a href="https://letchap.github.io/2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/"&gt;dans ce post&lt;/a&gt;, chose que ne permet évidemment pas nativement markdown.&lt;/p&gt;
+&lt;p&gt;}
+J'utilise déjà ces extensions (l'extension attribute lists) pour ajouter un attribut dans des balises &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;, comme je le décris &lt;a href="https://letchap.github.io/2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/"&gt;dans ce post&lt;/a&gt;, chose que ne permet évidemment pas nativement markdown.&lt;/p&gt;
 &lt;p&gt;En plus de ces extensions "standard", il est possible de créer ces propres extensions markdown en python. C'est exactement ce que nous allons faire pour insérer le contenu d'un fichier source dans notre fichier markdown. Puis, une fois cette extension personnelle créée, nous allons la déclarer à Pelican.&lt;/p&gt;
 &lt;h3&gt;Créons notre extension markdown&lt;/h3&gt;
 &lt;p&gt;Pour créer sa propre extension markdown, il est indispensable de se rendre sur le site python et &lt;a href="http://pythonhosted.org/Markdown/extensions/api.html"&gt;de lire le chapitre sur l'API&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;La logique de mon extension est la suivante : "Avant de passer mon fichier au processeur markdown, je vais lire le contenu de mon fichier markdown, et dès que je tombe sur le tag {% addcode content/monfichier.py %}, je récupère le contenu du fichier source, que j'indente. Ensuite, je rends la main au processeur markdown".&lt;/p&gt;
-&lt;p&gt;Concrétement, en python, cela donne les quelques lignes suivantes, les commentaires sont dans le code.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;__future__&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;absolute_import&lt;/span&gt;
-&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;__future__&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;unicode_literals&lt;/span&gt;
-&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Extension&lt;/span&gt;
-&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;..preprocessors&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Preprocessor&lt;/span&gt;
+&lt;p&gt;Concrètement, en python, cela donne les quelques lignes suivantes, les commentaires sont dans le code.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;markdown.extensions&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Extension&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;markdown.preprocessors&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Preprocessor&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;codecs&lt;/span&gt;
 
 
 &lt;span class="c1"&gt;# L&amp;#39;expression régulière permettant de trouver le tag dans le texte&lt;/span&gt;
 
-&lt;span class="n"&gt;CODE_RE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;compile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\{&lt;/span&gt;&lt;span class="si"&gt;% c&lt;/span&gt;&lt;span class="s1"&gt;ode ?(?P&amp;lt;src&amp;gt;[^\}]*) \%}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;CODE_RE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;compile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\{&lt;/span&gt;&lt;span class="si"&gt;% a&lt;/span&gt;&lt;span class="s1"&gt;ddcode ?(?P&amp;lt;src&amp;gt;[^\}]*) \%}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CodePreprocessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Preprocessor&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AddCodePreprocessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Preprocessor&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 
 &lt;span class="c1"&gt;# Le pré-processor&lt;/span&gt;
 &lt;span class="c1"&gt;# Je lis les lignes de mon fichier markdown&lt;/span&gt;
@@ -961,37 +975,46 @@ $&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;inst
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lines&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="n"&gt;new_lines&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[];&lt;/span&gt;
-        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;lines&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;lines&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
             &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;CODE_RE&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
             &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                 &lt;span class="n"&gt;filein&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;src&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
                 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filein&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
                     &lt;span class="n"&gt;new_lines&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;    &amp;#39;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rstrip&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
-            &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                 &lt;span class="n"&gt;new_lines&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;new_lines&lt;/span&gt;
 
 
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CodeExtension&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Extension&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AddCodeExtension&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Extension&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 &lt;span class="c1"&gt;# Déclaration de mon extension&lt;/span&gt;
-    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;extendMarkdown&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;md_globals&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;preprocessors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;code&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;CodePreprocessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;gt;reference&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;extendMarkdown&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;preprocessors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AddCodePreprocessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;addcode&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;registerExtension&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;makeExtension&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;configs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;CodeExtension&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;configs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;configs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;makeExtension&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;AddCodeExtension&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/code.py" title="code.py"&gt;Télécharger code.py&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/addcode.py" title="addcode.py"&gt;Télécharger addcode.py&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Testons cette extension&lt;/h3&gt;
 &lt;p&gt;Pour tester cette extension, vous pouvez lancer la commande suivante dans le terminal.&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;markdown_py -x code montexte.txt &amp;gt; output.html
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;markdown_py -x addcode montexte.txt &amp;gt; output.html
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;Installons l'extension&lt;/h3&gt;
 &lt;p&gt;Pour installer cette extension, il suffit de la copier dans le répertoire contenant les extensions markdown python.&lt;/p&gt;
 &lt;h3&gt;Utilisons cette extension avec Pelican&lt;/h3&gt;
-&lt;p&gt;Pour installer cette extension avec Pelican, il suffit de la déclarer dans le fichier pelicanconf.py dans le champ MD_EXTENSION&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;MD_EXTENSIONS = [&amp;#39;code&amp;#39;,&amp;#39;codehilite&amp;#39;,&amp;#39;extra&amp;#39;]
+&lt;p&gt;Pour installer cette extension avec Pelican, il suffit de la déclarer dans le fichier pelicanconf.py.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;MARKDOWN = {
+&amp;#39;extension_configs&amp;#39;: {
+    &amp;#39;markdown.extensions.codehilite&amp;#39;: {},
+    &amp;#39;markdown.extensions.extra&amp;#39;: {},
+    &amp;#39;markdown.extensions.meta&amp;#39;: {},
+    &amp;#39;markdown.extensions.addcode&amp;#39;: {},
+    },
+&amp;#39;output_format&amp;#39;: &amp;#39;html5&amp;#39;,
+}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;Cherry on ze cake&lt;/h3&gt;
