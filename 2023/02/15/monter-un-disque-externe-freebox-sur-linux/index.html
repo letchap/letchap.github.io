@@ -5,7 +5,7 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="letchap">
-	<title>J'arrive pas à me décider</title>
+	<title>Monter un disque externe Freebox sur Linux</title>
 
 	<!-- Style -->
 	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
@@ -92,22 +92,50 @@
         <div class="medium-9 cell">
 <section>
   <article>
-	<h2><a href="../../../../2015/03/10/jarrive-pas-a-me-decider/" rel="bookmark" title="Permalink to J'arrive pas à me décider">J'arrive pas à me décider</a></h2>
+	<h2><a href="../../../../2023/02/15/monter-un-disque-externe-freebox-sur-linux/" rel="bookmark" title="Permalink to Monter un disque externe Freebox sur Linux">Monter un disque externe Freebox sur Linux</a></h2>
 	
 	<hr />
-	<i class="fi-calendar size-14"></i>&nbsp;mar. 10 mars 2015&nbsp;&nbsp;
-    <i class="fi-price-tag size-14"></i><a href="../../../../category/linux.html">&nbsp;Linux</a>
+	<i class="fi-calendar size-14"></i>&nbsp;mer. 15 février 2023&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/misc.html">&nbsp;misc</a>
 	<hr />
 	
-	<p>Le papa de ma distribution préférée vient d'annoncer la fin de l'aventure Crunchbang. Me voilà donc à la recherche d'une solution de remplacement.</p>
-<p>C'est trop facile, il y a tellement de choix...</p>
-<p>Cette fois, j'arrête la bidouille, je me prends une distribution clé en main. Hop, va pour Ubuntu. En fait non, je n'aime pas le bureau Unity. Ce sera plutôt Mageia. C'est sympa, mais vraiment trop clé en main, il faut que je puisse bidouiller un minimum quand même.</p>
-<p>Revenons aux basiques, une Debian minimale avec Openbox, comme Crunchbang. Mais si c'est pour mettre du Gnome dedans pour avoir un bureau un peu joli... Qu'à cela ne tienne, une Debian minimale avec XFCE alors. Oui mais bon, attendre plusieurs années pour avoir la dernière version de XFCE, c'est long.</p>
-<p>Je vais plutôt choisir une rolling release. Je me monte une Archinux avec la toute dernière version XFCE. Enfin, faut voir, une rolling release, ça reste un peu moins stable.</p>
-<p>J'ai trouvé, un dérivé d'Ubuntu pour être sur les dernières versions et un joli bureau. ElementaryOS par exemple, c'est joli.</p>
-<p>Non, mais en fait, j'ai aussi besoin de quelquechose de léger, plutôt Wattos ou LXDE.</p>
-<p>J'ai dit qu'il fallait que je reste sur une distribution majeure pour la pérennité. Ubuntu alors. Ah mais non, j'avais dit pas Unity ...</p>
-<p>C'est trop dur, il y a tellement de choix...</p>
+	<p>Mon ordinateur a une capicité de stockage du disque dur très limité. Pour sauvegarder des fichiers, je suis contraint de brancher un disque dur externe, et ce n'est pas très pratique pour une portable.</p>
+<p>Comme je possède une freebox mini 4K, l'idéée va être de branché un disque externe sur la box et de monter le disque sur le PC pour qu'il ssoit accessible tout le temps, comme un disque interne.</p>
+<p>La première étape consiste à brancher le disque externe sur la freebox et à formater le disque via l'interface de la freebox. La procédure est expliqué sur <a href="https://assistance.free.fr/articles/freebox-os-formater-mon-disque-dur-ou-mon-peripherique-usb-807">le site de l'assistance de free</a>. C'est important de ne pas manquer cette étape car le disque va être renommé en 'Freebox', ce qui est important pour la suite</p>
+<p>Pour la suite, tout est très bien expliqué sur <a href="https://alexbacher.fr/unixlinux/acces-disque-freebox-ubuntu/">le site suivant</a>. Je ne vais faire que paraphraser.</p>
+<p>Tout d'abord sur l'interface de la freebox, il est nécessaire de cocher les options de partage windows.</p>
+<p><img alt="interface Freebox" src="../../../../images/interface_freebox.png" title="Interface Freebox"></p>
+<p>Dans le terminal, on commence par installer le paquet cifs qui va permettre de dialoguer avec le serveur freebox</p>
+<div class="codehilite"><pre><span></span><code>sudo apt-get install cifs-utils
+</code></pre></div>
+
+<p>Comme pour le tutoriel sur <a href="../../../../2023/02/09/transferer-des-donnees-de-liphone-sur-ubuntu/">le montage de l'iPhone</a>, on crée un point de montage pour la Freebox</p>
+<div class="codehilite"><pre><span></span><code>sudo mkdir /media/Freebox
+</code></pre></div>
+
+<p>La partie maintenant qui me dérange le plus, il faut créé un fichier de credentials en clair sur le PC. Je pnse qu'il doit y avoir une solution plus propre avec <code>pam_mount</code> mais je n'ai pas encore réussi</p>
+<div class="codehilite"><pre><span></span><code>sudo pluma /home/$USER/.smbcredentials
+</code></pre></div>
+
+<p>Dans le fichier nouvellement créé, on ajoute les éléments de login</p>
+<div class="codehilite"><pre><span></span><code>username=freebox
+password=XXXXXXX
+</code></pre></div>
+
+<p>Puis on donne les droits sur le fichier</p>
+<div class="codehilite"><pre><span></span><code>sudo chmod 777 /home/$USER/.smbcredentials
+</code></pre></div>
+
+<p>Enfin, pour que le disque monte à chaque redémarrage du PC, il faut ajouter la ligne suivante au fichier <code>fstab</code>.</p>
+<div class="codehilite"><pre><span></span><code>sudo pluma /etc/fstab
+</code></pre></div>
+
+<p>Et on ajoute les lignes suivantes </p>
+<div class="codehilite"><pre><span></span><code>#mount freebox
+//192.168.1.254/Freebox /media/Freebox cifs _netdev,rw,users,credentials=/home/VOTRE_UTILISATEUR/.smbcredentials,iocharset=utf8,uid=1000,sec=ntlmv2,file_mode=0777,dir_mode=0777,vers=2.
+</code></pre></div>
+
+<p>C'est là qu'il est important d'avoir bien formaté le disque externe via l'interface Freebox, pour que le disque à monter s'appelle bien Freebox à l'adresse 192.168.1.254 (c'est adresse IP de la Freebox, elle peut varier en fonction des box, mais vous pouvez la retrouver dans l'interface, paramètre de la Freebox, mode réseau)</p>
 	
   </article>
   <hr />
