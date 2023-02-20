@@ -99,30 +99,30 @@
     <i class="fi-price-tag size-14"></i><a href="../../../../category/misc.html">&nbsp;misc</a>
 	<hr />
 	
-	<p>Mon ordinateur a une capicité de stockage du disque dur très limité. Pour sauvegarder des fichiers, je suis contraint de brancher un disque dur externe, et ce n'est pas très pratique pour une portable.</p>
-<p>Comme je possède une freebox mini 4K, l'idéée va être de branché un disque externe sur la box et de monter le disque sur le PC pour qu'il ssoit accessible tout le temps, comme un disque interne.</p>
-<p>La première étape consiste à brancher le disque externe sur la freebox et à formater le disque via l'interface de la freebox. La procédure est expliqué sur <a href="https://assistance.free.fr/articles/freebox-os-formater-mon-disque-dur-ou-mon-peripherique-usb-807">le site de l'assistance de free</a>. C'est important de ne pas manquer cette étape car le disque va être renommé en 'Freebox', ce qui est important pour la suite</p>
+	<p>Mon ordinateur a une capacité de stockage du disque dur très limitée. Pour sauvegarder des fichiers, je suis contraint de brancher un disque dur externe, et ce n'est pas très pratique pour un portable.</p>
+<p>Comme je possède une Freebox mini 4K, l'idée va être de brancher un disque externe sur la box et de monter le disque sur le PC pour qu'il soit accessible tout le temps, comme un disque interne.</p>
+<p>La première étape consiste à brancher le disque externe sur la freebox et à le formater via l'interface de la freebox. La procédure est expliquée sur <a href="https://assistance.free.fr/articles/freebox-os-formater-mon-disque-dur-ou-mon-peripherique-usb-807">le site de l'assistance de free</a>. C'est important de ne pas manquer cette étape, car le disque va être renommé en 'Freebox', ce qui est important pour la suite.</p>
 <p>Pour la suite, tout est très bien expliqué sur <a href="https://alexbacher.fr/unixlinux/acces-disque-freebox-ubuntu/">le site suivant</a>. Je ne vais faire que paraphraser.</p>
 <p>Tout d'abord sur l'interface de la freebox, il est nécessaire de cocher les options de partage windows.</p>
 <p><img alt="interface Freebox" src="../../../../images/interface_freebox.png" title="Interface Freebox"></p>
-<p>Dans le terminal, on commence par installer le paquet cifs qui va permettre de dialoguer avec le serveur freebox</p>
+<p>Dans le terminal, on commence par installer le paquet <code>cifs</code> qui va permettre de dialoguer avec le serveur freebox</p>
 <div class="codehilite"><pre><span></span><code>sudo apt-get install cifs-utils
 </code></pre></div>
 
-<p>Comme pour le tutoriel sur <a href="../../../../2023/02/09/transferer-des-donnees-de-liphone-sur-ubuntu/">le montage de l'iPhone</a>, on crée un point de montage pour la Freebox</p>
+<p>Comme pour le tutoriel sur <a href="../../../../2023/02/09/transferer-des-donnees-de-liphone-sur-ubuntu/">le montage de l'iPhone</a>, on crée un point de montage pour la Freebox :</p>
 <div class="codehilite"><pre><span></span><code>sudo mkdir /media/Freebox
 </code></pre></div>
 
-<p>La partie maintenant qui me dérange le plus, il faut créé un fichier de credentials en clair sur le PC. Je pnse qu'il doit y avoir une solution plus propre avec <code>pam_mount</code> mais je n'ai pas encore réussi</p>
+<p>La partie maintenant qui me dérange le plus, il faut créer un fichier de credentials en clair sur le PC. Je pense qu'il doit y avoir une solution plus propre avec <code>pam_mount</code> mais je n'ai pas encore trouvé la solution.</p>
 <div class="codehilite"><pre><span></span><code>sudo pluma /home/$USER/.smbcredentials
 </code></pre></div>
 
-<p>Dans le fichier nouvellement créé, on ajoute les éléments de login</p>
+<p>Dans le fichier nouvellement créé, on ajoute les éléments de login :</p>
 <div class="codehilite"><pre><span></span><code>username=freebox
 password=XXXXXXX
 </code></pre></div>
 
-<p>Puis on donne les droits sur le fichier</p>
+<p>Puis, on donne les droits sur le fichier :</p>
 <div class="codehilite"><pre><span></span><code>sudo chmod 777 /home/$USER/.smbcredentials
 </code></pre></div>
 
@@ -130,12 +130,12 @@ password=XXXXXXX
 <div class="codehilite"><pre><span></span><code>sudo pluma /etc/fstab
 </code></pre></div>
 
-<p>Et on ajoute les lignes suivantes </p>
+<p>Et on ajoute les lignes suivantes :</p>
 <div class="codehilite"><pre><span></span><code>#mount freebox
 //192.168.1.254/Freebox /media/Freebox cifs _netdev,rw,users,credentials=/home/VOTRE_UTILISATEUR/.smbcredentials,iocharset=utf8,uid=1000,sec=ntlmv2,file_mode=0777,dir_mode=0777,vers=2.
 </code></pre></div>
 
-<p>C'est là qu'il est important d'avoir bien formaté le disque externe via l'interface Freebox, pour que le disque à monter s'appelle bien Freebox à l'adresse 192.168.1.254 (c'est adresse IP de la Freebox, elle peut varier en fonction des box, mais vous pouvez la retrouver dans l'interface, paramètre de la Freebox, mode réseau)</p>
+<p>C'est là qu'il est important d'avoir bien formaté le disque externe via l'interface Freebox, pour que le disque à monter s'appelle bien Freebox à l'adresse 192.168.1.254 (c'est adresse IP de la Freebox, elle peut varier en fonction des box, mais vous pouvez la retrouver dans l'interface / paramètre de la Freebox / mode réseau)</p>
 	
   </article>
   <hr />
