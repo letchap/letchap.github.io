@@ -15,9 +15,9 @@ Ce que nous allons voir plus particulièrement ensemble est l'utilisation de ces
 
 ### Installation de Sass et automatisation des tâches avec Grunt
 
-L'installation de Foundation dans sa version Sass est assez fastidueuse. Pas compliquée, mais fastidueuse. Cela m'a freiné pendant un petit moment. Pourquoi installer tout un bazar alors que le site fonctionne très bien avec css. Ce qui m'a finalement convaincu dans un premier temps, ce sont plus les possibilités d'automatisation apportées par Grunt que Sass lui-même.
+L'installation de Foundation dans sa version Sass est assez fastidieuse. Pas compliquée, mais fastidieuse. Cela m'a freiné pendant un petit moment. Pourquoi installer tout un bazar alors que le site fonctionne très bien avec css. Ce qui m'a finalement convaincu dans un premier temps, ce sont plus les possibilités d'automatisation apportées par Grunt que Sass lui-même.
 
-Pourquoi fastidueux, parce qu'il faut installer un certain nombre de modules. Sass et Foundation sont des gems de Ruby. Donc, il faut avoir Ruby, donc rvm ou rbenv pour installer les gems. Ensuite, il faut installer Grunt, mais pour installer Grunt, il faut avoir npm. Plus compliqué que de simplement gérer une feuille de style.
+Pourquoi fastidieux, parce qu'il faut installer un certain nombre de modules. Sass et Foundation sont des gems de Ruby. Donc, il faut avoir Ruby, donc rvm ou rbenv pour installer les gems. Ensuite, il faut installer Grunt, mais pour installer Grunt, il faut avoir npm. Plus compliqué que de simplement gérer une feuille de style.
 
 Je vous renvoie à nouveau à la procédure complète sur [le site de Foundation](http://foundation.zurb.com/docs/sass.html "Getting start with Sass"). 
 

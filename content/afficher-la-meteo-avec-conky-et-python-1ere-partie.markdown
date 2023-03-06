@@ -8,7 +8,7 @@ Sur mon joli bureau openbox sur Crunchbang, j'aimerais pouvoir afficher à la de
 
 Tout d'abord, le résultat final :
 
-![memo markdown]({static}/images/conky_meteo.png "écran conky")
+[![Ecran conky]({static}/images/conky_meteo.png "Ecran conky")]({static}/images/conky_meteo.png){: data-lightbox="conky" title="Ecran conky" }
 
 Pour réaliser cela, nous allons mettre en oeuvre plusieurs élements :
 
