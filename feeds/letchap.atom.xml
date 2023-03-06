@@ -1,5 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - letchap</title><link href="https://letchap.github.io/" rel="alternate"></link><link href="https://letchap.github.io/feeds/letchap.atom.xml" rel="self"></link><id>https://letchap.github.io/</id><updated>2023-02-15T15:17:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Monter un disque externe Freebox sur Linux</title><link href="https://letchap.github.io/2023/02/15/monter-un-disque-externe-freebox-sur-linux/" rel="alternate"></link><published>2023-02-15T15:17:00+01:00</published><updated>2023-02-15T15:17:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-15:/2023/02/15/monter-un-disque-externe-freebox-sur-linux/</id><summary type="html">&lt;p&gt;Mon ordinateur a une capacité de stockage du disque dur très limitée. Pour sauvegarder des fichiers, je suis contraint de brancher un disque dur externe, et ce n'est pas très pratique pour un portable.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - letchap</title><link href="https://letchap.github.io/" rel="alternate"></link><link href="https://letchap.github.io/feeds/letchap.atom.xml" rel="self"></link><id>https://letchap.github.io/</id><updated>2023-02-28T10:27:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Les travaux de rafraîchissement sur le blog</title><link href="https://letchap.github.io/2023/02/28/les-travaux-de-rafraichissement-sur-le-blog/" rel="alternate"></link><published>2023-02-28T10:27:00+01:00</published><updated>2023-02-28T10:27:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-28:/2023/02/28/les-travaux-de-rafraichissement-sur-le-blog/</id><summary type="html">&lt;p&gt;Après presque 8 ans sans avoir touché au blog, il était nécessaire de faire un peu de dépoussiérage. Toutes les sources ont 8 ans, autant dire une éternité. Pour le blog, j'utilise :
+* le CMS Pelican
+* le framework Foundation pour les feuilles de style
+* Github pour la publication des pages&lt;/p&gt;
+&lt;p&gt;Pour …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Après presque 8 ans sans avoir touché au blog, il était nécessaire de faire un peu de dépoussiérage. Toutes les sources ont 8 ans, autant dire une éternité. Pour le blog, j'utilise :
+* le CMS Pelican
+* le framework Foundation pour les feuilles de style
+* Github pour la publication des pages&lt;/p&gt;
+&lt;p&gt;Pour remettre un petit coup de frais sur le blog, j'ai eu besoin de :
+* récupérer les sources depuis Github
+* faire la montée de version Pelican
+* faire la montée de version de Foundation de la v5 vers la v6&lt;/p&gt;
+&lt;h3&gt;Récupérer les sources&lt;/h3&gt;
+&lt;p&gt;Mon dernier article a été écrit sur un iMac qui a rendu l'âme. Fort heureusement, les sources sont toujours disponibles sur mon dépôt Github. Dans le dépôt source sont présents les articles et le template du site au format Foundation 5 (mais pas les sources Pelican).&lt;/p&gt;
+&lt;p&gt;Dans deux de mes articles précédents, j'avais expliqué comment travailler sur plusieurs ordinateurs différents grâce à Github et comment créer un environnement virtuel python pour bien gérer le projet en local. Cette fois, je me suis facilité la tâche en faisant les deux en même temps grâce à Pycharm. L'installation de Pycharm sur Ubuntu se fait à partir d'un dépôt snap. J'utlise la version community :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;snap&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;pycharm-community&lt;span class="w"&gt; &lt;/span&gt;--classic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Une fois dans Pycharm, je peux créer un projet en clonant le dépôt Github. Pycharm va vous demander de vous connecter à votre compte Github, de sélectionner le dépôt à cloner, puis va créer le projet à partir du clone.&lt;/p&gt;
+&lt;p&gt;&lt;a data-lightbox="pycharm" href="https://letchap.github.io/images/pycharm.png" title="Ecran pycharm"&gt;&lt;img alt="Ecran pycham" src="https://letchap.github.io/images/pycharm.png" title="Ecran pycharm"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Dans Pycharm, je vais donc avoir les pages sources du blog, et l'ancien thème Foundation dans sa version 5.&lt;/p&gt;
+&lt;p&gt;Je vais ensuite paramétrer un environnement virtuel avant d'installer la nouvelle version de Pelican. Pour cela je vais dans file/settings/projets/python interpreter, add interpreter et je choisis virtualenv environment.&lt;/p&gt;
+&lt;h3&gt;Installer la nouvelle version de Pelican&lt;/h3&gt;
+&lt;p&gt;Je peux maintenant procéder à l'installation de Pelican&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;python&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;pelican
+python&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;pelican[markdown]&amp;quot;&lt;/span&gt;
+pelican-quickstart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Je lance le pelican-quickstart uniquement pour créer le squelette du site, je laisse les options par défaut. Je récupère mon ancien fichier de configuration pelican.conf pour écraser celui créer par pelican-quickstart&lt;/p&gt;
+&lt;p&gt;Ce que j'ai trouvé extraordinaire avec Pelican, c'est que je n'ai quasiment pas eu besoin de modifier mon fichier de configuration pour pouvoir lancer la fabrication du site. Seul le module markdown a évolué, j'ai modifié les lignes concernant uniquement markdown dans le fichier.&lt;/p&gt;
+&lt;p&gt;A titre d'exemple, mon fichier &lt;code&gt;pelicanconf.py&lt;/code&gt; :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;AUTHOR&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;letchap&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SITENAME&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;letchap&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SITESUBTITLE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;du Linux, du Python, un peu de Mac&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SITEURL&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://letchap.github.io&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;TIMEZONE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Europe/Paris&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;content&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;DEFAULT_METADATA&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Linux&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Python&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),)&lt;/span&gt;
+
+&lt;span class="n"&gt;STATIC_PATHS&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;images&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;downloads&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;code&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;ABSURL&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;letchap.github.io&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SIMPLE_SEARCH&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://duckduckgo.com&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;MARKDOWN&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;extension_configs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;markdown.extensions.codehilite&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;markdown.extensions.extra&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;markdown.extensions.meta&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;markdown.extensions.addcode&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{},&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;output_format&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;html5&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;DISPLAY_PAGES_ON_MENU&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;True&lt;/span&gt;
+&lt;span class="n"&gt;DISPLAY_CATEGORIES_ON_MENU&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;False&lt;/span&gt;
+
+&lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="sa"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;fr&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;GOOGLE_ANALYTICS&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;G-K7EEZEDYMT&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;GITHUB_URL&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://github.com/letchap/&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;FEED_ALL_ATOM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;atom.xml&amp;#39;&lt;/span&gt;
+
+
+
+&lt;span class="c1"&gt;# Social&lt;/span&gt;
+&lt;span class="n"&gt;SOCIAL&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;twitter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;http://twitter.com/letchap&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;github&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://github.com/letchap&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Pagination&lt;/span&gt;
+&lt;span class="n"&gt;DEFAULT_PAGINATION&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="n"&gt;SUMMARY_MAX_LENGTH&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Uncomment following line if you want document-relative URLs when developing&lt;/span&gt;
+&lt;span class="n"&gt;RELATIVE_URLS&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;True&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Paramètrage du thème&lt;/span&gt;
+&lt;span class="n"&gt;THEME&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/home/letchap/Projets/Blog/F6-theme&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Paramètrage de l&amp;#39;URL&lt;/span&gt;
+&lt;span class="n"&gt;ARTICLE_URL&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;{date:%Y}/{date:%m}/{date:&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;}/{slug}/&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;ARTICLE_SAVE_AS&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;{date:%Y}/{date:%m}/{date:&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;}/{slug}/index.html&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/pelicanconf.py" title="Télécharger pelicanconf.py"&gt;Télécharger pelicanconf.py&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Dans le fichier conf, j'ai une petite ligne custom car j'ai créé une extension markdown personnelle qui me permet de récupérer le contenu d'un fichier script pour le mettre sous forme de bloc de code dans un article. Les explications sont &lt;a href="https://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/"&gt;dans cet article&lt;/a&gt; qui a été mis à jour pour l'occasion.&lt;/p&gt;
+&lt;p&gt;.pipe(gulp.dest('static/css'))&lt;/p&gt;
+&lt;h3&gt;Installer la nouvelle version 6 de foundation et adapter le thème du site&lt;/h3&gt;
+&lt;p&gt;Alors là, ce fut le gros morceau. Tout a changé en 7 ans : l'installation, les composants, ... L'enfer.&lt;/p&gt;
+&lt;h4&gt;L'installation&lt;/h4&gt;
+&lt;p&gt;En clonant mon dépôt github, j'ai récupéré le thème Foundation dans sa version 5. Je vais installer la version 6 de foundation à coté, dans mon projet Pelican. J'ai choisi la version basic car je n'ai pas besoin de javascript Foundation, je n'utilise pas de composant le requérant. L'installation m'a semblé plus simple que dans la version 5, 3 petites lignes suffisent pour l'installation, la quatrième permet de visualiser les modifications en temps réel. J'ai installé Foundation dans un répertoire que j'ai appelé F6-theme.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;git clone https://github.com/foundation/foundation-sites-template F6-theme
+cd F6-theme
+yarn install
+yarn start # pour voir les modifications sass
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;J'en ai profité pour faire l'adaptation de la structure du répertoire Foundation à celle de Pelican (&lt;a href="https://letchap.github.io/2014/08/29/utiliser-foundation-et-sass-avec-pelican/"&gt;petit rappel ici&lt;/a&gt;) en modifiant le fichier gulpfile.js pour que le fichier app.css se crée dans un répertoire &lt;code&gt;static/css&lt;/code&gt; et non &lt;code&gt;css&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;Les composants&lt;/h4&gt;
+&lt;p&gt;Le plus gros changement concerne les composants de la version 6 de Foundation et il m'a fallu un bon moment pour adapter le site au format V5 en V6. Je vais faire un billet dédié sur les différents changements car il y en a beaucoup, en particulier, la gestion des grilles.&lt;/p&gt;
+&lt;h3&gt;Le nouveau site Pelican&lt;/h3&gt;
+&lt;p&gt;Une fois que tout est installé la structure de mon projet Pelican comprend :
+* les articles au format markdown récupéré de mon dépôt github dans le dossier content
+* un répertoire newpost qui me permet de créer automatique un squelette d'article
+* un répertoire F6-theme qui contient mon nouveau thème Foundation
+* un répertoire output qui va se créer en lançant la génération du site par un &lt;code&gt;make html&lt;/code&gt;
+* un répertoire venv qui contient les sources Pelican et mon extension markdown pour insérer du code dans les articles&lt;/p&gt;
+&lt;p&gt;&lt;a data-lightbox="blog-pycharm" href="https://letchap.github.io/images/blog-pycharm.png" title="blog-pycharm"&gt;&lt;img alt="Ecran blog-pycharm" src="https://letchap.github.io/images/blog-pycharm.png" title="Ecran blog-pycharm"&gt;&lt;/a&gt;&lt;/p&gt;</content><category term="misc"></category></entry><entry><title>Monter un disque externe Freebox sur Linux</title><link href="https://letchap.github.io/2023/02/15/monter-un-disque-externe-freebox-sur-linux/" rel="alternate"></link><published>2023-02-15T15:17:00+01:00</published><updated>2023-02-15T15:17:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-15:/2023/02/15/monter-un-disque-externe-freebox-sur-linux/</id><summary type="html">&lt;p&gt;Mon ordinateur a une capacité de stockage du disque dur très limitée. Pour sauvegarder des fichiers, je suis contraint de brancher un disque dur externe, et ce n'est pas très pratique pour un portable.&lt;/p&gt;
 &lt;p&gt;Comme je possède une Freebox mini 4K, l'idée va être de brancher un disque externe sur …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Mon ordinateur a une capacité de stockage du disque dur très limitée. Pour sauvegarder des fichiers, je suis contraint de brancher un disque dur externe, et ce n'est pas très pratique pour un portable.&lt;/p&gt;
 &lt;p&gt;Comme je possède une Freebox mini 4K, l'idée va être de brancher un disque externe sur la box et de monter le disque sur le PC pour qu'il soit accessible tout le temps, comme un disque interne.&lt;/p&gt;
 &lt;p&gt;La première étape consiste à brancher le disque externe sur la freebox et à le formater via l'interface de la freebox. La procédure est expliquée sur &lt;a href="https://assistance.free.fr/articles/freebox-os-formater-mon-disque-dur-ou-mon-peripherique-usb-807"&gt;le site de l'assistance de free&lt;/a&gt;. C'est important de ne pas manquer cette étape, car le disque va être renommé en 'Freebox', ce qui est important pour la suite.&lt;/p&gt;
@@ -635,8 +745,8 @@ arch-chroot /mnt
 &lt;p&gt;Foundation apporte néanmoins deux fonctionnalités supplémentaires assez intéressantes : l'utilisation de &lt;a href="http://sass-lang.com" title="Sass"&gt;Sass&lt;/a&gt; et de &lt;a href="http://gruntjs.com" title="Grunt"&gt;Grunt&lt;/a&gt;. Sur le site de Foundation, &lt;a href="http://foundation.zurb.com/docs/sass.html"&gt;une page est dédiée à l'installation&lt;/a&gt; de ces deux fonctionnalités qui sont liées. Ils existent pas mal de tutoriels en anglais qui expliquent comment créer un nouveau projet Fondation avec Sass. &lt;/p&gt;
 &lt;p&gt;Ce que nous allons voir plus particulièrement ensemble est l'utilisation de ces deux outils avec Pelican. Mais tout d'abord ...&lt;/p&gt;
 &lt;h3&gt;Installation de Sass et automatisation des tâches avec Grunt&lt;/h3&gt;
-&lt;p&gt;L'installation de Foundation dans sa version Sass est assez fastidueuse. Pas compliquée, mais fastidueuse. Cela m'a freiné pendant un petit moment. Pourquoi installer tout un bazar alors que le site fonctionne très bien avec css. Ce qui m'a finalement convaincu dans un premier temps, ce sont plus les possibilités d'automatisation apportées par Grunt que Sass lui-même.&lt;/p&gt;
-&lt;p&gt;Pourquoi fastidueux, parce qu'il faut installer un certain nombre de modules. Sass et Foundation sont des gems de Ruby. Donc, il faut avoir Ruby, donc rvm ou rbenv pour installer les gems. Ensuite, il faut installer Grunt, mais pour installer Grunt, il faut avoir npm. Plus compliqué que de simplement gérer une feuille de style.&lt;/p&gt;
+&lt;p&gt;L'installation de Foundation dans sa version Sass est assez fastidieuse. Pas compliquée, mais fastidieuse. Cela m'a freiné pendant un petit moment. Pourquoi installer tout un bazar alors que le site fonctionne très bien avec css. Ce qui m'a finalement convaincu dans un premier temps, ce sont plus les possibilités d'automatisation apportées par Grunt que Sass lui-même.&lt;/p&gt;
+&lt;p&gt;Pourquoi fastidieux, parce qu'il faut installer un certain nombre de modules. Sass et Foundation sont des gems de Ruby. Donc, il faut avoir Ruby, donc rvm ou rbenv pour installer les gems. Ensuite, il faut installer Grunt, mais pour installer Grunt, il faut avoir npm. Plus compliqué que de simplement gérer une feuille de style.&lt;/p&gt;
 &lt;p&gt;Je vous renvoie à nouveau à la procédure complète sur &lt;a href="http://foundation.zurb.com/docs/sass.html" title="Getting start with Sass"&gt;le site de Foundation&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;Par contre, une fois que tout est installé, c'est le bonheur.&lt;/p&gt;
 &lt;h4&gt;Création d'un nouveau projet&lt;/h4&gt;
