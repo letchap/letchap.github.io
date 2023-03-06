@@ -88,7 +88,9 @@ pelican-quickstart
 
 &lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/pelicanconf_letchap.py" title="Télécharger pelicanconf_letchap.py"&gt;Télécharger pelicanconf_letchap.py&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Dans le fichier conf, j'ai une petite ligne custom car j'ai créé une extension markdown personnelle qui me permet de récupérer le contenu d'un fichier script pour le mettre sous forme de bloc de code dans un article. Les explications sont &lt;a href="https://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/"&gt;dans cet article&lt;/a&gt; qui a été mis à jour pour l'occasion.&lt;/p&gt;
-&lt;p&gt;.pipe(gulp.dest('static/css'))&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="na"&gt;.pipe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;gulp.dest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="no"&gt;static&lt;/span&gt;&lt;span class="err"&gt;/&lt;/span&gt;&lt;span class="no"&gt;css&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 &lt;h3&gt;Installer la nouvelle version 6 de foundation et adapter le thème du site&lt;/h3&gt;
 &lt;p&gt;Alors là, ce fut le gros morceau. Tout a changé en 7 ans : l'installation, les composants, ... L'enfer.&lt;/p&gt;
 &lt;h4&gt;L'installation&lt;/h4&gt;
