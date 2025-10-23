@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="{{ SITEURL }}/theme/css/pygments.css"/>
     <link rel="stylesheet" href="{{ SITEURL }}/theme/css/foundation-icons.css"/>
     <link rel="stylesheet" href="{{ SITEURL }}/theme/css/lightbox.css"/>
-
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/newicons.css"/>
     <!-- Syndication -->
     <link href="/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"/>
 
@@ -106,7 +106,7 @@
 		  {% for name, link in SOCIAL %}
 		    <li>
 			  <a href="{{ link }}">
-			  <i class="fi-social-{{ name }} medium"></i> {{ name }}
+			  <i class="icon-{{ name }} medium"></i> {{ name }}
 			  </a>
 			</li>
 		  {% endfor %}
