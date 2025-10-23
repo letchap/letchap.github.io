@@ -1,0 +1,247 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Lancer anacron comme simple utilisateur</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/10/25/lancer-anacron-comme-simple-utilisateur/" rel="bookmark" title="Permalink to Lancer anacron comme simple utilisateur">Lancer anacron comme simple utilisateur</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Fri 25 October 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/terminal.html">&nbsp;Terminal</a>
+	<hr />
+	
+	<p>Sous Linux, il existe un utilitaire qui permet de déclencher des travaux de manière périodique. Il s'agit de cron. Cet utilitaire très pratique présente pour moi un énorme inconvient, il nécessite d'avoir un ordinateur constamment allumé. Heureusement, il existe un deuxième utilitaire anacron qui lui permet de lancer des travaux a posteriori si l'ordinateur était éteint au moment du déclenchement programmé. Et là, autre petit soucis, anacron ne se lance qu'en root (contrairement à cron qui se lance en mode utilisateur).</p>
+<p>Heureusement, il est possible de créer un anacron non-root. Pour cela, il faut :</p>
+<h3>1) Créer un fichier anacrontab dans son répertoire personnel par exemple ~/user/etc/anacrontab, à l'image de celui présent dans /etc/anacrontab</h3>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="nl">anacrontab</span><span class="p">:</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">anacron</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">See</span><span class="w"> </span><span class="n">anacron</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">anacrontab</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">details</span><span class="p">.</span>
+
+<span class="n">SHELL</span><span class="o">=/</span><span class="n">bin</span><span class="o">/</span><span class="n">sh</span>
+<span class="k">PATH</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="nl">sbin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="nl">bin</span><span class="p">:</span><span class="o">/</span><span class="nl">sbin</span><span class="p">:</span><span class="o">/</span><span class="nl">bin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nl">sbin</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">These</span><span class="w"> </span><span class="nf">replace</span><span class="w"> </span><span class="n">cron</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">entries</span>
+<span class="nv">@monthly</span><span class="w">    </span><span class="mi">1</span><span class="w">   </span><span class="n">monprog</span><span class="w">    </span><span class="n">env</span><span class="w"> </span><span class="n">DISPLAY</span><span class="o">=</span><span class="err">:</span><span class="mi">0</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">letchap</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">monprog</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">letchap</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">monprog</span><span class="p">.</span><span class="nf">log</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+</code></pre></div>
+
+<p>Les 4 champs à renseigner sont :</p>
+<ul>
+<li>la période : ici, une fois par mois</li>
+<li>le délai : le temps d'attente après le démarrage de l'ordinateur avant de lancer les travaux</li>
+<li>la référence du travail (important pour le timestamp)</li>
+<li>la commande shell à lancer</li>
+</ul>
+<h3>2) Donner les droits utilisateur sur le répertoire contenant le "compteur" d'anacron, c'est à dire la date de dernière utilisation.</h3>
+<p>Pour cela, nous commençons par créer un group anacron dans /etc/group et nous y ajoutons notre user</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>addgroup<span class="w"> </span>anacron
+$<span class="w"> </span>adduser<span class="w"> </span>user<span class="w"> </span>anacron
+</code></pre></div>
+
+<p>Puis nous modifions les droits sur le fichier /var/spool/anacron</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>chown<span class="w"> </span>root.anacron<span class="w"> </span>/var/spool/anacron
+$<span class="w"> </span>chmod<span class="w"> </span>g+w<span class="w"> </span>/var/spool/anacron
+</code></pre></div>
+
+<p>Comme nous sommes dans le groupe anacron, tout va bien.</p>
+<h3>3) Ne reste plus qu'à lancer notre anacron au démarrage de l'ordinateur</h3>
+<p>Cela se fait dans le fichier .profile de l'utlisateur en ajoutant la ligne suivante</p>
+<div class="codehilite"><pre><span></span><code>/usr/sbin/anacron -t $HOME/etc/anacrontab
+</code></pre></div>
+
+<p>Pour mémoire, la date à laquelle se déclenche le job mensuel se définie dans le fichier /etc/crontab/.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

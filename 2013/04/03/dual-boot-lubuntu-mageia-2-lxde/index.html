@@ -1,0 +1,298 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Dual boot Lubuntu-Mageia 2 LXDE</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/04/03/dual-boot-lubuntu-mageia-2-lxde/" rel="bookmark" title="Permalink to Dual boot Lubuntu-Mageia 2 LXDE">Dual boot Lubuntu-Mageia 2 LXDE</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Wed 03 April 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/mageia.html">&nbsp;Mageia</a>
+	<hr />
+	
+	<p>Sur le principe, je ne comprends pas bien pourquoi il est plus difficile de faire un double amorçage (dual boot in english) avec deux distributions Linux plutôt qu'avec une distribution Linux et Windows.</p>
+<p>Enfin, j'ai réussi à faire un dual boot Lubuntu 12.04 et Mageia 2 (version LXDE aussi, même si cela n'a aucune importance pour la suite du post). Je me suis largement inspiré du <a href="http://www.mageialinux-online.org/forum/topic-10359-1.php">fil disponible sur mageia on line</a>.</p>
+<p>Je pense que cela fonctionne de la même manière avec toutes les variantes Ubuntu et en 12.10, mais comme je n'ai pas testé ...</p>
+<p>Mon objectif était d'installer Mageia à coté de Lubuntu et de proposer au démarrage de l'ordinateur le choix entre ces deux distributions.</p>
+<h3>Le principe de fonctionnement de l'amorçage</h3>
+<p>Pour démarrer, un certain nombre de distributions Linux (dont celles basées sur Debian comme Ubuntu, mais également Mageia et d'autres) utilise un même programme d'amorçage : GRUB. Le même, pas tout à fait, car il existe dans des versions différentes en fonction des distributions, qui ne sont pas toujours compatibles.</p>
+<p>Dans l'exemple de dual boot Lubuntu Mageia, lorsque vous installez Mageia après Lubuntu, si vous ne faites rien, le GRUB de Mageia ne va pas reconnaître le GRUB de Lubuntu et il sera alors impossible de choisir la distribution au démarrage (l'inverse est également vrai). Heureusement, il est tout à fait possible de "chaîner" les GRUB, c'est à dire d'indiquer au premier GRUB où se trouve le deuxième, et donc de choisir sur quel GRUB, ou quelle distribution démarrer. Cela demande un peu de manipulation et un peu d'expérience. En particulier, il faut savoir :</p>
+<ul>
+<li>utiliser un éditeur en mode root (gedit, nano, vim, ...)</li>
+<li>partitionner un disque (pour la 2ème installation)</li>
+</ul>
+<p>La procédure que je décris va permettre d'ajouter une entrée Mageia sur le GRUB de Lubuntu. Pourquoi dans ce sens ? Tout simplement parce que j'ai installé une entrée Plop manager sur le Grub de Lubuntu qui me permet de démarrer sur une clé USB sans passer par le BIOS, je n'ai pas envie de recommencer la configuration de Plop Manager sur le GRUB de Mageia. Il existe une procédure sur Mageia on Line pour chaîner sur le GRUB de Lubuntu à partir du GRUB de Mageia, que je n'ai pas testée car ce n'est pas ce que je voulais faire.</p>
+<h3>Installer Lubuntu 12.04</h3>
+<p>Si vous installez Lubuntu sur l'ensemble du disque, le programme d'installation va créer deux partitions sur le disque, la plus grande formatée en ext4 portera un petit nom sdXY, en général, si c'est la seule, sda1, et une toute petite partition swap qui sera sda6 chez moi. Cette partition swap n'a aucun intérêt pour la suite des opérations.</p>
+<p>Le programme d'installation va installer le GRUB sur le MBR (master boot record : secteur de démarrage principal du disque dur, sda1 dans ce cas). C'est là le point le plus important à comprendre pour la suite.</p>
+<h3>Installer Mageia 2</h3>
+<p>Pour installer Mageia 2 à coté de Lubuntu, le programme d'installation va vous demander de modifier les partitions existantes. Avec le partitionnement automatique, Mageia va créer 3 nouvelles partitions à coté du sda1 et sda6 :</p>
+<ul>
+<li>sda5 </li>
+<li>sda7</li>
+<li>sda8</li>
+</ul>
+<p>A la fin de l'installation, le paramétrage le plus important à ne pas manquer est celui du chargeur d'amorçage. Vous vous souvenez que le GRUB de Lubuntu est sur sda1. Par défaut, Mageia écrit un nouveau chargeur de démarrage GRUB dans le MBR, en essayant de récupérer les chargeurs d'amorçage existants, mais avec celui de Lubuntu, cela ne fonctionne pas. Et au redémarrage, vous n'aurez plus accès à Lubuntu. Il faut donc configurer le chargeur d'amorçage Mageia pour qu'il pointe sur sda5. </p>
+<p>Une illustration en image : choisir sda5 dans le menu déroulant.
+<img alt="grub Mageia" src="../../../../images/grub_mageia.png" title="Grub Mageia"></p>
+<p>Au redémarrage, vous serez toujours sur le GRUB de Lubuntu et vous n'aurez toujours pas accès à Mageia. </p>
+<p>Pour vous en convaincre, vous pouvez taper la commande fdisk et voir que la petite étoile dans la colonne amorce est bien devant la partition sda1 où se trouve Lubuntu.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">fdisk</span><span class="w"> </span><span class="o">-</span><span class="n">l</span>
+
+<span class="n">Périphérique</span><span class="w"> </span><span class="n">Amorce</span><span class="w">  </span><span class="n">Début</span><span class="w">        </span><span class="n">Fin</span><span class="w">      </span><span class="n">Blocs</span><span class="w">     </span><span class="n">Id</span><span class="w">  </span><span class="n">Système</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span><span class="w">   </span><span class="o">*</span><span class="w">        </span><span class="mi">2048</span><span class="w">    </span><span class="mi">43006004</span><span class="w">    </span><span class="mi">21501978</span><span class="o">+</span><span class="w">  </span><span class="mi">83</span><span class="w">  </span><span class="n">Linux</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda2</span><span class="w">        </span><span class="mi">43010037</span><span class="w">    </span><span class="mi">78139391</span><span class="w">    </span><span class="mi">17564677</span><span class="o">+</span><span class="w">   </span><span class="mi">5</span><span class="w">  </span><span class="n">Étendue</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda5</span><span class="w">        </span><span class="mi">43010048</span><span class="w">    </span><span class="mi">60773894</span><span class="w">     </span><span class="mi">8881923</span><span class="o">+</span><span class="w">  </span><span class="mi">83</span><span class="w">  </span><span class="n">Linux</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda6</span><span class="w">        </span><span class="mi">77094912</span><span class="w">    </span><span class="mi">78139391</span><span class="w">      </span><span class="mi">522240</span><span class="w">   </span><span class="mi">82</span><span class="w">  </span><span class="k">partition</span><span class="w"> </span><span class="n">d</span><span class="s1">&#39;échange Linux / Solaris</span>
+<span class="s1">/dev/sda7        60776448    62749889      986721   82  partition d&#39;</span><span class="n">échange</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Solaris</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda8</span><span class="w">        </span><span class="mi">62752768</span><span class="w">    </span><span class="mi">77079869</span><span class="w">     </span><span class="mi">7163551</span><span class="w">   </span><span class="mi">83</span><span class="w">  </span><span class="n">Linux</span>
+</code></pre></div>
+
+<p>Ou encore avec l'outil parted, nous voyons que le numéro 1 (ou sda1) est bien la partition de démarrage</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@localhost ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">parted</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"> </span><span class="k">print</span>
+<span class="nl">Modèle</span><span class="p">:</span><span class="w"> </span><span class="n">ATA</span><span class="w"> </span><span class="n">TOSHIBA</span><span class="w"> </span><span class="n">MK4021GA</span><span class="w"> </span><span class="p">(</span><span class="n">scsi</span><span class="p">)</span>
+<span class="n">Disque</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span>
+<span class="n">Taille</span><span class="w"> </span><span class="n">des</span><span class="w"> </span><span class="n">secteurs</span><span class="w"> </span><span class="p">(</span><span class="n">logiques</span><span class="o">/</span><span class="n">physiques</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="mi">512</span><span class="n">B</span><span class="o">/</span><span class="mi">512</span><span class="n">B</span>
+<span class="nc">Table</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">partitions</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="n">msdos</span>
+<span class="k">Disk</span><span class="w"> </span><span class="nl">Flags</span><span class="p">:</span>
+
+<span class="n">Numéro</span><span class="w">  </span><span class="n">Début</span><span class="w">   </span><span class="n">Fin</span><span class="w">     </span><span class="n">Taille</span><span class="w">  </span><span class="n">Type</span><span class="w">      </span><span class="n">Système</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">fichiers</span><span class="w">  </span><span class="n">Fanions</span>
+<span class="w"> </span><span class="mi">1</span><span class="w">      </span><span class="mi">1049</span><span class="n">kB</span><span class="w">  </span><span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span><span class="w">  </span><span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span><span class="w">  </span><span class="k">primary</span><span class="w">   </span><span class="n">ext4</span><span class="w">                 </span><span class="n">démarrage</span>
+<span class="w"> </span><span class="mi">2</span><span class="w">      </span><span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span><span class="w">  </span><span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span><span class="w">  </span><span class="mi">18</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span><span class="w">  </span><span class="n">extended</span>
+<span class="w"> </span><span class="mi">5</span><span class="w">      </span><span class="mi">22</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span><span class="w">  </span><span class="mi">31</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span><span class="w">  </span><span class="mi">9095</span><span class="n">MB</span><span class="w">  </span><span class="n">logical</span><span class="w">   </span><span class="n">ext4</span>
+<span class="w"> </span><span class="mi">7</span><span class="w">      </span><span class="mi">31</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span><span class="w">  </span><span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span><span class="w">  </span><span class="mi">1010</span><span class="n">MB</span><span class="w">  </span><span class="n">logical</span><span class="w">   </span><span class="n">linux</span><span class="o">-</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+<span class="w"> </span><span class="mi">8</span><span class="w">      </span><span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="n">GB</span><span class="w">  </span><span class="mi">39</span><span class="p">,</span><span class="mi">5</span><span class="n">GB</span><span class="w">  </span><span class="mi">7335</span><span class="n">MB</span><span class="w">  </span><span class="n">logical</span><span class="w">   </span><span class="n">ext4</span>
+<span class="w"> </span><span class="mi">6</span><span class="w">      </span><span class="mi">39</span><span class="p">,</span><span class="mi">5</span><span class="n">GB</span><span class="w">  </span><span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="n">GB</span><span class="w">  </span><span class="mi">535</span><span class="n">MB</span><span class="w">   </span><span class="n">logical</span><span class="w">   </span><span class="n">linux</span><span class="o">-</span><span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Et c'est là qu'intervient la dernière étape.</p>
+<h3>Le chaînage</h3>
+<p>Nous allons dire au GRUB de Lubuntu de chaîner sur le GRUB de Mageia. Pour cela nous allons ajouter une entrée Mageia dans le GRUB de Lubuntu.</p>
+<p>Pour cela, il suffit d'ouvrir de fichier 40_custom <a href="../../../../2013/02/23/demarrer-sur-une-cle-usb-sans-passer-par-le-bios/">(le même qui contient mon entrée pour Plop Manager)</a> et d'ajouter les lignes suivantes :</p>
+<div class="codehilite"><pre><span></span><code><span class="n">menuentry</span><span class="w"> </span><span class="s2">&quot;Mageia&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="n">set</span><span class="w"> </span><span class="n">root</span><span class="o">=</span><span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">chainloader</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Ici, (hd0,5) signifie sda5. (hd1,4) signifierait sdb4 par exemple. </p>
+<p>Ensuite nous mettons à jour Grub par la commande suivante :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>update-grub
+</code></pre></div>
+
+<p>Et au redémarrage, nous aurons l'accès à Mageia qui sera proposée.</p>
+<h3>Ca ne marche pas ton truc</h3>
+<p>Il y a trois étapes très importantes à respecter pour que le chaînage fonctionne :</p>
+<ul>
+<li>installer d'abord Lubuntu puis Mageia </li>
+<li>ne pas installer le GRUB Mageia sur le MBR mais bien sur la partition sda5</li>
+<li>ne pas se tromper dans les n° hd(x,y)</li>
+</ul>
+<p>Si vous avez écrasé le GRUB de Lubuntu avec l'installation de Mageia, je vous conseille de :</p>
+<ul>
+<li>réinstaller le GRUB de Lubuntu (ça évite de refaire toute l'installation)</li>
+<li>réinstaller Mageia proprement</li>
+</ul>
+<h4>Réinstaller le GRUB de Lubuntu</h4>
+<p>Il existe des tas de manières de faire, personnellement j'utilise <a href="http://howtoubuntu.org/how-to-repair-restore-reinstall-grub-2-with-a-ubuntu-live-cd/">cette procédure qui fonctionne très bien.</a></p>
+<p>L'idée est de démarrer sur un live CD et de réinstaller le programme GRUB sur la racine du disque.</p>
+<p>Après avoir démarré sur le live CD, vous ouvrez une fenêtre du terminal et vous montez le disque ainsi que quelques bibliothèques complémentaires.</p>
+<p>Ensuite vous installez le programme GRUB et vous le remettez à jour.</p>
+<p>Vous sortez proprement.</p>
+<p>Et c'est tout, vous pouvez redémarrer.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

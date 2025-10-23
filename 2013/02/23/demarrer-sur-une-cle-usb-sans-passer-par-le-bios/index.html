@@ -1,0 +1,238 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Démarrer sur une clé USB sans passer par le BIOS</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/02/23/demarrer-sur-une-cle-usb-sans-passer-par-le-bios/" rel="bookmark" title="Permalink to Démarrer sur une clé USB sans passer par le BIOS">Démarrer sur une clé USB sans passer par le BIOS</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Sat 23 February 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/linux.html">&nbsp;Linux</a>
+	<hr />
+	
+	<p>Faire des clés live USB c’est bien joli, mais si on ne peut pas démarrer sur une clé USB sur son ordinosaure, c’est ballot.</p>
+<p>Heureusement, il existe une solution pour démarrer sur une clé USB sans passer par le BIOS : Plop Manager.</p>
+<p>Si vous souhaitez vous lancer, je vous mets en garde, c’est assez difficile. Nous allons essayer d’y aller pas à pas.</p>
+<p>Tout d’abord, le principe général :</p>
+<p>Sur Ubuntu, le gestionnaire de démarrage s’appelle GRUB. Par défaut, il se contente de lancer le système d’exploitation. Lorsqu’il y a plusieurs systèmes d’exploitation installés sur la machine (dual boot), c’est GRUB qui va vous donner le choix du système sur lequel démarrer. Nous allons ajouter une entrée dans GRUB qui lancera le programme Plop Manager au démarrage et nous permettra ainsi de démarrer sur la clé USB.</p>
+<p>Nous allons commencer par installer Plop Manager.</p>
+<p>Pour cela, il faut télécharger le dossier plpbt-5.0.14.zip (c’est la dernière version au moment de l’écriture du billet) sur le site de Plop manager <a href="http://www.plop.at/en/bootmanager/download.html" title="Plop manager">à cette adresse</a>.</p>
+<p>Vous décompressez le .zip et vous copiez le fichier plpbt.bin dans le répertoire /boot.</p>
+<p>Ensuite il faut éditer le fichier /etc/grub.d/40_custom avec <code>sudo nano /etc/grub.d/40_custom</code>, puis ajouter les lignes ci-dessous : </p>
+<div class="codehilite"><pre><span></span><code>menuentry &quot;Plop Boot Manager&quot; {
+set root=&#39;(hd0,1)&#39;
+linux16 /boot/plpbt.bin
+}
+</code></pre></div>
+
+<p>Comme son nom l'indique, il s'agit d'un fichier où nous pouvons ajouter des entrées personnalisées dans GRUB.</p>
+<p>Nous avons maintenant installé le programme et ajouté une entrée pour appeler ce programme dans GRUB.</p>
+<p>Dernière étape sur certaines distrubutions (Ubuntu par exemple), il faut forcer l'affichage du GRUB au démarrage. En effet, si certaines distributions proposent l'affichage systématique de GRUB par défaut, d'autres non et lancent directement le système présent sur l'ordinateur s'il est le seul présent.</p>
+<p>IL est possible de modifier ce paramètrage de deux manières. D'abord avec l'outil graphique GRUB Customizer disponible dans un ppa en tapant les commandes suivantes dans le terminal :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>ppa:danielrichter2007/grub-customizer
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>grub-customizer
+</code></pre></div>
+
+<p>Il est possible également de le faire manuellement en éditant le fichier /etc/default/grub en fixant une valeur de 10s par exemple pour le TIMEOUT `GRUB_TIMEOUT=10, ce qui forcera l'affichage de GRUB au démarrage.</p>
+<p>Très important, il reste à mettre à jour GRUB avec la commande suivante dans le terminal :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>update-grub
+</code></pre></div>
+
+<p>Et voilà, au démarrage, il vous sera proposé de choisir Plop Manager, puis une fois dans Plop Manager, de choisir USB pour démarrer votre PC.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Octopress</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/octopress.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2013-04-10T22:54:00+02:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Cloner son site octopress pour bloguer depuis deux ordinateurs</title><link href="https://letchap.github.io/2013/04/10/cloner-son-site-octopress-pour-bloguer-depuis-deux-ordinateurs/" rel="alternate"/><published>2013-04-10T22:54:00+02:00</published><updated>2013-04-10T22:54:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-04-10:/2013/04/10/cloner-son-site-octopress-pour-bloguer-depuis-deux-ordinateurs/</id><summary type="html">&lt;p&gt;Vous avez un nouvel ordinateur, ou vous avez écrasé vos fichiers, ou bien encore vous voulez bloguer à plusieurs, il existe tout un tas de bonnes raisons de vouloir mettre à jour son site Octopress depuis plusieurs ordinateurs.&lt;/p&gt;
+&lt;p&gt;Cela se fait de manière assez simple, et avant tout il faut …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Vous avez un nouvel ordinateur, ou vous avez écrasé vos fichiers, ou bien encore vous voulez bloguer à plusieurs, il existe tout un tas de bonnes raisons de vouloir mettre à jour son site Octopress depuis plusieurs ordinateurs.&lt;/p&gt;
+&lt;p&gt;Cela se fait de manière assez simple, et avant tout il faut bien comprendre le principe de mise à jour de son site sur Github.&lt;/p&gt;
+&lt;h3&gt;Le principe&lt;/h3&gt;
+&lt;p&gt;Dans votre dépôt github qui contient votre site, vous allez trouver deux branches :
+- une branche source qui contient les éléments servant à construire le blog. C'est là par exemple que sont créés les nouveaux posts, que sont stockés les fichiers de code ou les images, et bien sûr le fichier de config et le sass.
+- une branche master qui contient le site en lui-même, et rien que le site. Sur l'ordinateur, cette branche se trouve dans le répertoire _deploy&lt;/p&gt;
+&lt;p&gt;Ces deux branches sont mises à jour séparément sur github par deux blocs d'instructions différents&lt;/p&gt;
+&lt;p&gt;La mise à jour de la branche source va se faire par :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;~/octopress$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;.
+~/octopress$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;commit&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mon message&amp;#39;&lt;/span&gt;
+~/octopress$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;push&lt;span class="w"&gt; &lt;/span&gt;origin&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;La mise à jour de la branche master se fera elle par :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;~/octopress$&lt;span class="w"&gt; &lt;/span&gt;rake&lt;span class="w"&gt; &lt;/span&gt;generate
+~/octopress$&lt;span class="w"&gt; &lt;/span&gt;rake&lt;span class="w"&gt; &lt;/span&gt;deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Il n'est pas nécessaire de mettre à jour la branche source sur github pour avoir un site à jour car il est généré à partir des fichiers sources présent sur l'ordinateur.&lt;/p&gt;
+&lt;p&gt;En conséquence, la première étape avant d'installer octopress sur le deuxième ordinateur et de bien mettre à jour à la fois la branche source et la branche master du dépôt github.&lt;/p&gt;
+&lt;p&gt;Si vous avez perdu les fichiers de ce premier ordinateur, vous repartirez de la dernière mise à jour du dépôt.&lt;/p&gt;
+&lt;h3&gt;L'installation sur le deuxième ordinateur&lt;/h3&gt;
+&lt;p&gt;Maintenant que le dépôt sur ces deux branches source et master est à jour, nous allons pouvoir installer Octopress sur le deuxième ordinateur.&lt;/p&gt;
+&lt;p&gt;L'installation est exactement la même que celle d'un site vierge dont la procédure est décrite sur le site d'Octopress, à une seule différence près. Nous allons cloner notre site au lieu de cloner le site par défaut.&lt;/p&gt;
+&lt;p&gt;D'abord nous clonons notre branche source en créant au passage le répertoire octopress:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;clone&lt;span class="w"&gt; &lt;/span&gt;-b&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;git@github.com:monuser/monuser.github.com.git&lt;span class="w"&gt; &lt;/span&gt;octopress
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Ensuite, nous nous positionnons sur le répertoire octopress pour cloner la branche master dans le répertoire _deploy que nous créons au passage :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;clone&lt;span class="w"&gt; &lt;/span&gt;git@github.com:monuser/monuser.github.com.git&lt;span class="w"&gt; &lt;/span&gt;_deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Tout le reste de la procédure est rigoureusement identique : l'installation de git, de rvm, des bundles, le paramétrage du compte github, ... tout je vous dis.&lt;/p&gt;
+&lt;h3&gt;Bloguer depuis deux ordinateurs&lt;/h3&gt;
+&lt;p&gt;Pour passer d'un ordinateur à l'autre, il faut d'abord mettre à jour les deux branches avec les instructions vues plus haut à partir du premier ordinateur, puis sur le deuxième, récupérer les derniers fichiers source et master en les ramenant sur votre ordinateur (pull) :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;octopress
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;pull&lt;span class="w"&gt; &lt;/span&gt;origin&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt;
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;_deploy
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;pull&lt;span class="w"&gt; &lt;/span&gt;origin&lt;span class="w"&gt; &lt;/span&gt;master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Octopress"/><category term="Octopress"/><category term="git"/></entry><entry><title>Memo Markdown en français</title><link href="https://letchap.github.io/2013/03/01/memo-markdown-en-francais/" rel="alternate"/><published>2013-03-01T22:30:00+01:00</published><updated>2013-03-01T22:30:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-03-01:/2013/03/01/memo-markdown-en-francais/</id><summary type="html">&lt;p&gt;Je n'ai pas trouvé de petit memo ou cheat sheet markdown en français sur la toile, alors j'ai créé le mien.&lt;/p&gt;
+&lt;p&gt;Le markdown est une synthaxe qui permet d'écrire de manière assez naturelle des pages qui seront ensuite traduites en langage html. Par exemple, un titre de niveau 1 s'écrira …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Je n'ai pas trouvé de petit memo ou cheat sheet markdown en français sur la toile, alors j'ai créé le mien.&lt;/p&gt;
+&lt;p&gt;Le markdown est une synthaxe qui permet d'écrire de manière assez naturelle des pages qui seront ensuite traduites en langage html. Par exemple, un titre de niveau 1 s'écrira &lt;code&gt;# Titre 1&lt;/code&gt; plutôt que &lt;code&gt;&amp;lt;h1&amp;gt;Titre 1&amp;lt;/h1&amp;gt;&lt;/code&gt;, ce qui est quand même beaucoup plus facile.&lt;/p&gt;
+&lt;p&gt;Pour une utilisation optimale dans Octopress, le markdown est à mixer avec les plugins pour l'insertion de code ou d'images par exemple.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="memo markdown" src="https://letchap.github.io/images/memo_markdown_letchap.png" title="mon memo markdown"&gt;&lt;/p&gt;
+&lt;p&gt;Il est disponible au téléchargement au format pdf &lt;a href="https://letchap.github.io/downloads/memo_markdown_letchap.pdf" title="memo markdown"&gt;ici&lt;/a&gt;.&lt;/p&gt;</content><category term="Octopress"/><category term="Octopress"/><category term="markdown"/></entry><entry><title>Ceci n'est pas un post sur pourquoi j'ai migré de Wordpress vers Octopress</title><link href="https://letchap.github.io/2013/02/26/ceci-nest-pas-un-post-sur-pourquoi-jai-migre-de-wordpress-vers-octopress/" rel="alternate"/><published>2013-02-26T22:21:00+01:00</published><updated>2013-02-26T22:21:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-26:/2013/02/26/ceci-nest-pas-un-post-sur-pourquoi-jai-migre-de-wordpress-vers-octopress/</id><summary type="html">&lt;p&gt;Bon, j'ai fait comme tout le monde, j'ai migré de Wordpress vers Octopress parce que ... parce que c'est mieux. Il existe des tutoriels en français et en anglais donc je ne m'étendrai pas sur l'installation d'Octopress, &lt;a href="http://octopress.org/"&gt;le site d'Octopress&lt;/a&gt; lui-même est très détaillé sur la procédure à suivre. Je vais …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Bon, j'ai fait comme tout le monde, j'ai migré de Wordpress vers Octopress parce que ... parce que c'est mieux. Il existe des tutoriels en français et en anglais donc je ne m'étendrai pas sur l'installation d'Octopress, &lt;a href="http://octopress.org/"&gt;le site d'Octopress&lt;/a&gt; lui-même est très détaillé sur la procédure à suivre. Je vais simplement revenir sur les trois petites difficultés que j'ai rencontré et qui ne sont pas forcément détaillées sur la toile.&lt;/p&gt;
+&lt;h3&gt;L'échange de clé sécurisé avec Github&lt;/h3&gt;
+&lt;p&gt;J'ai choisi d'installer Octopress en hébergeant mes pages dans un dépôt Github. J'ai donc créé un compte et un dépôt pour mon site, en revanche, je ne savais pas qu'il était nécessaire d'échanger des clés ssh pour communiquer. La procédure est expliquée sur &lt;a href="https://help.github.com/articles/generating-ssh-keys" title="Générer un clé ssh"&gt;le site de Github&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Setup des pages Github&lt;/h3&gt;
+&lt;p&gt;Il se peut que la saisie de l'adresse URL du dépôt est été mal faite (avec des gros doigts, j'en parle parce que ça m'est arrivé) au moment du &lt;code&gt;rake setup_github_pages&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Pour vérifier que l'on ne sait pas trompé :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;remote&lt;span class="w"&gt; &lt;/span&gt;-v
+origin&lt;span class="w"&gt;  &lt;/span&gt;git@github.com:letchap/letchap.github.com.git&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;fetch&lt;span class="o"&gt;)&lt;/span&gt;
+origin&lt;span class="w"&gt;  &lt;/span&gt;git@github.com:letchap/letchap.github.com.git&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;push&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;RVM is not a function&lt;/h3&gt;
+&lt;p&gt;Au moment de lancer &lt;code&gt;$ RVM use&lt;/code&gt;, j'ai eu un message d'erreur indiquant &lt;code&gt;RVM is not a function&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;En fait, par défaut, les binaires sont installés dans $HOME/.rvm et ne sont pas accessibles via le terminal. Pour corriger cela, il faut ajouter les lignes suivantes dans le fichier /home/your-name/.bashrc.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;[[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-s&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/.rvm/scripts/rvm&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/.rvm/scripts/rvm&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Réinstallation de Ruby avec openssl&lt;/h3&gt;
+&lt;p&gt;La dernière difficulté est survenue au moment du déploiement du site avec le message d'erreur suivant :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;require&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;openssl&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;# &amp;gt; LoadError: cannot load such file -- openssl&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Je ne sais pas pourquoi Ruby ne peut pas utiliser mon openssl installé par défaut, la solution de contournement que j'ai trouvé sur le site &lt;a href="https://rvm.io/packages/openssl/"&gt;RVM&lt;/a&gt; a été d'installer un nouveau paquet openssl et de réinstaller Ruby.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;rvm&lt;span class="w"&gt; &lt;/span&gt;pkg&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;openssl
+$&lt;span class="w"&gt; &lt;/span&gt;rvm&lt;span class="w"&gt; &lt;/span&gt;reinstall&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.9.3&lt;span class="w"&gt; &lt;/span&gt;--with-openssl-dir&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$rvm_path&lt;/span&gt;/usr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Octopress"/><category term="Octopress"/><category term="Ruby"/><category term="RVM"/><category term="Github"/><category term="SSH"/></entry></feed>

@@ -1,0 +1,762 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Afficher la meteo avec conky et python 1ère partie</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/07/08/afficher-la-meteo-avec-conky-et-python-1ere-partie/" rel="bookmark" title="Permalink to Afficher la meteo avec conky et python 1ère partie">Afficher la meteo avec conky et python 1ère partie</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Mon 08 July 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/python.html">&nbsp;Python</a>
+	<hr />
+	
+	<p>Sur mon joli bureau openbox sur Crunchbang, j'aimerais pouvoir afficher à la demande les informations concernant la meteo au moyen d'un raccourci clavier ou d'un menu, puis refermer la fenêtre quand je n'en ai plus besoin. Evidemment, je veux des infos fraîches, avec un affichage sympa, et en consommant très peu de ressources machine.</p>
+<p>Tout d'abord, le résultat final :</p>
+<p><a data-lightbox="conky" href="../../../../images/conky_meteo.png" title="Ecran conky"><img alt="Ecran conky" src="../../../../images/conky_meteo.png" title="Ecran conky"></a></p>
+<p>Pour réaliser cela, nous allons mettre en oeuvre plusieurs élements :</p>
+<ul>
+<li>un programme python qui va recueillir les informations météo sur un site spécialisé et stocker les informations dans un fichier texte</li>
+<li>une automatisation de ce programme sous forme d'un démon qui se lancera au démarrage de l'ordinateur</li>
+<li>un conky pour afficher à la demande la météo et la mettre en forme sur la base des informations contenues dans le fichier texte</li>
+</ul>
+<p>Le tutoriel sera découpé en chacune de ces trois parties et nous commençons cette première partie par le programme python.</p>
+<h3>Wunderground</h3>
+<p>Wunderground sera notre fournisseur de données météorologiques. Pourquoi Wunderground, parce qu'il fournit une API, une sorte de clé, qui va nous permettre de récupérer facilement des informations météo complètes. En une seule requête, vous disposez de prévisions riches sur les quatre prochains jours.</p>
+<p>Les informations ainsi récupérées sont disponibles dans un format xml ou json, facilement lisibles car balisées. Le programme a été écrit pour un format json, rien ne vous empêche de le transposer pour un format xml, les grands principes resteront les mêmes.</p>
+<p>La première étape consiste à s'inscrire sur le site de wunderground <a href="http://www.wunderground.com/weather/api/d/login.html" title="S'inscrire sur Weather Underground">à cette adresse</a> pour obtenir une clé pour l'API. En bonus, vous avez à votre disposition des outils pour tester une requête et des exemples de code dans différents langages, dont Python.</p>
+<p>L'inscription est gratuite dans la limite d'une utilisation non commerciale et de 10 requêtes par minute. Parfait pour un usage privé.</p>
+<h3>Le script</h3>
+<p>Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky.</p>
+<p>Ce script est largement inspiré d'une part du tutoriel python sur <a href="http://www.fullcirclemag.fr/?pages/Numéros">full circle HS n°2</a> et sur <a href="http://www.archlinux.fr/forum/viewtopic.php?t=9981&amp;p=107541">ce forum</a>.</p>
+<p>Tous les commentaires sont dans le script.</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#----------------------------------------------------</span>
+<span class="c1"># Créé par letchap</span>
+<span class="c1"># meteo.py</span>
+<span class="c1">#----------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot; récupère les informations météo grace à l&#39;API du site wunderground.com &quot;&quot;&quot;</span>
+
+<span class="c1">#import pour les infos meteo</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1"># import pour le démon</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">daemon</span> <span class="kn">import</span> <span class="n">runner</span>
+
+<span class="c1">#===========================================================</span>
+<span class="c1">#       La classe</span>
+<span class="c1">#===========================================================</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
+    <span class="c1"># Tout ça, c&#39;est pour le démon</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdin_path</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_path</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span> <span class="c1"># J&#39;ai remplacé /dev/tty par dev/null pour éviter les plantages au démarrage par init.d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr_path</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span> <span class="c1"># J&#39;ai remplacé /dev/tty par dev/null pour éviter les plantages au démarrage par init.d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pidfile_path</span> <span class="o">=</span> <span class="s1">&#39;/tmp/meteo.pid&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pidfile_timeout</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="c1"># Bien appelé la fonction &#39;run&#39; pour le démon</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># C&#39;est le début de ma boucle pour démoniser mon programme</span>
+
+            <span class="c1">###############################################</span>
+            <span class="c1">#           Le corps du programme             #</span>
+            <span class="c1">###############################################</span>
+            <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Je récupère les informations fournies par wunderground grâce à leur api, au format json,</span>
+            <span class="c1"># en une seule fois (forecast et conditions), et en français</span>
+            <span class="c1"># Un exemple de code est fourni sur le site wunderground</span>
+
+            <span class="c1"># Je charge ma page meteo</span>
+                <span class="n">page_json</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s1">&#39;http://api.wunderground.com/api/macleapi/forecast/conditions/lang:FR/q/France/Paris.json?paris=I75003PA1&#39;</span><span class="p">)</span>
+                <span class="c1"># Je lis la page</span>
+                <span class="n">json_string</span> <span class="o">=</span> <span class="n">page_json</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="c1"># Je mets cette page dans un parseur</span>
+                <span class="n">parsed_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+                <span class="c1"># Et je peux fermer ma page meteo, je n&#39;en ai plus besoin</span>
+                <span class="n">page_json</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span> <span class="s1">&#39;Les informations météo ne sont pas accessibles sur le site wunderground.com&#39;</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># pour sortir du programme si la requête n&#39;aboutit pas</span>
+
+            <span class="c1"># Je récupère les informations du jour stokées sur le tag &quot;current_observation&quot;</span>
+            <span class="c1"># Je fais attention à avoir des variables uniques dans le cas où je fais une recherche sur une chaîne de</span>
+            <span class="c1"># caractère plus tard (avec un grep par exemple).</span>
+
+            <span class="n">city</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;display_location&#39;</span><span class="p">][</span><span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="c1"># la ville</span>
+            <span class="n">last_observation</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;observation_time&#39;</span><span class="p">]</span> <span class="c1"># l&#39;heure dernière observation</span>
+            <span class="n">current_temp</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;temp_c&#39;</span><span class="p">]</span> <span class="c1"># la température en °C</span>
+            <span class="n">current_weather</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;weather&#39;</span><span class="p">]</span> <span class="c1"># le temps actuel</span>
+            <span class="n">humidity</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;relative_humidity&#39;</span><span class="p">]</span> <span class="c1"># le taux d&#39;humidité en %</span>
+            <span class="n">wind_kph</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;wind_kph&#39;</span><span class="p">]</span> <span class="c1"># la vitesse du vent</span>
+            <span class="n">wind_dir</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;wind_dir&#39;</span><span class="p">]</span> <span class="c1"># l&#39;orientation du vent</span>
+            <span class="n">pressure_mb</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;pressure_mb&#39;</span><span class="p">]</span> <span class="c1"># la pression atmosphérique</span>
+            <span class="n">pressure_trend</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;pressure_trend&#39;</span><span class="p">]</span> <span class="c1"># l&#39;evolution pression atmosphérique</span>
+            <span class="n">feelslike_c</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;feelslike_c&#39;</span><span class="p">]</span> <span class="c1"># la température ressentie</span>
+            <span class="n">visibility</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;visibility_km&#39;</span><span class="p">]</span> <span class="c1"># la visibilité en km</span>
+            <span class="n">UV</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;UV&#39;</span><span class="p">]</span> <span class="c1"># l&#39;indice UV</span>
+
+            <span class="c1"># Un petit test sur l&#39;indice UV qui peut être négatif</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">UV</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;-1&#39;</span><span class="p">:</span>
+                <span class="n">UV</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Une petite transformation de la tendance atmosphérique</span>
+
+            <span class="k">if</span> <span class="n">pressure_trend</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+                <span class="n">pressure_trend</span> <span class="o">=</span> <span class="s1">&#39;en baisse&#39;</span>
+            <span class="k">elif</span> <span class="n">pressure_trend</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span><span class="p">:</span>
+                <span class="n">pressure_trend</span> <span class="o">=</span> <span class="s1">&#39;en hausse&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pressure_trend</span> <span class="o">=</span> <span class="s1">&#39;stable&#39;</span>
+
+            <span class="c1"># J&#39;écris ces informations dans un fichier qui servira plus tard pour le conky meteo.</span>
+            <span class="c1"># En ouvrant le fichier en mode &#39;w&#39;, j&#39;écrase le fichier meteo.txt précédent</span>
+            <span class="c1"># Je transforme tous les chiffres en chaînes de caractères et j&#39;encode tous les textes français en UTF8</span>
+            <span class="c1"># Je n&#39;ai pas besoin de fermer le fichier en utilisant &quot;with open&quot;</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/letchap/tmp/meteo.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Meteo = &quot;</span> <span class="o">+</span> <span class="n">current_weather</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Ville = &quot;</span> <span class="o">+</span> <span class="n">city</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Derniere_observation = &quot;</span> <span class="o">+</span> <span class="n">last_observation</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Temperature = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">current_temp</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; °C</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Ressentie = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">feelslike_c</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; °C</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Humidite = &quot;</span> <span class="o">+</span> <span class="n">humidity</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Vent = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">wind_kph</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; km/h</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Dir_vent = &quot;</span> <span class="o">+</span> <span class="n">wind_dir</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Pression = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pressure_mb</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; mb</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Tend_pres = &quot;</span> <span class="o">+</span> <span class="n">pressure_trend</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1">#Ok, l&#39;utf8 ne sert à rien là</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Visibilite = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">visibility</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; km</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Indice_UV = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">UV</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+
+            <span class="c1"># Je récupère les prévisions sous le tag &quot;simpleforecast&quot;, en bouclant sur chacune des périodes</span>
+            <span class="n">forecast</span> <span class="o">=</span> <span class="n">parsed_json</span><span class="p">[</span><span class="s1">&#39;forecast&#39;</span><span class="p">][</span><span class="s1">&#39;simpleforecast&#39;</span><span class="p">][</span><span class="s1">&#39;forecastday&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">forecast</span><span class="p">:</span>
+                <span class="n">jour</span>           <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">][</span><span class="s1">&#39;day&#39;</span><span class="p">]</span>        <span class="c1"># jour</span>
+                <span class="n">mois</span>           <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">][</span><span class="s1">&#39;month&#39;</span><span class="p">]</span>      <span class="c1"># mois</span>
+                <span class="n">annee</span>          <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">][</span><span class="s1">&#39;year&#39;</span><span class="p">]</span>       <span class="c1"># année</span>
+                <span class="n">jour_sem</span>       <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">][</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span>    <span class="c1"># jour de la semaine</span>
+                <span class="n">period</span>         <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">]</span>             <span class="c1"># période</span>
+                <span class="n">tempmax</span>        <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">][</span><span class="s1">&#39;celsius&#39;</span><span class="p">]</span>    <span class="c1"># température maximale</span>
+                <span class="n">tempmin</span>        <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;low&#39;</span><span class="p">][</span><span class="s1">&#39;celsius&#39;</span><span class="p">]</span>     <span class="c1"># température minimale</span>
+                <span class="n">condition</span>      <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;conditions&#39;</span><span class="p">]</span>         <span class="c1"># conditions</span>
+                <span class="n">icon</span>           <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;icon&#39;</span><span class="p">]</span>               <span class="c1"># icone en lien avec condition</span>
+                <span class="n">skyicon</span>        <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;skyicon&#39;</span><span class="p">]</span>            <span class="c1"># le couverture nuagueuse</span>
+                <span class="n">pop</span>            <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>                <span class="c1"># probabilité de précipitation</span>
+                <span class="n">hauteur_precip</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;qpf_allday&#39;</span><span class="p">][</span><span class="s1">&#39;mm&#39;</span><span class="p">]</span>   <span class="c1"># hauteur de précipitation pour la journée</span>
+                <span class="n">hauteur_neige</span>  <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;snow_allday&#39;</span><span class="p">][</span><span class="s1">&#39;cm&#39;</span><span class="p">]</span>  <span class="c1"># hauteur de neige pour la journée</span>
+                <span class="n">vent</span>           <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;avewind&#39;</span><span class="p">][</span><span class="s1">&#39;kph&#39;</span><span class="p">]</span>     <span class="c1"># vitesse moyenne du vent</span>
+                <span class="n">vent_dir</span>       <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;avewind&#39;</span><span class="p">][</span><span class="s1">&#39;dir&#39;</span><span class="p">]</span>     <span class="c1"># direction du vent</span>
+                <span class="n">tx_humidite</span>    <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;avehumidity&#39;</span><span class="p">]</span>        <span class="c1"># taux d&#39;humidité</span>
+
+                <span class="c1"># Je définis chacune de mes 4 périodes</span>
+                <span class="k">if</span> <span class="n">period</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="s1">&#39;jour1&#39;</span>
+                <span class="k">elif</span> <span class="n">period</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="s1">&#39;jour2&#39;</span>
+                <span class="k">elif</span> <span class="n">period</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="s1">&#39;jour3&#39;</span>
+                <span class="k">elif</span> <span class="n">period</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="s1">&#39;jour4&#39;</span>
+
+                <span class="c1"># Encore un petit test pour les icones. Je combine icon et skyicon pour avoir la représentation graphique</span>
+                <span class="c1"># la plus proche de la réalité en particulier &quot;partiellement couvert et pluvieux&quot; qui n&#39;existe pas</span>
+                <span class="c1"># D&#39;abord je définis 3 listes pour l&#39;orage, la pluie et la neige</span>
+                <span class="n">orage</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tstorms&#39;</span><span class="p">,</span><span class="s1">&#39;chancetstorms&#39;</span><span class="p">,</span><span class="s1">&#39;nt_tstorms&#39;</span><span class="p">,</span> <span class="s1">&#39;nt_chancetstorms&#39;</span><span class="p">]</span>
+                <span class="n">pluie</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">,</span><span class="s1">&#39;chancerain&#39;</span><span class="p">,</span><span class="s1">&#39;nt_rain&#39;</span><span class="p">,</span> <span class="s1">&#39;nt_chancerain&#39;</span><span class="p">,</span> <span class="p">]</span>
+                <span class="n">neige</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;snow&#39;</span><span class="p">,</span><span class="s1">&#39;flurries&#39;</span><span class="p">,</span><span class="s1">&#39;chancesnow&#39;</span><span class="p">,</span><span class="s1">&#39;chanceflurries&#39;</span><span class="p">,</span><span class="s1">&#39;nt_snow&#39;</span><span class="p">,</span><span class="s1">&#39;nt_flurries&#39;</span><span class="p">,</span><span class="s1">&#39;nt_chancesnow&#39;</span><span class="p">,</span><span class="s1">&#39;nt_chanceflurries&#39;</span><span class="p">,</span><span class="s1">&#39;sleet&#39;</span><span class="p">,</span> <span class="s1">&#39;nt_sleet&#39;</span><span class="p">,</span><span class="s1">&#39;chancesleet&#39;</span><span class="p">,</span><span class="s1">&#39;nt_chancesleet&#39;</span><span class="p">]</span>
+                <span class="c1"># puis je définis mes icones</span>
+                <span class="k">if</span> <span class="n">icon</span> <span class="ow">in</span> <span class="n">orage</span><span class="p">:</span>
+                    <span class="n">icone</span> <span class="o">=</span> <span class="n">skyicon</span><span class="o">+</span><span class="s2">&quot;storm&quot;</span>
+                <span class="k">elif</span> <span class="n">icon</span> <span class="ow">in</span> <span class="n">pluie</span><span class="p">:</span>
+                    <span class="n">icone</span> <span class="o">=</span> <span class="n">skyicon</span><span class="o">+</span><span class="s2">&quot;rain&quot;</span>
+                <span class="k">elif</span> <span class="n">icon</span> <span class="ow">in</span> <span class="n">neige</span><span class="p">:</span>
+                    <span class="n">icone</span> <span class="o">=</span> <span class="n">skyicon</span><span class="o">+</span><span class="s2">&quot;snow&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">icone</span> <span class="o">=</span> <span class="n">icon</span>
+
+                <span class="c1"># J&#39;écris à la suite, grâce à l&#39;option &#39;a&#39; append au lieu de &#39;w&#39;</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/letchap/tmp/meteo.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_jour = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">jour</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_mois = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mois</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_annee = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">annee</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_jour_sem = &quot;</span>  <span class="o">+</span> <span class="n">jour_sem</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># C&#39;est du luxe, il n&#39;y a pas d&#39;accent dans les jours de la semaine</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_tempmax = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempmax</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; °C</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_tempmin = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tempmin</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; °C</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_conditions = &quot;</span> <span class="o">+</span> <span class="n">condition</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_icone = &quot;</span> <span class="o">+</span> <span class="n">icone</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_pop = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pop</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;%</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_hauteur_precip = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hauteur_precip</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; mm</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_hauteur_neige = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">hauteur_neige</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; cm</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_vent = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vent</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; km/h</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_dir_vent = &quot;</span>  <span class="o">+</span> <span class="n">vent_dir</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s2">&quot;_tx_himidite = &quot;</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tx_humidite</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;%</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1">############################################</span>
+            <span class="c1">#             Le fin du programme          #</span>
+            <span class="c1">############################################</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span> <span class="c1"># C&#39;est la fin de ma boucle de démonisation. La temporisation est de 120 secondes</span>
+
+<span class="c1"># Toujours commencer la lecture d&#39;un programme python par la fin. C&#39;est là qu&#39;on lance le démon</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">()</span>
+<span class="n">daemon_runner</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">DaemonRunner</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">daemon_runner</span><span class="o">.</span><span class="n">do_action</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+
+<p><a class="button small" href="../../../../code/meteo.py" title="Télécharger meteo.py">Télécharger meteo.py</a></p>
+<p>Pour mieux comprendre la façon dont sont récupérées les données, prenons un exemple avec un morceau de fichier json et le code Python correspondant. Nous allons récupérer l'information concernant la ville.</p>
+<p>Le morceau du fichier JSON qui nous intéresse ressemble à çà :</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s2">&quot;current_observation&quot;</span><span class="o">:</span><span class="w">  </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;image&quot;</span><span class="o">:</span><span class="w">  </span><span class="p">{</span>
+<span class="w">          </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Weather Underground&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;link&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://www.wunderground.com&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="s2">&quot;display_location&quot;</span><span class="o">:</span><span class="w">  </span><span class="p">{</span>
+<span class="w">          </span><span class="s2">&quot;full&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Paris, France&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;city&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Paris&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;state&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;state_name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;France&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;country&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;FR&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;country_iso3166&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;FR&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;zip&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;00000&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;latitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;48.86666489&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;longitude&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2.33333302&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="s2">&quot;elevation&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;47.00000000&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Pour trouver la bonne information, il suffit de suivre les branches de l'arbre. L'information "Paris" se trouve dans "city", qui se trouve dans "display_location" qui se trouve dans "current_observation". Ce qui se traduira en python par :</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">city</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parsed_json</span><span class="p">[</span><span class="s1">&#39;current_observation&#39;</span><span class="p">][</span><span class="s1">&#39;display_location&#39;</span><span class="p">][</span><span class="s1">&#39;city&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Le fichier texte final ressemble à ça :</p>
+<div class="codehilite"><pre><span></span><code>Meteo = Ciel dégagé
+Ville = Paris
+Derniere_observation = Last Updated on juillet 9, 20:05 CEST
+Temperature = 27.1 °C
+Ressentie = 27.1 °C
+Humidite = 56%
+Vent = 14.5 km/h
+Dir_vent = NE
+Pression = 1020 mb
+Tend_pres = stable
+Visibilite = 10.0 km
+Indice_UV = 0
+jour1_jour = 9
+jour1_mois = juillet
+jour1_annee = 2013
+jour1_jour_sem = mardi
+jour1_tempmax = 29 °C
+jour1_tempmin = 20 °C
+jour1_conditions = Ciel dégagé
+jour1_icone = clear
+jour1_pop = 0%
+jour1_hauteur_precip = 0.0 mm
+jour1_hauteur_neige = 0 cm
+jour1_vent = 16 km/h
+jour1_dir_vent = NE
+jour1_tx_himidite = 57%
+jour2_jour = 10
+jour2_mois = juillet
+jour2_annee = 2013
+jour2_jour_sem = mercredi
+jour2_tempmax = 27 °C
+jour2_tempmin = 16 °C
+jour2_conditions = Ciel dégagé
+jour2_icone = clear
+jour2_pop = 0%
+jour2_hauteur_precip = 0.0 mm
+jour2_hauteur_neige = 0 cm
+jour2_vent = 18 km/h
+jour2_dir_vent = NNE
+jour2_tx_himidite = 61%
+jour3_jour = 11
+jour3_mois = juillet
+jour3_annee = 2013
+jour3_jour_sem = jeudi
+jour3_tempmax = 24 °C
+jour3_tempmin = 15 °C
+jour3_conditions = Ciel dégagé
+jour3_icone = clear
+jour3_pop = 0%
+jour3_hauteur_precip = 0.0 mm
+jour3_hauteur_neige = 0 cm
+jour3_vent = 18 km/h
+jour3_dir_vent = NNE
+jour3_tx_himidite = 55%
+jour4_jour = 12
+jour4_mois = juillet
+jour4_annee = 2013
+jour4_jour_sem = vendredi
+jour4_tempmax = 27 °C
+jour4_tempmin = 16 °C
+jour4_conditions = Ciel dégagé
+jour4_icone = clear
+jour4_pop = 0%
+jour4_hauteur_precip = 0.0 mm
+jour4_hauteur_neige = 0 cm
+jour4_vent = 16 km/h
+jour4_dir_vent = NNE
+jour4_tx_himidite = 57%
+</code></pre></div>
+
+<h3>Le démon</h3>
+<p>Afin de pouvoir interroger régulièrement le site Wunderground, nous allons "démoniser" le programme, c'est à dire que nous allons lui demander de se déclencher à intervalle régulier (dans le script 120 secondes)</p>
+<p>Pour cela, il suffit de suivre l'exemple suivant, en ayant installé préalablement python-daemon par un <code>sudo apt-get install python-daemon</code>.</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">daemon</span> <span class="kn">import</span> <span class="n">runner</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdin_path</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_path</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr_path</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pidfile_path</span> <span class="o">=</span> <span class="s1">&#39;/tmp/meteo.pid&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pidfile_timeout</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># Le corps du programme</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1200</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">()</span>
+<span class="n">daemon_runner</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">DaemonRunner</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">daemon_runner</span><span class="o">.</span><span class="n">do_action</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Le programme ainsi démonisé se lance par :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>meteo.py<span class="w"> </span>start
+</code></pre></div>
+
+<p>Vous voir le résultat par exemple par un :</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>meteo
+root<span class="w">      </span><span class="m">2413</span><span class="w">     </span><span class="m">1</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">22</span>:30<span class="w"> </span>?<span class="w">        </span><span class="m">00</span>:00:00<span class="w"> </span>python<span class="w"> </span>/usr/sbin/meteo.py<span class="w"> </span>start
+</code></pre></div></td></tr></table></div>
+
+<p>Il s'arrête par :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>meteo.py<span class="w"> </span>stop
+</code></pre></div>
+
+<p>Nous pouvons bientôt passer à la deuxième étape : <a href="../../../../2013/07/09/afficher-la-meteo-avec-conky-et-python-2eme-partie/">le lancement automatique du programme python au démarrage de l'ordinateur</a>.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

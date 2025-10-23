@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Réaliser une galerie d'images avec Pelican et Bootstrap</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/" rel="bookmark" title="Permalink to Réaliser une galerie d'images avec Pelican et Bootstrap">Réaliser une galerie d'images avec Pelican et Bootstrap</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Wed 11 December 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/pelican.html">&nbsp;Pelican</a>
+	<hr />
+	
+	<p>Nous allons voir aujourd'hui comment afficher les images sous forme de diaporama sur un site généré avec Pelican. L'idée est de rendre cliquable une image qui s'affiche alors au-dessus du site, et de faire défiler les images sous la forme d'un diaporama pour une galerie d'images. Vous avez un petit exemple de ce que cela peut donner pour une image simple sur <a href="../../../../2013/11/26/lancer-un-programme-python-depuis-automator/">un autre de mes billets</a> ou pour <a href="../../../../2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/">une galerie sur un autre billet ici</a></p>
+<p>Pour cela, nous avons besoin du plugin Lightbox pour Bootstrap ainsi que de la possibilité offerte par Pelican d'utiliser les extensions pour markdown de Python.</p>
+<p>Cela ne s'applique que si vous utiliser la syntaxe Markdown pour rédiger vos billets. Je suppose que c'est également réalisable en syntaxe reStructuredTex.</p>
+<h3>Installer le plugin lightbox</h3>
+<p>Le plugin lightbox pour bootstrap est disponible <a href="http://lokeshdhakar.com/projects/lightbox2/" title="Lightbox V2">à cette adresse</a>. </p>
+<p>Pour installer ligthbox dans votre thème pelican, il faut : </p>
+<ul>
+<li>copier le répertoire img dans le répertoire <code>/static</code></li>
+<li>copier les fichiers jquery-1.10.2.min.js et lightbox-2.6.min.js dans le répertoire <code>/static/js</code></li>
+<li>copier lightbox.css dans le répertoire <code>/css</code></li>
+<li>déclarer les scripts js et le fichier css dans le fichier base.hmtl<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/theme/js/jquery-1.10.2.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/theme/js/lightbox-2.6.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/theme/css/lightbox.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">/&gt;</span>
+</code></pre></div>
+
+</li>
+</ul>
+<p>La syntaxe html pour activer lightbox est la suivante : </p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>Pour avoir une galerie d'image, il suffit de toutes les déclarer avec la même attribut data-lightbox.</p>
+<p>Seulement, nous sommes sous Pelican, nous rédigeons en Markdown, nous n'allons pas insérer du code html dans notre fichier markdown quand même !!! Bien sûr, c'est tout à fait possible de le faire puisque markdown accepte du code html. Mais voyons comment tout faire en markdown.</p>
+<h3>Les extensions Markdown Python</h3>
+<p>Pour un petit cours de rattrapage sur la syntaxe Markdown, <a href="../../../../2013/03/01/memo-markdown-en-francais/" title="memo markdown">c'est ici.</a></p>
+<p>Pour rédiger notre texte entièrement en Markdown, nous allons devoir résoudre deux problèmes :</p>
+<ul>
+<li>créer un lien sur une image</li>
+<li>ajouter un attribut data-lightbox sur notre lien, ce que n'autorise pas nativement Markdown</li>
+</ul>
+<h4>Créer un lien sur une image en Markdown</h4>
+<p>Pour créer un lien, la syntaxe Markdown est la suivante :</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">lien</span><span class="o">]</span><span class="p">(</span><span class="nl">http</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="p">)</span>
+<span class="n">ou</span><span class="w"> </span><span class="n">sur</span><span class="w"> </span><span class="n">Pelican</span><span class="w"> </span><span class="n">pour</span><span class="w"> </span><span class="n">un</span><span class="w"> </span><span class="n">lien</span><span class="w"> </span><span class="n">interne</span>
+<span class="o">[</span><span class="n">lien</span><span class="o">]</span><span class="p">(</span><span class="err">{</span><span class="n">filename</span><span class="err">}</span><span class="o">/</span><span class="k">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">monarticle</span><span class="p">.</span><span class="n">markdown</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Pour insérer une image :</p>
+<div class="codehilite"><pre><span></span><code><span class="o">!</span><span class="p">[</span><span class="n">alt</span><span class="w"> </span><span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+<span class="n">ou</span><span class="w"> </span><span class="n">sur</span><span class="w"> </span><span class="n">Pelican</span>
+<span class="o">!</span><span class="p">[</span><span class="n">alt</span><span class="w"> </span><span class="n">text</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Pour créer un lien sur une image, nous allons simplement combiner les deux </p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">alt</span><span class="w"> </span><span class="n">text</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Ce qui nous donnera bien en sortie html :</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;a</span><span class="w"> </span><span class="na">href=</span><span class="s">&quot;/path/to/monimage.png&quot;</span><span class="nt">&gt;&lt;img</span><span class="w"> </span><span class="na">src=</span><span class="s">&quot;path/to/monimage.png&quot;</span><span class="w"> </span><span class="na">alt=</span><span class="s">&quot;alt text&quot;</span><span class="w"> </span><span class="nt">/&gt;&lt;/a&gt;</span>
+</code></pre></div>
+
+<h4>Ajouter un attribut sur le lien</h4>
+<p>Comme je le disais en début d'article, il n'est pas possible nativement d'insérer un attribut sur un lien avec Markdown. Heureusement, les extensions Markdown pour Python offrent cette possibilité. Et Pelican inclus l'utilisation des extensions Markdown.</p>
+<p>Pour plus d'information sur les extensions Markdown, vous pouvez vous rendre sur <a href="http://pythonhosted.org/Markdown/extensions/" title="Markdown Python">la documentation Python</a>.</p>
+<p>Pour insérer un ou plusieurs attributs dans un lien, il ne reste plus qu'à écrire les accolades suivantes, sans espace avec les parenthèses :</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">lien</span><span class="o">]</span><span class="p">(</span><span class="err">{</span><span class="n">filename</span><span class="err">}</span><span class="o">/</span><span class="k">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">)</span><span class="err">{:</span><span class="w"> </span><span class="k">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="ss">&quot;monimage&quot;</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="ss">&quot;Mon Image&quot;</span><span class="w"> </span><span class="err">}</span>
+</code></pre></div>
+
+<p>Ce qui se traduira par :</p>
+<div class="codehilite"><pre><span></span><code>&lt;a href=&quot;path/to/monimage.png&quot; data-lightbox=&quot;monimage&quot; title=&quot;Mon Image&quot;&gt;
+</code></pre></div>
+
+<h4>On assemble le tout</h4>
+<p>Pour une image cliquable avec un effet diaporama, il faut donc écrire en Markdown :</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">Mon</span><span class="w"> </span><span class="n">Image</span><span class="p">]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="w"> </span><span class="s">&quot;Mon Image&quot;</span><span class="p">)]({</span><span class="n">filename</span><span class="p">}</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">monimage</span><span class="p">.</span><span class="n">png</span><span class="p">){</span><span class="o">:</span><span class="w"> </span><span class="n">data</span><span class="o">-</span><span class="n">lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>Pour obtenir :</p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">data-lightbox</span><span class="o">=</span><span class="s">&quot;monimage&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/path/to/monimage.png&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Mon Image&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>Bon, d'accord, ce n'est pas beaucoup plus simple, mais c'est tellement plus gratifiant.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

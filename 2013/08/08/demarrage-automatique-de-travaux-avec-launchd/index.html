@@ -1,0 +1,287 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Démarrage automatique de travaux avec launchd</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/08/08/demarrage-automatique-de-travaux-avec-launchd/" rel="bookmark" title="Permalink to Démarrage automatique de travaux avec launchd">Démarrage automatique de travaux avec launchd</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Thu 08 August 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/mac-os-x.html">&nbsp;Mac OS X</a>
+	<hr />
+	
+	<p>Aujourd'hui nous allons (temporairement) quitter le monde GNU/Linux pour celui de Mac OS X et voir comment réaliser l'équivalent de cron / anacron sur OS X avec l'utilitaire launchd. </p>
+<p>Le besoin de départ est de lancer tous les mois à date fixe un programme python, y compris au redémarrage du Mac si celui est éteint le jour du lancement programmé (ce dernier point n'est d'ailleurs pas permis nativement par le couple cron / anacron).</p>
+<p>Pour rédiger cet article, je me suis inspiré d'une part de <a href="http://nathangrigg.net/2012/07/schedule-jobs-using-launchd/" title="Schedule jobs using launchd">ce post en anglais</a> et d'autre part de la <a href="http://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html" title="Création de démons et d'agents sur OS X">documentation apple sur launchd et la création d'agents</a></p>
+<p>Le principe de fonctionnement est le suivant : au démarrage du Mac, l'utilitaire Mac OS X launchd liste l'ensemble des travaux faisant l'objet d'un lancement programmé. Et pour programmer un lancement automatique, il va nous falloir deux éléments :</p>
+<ul>
+<li>un agent permettant de déclencher le travail en question </li>
+<li>puis ajouter notre agent à la liste des travaux programmés.</li>
+</ul>
+<h3>L'agent : le fichier de configuration plist</h3>
+<p>L'agent va se définir dans un fichier xml avec une extension plist. Ce fichier contient des informations sur le programme à lancer avec ses éventuels paramètres de lancement ainsi que les informations sur la fréquence de déclenchement. </p>
+<p>Les fichiers plist que vous allez créer sont à stocker de préférence dans le répertoire ~/Library/LaunchAgents. Le gros avantage de les créer à cet endroit est que vos agents launchd seront pris en compte automatiquement au démarrage du Mac.</p>
+<p>La convention de nommage d'un fichier plist est de prendre un nom de domaine à l'envers. Ici, comme mon programme python récupère les factures freebox, je l'ai simplement appelé fr.free.facture.plist.</p>
+<p>Détaillons un peu le fichier plist :</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+<span class="nt">&lt;plist</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+<span class="w">    </span><span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+<span class="w">    </span><span class="nt">&lt;string&gt;</span>fr.free.facture<span class="nt">&lt;/string&gt;</span>
+<span class="w">    </span><span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+<span class="w">    </span><span class="nt">&lt;array&gt;</span>
+<span class="w">        </span><span class="nt">&lt;string&gt;</span>/usr/bin/python<span class="nt">&lt;/string&gt;</span>
+<span class="w">        </span><span class="nt">&lt;string&gt;</span>/usr/local/bin/free.py<span class="nt">&lt;/string&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/array&gt;</span>
+<span class="w">    </span><span class="nt">&lt;key&gt;</span>StartCalendarInterval<span class="nt">&lt;/key&gt;</span>
+<span class="w">    </span><span class="nt">&lt;dict&gt;</span>
+<span class="w">        </span><span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+<span class="w">        </span><span class="nt">&lt;integer&gt;</span>7<span class="nt">&lt;/integer&gt;</span>
+<span class="w">        </span><span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+<span class="w">        </span><span class="nt">&lt;integer&gt;</span>0<span class="nt">&lt;/integer&gt;</span>
+<span class="w">        </span><span class="nt">&lt;key&gt;</span>Day<span class="nt">&lt;/key&gt;</span>
+<span class="w">        </span><span class="nt">&lt;integer&gt;</span>6<span class="nt">&lt;/integer&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Les 3 premières lignes sont des informations d'entête, en particulier, nous voyons que nous avons bien à faire à un format xml. Ces lignes d'entête peuvent être reprises sans modification.</p>
+<p>La partie intéressante se situe après.</p>
+<p>D'abord, en lignes 5 et 6  nous nommons notre agent (avec le même nom que le fichier, c'est plus simple).</p>
+<p>Puis nous donnons des informations sur le programme à lancer. Et là : <strong>ATTENTION !!!!</strong> :</p>
+<ul>
+<li>Il faut absolument mettre les chemins sous forme absolue et non relative si vous ne voulez pas vous embêter avec le PATH de launchd,</li>
+<li>Il faut absolument lui donner le chemin vers l'interpréteur python.</li>
+</ul>
+<p>Si vous ne faites pas ça, vous allez pouvoir lancer votre agent à la main depuis le terminal (ce que nous allons voir juste après) et cela va très bien se passer, et vous ne comprendrez pas pourquoi cela ne fonctionne pas au démarrage de l'ordinateur. Les chemins complets vers le programme et l'interpréteur vous éviterons quelques migraines.</p>
+<p>Enfin, nous renseignons les éléments de périodicité. Dans cet exemple, nous déclenchons notre programme tous les 6 du mois à 7h00. Le fait que le mois ne soit pas renseigné signifie "tous les mois".</p>
+<p>Il est possible de renseigner d'autres types de fréquence, par exemple tous les 90 secondes, ainsi que tout un tas d'options. Le plus simple est de se référer à la documentation apple sur launchd (voir le lien en début d'article).</p>
+<h3>Ajout à la liste des travaux programmés</h3>
+<p>Il existe deux façons d'ajouter notre agent la liste des travaux pris en charge par launchd.</p>
+<p>La première, que je ai déjà évoqué, est de placer le fichier plist dans le bon répertoire, à savoir ~/Library/LaunchAgents. La seule contrainte est de redémarrer l'ordinateur pour prise en compte de l'agent.</p>
+<p>Si vous n'avez pas envie d'attendre jusqu'au prochain reboot, ou même si vous souhaitez tester votre agent, il existe un utilitaire disponible à partir du terminal et permettant de gérer ses agents, launchctl :</p>
+<ul>
+<li><code>$ launchctl list</code> permet de lister les agents actifs</li>
+<li><code>$ launchctl load /chemin/vers/monagent.plist</code> permet de charger l'agent dans la liste prise en compte par launchd, le programme sera alors démarrer avec la périodicité définie dans le fichier plist. Si vous avez le moindre message d'erreur au chargement, c'est que le fichier plist est mal formaté.</li>
+<li><code>$ launchctl start monagent</code> permet de déclencher manuellement et immédiatement l'agent. Cela permet de tester son bon fonctionnement. Ici, c'est le nom de l'agent que nous donnons, pas le nom du fichier.</li>
+</ul>
+<p>Maintenant que mon programme tourne tout seul sans que j'intervienne, j'aimerais qu'il m'envoie un petit message dans le centre de notification pour dire qu'il a bien travaillé, ce sera l'objet du prochain article, et après retour à GNU/Linux.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

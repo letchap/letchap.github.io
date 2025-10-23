@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Lubuntu</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/lubuntu.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2013-02-27T22:25:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>De l'utilité d'un live CD pour les situations désespérées</title><link href="https://letchap.github.io/2013/02/27/de-lutilite-dun-live-cd-pour-les-situations-desesperees/" rel="alternate"/><published>2013-02-27T22:25:00+01:00</published><updated>2013-02-27T22:25:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-27:/2013/02/27/de-lutilite-dun-live-cd-pour-les-situations-desesperees/</id><summary type="html">&lt;p&gt;Catastrophe, l'écran de mon ordinateur ne fonctionne plus. C'est malin, qu'est ce qui m'a pris aussi de vouloir installer le tout dernier pilote nvidia sur mon vieux PC. Moralité, écran noir. Que faire, réinstaller mon Lubuntu ?&lt;/p&gt;
+&lt;p&gt;Bon sang mais c'est bien sûr, il faut démarrer sur CD une session live …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Catastrophe, l'écran de mon ordinateur ne fonctionne plus. C'est malin, qu'est ce qui m'a pris aussi de vouloir installer le tout dernier pilote nvidia sur mon vieux PC. Moralité, écran noir. Que faire, réinstaller mon Lubuntu ?&lt;/p&gt;
+&lt;p&gt;Bon sang mais c'est bien sûr, il faut démarrer sur CD une session live et réparer les bêtises (pour moi supprimer le pilote de la carte graphique) à partir de là.&lt;/p&gt;
+&lt;p&gt;Une fois sur la session live, il faut trouver le point de montage du disque dur. Cela peut se faire grâce à Gparted. Chez moi, c'est sur /dev/sda1.&lt;/p&gt;
+&lt;p&gt;Ensuite, il faut ouvrir le terminal et monter le disque dur, puis se positionner dessus pour pouvoir travailler.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;mount&lt;span class="w"&gt; &lt;/span&gt;/dev/sda1&lt;span class="w"&gt; &lt;/span&gt;/mnt
+$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;chroot&lt;span class="w"&gt; &lt;/span&gt;/mnt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Le prompt va changer en #/&lt;/p&gt;
+&lt;p&gt;Ensuite je peux lancer ma commande de suppression du pilote :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;#/ sudo apt-get remove --purge nvidia-current&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Puis je démonte le volume :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;#/ sudo umount /dev/sda1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Il ne reste plus qu'à redémarrer normalement.&lt;/p&gt;
+&lt;p&gt;La morale de l'histoire : avoir toujours un live CD ou une clé USB pour démarrer sous la main, ça peut sauver un ordinateur d'un propriétaire trop enthousiaste.&lt;/p&gt;
+&lt;p&gt;Cette même procédure est très utilisée pour réinstaller un Grub disparu sur la famille Ubuntu. Il y aura un petit post là-dessus bientôt.&lt;/p&gt;</content><category term="Lubuntu"/><category term="live CD"/><category term="Lubuntu"/><category term="nvidia"/></entry><entry><title>Chromium Firefox ou Midori sur Lubuntu ?</title><link href="https://letchap.github.io/2013/02/24/chromium-firefox-ou-midori-sur-lubuntu/" rel="alternate"/><published>2013-02-24T21:22:00+01:00</published><updated>2013-02-24T21:22:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-24:/2013/02/24/chromium-firefox-ou-midori-sur-lubuntu/</id><summary type="html">&lt;p&gt;Par défaut, Lubuntu est livré avec Chromium. Est ce le bon choix ? Pourquoi pas une livraison standard avec Firefox ? Et pourquoi pas Midori qui semble ultra léger et donc dans l'esprit d'un Lubuntu.&lt;/p&gt;
+&lt;p&gt;J'ai fait une comparaison très subjective des trois navigateurs.&lt;/p&gt;
+&lt;h3&gt;Les performances : vainqueur Midori&lt;/h3&gt;
+&lt;p&gt;Sans conteste, que cela …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Par défaut, Lubuntu est livré avec Chromium. Est ce le bon choix ? Pourquoi pas une livraison standard avec Firefox ? Et pourquoi pas Midori qui semble ultra léger et donc dans l'esprit d'un Lubuntu.&lt;/p&gt;
+&lt;p&gt;J'ai fait une comparaison très subjective des trois navigateurs.&lt;/p&gt;
+&lt;h3&gt;Les performances : vainqueur Midori&lt;/h3&gt;
+&lt;p&gt;Sans conteste, que cela soit à l'ouverture ou à l'utilisation, le moins consommateur en ressources machine est Midori, suivi de Firefox. Ouvrir Chromium sous Lubuntu, ça vous plombe un peu la machine, surtout la mienne qui ne dispose que de 512Mo de RAM.&lt;/p&gt;
+&lt;h3&gt;Le téléchargement : vainqueur Firefox&lt;/h3&gt;
+&lt;p&gt;Firefox et Chromium sont quasiment équivalents en terme de consommation ressources dès que l'on lance un téléchargement. En revanche, avec Firefox, il est possible de fermer tous les onglets pendant un téléchargement, ce que ne permet pas Chromium. Firefox gère également mieux les vitesses de téléchargements. Midori est catastrophique dés qu'il s'agit de télécharger, la machine consomme rapidement l'intégralité de ses ressources.&lt;/p&gt;
+&lt;h3&gt;L'ergonomie : Vainqueur Chromium&lt;/h3&gt;
+&lt;p&gt;Plus intuitif, plus facile d'utilisation, avec une gestion simple des marque-pages et de la configuration : l'ergononme est vraiment bien pensée sur Chromium. Midori tire bien son épingle du jeu, surtout dans la gestion des moteurs de recherche, en revanche pour l'import des marque-pages, il faut oublier. Firefox est un peu moins convivial, la gestion des marques est compliquée, même si l'on peut importer des marque-pages automatiquement.&lt;/p&gt;
+&lt;h3&gt;Les extensions : Vainqueur Firefox&lt;/h3&gt;
+&lt;p&gt;Rien n'égale la richesse des extensions sur Firefox, même s'il faut se méfier de la dégradation des performances si vous installez des milliards d'extensions.&lt;/p&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Je ne comprends pas pourquoi Lubuntu n'est pas livré avec Firefox par défaut, plus performant et plus complet que Chromium. Midori est prometteur mais ne peut pas être utilisé pour télécharger. J'ai donc supprimé Chromium livré par défaut et installé Firefox à la place. Et cela n'en rend mon Lubuntu que plus agréable.&lt;/p&gt;</content><category term="Lubuntu"/><category term="Chromium"/><category term="Firefox"/><category term="Installation"/><category term="Lubuntu"/><category term="Midori"/></entry><entry><title>Comment installer Lubuntu 12.04</title><link href="https://letchap.github.io/2013/02/19/comment-installer-lubuntu-12-dot-04/" rel="alternate"/><published>2013-02-19T23:18:00+01:00</published><updated>2013-02-19T23:18:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-19:/2013/02/19/comment-installer-lubuntu-12-dot-04/</id><summary type="html">&lt;p&gt;Le guide d’installation décrit ci-dessous concerne plus particulièrement la version 12.04 de Lubuntu, la version qui est installée sur mon ordinateur. Ne sont exposés que les principes généraux pour une installation réussie, principes qui peuvent s'appliquer à un très grand nombre de distributions, l'important est de comprendre ce …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Le guide d’installation décrit ci-dessous concerne plus particulièrement la version 12.04 de Lubuntu, la version qui est installée sur mon ordinateur. Ne sont exposés que les principes généraux pour une installation réussie, principes qui peuvent s'appliquer à un très grand nombre de distributions, l'important est de comprendre ce que nous sommes en train de faire. Pour plus de détail, les guides d'installation de chacune des distributions sont généralement disponibles sur les sites des dites distributions ou sur des blogs.&lt;/p&gt;
+&lt;p&gt;Le principe général est le suivant :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Je cherche la distribution qui me convient,&lt;/li&gt;
+&lt;li&gt;Je récupère une image .iso de la distribution que je souhaite installer,&lt;/li&gt;
+&lt;li&gt;Je créé un live CD ou un live USB,&lt;/li&gt;
+&lt;li&gt;Je démarre (boot en anglais) sur le CD ou sur la clé USB,&lt;/li&gt;
+&lt;li&gt;Je choisis de tester la distribution avant de l’installer ou je l’installe directement,&lt;/li&gt;
+&lt;li&gt;Lors de l’installation je choisis ou non de conserver mon ancien système d’exploitation,&lt;/li&gt;
+&lt;li&gt;Je découvre les joies de Lubuntu.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Avant de démarrer, nous avons besoin :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;d’un CDRom de 700Mo ou d’une clé USB de 1Go (pour la version 12.04 de Lubuntu c’est suffisant, pour certaines versions c'est largement insuffisant),&lt;/li&gt;
+&lt;li&gt;d’un ordinateur avec une connexion internet pour télécharger une image disque,&lt;/li&gt;
+&lt;li&gt;d’un ordinateur (ça peut être le même) pour graver l’image disque sur le CDRom ou pour la copier sur la clé USB,&lt;/li&gt;
+&lt;li&gt;d’un ordinateur, (ça peut toujours être le même) capable de démarrer sur CDRom ou sur une clé USB.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si vous n'avez rien de tout ça, il est possible d'acheter un CD tout prêt avec l'image disque auprès de l'éditeur de la distribution choisie.&lt;/p&gt;
+&lt;p&gt;C’est bon, vous avez tout ce qui figure sur la liste des courses, nous allons pouvoir commencer l’installation.&lt;/p&gt;
+&lt;h3&gt;1) Je cherche la distribution qui me convient&lt;/h3&gt;
+&lt;p&gt;Tout est expliqué &lt;a href="https://letchap.github.io/2013/02/19/quel-linux-choisir/" title="Quel Linux choisir ?"&gt;ici&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;2) Je récupère une image disque de la distribution que je souhaite installer&lt;/h3&gt;
+&lt;p&gt;Mais bon sang, c’est quoi une image disque ?&lt;/p&gt;
+&lt;p&gt;Une image disque est un fichier .iso qui contient la distribution à installer. Pour une même distribution, il peut se trouver plusieurs fichiers .iso, en fonction des versions, des bureaux, ou du processeur (32 ou 64bits).&lt;/p&gt;
+&lt;p&gt;Il est aussi souvent possible de les télécharger soit en direct download soit par torrent. Si possible, il est préférable de télécharger par torrent, c’est plus stable et souvent plus rapide.&lt;/p&gt;
+&lt;h3&gt;3) Je créé un live CD ou un live USB&lt;/h3&gt;
+&lt;p&gt;Créer un live CD ou un live USB consiste à copier le fichier .iso sur le CD ou la clé USB.&lt;/p&gt;
+&lt;h4&gt;Créer un live CD&lt;/h4&gt;
+&lt;p&gt;Maintenant que j’ai récupéré l’image que je voulais, comment je la grave sur le CDRom ?&lt;/p&gt;
+&lt;p&gt;Vous êtes sous Windows : je ne sais pas, je n’ai pas Windows. Mais vous pourrez trouver des tutoriels un peu partout.&lt;/p&gt;
+&lt;p&gt;Vous êtes sous OS X : attention, pour graver l’image disque sur le CD, il convient de passer obligatoirement par l’utilitaire de disque et de ne surtout pas faire de clic droit ou cmd clic sur l’image disque pour la graver. Une fois sur l’utilitaire de disque, il n’y a plus qu’à sélectionner « graver une image disque » sur le CDRom.&lt;/p&gt;
+&lt;p&gt;Vous êtes déjà sous Linux : je n’ai jamais gravé une image disque sous Linux, je ne sais donc pas comment faire, car une fois sur Lubuntu, je suis rapidement passer à la clé USB.&lt;/p&gt;
+&lt;h4&gt;Créer un live USB&lt;/h4&gt;
+&lt;p&gt;Toute la procédure est décrite &lt;a href="https://letchap.github.io/2013/02/20/fabriquer-une-cle-live-usb-depuis-nimporte-quelle-distribution-linux/"&gt;ici&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;4) Je démarre (boot en anglais) sur le CD ou sur la clé USB&lt;/h3&gt;
+&lt;p&gt;Pourquoi je dois démarrer sur le CDRom, et d’ailleurs ça veut dire quoi ?&lt;/p&gt;
+&lt;p&gt;Lorsque vous démarrez l’ordinateur, sa première action est de chercher sur quel support démarrer et de lancer le système d’exploitation qu’il trouve sur ce support. Cela se passe dans le BIOS du PC.&lt;/p&gt;
+&lt;p&gt;Par défaut, le PC va démarrer sur le disque dur pour lancer Windows.&lt;/p&gt;
+&lt;p&gt;Il est possible de changer les paramètres du BIOS afin qu’il démarre sur le CD ou la clé USB. Sur mon PC (Toshiba Satellite), il faut appuyer la touche F12 au démarrage, puis sélectionner le support. Chaque marque à sa propre façon d’entrer dans le BIOS. Avec une petite recherche sur internet vous trouverez celle de votre PC.&lt;/p&gt;
+&lt;p&gt;Attention, cette procédure n'est valable que pour les PC démarrant avec le BIOS. Elle n'est pas valable pour les PC les plus récents démarrant avec UEFI.&lt;/p&gt;
+&lt;h3&gt;5) Je choisis de tester la distribution avant de l’installer ou je l’installe directement&lt;/h3&gt;
+&lt;p&gt;Il est possible de tester une distribution avant de l’installer définitivement sur son ordinateur, sans toucher à son système d’exploitation. C'est ce qu'on appelle une session live. Que cela soit par CD ou clé USB, l’ordinateur va uniquement utiliser les composants matériel (processeur, mémoire vive, carte video, etc …) sans toucher au disque dur. Tous les accès au système d’exploitation se feront sur le CD ou la clé USB. Et une fois l’ordinateur éteint, c’est comme s’il ne s’était rien passé. Cela permet de tester dans des conditions réelles sa distribution, de se faire une idée de son fonctionnement avant de choisir une installation définitive.&lt;/p&gt;
+&lt;p&gt;L’installation définitive peut se faire à partir de cette même session live.&lt;/p&gt;
+&lt;p&gt;L’installation définitive peut se faire aussi sans test dès le départ au moment du boot, puisque c’est au début du démarrage sur clé ou CD qu’il est en général demandé soit de tester soit d’installer la distribution.&lt;/p&gt;
+&lt;h3&gt;6) Lors de l’installation je choisis ou non de conserver mon ancien système d’exploitation&lt;/h3&gt;
+&lt;p&gt;Personnellement, j’ai complètement écrasé l’ancien système, je n’ai donc pas partitionné le disque dur pour installer le nouveau système à coté de l’ancien, mais sachez qu’il est tout à fait possible de garder son ancien OS (et donc toutes ses données) à coté de Linux. Il vous sera alors demandé au redémarrage de choisir entre les deux systèmes celui sur lequel vous voulez démarrer.&lt;/p&gt;
+&lt;p&gt;Pour installer le nouveau système à coté de l’ancien, il faudra réserver une place sur le disque dur pour le petit nouveau. Cette action s’appelle partitionner le disque dur, c'est-à-dire créer deux (ou plus) espaces étanches pour chacun des deux OS. Je vous mets en garde si vous ne l'avais jamais fait, une fausse manipulation et vous risquez de tout perdre, donc pensez à sauvegarder avant.&lt;/p&gt;
+&lt;h3&gt;7) Je découvre les joies de Lubuntu&lt;/h3&gt;
+&lt;p&gt;Il ne reste plus qu’à suivre la procédure d’installation, avec une connexion internet c’est mieux (ainsi les compléments d’installation seront téléchargés au fur et à mesure du processus), redémarrer et goûter au plaisir de votre tout nouvel OS.&lt;/p&gt;</content><category term="Lubuntu"/><category term="12.04"/><category term="BIOS"/><category term="Boot"/><category term="Live CD"/><category term="Live USB"/><category term="Lubuntu"/><category term="LXDE"/></entry></feed>

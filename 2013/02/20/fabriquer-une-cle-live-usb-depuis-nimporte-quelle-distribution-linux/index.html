@@ -1,0 +1,253 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Fabriquer une clé live usb depuis n'importe quelle distribution linux</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/02/20/fabriquer-une-cle-live-usb-depuis-nimporte-quelle-distribution-linux/" rel="bookmark" title="Permalink to Fabriquer une clé live usb depuis n'importe quelle distribution linux">Fabriquer une clé live usb depuis n'importe quelle distribution linux</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Wed 20 February 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/terminal.html">&nbsp;Terminal</a>
+	<hr />
+	
+	<p>J’adore tester de nouvelles distributions Linux, mais j’en ai marre de graver des tonnes de CD. La solution, la clé USB.</p>
+<p>Il existe tout un tas de logiciels, différents selon les distributions pour créer des clés bootables. Trop compliqué pour moi. La solution qui marche sur toutes les distributions est hyper simple en 3 commandes dans le terminal : isohybrid, df – h, dd.</p>
+<p>J’ai trouvé l’astuce <a href="http://frederic.bezies.free.fr/blog/?tag=isohybrid" title="Petit truc pour rendre une ISO classique démarrable sur une clé USB">ici</a>.</p>
+<p>La première étape consiste à formater une clé USB. Evidemment, il faut que la clé soit suffisamment grande pour contenir le fichier .iso. Pour formater la clé USB, démarrer l’utilitaire de disque et formater la clé (en FAT32 ou EXT4, ça marche très bien).</p>
+<p>Nous allons ensuite passé par le terminal :</p>
+<p>Ouvrez une fenêtre de terminal</p>
+<p>Si vous n’êtes pas familier des commandes cd pour se balader dans les répertoires à partir du terminal, vous aurez copié au préalable votre fichier .iso à la racine de votre répertoire personnel.</p>
+<h3>1) Isohybrid</h3>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>isohybrid<span class="w"> </span>image.iso
+</code></pre></div>
+
+<p>Les fichiers .iso sont plutôt destinés à être gravé sur CD, cette commande permet de copier le fichier .iso en toute sérénité sur la clé USB (de créer une version hybrid de l’image disque).</p>
+<p>Si vous n'avez pas la commande isohybrid, il faut installer syslinux comme ceci (sous Ubuntu ou apparenté)</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>syslinux
+</code></pre></div>
+
+<h3>2) df –h</h3>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>df<span class="w"> </span>-h
+Sys.<span class="w"> </span>de<span class="w"> </span>fichiers<span class="w"> </span>Taille<span class="w"> </span>Utilisé<span class="w"> </span>Dispo<span class="w"> </span>Uti%<span class="w"> </span>Monté<span class="w"> </span>sur
+/dev/sda1<span class="w">           </span>37G<span class="w">     </span>12G<span class="w">   </span>23G<span class="w">  </span><span class="m">35</span>%<span class="w"> </span>/
+udev<span class="w">               </span>241M<span class="w">    </span><span class="m">4</span>,0K<span class="w">  </span>241M<span class="w">   </span><span class="m">1</span>%<span class="w"> </span>/dev
+tmpfs<span class="w">              </span>100M<span class="w">    </span>816K<span class="w">   </span>99M<span class="w">   </span><span class="m">1</span>%<span class="w"> </span>/run
+none<span class="w">               </span><span class="m">5</span>,0M<span class="w">       </span><span class="m">0</span><span class="w">  </span><span class="m">5</span>,0M<span class="w">   </span><span class="m">0</span>%<span class="w"> </span>/run/lock
+none<span class="w">               </span>248M<span class="w">     </span>72K<span class="w">  </span>248M<span class="w">   </span><span class="m">1</span>%<span class="w"> </span>/run/shm
+/dev/sdb1<span class="w">         </span>1004M<span class="w">    </span>312M<span class="w">  </span>692M<span class="w">  </span><span class="m">32</span>%<span class="w"> </span>/media/USB
+</code></pre></div>
+
+<p>Cela permet de savoir où copier le fichier .iso. En général, cela ressemble à quelque chose comme /dev/sdb ou /dev/sdb1.</p>
+<h3>3) dd</h3>
+<p>Si vous n’êtes jamais entré dans le terminal, je dois vous mettre en garde, cette commande peut être dangereuse. Mal utilisée, elle peut complètement effacer votre disque dur.</p>
+<p>Si vous avez déjà utilisé le terminal, je dois vous mettre en garde, cette commande peut être dangereuse. Mal utilisée, elle peut complètement effacer votre disque dur.</p>
+<p>Ces précautions prises, en fait c’est très simple, il suffit de taper la commande de la manière suivante :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>image.iso<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdb
+</code></pre></div>
+
+<p>Dans le détail :</p>
+<ul>
+<li>sudo : cela signifie que nous sommes en super utilisateur, il faut donc ensuite taper son mot de passe.</li>
+<li>dd : c’est la commande de copie</li>
+<li>if : cela signifie input file, le fichier en entrée est bien le fichier .iso</li>
+<li>of : cela signifie output file, le fichier en sortie se trouve bien sur la clé USB. Petite astuce super importante : il faut absolument enlever le numéro de /dev/sdb1 en /dev/sdb, sinon ça ne marche pas.</li>
+</ul>
+<p>Et nous voyons bien où se trouve le coté dangereux en inversant if et of, on écrase tout avec une clé vide.</p>
+<p>Comme nous avons fait un petit coup d’isohybrid avant, pas de soucis de format au moment de la copie.</p>
+<p>En hop, une clé bootable. Une opération que nous pouvons recommencer à l’infini. Je l'ai testée sur un très grand nombre de distributions, ça marche très bien.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

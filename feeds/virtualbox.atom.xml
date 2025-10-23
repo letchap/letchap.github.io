@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - VirtualBox</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/virtualbox.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2014-03-20T22:03:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Connexion ssh avec VirtualBox</title><link href="https://letchap.github.io/2014/03/20/connexion-ssh-avec-virtualbox/" rel="alternate"/><published>2014-03-20T22:03:00+01:00</published><updated>2014-03-20T22:03:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-20:/2014/03/20/connexion-ssh-avec-virtualbox/</id><summary type="html">&lt;p&gt;En conservant le paramétrage par défaut de VirtualBox, il n'est pas possible de créer une connection SSH avec un invité Linux.&lt;/p&gt;
+&lt;p&gt;Pour rendre possible cette connection SSH, il faut modifier le paramétrage de l'onglet réseau dans VirtualBox pour le positionner sur "Accès par pont". Cela vous permettra d'avoir une adresse …&lt;/p&gt;</summary><content type="html">&lt;p&gt;En conservant le paramétrage par défaut de VirtualBox, il n'est pas possible de créer une connection SSH avec un invité Linux.&lt;/p&gt;
+&lt;p&gt;Pour rendre possible cette connection SSH, il faut modifier le paramétrage de l'onglet réseau dans VirtualBox pour le positionner sur "Accès par pont". Cela vous permettra d'avoir une adresse au format 192.168.0.xx.&lt;/p&gt;
+&lt;p&gt;Pour rappel sur Linux, vous aurez auparavant installé openssh et démarré le service par &lt;code&gt;service ssh start&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;N'oublier de préciser de port 22 lors de votre connection SFTP.&lt;/p&gt;</content><category term="VirtualBox"/><category term="VirtualBox"/><category term="SSH"/><category term="Crunchbang"/></entry><entry><title>Touches spéciales clavier Mac sur VirtualBox</title><link href="https://letchap.github.io/2013/06/20/touches-speciales-clavier-mac-sur-virtualbox/" rel="alternate"/><published>2013-06-20T22:42:00+02:00</published><updated>2013-06-20T22:42:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-06-20:/2013/06/20/touches-speciales-clavier-mac-sur-virtualbox/</id><summary type="html">&lt;p&gt;Pour pouvoir profiter pleinement d'une distribution Linux virtualisée grâce à VirtualBox sur une ordinateur Mac, il faut pouvoir retrouver les touches spéciales qui, sans cela, rendent compliqué l'utilisation du terminal ou des éditeurs de texte.&lt;/p&gt;
+&lt;p&gt;J'ai donc remis tout çà dans une petit tableau disponible au téléchargement &lt;a href="https://letchap.github.io/downloads/touches_speciales.pdf" title="touches spéciales"&gt;ici&lt;/a&gt;.
+&lt;img alt="touches spéciales" src="https://letchap.github.io/images/touches_speciales.png" title="touches spéciales"&gt;&lt;/p&gt;
+&lt;p&gt;Pour les …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Pour pouvoir profiter pleinement d'une distribution Linux virtualisée grâce à VirtualBox sur une ordinateur Mac, il faut pouvoir retrouver les touches spéciales qui, sans cela, rendent compliqué l'utilisation du terminal ou des éditeurs de texte.&lt;/p&gt;
+&lt;p&gt;J'ai donc remis tout çà dans une petit tableau disponible au téléchargement &lt;a href="https://letchap.github.io/downloads/touches_speciales.pdf" title="touches spéciales"&gt;ici&lt;/a&gt;.
+&lt;img alt="touches spéciales" src="https://letchap.github.io/images/touches_speciales.png" title="touches spéciales"&gt;&lt;/p&gt;
+&lt;p&gt;Pour les touches début et fin, il n'existe pas vraiment d'équivalent. Il est néanmoins possible de faire :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Début de ligne :  Fn + flèche gauche (ça ne fonctionne pas avec tous les éditeurs de texte)&lt;/li&gt;
+&lt;li&gt;Fin de ligne :    Fn + flèche droite&lt;/li&gt;
+&lt;li&gt;Page up :         Fn + flèche haute&lt;/li&gt;
+&lt;li&gt;Page down :       Fn + flèche basse&lt;/li&gt;
+&lt;/ul&gt;</content><category term="VirtualBox"/><category term="VirtualBox"/><category term="clavier Mac"/><category term="Linux"/></entry><entry><title>ToDo list après l'installation de Crunchbang sur VirtualBox</title><link href="https://letchap.github.io/2013/06/07/todo-list-apres-linstallation-de-crunchbang-sur-virtualbox/" rel="alternate"/><published>2013-06-07T23:32:00+02:00</published><updated>2013-06-07T23:32:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-06-07:/2013/06/07/todo-list-apres-linstallation-de-crunchbang-sur-virtualbox/</id><summary type="html">&lt;p&gt;J'ai testé un certain nombre de distributions sur une VirtualBox installée sur un iMac et la plus stable à ce jour est sans conteste Crunchbang. De plus, comme c'est une distribution légère, j'ai l'impression d'avoir une bête de course. Mais surtout, surtout, fini les problèmes d'affichage, les redémarrages douloureux après …&lt;/p&gt;</summary><content type="html">&lt;p&gt;J'ai testé un certain nombre de distributions sur une VirtualBox installée sur un iMac et la plus stable à ce jour est sans conteste Crunchbang. De plus, comme c'est une distribution légère, j'ai l'impression d'avoir une bête de course. Mais surtout, surtout, fini les problèmes d'affichage, les redémarrages douloureux après une mise à jour. Les releases stables, ça a du bon.&lt;/p&gt;
+&lt;p&gt;J'ai déjà eu l'occasion de décrire la procédure d'installation d'une distribution sur VirtualBox &lt;a href="https://letchap.github.io/2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/" title="Virtualiser"&gt;dans un billet précédent&lt;/a&gt;, nous allons nous attarder dans ce billet sur les compléments d'installation qui rendent l'utilisation de la VirtualBox plus agréable. Crunchbang étant par nature assez chichement doté en outils graphiques, ces petits compléments se feront par le terminal. Quand les commandes sont connues, ce n'est pas plus long que par des outils graphiques, bien au contraire.&lt;/p&gt;
+&lt;h3&gt;Installation de VirtualBox Guest Additions&lt;/h3&gt;
+&lt;p&gt;Les Guest Additions permettent notamment l'affichage en plein écran.&lt;/p&gt;
+&lt;p&gt;Tout d'abord :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;build-essential&lt;span class="w"&gt; &lt;/span&gt;linux-headers-&lt;span class="sb"&gt;`&lt;/span&gt;uname&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;dkms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Les Guest Additions se trouvent dans une image disque virtuelle que nous montons en sélectionnant "Installer les Guest Additions" dans le menu Devices (périphérique) de VirtualBox&lt;/p&gt;
+&lt;p&gt;Le disque devrait apparaître dans le gestionnaire de fichier, dans mon cas il est monté sur /media/cdrom0&lt;/p&gt;
+&lt;p&gt;Il ne reste plus qu'à lancer la procédure d'installation :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;sh&lt;span class="w"&gt; &lt;/span&gt;/media/cdrom0/VBoxLinuxAdditions.run
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Dossier partage&lt;/h3&gt;
+&lt;p&gt;Un deuxième gros intérêt des Guest Additions est la possibilité de partager des fichiers entre le système hôte et le système invité. Après avoir créer un dossier partage sur le système hôte, par défaut, il se retrouvere dans le répertoire Media (dossier commençant par "sf_") de votre Crunchbang virtualisé mais ne sera pas accessible à l'utilisateur. Pour donner les droits d'accès à ce dossier, il faut ajouter l'utilisateur au groupe Vbox.&lt;/p&gt;
+&lt;p&gt;Pour cela, il faut éditer le fichier /etc/groups, repérer la ligne commençant par vboxsf et ajouter son nom de user, par exemple :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;vboxsf&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1001&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;letchap&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Modification du clavier&lt;/h3&gt;
+&lt;p&gt;La procédure d'installation de Crunchbang ne permet pas de choisir le clavier. Par défaut, il installe un clavier azerty "classique". Je n'ai donc pas eu la possibilité de paramétrer le clavier Mac. Ce qui pose quelques petits problèmes quand je veux taper "-" par exemple, ou des crochets.&lt;/p&gt;
+&lt;p&gt;Il est possible de changer la configuration du clavier à partir du terminal, pour cela il faut éditer les fichier /etc/default/keyboard et le renseigner de la manière suivante :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;XKBMODEL=&amp;quot;pc105&amp;quot;
+XKBLAYOUT=&amp;quot;fr&amp;quot;
+XKBVARIANT=&amp;quot;mac&amp;quot;
+XKBOPTIONS=&amp;quot;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Il ne reste plus qu'à redémarrer la machine virtuelle pour bénéficier de tous ces ajouts.&lt;/p&gt;</content><category term="VirtualBox"/><category term="Crunchbang"/><category term="VirtualBox"/><category term="Terminal"/><category term="Guest Additions"/><category term="dkms"/></entry><entry><title>Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox</title><link href="https://letchap.github.io/2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/" rel="alternate"/><published>2013-04-09T22:02:00+02:00</published><updated>2013-04-09T22:02:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-04-09:/2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/</id><summary type="html">&lt;p&gt;Malgré toute sa bonne volonté mon pauvre vieux PC de 2003 touche certaines limites. La plus génante concerne l'obsolescence de la carte graphique, il m'est par exemple impossible d'utiliser Kivy.&lt;/p&gt;
+&lt;p&gt;C'est l'occasion d'installer une distribution sur mon iMac. Et pour tester un univers que je ne connais pas et qui …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Malgré toute sa bonne volonté mon pauvre vieux PC de 2003 touche certaines limites. La plus génante concerne l'obsolescence de la carte graphique, il m'est par exemple impossible d'utiliser Kivy.&lt;/p&gt;
+&lt;p&gt;C'est l'occasion d'installer une distribution sur mon iMac. Et pour tester un univers que je ne connais pas et qui va me changer du monde Ubuntu, nous allons installer Mageia 2.&lt;/p&gt;
+&lt;h3&gt;Dual boot ou virtualisation ?&lt;/h3&gt;
+&lt;p&gt;Pour ne pas perturber les autres membres de la famille avec le choix d'un OS de démarrage, je ne souhaite pas installer Mageia en double amorçage (dual boot) sur mon iMac. J'ai la flemme de partitionner, d'installer rEfit, tout ça pour avoir un écran moche au démarrage.&lt;/p&gt;
+&lt;p&gt;La solution : la virtualisation&lt;/p&gt;
+&lt;p&gt;La virtualisation permet de démarrer une session de n'importe quelle distribution Linux à l'intérieur de Mountain Lion :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ca ne prend pas de place (il faut compter 8 Go pour être tranquille),&lt;/li&gt;
+&lt;li&gt;Ca tourne de manière fluide avec 512 Mo de RAM dédiée (j'ai mis 2 Go quand même pour Mageia 2),&lt;/li&gt;
+&lt;li&gt;Ca ne touche pas à Mountain Lion,&lt;/li&gt;
+&lt;li&gt;Ca permet de partager des fichiers entre Mountain Lion et Mageia très facilement,&lt;/li&gt;
+&lt;li&gt;Ca reconnaît les port usb,&lt;/li&gt;
+&lt;li&gt;Ca se sauvegarde,&lt;/li&gt;
+&lt;li&gt;Ca permet de tester très facilement toutes sortes de distributions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Le principal intérêt de la virtualisation est de pouvoir essayer sereinement des distributions, mais j'ai décidé de tester la virtualisation aussi sur la durée, je voudrais savoir si cela peut être une solution pérenne en attendant de racheter un PC et de faire une vraie installation.&lt;/p&gt;
+&lt;h3&gt;L'installation&lt;/h3&gt;
+&lt;p&gt;Il n'existe pas énormément de logiciel de virtualisation sur Max OS X, et le seul gratuit est VirtualBox. Les deux autres sont VMware et Parallel Desktop.&lt;/p&gt;
+&lt;p&gt;Pour virtualiser, j'ai donc utilisé le logiciel Virtualbox. Les différentes étapes sont :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;L'installation de Virtualbox&lt;/li&gt;
+&lt;li&gt;Le téléchargement de l'image disque Mageia 2&lt;/li&gt;
+&lt;li&gt;L'installation de Mageia 2 dans VirtualBox&lt;/li&gt;
+&lt;li&gt;L'installation des compléments (VirtualBox guest additions)&lt;/li&gt;
+&lt;li&gt;L'installation des compléments (VirtualBox extension pack)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Installer Virtualbox.&lt;/h4&gt;
+&lt;p&gt;C'est une installation classique sur OS X par les paquets dmg. Il est disponible au téléchargement &lt;a href="https://www.virtualbox.org/wiki/Downloads" title="VirtualBox"&gt;ici&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Télécharger Mageia 2&lt;/h4&gt;
+&lt;p&gt;Nous allons installer la dernière version de Mageia 2 en 64 bits, elle est disponible au téléchargement sur &lt;a href="http://www.mageia.org/fr/downloads/" title="Mageia"&gt;cette page&lt;/a&gt;. Personnellement j'utilise le torrent avec transmission, c'est plus rapide et plus sûr.&lt;/p&gt;
+&lt;p&gt;Dans le dossier que vous récupérez se trouve un fichier .iso, c'est de celui dont nous aurons besoin.&lt;/p&gt;
+&lt;p&gt;Tous les Mac récents tournent en 64 bits, pour vous en assurer, vous pouvez aller dans le moniteur d'activité, il doit être indiqué Intel (64bits) dans la colonne Type.
+&lt;a data-lightbox="moniteur" href="https://letchap.github.io/images/virtualbox/moniteur.png" title="moniteur d'activité"&gt;&lt;img alt="Moniteur d'activité" src="https://letchap.github.io/images/virtualbox/moniteur.png" title="moniteur d'activité"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur du 32, je n'ai pas essayé, je ne sais pas si cela fonctionne bien.&lt;/p&gt;
+&lt;h4&gt;Démarrer VirtualBox et installer Mageia&lt;/h4&gt;
+&lt;p&gt;Le vrai travail commence maintenant&lt;/p&gt;
+&lt;p&gt;Démarrer VirtaulBox et cliquer sur nouveau. Vous saisissez alors le nom de votre distribution, Mageia
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution"&gt;&lt;img alt="VirtualBox nouveau" src="https://letchap.github.io/images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Ensuite choisissez la taille de la mémoire qui sera utilisé pour faire fonctionner la machine virtuelle. La mémoire vive est partagé avec le système hôte, celle dédiée à VirtualBox ne peut pas être plus de la moitié de la taille totale. Ici, j'ai choisi 2Go.
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive"&gt;&lt;img alt="VirtualBox mémoire" src="https://letchap.github.io/images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;La création d'un disque dur virtuel est proposée (laissez le paramétrage par défaut)
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel"&gt;&lt;img alt="VirtualBox disque dur" src="https://letchap.github.io/images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Il s'agit d'un disque virtuel avec une extension vdi qui permettra plus tard si besoin d'exporter la machine virtuelle
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque"&gt;&lt;img alt="VirtualBox vdi" src="https://letchap.github.io/images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Conserver le paramétrage de taille de disque dynamiquement allouée. Seul l'espace réellement utilisé sera présent sur le disque dur de la machine hôte. Pour des soucis de performance, il est possible de choisir une taille fixe, mais évidemment, cela prend plus d'espace. A vous de voir.
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée"&gt;&lt;img alt="VirtualBox taille allouée" src="https://letchap.github.io/images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;8Go par défaut, c'est largement suffisant pour tester une distribution.
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque"&gt;&lt;img alt="VirtualBox taille" src="https://letchap.github.io/images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Une fois tous ces éléments paramétrés, il va falloir demander à la machine de démarrer sur l'image disque de Mageia. Pour cela, il faut se rendre dans l'onglet stockage.
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage"&gt;&lt;img alt="VirtualBox stockage" src="https://letchap.github.io/images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Vous cliquez sur l'icone du CD à coté de Lecteur CD/DVD.
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso"&gt;&lt;img alt="VirtualBox CD" src="https://letchap.github.io/images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Et vous choisissez votre fichier iso.
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso"&gt;&lt;img alt="VirtualBox iso" src="https://letchap.github.io/images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Vous cliquer alors sur démarrer et lancer l'installation normale de Mageia. Attention, ne télécharger pas les compléments d'installation durant cette étape. C'est très important pour un bon fonctionnement ultérieur de Mageia.&lt;/p&gt;
+&lt;p&gt;A la fin de l'installation, vous éteignez (power off) la machine virtuelle.
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine"&gt;&lt;img alt="VirtualBox power off" src="https://letchap.github.io/images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Puis, vous éjectez le fichier iso (pour ne pas redémarrer l'installation à chaque fois).
+&lt;a data-lightbox="virtualbox" href="https://letchap.github.io/images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso"&gt;&lt;img alt="VirtualBox eject" src="https://letchap.github.io/images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Vous pouvez alors redémarrer Mageia. Une fois sur Mageia, voici quelques petites astuces pour un fonctionnement optimal de la machine virtuelle :&lt;/p&gt;
+&lt;h4&gt;Guest additions&lt;/h4&gt;
+&lt;p&gt;Tout d'abord, installer les compléments de l'installation que nous avons mis de coté tout à l'heure. L'installation sera plus propre si vous le faites maintenant et évitera des dysfonctionnements de Mageia. Pour éviter d'être embêté avec le fichier iso, vous pouvez aller dans le Centre de Contrôle Mageia (CCM) pour paramétrer les sources des programmes et supprimer la mise à jour par CD.&lt;/p&gt;
+&lt;p&gt;Mageia va en même temps installer les VirtualBox guest additions qui permettent notamment de partager un répertoire avec le système hôte. Il n'est donc pas nécessaire d'installer spécifiquement ces guest additions, laissez le CCM faire.&lt;/p&gt;
+&lt;p&gt;Une petite astuce pour les répertoires partagés, n'oubliez pas d'ajouter votre utilisateur dans le groupe VirtualBox (là encore cela se passe dans le CCM).
+&lt;a data-lightbox="CCM" href="https://letchap.github.io/images/virtualbox/ccm.png" title="CCM"&gt;&lt;img alt="CCM" src="https://letchap.github.io/images/virtualbox/ccm.png" title="Partager un répertoire"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Extension pack&lt;/h4&gt;
+&lt;p&gt;Enfin, dernière astuce, installer le VirtualBox extension pack pour pouvoir accéder aux ports USB sur la machine invitée.&lt;/p&gt;
+&lt;p&gt;Bonne virtualisation !!&lt;/p&gt;</content><category term="VirtualBox"/><category term="VirtualBox"/><category term="OS X"/><category term="Mountain Lion"/><category term="Mageia"/><category term="guest additions"/><category term="virtualisation"/></entry></feed>

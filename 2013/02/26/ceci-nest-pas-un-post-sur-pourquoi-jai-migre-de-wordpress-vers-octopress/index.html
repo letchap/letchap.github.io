@@ -1,0 +1,234 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Ceci n'est pas un post sur pourquoi j'ai migré de Wordpress vers Octopress</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/02/26/ceci-nest-pas-un-post-sur-pourquoi-jai-migre-de-wordpress-vers-octopress/" rel="bookmark" title="Permalink to Ceci n'est pas un post sur pourquoi j'ai migré de Wordpress vers Octopress">Ceci n'est pas un post sur pourquoi j'ai migré de Wordpress vers Octopress</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Tue 26 February 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/octopress.html">&nbsp;Octopress</a>
+	<hr />
+	
+	<p>Bon, j'ai fait comme tout le monde, j'ai migré de Wordpress vers Octopress parce que ... parce que c'est mieux. Il existe des tutoriels en français et en anglais donc je ne m'étendrai pas sur l'installation d'Octopress, <a href="http://octopress.org/">le site d'Octopress</a> lui-même est très détaillé sur la procédure à suivre. Je vais simplement revenir sur les trois petites difficultés que j'ai rencontré et qui ne sont pas forcément détaillées sur la toile.</p>
+<h3>L'échange de clé sécurisé avec Github</h3>
+<p>J'ai choisi d'installer Octopress en hébergeant mes pages dans un dépôt Github. J'ai donc créé un compte et un dépôt pour mon site, en revanche, je ne savais pas qu'il était nécessaire d'échanger des clés ssh pour communiquer. La procédure est expliquée sur <a href="https://help.github.com/articles/generating-ssh-keys" title="Générer un clé ssh">le site de Github</a>.</p>
+<h3>Setup des pages Github</h3>
+<p>Il se peut que la saisie de l'adresse URL du dépôt est été mal faite (avec des gros doigts, j'en parle parce que ça m'est arrivé) au moment du <code>rake setup_github_pages</code>.</p>
+<p>Pour vérifier que l'on ne sait pas trompé :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>-v
+origin<span class="w">  </span>git@github.com:letchap/letchap.github.com.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+origin<span class="w">  </span>git@github.com:letchap/letchap.github.com.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+</code></pre></div>
+
+<h3>RVM is not a function</h3>
+<p>Au moment de lancer <code>$ RVM use</code>, j'ai eu un message d'erreur indiquant <code>RVM is not a function</code>.</p>
+<p>En fait, par défaut, les binaires sont installés dans $HOME/.rvm et ne sont pas accessibles via le terminal. Pour corriger cela, il faut ajouter les lignes suivantes dans le fichier /home/your-name/.bashrc.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[[</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.rvm/scripts/rvm&quot;</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.rvm/scripts/rvm&quot;</span>
+</code></pre></div>
+
+<h3>Réinstallation de Ruby avec openssl</h3>
+<p>La dernière difficulté est survenue au moment du déploiement du site avec le message d'erreur suivant :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>require<span class="w"> </span><span class="s2">&quot;openssl&quot;</span><span class="w"> </span><span class="c1"># &gt; LoadError: cannot load such file -- openssl</span>
+</code></pre></div>
+
+<p>Je ne sais pas pourquoi Ruby ne peut pas utiliser mon openssl installé par défaut, la solution de contournement que j'ai trouvé sur le site <a href="https://rvm.io/packages/openssl/">RVM</a> a été d'installer un nouveau paquet openssl et de réinstaller Ruby.</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>rvm<span class="w"> </span>pkg<span class="w"> </span>install<span class="w"> </span>openssl
+$<span class="w"> </span>rvm<span class="w"> </span>reinstall<span class="w"> </span><span class="m">1</span>.9.3<span class="w"> </span>--with-openssl-dir<span class="o">=</span><span class="nv">$rvm_path</span>/usr
+</code></pre></div>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

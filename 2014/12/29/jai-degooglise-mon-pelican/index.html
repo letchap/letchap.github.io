@@ -1,0 +1,268 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>J'ai dégooglisé mon Pelican</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2014/12/29/jai-degooglise-mon-pelican/" rel="bookmark" title="Permalink to J'ai dégooglisé mon Pelican">J'ai dégooglisé mon Pelican</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Mon 29 December 2014&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/pelican.html">&nbsp;Pelican</a>
+	<hr />
+	
+	<p>Mon blog Pelican est libre, mais il cache des solutions propriétaires :</p>
+<ul>
+<li>il est hébergé par Github</li>
+<li>il gère les commentaires avec Disqus</li>
+<li>le trafic est analysé par Google analytics</li>
+<li>il utilise google search pour les recherches sur le site</li>
+</ul>
+<p>Je vais dans cet article me concentrer sur la dégooglisation, à savoir, remplacer Google analytics et Google search.</p>
+<h3>J'ai remplacé Google analytics par Piwik</h3>
+<p>Pendant longtemps j'ai buté sur le fait que je ne suis pas auto-hébergé et donc, difficile de monter des solutions libres dans ce cas. Et puis j'ai découvert Openshift de Red Hat. Cela me permet d'avoir une infrastructure cloud sous licence libre (Apache licence 2.0) sur laquelle je peux installer jusqu'à trois applications gratuitement.</p>
+<p>La plateforme va me permettre dans un premier temps d'héberger ma solution d'analyse de trafic, puis de commentaires, et finalement mon site.</p>
+<p>Chaque chose en son temps, je commence par l'analyse de trafic et le remplacement de google analytics. La solution sera Piwik. Piwik est un outil d'analyse de trafic web opensource (licence GPL v3). Pour plus d'information sur Piwik, vous pouvez vous rendre sur leur site <a href="http://fr.piwik.org" title="Piwik">à cette adresse</a>. La seule contrainte de Piwik est de posséder son propre serveur, ou d'en utiliser un. Pour moi, ce sera donc le Pass (Plateform as a service) d'Openshift.</p>
+<h4>Créer un compte Openshift et installer Piwik</h4>
+<p>Le tutoriel est <a href="https://github.com/openshift/piwik-openshift-quickstart" title="Piwik Openshift Quickstart">à cette adresse</a>. Je ne peux pas mieux expliquer, donc, le plus simple, c'est de suivre le lien.</p>
+<p>Quelques petits conseils néanmoins :</p>
+<ul>
+<li>Il faut vérifier que la bonne version de Ruby est bien installée</li>
+<li>L'installation se fait par le terminal, pas par le site openshift</li>
+<li>Il faut bien vérifier l'échange de clé ssh. Si vous avez déjà utilisé git, le concept ne doit pas poser de problème.</li>
+<li>Une fois Piwik installé, penser à configurer votre site</li>
+</ul>
+<h4>Remplacer Google analytics par Piwik dans Pelican</h4>
+<p>Pour installer piwik, il suffit d'installer ce script à la place du script de google analytics.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;script</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span>var<span class="w"> </span>_paq<span class="w"> </span>=<span class="w"> </span>_paq<span class="w"> </span>||<span class="w"> </span>[];
+<span class="w">  </span>_paq.push([&#39;trackPageView&#39;]);
+<span class="w">  </span>_paq.push([&#39;enableLinkTracking&#39;]);
+<span class="w">  </span>(function()<span class="w"> </span>{
+<span class="w">    </span>var<span class="w"> </span>u=&quot;//piwik-letchap.rhcloud.com/&quot;;
+<span class="w">    </span>_paq.push([&#39;setTrackerUrl&#39;,<span class="w"> </span>u+&#39;piwik.php&#39;]);
+<span class="w">    </span>_paq.push([&#39;setSiteId&#39;,<span class="w"> </span>1]);
+<span class="w">    </span>var<span class="w"> </span>d=document,<span class="w"> </span>g=d.createElement(&#39;script&#39;),<span class="w"> </span>s=d.getElementsByTagName(&#39;script&#39;)[0];
+<span class="w">    </span>g.type=&#39;text/javascript&#39;;<span class="w"> </span>g.async=true;<span class="w"> </span>g.defer=true;<span class="w"> </span>g.src=u+&#39;piwik.js&#39;;<span class="w"> </span>s.parentNode.insertBefore(g,s);
+<span class="w">  </span>})();
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;noscript&gt;&lt;p&gt;&lt;img</span><span class="w"> </span><span class="na">src=</span><span class="s">&quot;//piwik-letchap.rhcloud.com/piwik.php?idsite=1&quot;</span><span class="w"> </span><span class="na">style=</span><span class="s">&quot;border:0;&quot;</span><span class="w"> </span><span class="na">alt=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="nt">/&gt;&lt;/p&gt;&lt;/noscript&gt;</span>
+</code></pre></div>
+
+<h3>Je suis complétement dégooglisé</h3>
+<p>Pour finir, j'avais un formulaire de recherche sur le site qui utilisait google :</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;form</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;navbar-form navbar-right&quot;</span><span class="w"> </span><span class="na">action=</span><span class="s">&quot;http://google.com/search&quot;</span><span class="w"> </span><span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;fieldset</span><span class="w"> </span><span class="na">role=</span><span class="s">&quot;search&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;input</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;hidden&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;q&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;site:letchap.github.io&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">&lt;input</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;search&quot;</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;form-control col-lg-8&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;q&quot;</span><span class="w"> </span><span class="na">results=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">placeholder=</span><span class="s">&quot;Search&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w">  </span>
+<span class="nt">&lt;/fieldset&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div>
+
+<p>J'ai remplacé google par Duckduckgo, ce qui se traduit dans le formulaire par :</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;form</span><span class="w"> </span><span class="na">action=</span><span class="s">&quot;https://duckduckgo.com&quot;</span><span class="w"> </span><span class="na">method=</span><span class="s">&quot;get&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;row collapse&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;large-9 small-10 columns&quot;</span><span class="w"> </span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;input</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;search&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;q&quot;</span><span class="w"> </span><span class="na">results=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">placeholder=</span><span class="s">&quot;Search&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;input</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;hidden&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;sites&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;letchap.github.io&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/div&gt;</span><span class="w">    </span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div>
+
+<p>Au prochaine épisode, nous essaierons de nous passer de Disqus.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

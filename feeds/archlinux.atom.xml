@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Archlinux</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/archlinux.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2015-03-11T19:30:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Installer Archlinux avec XFCE</title><link href="https://letchap.github.io/2015/03/11/installer-archlinux-avec-xfce/" rel="alternate"/><published>2015-03-11T19:30:00+01:00</published><updated>2015-03-11T19:30:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-03-11:/2015/03/11/installer-archlinux-avec-xfce/</id><summary type="html">&lt;p&gt;L'annonce de l'arrêt de Crunchbang, une distribution basée sur Debian et Openbox, ma distribution par défaut, m'a fait prendre conscience que j'avais tout intérêt à me monter tout seul la distribution qui me convient, avec une solution pérenne.&lt;/p&gt;
+&lt;p&gt;A partir de ce moment, je bute sur l'éternelle question : Que choisir …&lt;/p&gt;</summary><content type="html">&lt;p&gt;L'annonce de l'arrêt de Crunchbang, une distribution basée sur Debian et Openbox, ma distribution par défaut, m'a fait prendre conscience que j'avais tout intérêt à me monter tout seul la distribution qui me convient, avec une solution pérenne.&lt;/p&gt;
+&lt;p&gt;A partir de ce moment, je bute sur l'éternelle question : Que choisir ?&lt;/p&gt;
+&lt;p&gt;J'ai besoin d'une distribution légère, récente, pérenne. Je veux pouvoir installer uniquement ce dont j'ai besoin. &lt;/p&gt;
+&lt;p&gt;J'ai refait un énième tour des disributions existantes, et j'ai choisi par élimination :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Récente : je vais quitter un peu Debian qui a des cycles de livraison très espacés&lt;/li&gt;
+&lt;li&gt;Pérenne : une distribution majeure : Debian, Fedora, OpenSUSE, Ubuntu, ...&lt;/li&gt;
+&lt;li&gt;Une distribution légère : exit Mageia, Linux Mint, Centos, Ubuntu, Fedora, ...&lt;/li&gt;
+&lt;li&gt;Un bureau léger : XFCE ou LXDE ou Openbox&lt;/li&gt;
+&lt;li&gt;Joli : avec XFCE, j'ai un bureau uniforme avec des applications par défaut adaptés à l'environnement graphique de XFCE, pas besoin de me battre avec les différentes version de GTK ou QT. Et personnalisable à l'envie.&lt;/li&gt;
+&lt;li&gt;Pas d'installation par défaut : Archlinux ou Gentoo pour pouvoir choisir et installer exactement ce dont j'ai besoin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ce sera donc une Archlinux avec un bureau XFCE.&lt;/p&gt;
+&lt;p&gt;Archlinux, c'est quand même plus pour les barbus. Mais avec un peu de patience et de longueur de temps, rien n'est impossible. &lt;a href="https://wiki.archilinux.fr/Installation" title="Installation Archlinux en français"&gt;La documentation d'installation en français est très bien faite&lt;/a&gt;, il ne manque que très peu d'information pour y arriver même sans tout comprendre. Un minimum de connaissance de la ligne de commande est nécessaire malgré tout.&lt;/p&gt;
+&lt;p&gt;Je ne vais donc pas paraphraser ce qui est dans le guide d'installation qui est parfait, je vais simplement noter les quelques points sur lesquels j'ai butés et compléter avec l'installation sur virtualbox et avec le bureau xfce car le guide d'installation s'arrête juste avant l'installation du bureau.&lt;/p&gt;
+&lt;h3&gt;Trucs et astuces pendant l'installation&lt;/h3&gt;
+&lt;h4&gt;Partitionnement&lt;/h4&gt;
+&lt;p&gt;Personnellement j'ai utilisé fdisk.&lt;/p&gt;
+&lt;p&gt;Il suffit d'un petit &lt;code&gt;fdisk /dev/sda&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Puis créer les nouvelles partitions avec la commande &lt;code&gt;n&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Laisser les choix par défaut et ne renseigner que la taille des partitions&lt;/p&gt;
+&lt;p&gt;Sauvegarder avec la commande &lt;code&gt;w&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;Amorçage&lt;/h4&gt;
+&lt;p&gt;J'ai utilisé GRUB, simplement parce que je le connais alors que je ne connais pas syslinux.&lt;/p&gt;
+&lt;h4&gt;SOS installation&lt;/h4&gt;
+&lt;p&gt;Une faute de frappe est si vite arrivée, en cas problème sur le système que vous venez de construire, il est toujours possible de redémarrer sur l'iso puis de monter la partition contenant le système et de "chrooter" dessus.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;mount /dev/sda3 /mnt
+arch-chroot /mnt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;A partir de là, vous pouvez corriger les petites erreurs sans être obligé de tout reconstruire.&lt;/p&gt;
+&lt;p&gt;A la fin de la procédure d'installation, vous avez Archlinux installé avec un compte root et un utilisateur, sans environnement graphique. Il est temps d'installer xfce.&lt;/p&gt;
+&lt;h3&gt;Installation de l'environnement graphique&lt;/h3&gt;
+&lt;p&gt;Au redémarrage, nous allons nous connecter en root pour les installations suivantes&lt;/p&gt;
+&lt;h4&gt;Réseau&lt;/h4&gt;
+&lt;p&gt;A la fin de la procédure d'installation, après le démarrage, il ne faut pas oublier de démarrer le service dhcpcd pour avoir accès au réseau.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;systemctl enable dhcpcd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;Virtualbox&lt;/h4&gt;
+&lt;p&gt;En toute logique, la première étape avant l'installation de Xfce, c'est d'installer le système graphique Xorg. Mais là, je vais utiliser une voie un peu détournée, je vais directement installer les additions invité de virtualbox qui embarque le serveur xorg. Il ne va prendre que les éléments dont il a besoin, sans installer tous les drivers video. De plus, pas besoin de monter l'iso des additions invité, cela se fait par l'installation de paquets. Vraiment hyper pratique&lt;/p&gt;
+&lt;p&gt;Avec un simple :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pacman -S virtualbox-guest-utils
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;j'aurais mon serveur Xorg, mesa, virtualbox-guest-modules, etc...&lt;/p&gt;
+&lt;p&gt;J'ai buté par contre sur plusieurs petit trucs bêtes pour le partage de répertoire avec le host :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;il faut créer un répertoire /media qui n'existe pas à l'installation de Archlinux. C'est là que par défaut est monté le répertoire partagé&lt;/li&gt;
+&lt;li&gt;pour un montage automatique, il faut démarrer le service virtualboxclient par un &lt;code&gt;systemctl enable virtualboxclient&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pour le reste, il suffit de suivre &lt;a href="https://wiki.archlinux.org/index.php/VirtualBox 'Wiki Archlinux sur VirtualBox en anglais"&gt;le wiki d'Archlinux sur virtualbox&lt;/a&gt;.&lt;/p&gt;
+&lt;h4&gt;Xfce&lt;/h4&gt;
+&lt;p&gt;Le plus facile, installer xfce :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pacman -S xfce4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;puis pour le démarrer :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;startxfce4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Un peu de confort&lt;/h3&gt;
+&lt;h4&gt;slim&lt;/h4&gt;
+&lt;p&gt;J'ai installé un petit gestionnaire de démarrage pour lancer xfce tout seul. J'ai choisi slim, là encore parce que je le connais.&lt;/p&gt;
+&lt;p&gt;Pour l'installer : &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pacman -S slim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Comme j'ai crée mon utilisateur avant d'installer xorg-init, je dois d'abord copier le fichier .xinitrc sur mon répertoire&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;cp {/ect/skel,~/}.xinitrc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Ensuite, penser à décommenter la ligne dans $HOME/.xinitrc &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;exec&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;startxfce4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour un login automatique, aller dans le fichier &lt;code&gt;/etc/slim.conf&lt;/code&gt; et décommenter la ligne &lt;code&gt;auto_login&lt;/code&gt; en remplaçant &lt;code&gt;no&lt;/code&gt;par &lt;code&gt;yes&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;sudo&lt;/h4&gt;
+&lt;p&gt;La commande sudo devient vite indispensable quand vous êtes connectés avec votre compte et que vous voulez installer des paquets.&lt;/p&gt;
+&lt;p&gt;Elle s'installe tout simplement avec :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pacman -S sudo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Puis, il convient d'aller dans le fichier &lt;code&gt;/etc/sudoers&lt;/code&gt; et d'ajouter la ligne suivante.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;monuser ALL=(ALL) ALL
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous pouvez aussi installer gksu, très pratique si vous voulez lancer thunar en root.&lt;/p&gt;</content><category term="Archlinux"/><category term="Archlinux"/><category term="XFCE"/><category term="Virtualbox"/></entry></feed>

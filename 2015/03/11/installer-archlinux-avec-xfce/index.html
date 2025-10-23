@@ -1,0 +1,296 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Installer Archlinux avec XFCE</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2015/03/11/installer-archlinux-avec-xfce/" rel="bookmark" title="Permalink to Installer Archlinux avec XFCE">Installer Archlinux avec XFCE</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Wed 11 March 2015&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/archlinux.html">&nbsp;Archlinux</a>
+	<hr />
+	
+	<p>L'annonce de l'arrêt de Crunchbang, une distribution basée sur Debian et Openbox, ma distribution par défaut, m'a fait prendre conscience que j'avais tout intérêt à me monter tout seul la distribution qui me convient, avec une solution pérenne.</p>
+<p>A partir de ce moment, je bute sur l'éternelle question : Que choisir ?</p>
+<p>J'ai besoin d'une distribution légère, récente, pérenne. Je veux pouvoir installer uniquement ce dont j'ai besoin. </p>
+<p>J'ai refait un énième tour des disributions existantes, et j'ai choisi par élimination :</p>
+<ul>
+<li>Récente : je vais quitter un peu Debian qui a des cycles de livraison très espacés</li>
+<li>Pérenne : une distribution majeure : Debian, Fedora, OpenSUSE, Ubuntu, ...</li>
+<li>Une distribution légère : exit Mageia, Linux Mint, Centos, Ubuntu, Fedora, ...</li>
+<li>Un bureau léger : XFCE ou LXDE ou Openbox</li>
+<li>Joli : avec XFCE, j'ai un bureau uniforme avec des applications par défaut adaptés à l'environnement graphique de XFCE, pas besoin de me battre avec les différentes version de GTK ou QT. Et personnalisable à l'envie.</li>
+<li>Pas d'installation par défaut : Archlinux ou Gentoo pour pouvoir choisir et installer exactement ce dont j'ai besoin</li>
+</ul>
+<p>Ce sera donc une Archlinux avec un bureau XFCE.</p>
+<p>Archlinux, c'est quand même plus pour les barbus. Mais avec un peu de patience et de longueur de temps, rien n'est impossible. <a href="https://wiki.archilinux.fr/Installation" title="Installation Archlinux en français">La documentation d'installation en français est très bien faite</a>, il ne manque que très peu d'information pour y arriver même sans tout comprendre. Un minimum de connaissance de la ligne de commande est nécessaire malgré tout.</p>
+<p>Je ne vais donc pas paraphraser ce qui est dans le guide d'installation qui est parfait, je vais simplement noter les quelques points sur lesquels j'ai butés et compléter avec l'installation sur virtualbox et avec le bureau xfce car le guide d'installation s'arrête juste avant l'installation du bureau.</p>
+<h3>Trucs et astuces pendant l'installation</h3>
+<h4>Partitionnement</h4>
+<p>Personnellement j'ai utilisé fdisk.</p>
+<p>Il suffit d'un petit <code>fdisk /dev/sda</code></p>
+<p>Puis créer les nouvelles partitions avec la commande <code>n</code></p>
+<p>Laisser les choix par défaut et ne renseigner que la taille des partitions</p>
+<p>Sauvegarder avec la commande <code>w</code></p>
+<h4>Amorçage</h4>
+<p>J'ai utilisé GRUB, simplement parce que je le connais alors que je ne connais pas syslinux.</p>
+<h4>SOS installation</h4>
+<p>Une faute de frappe est si vite arrivée, en cas problème sur le système que vous venez de construire, il est toujours possible de redémarrer sur l'iso puis de monter la partition contenant le système et de "chrooter" dessus.</p>
+<div class="codehilite"><pre><span></span><code>mount /dev/sda3 /mnt
+arch-chroot /mnt
+</code></pre></div>
+
+<p>A partir de là, vous pouvez corriger les petites erreurs sans être obligé de tout reconstruire.</p>
+<p>A la fin de la procédure d'installation, vous avez Archlinux installé avec un compte root et un utilisateur, sans environnement graphique. Il est temps d'installer xfce.</p>
+<h3>Installation de l'environnement graphique</h3>
+<p>Au redémarrage, nous allons nous connecter en root pour les installations suivantes</p>
+<h4>Réseau</h4>
+<p>A la fin de la procédure d'installation, après le démarrage, il ne faut pas oublier de démarrer le service dhcpcd pour avoir accès au réseau.</p>
+<div class="codehilite"><pre><span></span><code>systemctl enable dhcpcd
+</code></pre></div>
+
+<h4>Virtualbox</h4>
+<p>En toute logique, la première étape avant l'installation de Xfce, c'est d'installer le système graphique Xorg. Mais là, je vais utiliser une voie un peu détournée, je vais directement installer les additions invité de virtualbox qui embarque le serveur xorg. Il ne va prendre que les éléments dont il a besoin, sans installer tous les drivers video. De plus, pas besoin de monter l'iso des additions invité, cela se fait par l'installation de paquets. Vraiment hyper pratique</p>
+<p>Avec un simple :</p>
+<div class="codehilite"><pre><span></span><code>pacman -S virtualbox-guest-utils
+</code></pre></div>
+
+<p>j'aurais mon serveur Xorg, mesa, virtualbox-guest-modules, etc...</p>
+<p>J'ai buté par contre sur plusieurs petit trucs bêtes pour le partage de répertoire avec le host :</p>
+<ul>
+<li>il faut créer un répertoire /media qui n'existe pas à l'installation de Archlinux. C'est là que par défaut est monté le répertoire partagé</li>
+<li>pour un montage automatique, il faut démarrer le service virtualboxclient par un <code>systemctl enable virtualboxclient</code></li>
+</ul>
+<p>Pour le reste, il suffit de suivre <a href="https://wiki.archlinux.org/index.php/VirtualBox 'Wiki Archlinux sur VirtualBox en anglais">le wiki d'Archlinux sur virtualbox</a>.</p>
+<h4>Xfce</h4>
+<p>Le plus facile, installer xfce :</p>
+<div class="codehilite"><pre><span></span><code>pacman -S xfce4
+</code></pre></div>
+
+<p>puis pour le démarrer :</p>
+<div class="codehilite"><pre><span></span><code>startxfce4
+</code></pre></div>
+
+<h3>Un peu de confort</h3>
+<h4>slim</h4>
+<p>J'ai installé un petit gestionnaire de démarrage pour lancer xfce tout seul. J'ai choisi slim, là encore parce que je le connais.</p>
+<p>Pour l'installer : </p>
+<div class="codehilite"><pre><span></span><code>pacman -S slim
+</code></pre></div>
+
+<p>Comme j'ai crée mon utilisateur avant d'installer xorg-init, je dois d'abord copier le fichier .xinitrc sur mon répertoire</p>
+<div class="codehilite"><pre><span></span><code>cp {/ect/skel,~/}.xinitrc
+</code></pre></div>
+
+<p>Ensuite, penser à décommenter la ligne dans $HOME/.xinitrc </p>
+<div class="codehilite"><pre><span></span><code><span class="k">exec</span><span class="w"> </span><span class="nv">startxfce4</span>
+</code></pre></div>
+
+<p>Pour un login automatique, aller dans le fichier <code>/etc/slim.conf</code> et décommenter la ligne <code>auto_login</code> en remplaçant <code>no</code>par <code>yes</code>.</p>
+<h4>sudo</h4>
+<p>La commande sudo devient vite indispensable quand vous êtes connectés avec votre compte et que vous voulez installer des paquets.</p>
+<p>Elle s'installe tout simplement avec :</p>
+<div class="codehilite"><pre><span></span><code>pacman -S sudo
+</code></pre></div>
+
+<p>Puis, il convient d'aller dans le fichier <code>/etc/sudoers</code> et d'ajouter la ligne suivante.</p>
+<div class="codehilite"><pre><span></span><code>monuser ALL=(ALL) ALL
+</code></pre></div>
+
+<p>Vous pouvez aussi installer gksu, très pratique si vous voulez lancer thunar en root.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

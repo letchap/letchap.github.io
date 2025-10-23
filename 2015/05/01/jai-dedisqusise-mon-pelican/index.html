@@ -1,0 +1,338 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>J'ai dédisqusisé mon Pelican</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2015/05/01/jai-dedisqusise-mon-pelican/" rel="bookmark" title="Permalink to J'ai dédisqusisé mon Pelican">J'ai dédisqusisé mon Pelican</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Fri 01 May 2015&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/pelican.html">&nbsp;Pelican</a>
+	<hr />
+	
+	<p>Deuxième étape dans la recherche de solutions libres autour de mon blog Pelican : remplacer le gestionnaire de commentaires Disquss par Isso.</p>
+<p>Isso est un gestionnaire de commentaires open source et écrit en Python. Autant dire qu'il est donc parfait. Pour plus d'information vous pouvez aller voir sur le <a href="http://posativ.org/isso/" title="Isso">site d'Isso</a> dès maintenant mais nous allons largement y revenir.</p>
+<p>Ma seule difficulté, comme d'habitude, est de ne pas avoir de serveur à la maison, donc, encore une fois, je vais utiliser openshift. Et là, contrairement à l'installation de piwik sur openshift qui se fait de manière très simple en 3 lignes de commandes grâce à la disponibilité d'un cartrigde piwik, pour Isso, il faut tout faire à la main.</p>
+<h3>J'ai commencé par tatonner</h3>
+<p>Sur le site de Isso, deux procédures d'installation sont décrites : une en utilisant <code>pip install</code>, et une plus manuelle</p>
+<p>Ma première erreur fut de croire que Isso s'installe sur Openshift comme avec un simple <code>pip install</code>. La procédure que je m'attendais à appliquer était :
+    rhc app create isso python-3.3</p>
+<p>Je mets à jour les fichiers de paramétrage wsgi.py et isso.conf comme indiqué sur le site de Isso puis :</p>
+<div class="codehilite"><pre><span></span><code>git add.
+git commit -m &quot;isso my love&quot;
+git push
+</code></pre></div>
+
+<p>Et là, comme par miracle, j'aurais eu isso installé. Que nenni, il manque les fichiers javascript <code>embed.min.js</code> et <code>count.min.js</code> indispensables pour faire tourner le client.</p>
+<p>Pour s'en apercevoir, la commande super utile à consommer sans modération est :</p>
+<div class="codehilite"><pre><span></span><code>rhc app tail -a isso
+</code></pre></div>
+
+<p>qui permet de lire les logs (en particulier d'erreur) de l'application sur Openshift. Et là, on a une belle erreur <code>400 fichier non trouvé</code> sur le <code>GET embed.min.js</code></p>
+<p>Je n'ai pas compris pourquoi avec <code>pip install</code> en local, j'ai bien la création de mes fichiers javascript mais pas en créant l'application sur Openshift, en attendant, passage au plan B, l'installation manuelle de Isso sur openshift.</p>
+<h3>La procédure garantie à 100% pour l'installation de Isso sur openshift est la suivante :</h3>
+<p>Je me suis largement inspiré du dépôt <a href="https://github.com/commentedit/commented.it/wiki/How-to-install-on-OpenShift" title="Commentedit">commentedit</a></p>
+<h4>Je crée une application Isso sur Openshift</h4>
+<p>Dans une fenêtre du terminal, j'entre la commande suivante :</p>
+<div class="codehilite"><pre><span></span><code>rhc app create isso python-3.3 --from-code https://github.com/posativ/isso.git
+</code></pre></div>
+
+<h4>Je paramètre mon application</h4>
+<p>Je me place dans le répertoire de mon application nouvellement créée :</p>
+<div class="codehilite"><pre><span></span><code>cd isso
+</code></pre></div>
+
+<p>Première chose à faire, récupérer l'UUID de mon application, grâce à la commande </p>
+<div class="codehilite"><pre><span></span><code><span class="nv">rhc</span><span class="w"> </span><span class="nv">app</span><span class="o">-</span><span class="k">show</span><span class="w"> </span><span class="nv">isso</span>
+</code></pre></div>
+
+<p>Je crée un répertoire share et un fichier de configuration <code>/share/isso.conf</code> avec le contenu suivant :</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[general]</span>
+<span class="na">dbpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/var/lib/openshift/UUID/app-root/data/comment.db</span><span class="w"> </span>
+<span class="na">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">http://letchap.github.io</span>
+<span class="na">max-age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">15m</span>
+<span class="na">notify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">smtp</span>
+<span class="na">log-file</span><span class="w"> </span><span class="o">=</span>
+
+<span class="k">[moderation]</span>
+<span class="na">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="na">purge-after</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">30d</span>
+
+<span class="k">[server]</span>
+<span class="na">listen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">http://localhost:8080</span>
+<span class="na">reload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">off</span>
+<span class="na">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">off</span>
+
+<span class="k">[smtp]</span>
+<span class="na">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">$username</span>
+<span class="na">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">$password</span>
+<span class="na">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">smtp.gmx.com</span>
+<span class="na">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">25</span>
+<span class="na">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">starttls</span>
+<span class="na">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">$mail</span>
+<span class="na">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">$mail</span>
+<span class="na">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
+
+<span class="k">[guard]</span>
+<span class="na">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="na">ratelimit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">2</span>
+<span class="na">direct-reply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3</span>
+<span class="na">reply-to-self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+
+<span class="k">[markup]</span>
+<span class="na">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">strikethrough, autolink, fenced_code, no_intra_emphasis</span>
+<span class="na">allowed-elements</span><span class="w"> </span><span class="o">=</span>
+<span class="na">allowed-attributes</span><span class="w"> </span><span class="o">=</span>
+
+<span class="k">[hash]</span>
+<span class="na">salt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Eech7co8Ohloopo9Ol6baimi</span>
+<span class="na">algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pbkdf2</span>
+</code></pre></div>
+
+<p>Il est important de tout renseigner, sinon il y aura des problèmes de lecture de fichier.</p>
+<p>Puis je crée un fichier wsgi.py avec le contenu suivant :</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">site</span>
+<span class="n">site</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OPENSHIFT_PYTHON_DIR&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/virtenv/&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">isso</span> <span class="kn">import</span> <span class="n">make_app</span><span class="p">,</span> <span class="n">config</span>
+<span class="n">application</span> <span class="o">=</span> <span class="n">make_app</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OPENSHIFT_REPO_DIR&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/share/isso.conf&#39;</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Enfin je supprime ces quelques lignes dans .gitignore puisque je vais créer les fichiers manuellement et les pousser sur openshift :</p>
+<div class="codehilite"><pre><span></span><code>/isso/js/embed.min.js
+/isso/js/embed.dev.js
+/isso/js/count.min.js
+/isso/js/count.dev.js
+</code></pre></div>
+
+<h4>Je créé mes fichiers javascript</h4>
+<p>Il faut créer les fichiers javascript <code>embed.min.js</code> et <code>count.min.js</code> manuellement avec la commande suivante :</p>
+<div class="codehilite"><pre><span></span><code>make init &amp;&amp;
+make js
+</code></pre></div>
+
+<p>En ayant préalablement installer requirejs et uglyfyjs.</p>
+<h4>Ne reste plus qu'à pousser</h4>
+<p>Il ne reste plus qu'à pousser le tout sur openshift </p>
+<div class="codehilite"><pre><span></span><code>git add .
+git commit -m &quot;Et c&#39;est parti...&quot;
+git push
+</code></pre></div>
+
+<h3>Et le client ...</h3>
+<p>Sur le client, il suffit d'ajouter ces quelques lignes </p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;script</span><span class="w"> </span><span class="na">data-isso=</span><span class="s">&quot;https://commentedit-YOUR_DOMAIN.rhcloud.com/&quot;</span>
+<span class="w">    </span><span class="na">src=</span><span class="s">&quot;https://isso-letchap.rhcloud.com/js/embed.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;section</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;isso-thread&quot;</span><span class="nt">&gt;&lt;/section&gt;</span>
+</code></pre></div>
+
+<h3>L'import des données Disqus</h3>
+<p>La dernière étape est d'importer les commentaires de Disqus. Pour cela, il faut d'abord aller sur le site de Disqus et exporter les commentaires.</p>
+<p>Après, je l'ai fait un peu brutal. Je me suis connecté en ssh sur openshift par un <code>rhc ssh isso</code> et j'ai créé un fichier disqus.xml dans le répertoire <code>app-root/data</code> et j'ai collé le contenu de mon fichier d'export.</p>
+<p>Puis j'ai lancé la commande :</p>
+<div class="codehilite"><pre><span></span><code><span class="n">isso</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">isso</span><span class="o">.</span><span class="n">conf</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="o">/</span><span class="n">app</span><span class="o">-</span><span class="n">root</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">disqus</span><span class="o">.</span><span class="n">xml</span>
+</code></pre></div>
+
+<p>Et voilà, c'est fini. Ne reste plus qu'à supprimer son compte Disqus.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

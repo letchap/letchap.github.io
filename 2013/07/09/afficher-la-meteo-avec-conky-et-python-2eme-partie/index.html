@@ -1,0 +1,328 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Afficher la meteo avec conky et python 2ème partie</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/07/09/afficher-la-meteo-avec-conky-et-python-2eme-partie/" rel="bookmark" title="Permalink to Afficher la meteo avec conky et python 2ème partie">Afficher la meteo avec conky et python 2ème partie</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Tue 09 July 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/linux.html">&nbsp;Linux</a>
+	<hr />
+	
+	<p>Nous avons vu <a href="../../../../2013/07/08/afficher-la-meteo-avec-conky-et-python-1ere-partie/">dans le billet précédent</a> comment créer un programme python qui récupère les informations météo sur le site de wunderground. Nous avons "démonisé" ce script, c'est à dire que nous lui avons demandé de se déclencher à intervalle régulier.</p>
+<p>Nous allons maintenant faire en sorte qu'il se lance automatiquement au démarrage de l'ordinateur.</p>
+<p>Cette procédure est valable pour les distributions Linux se basant sur init.d comme Debian, et donc Crunchbang qui est la distribution sur laquelle a été fait cette automatisation.</p>
+<p>Pour cela, il suffit de suivre les étapes suivantes :</p>
+<h3>Sauver le programme python dans /usr/sbin</h3>
+<p>Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans <code>/usr./sbin</code> doit se faire en mode root par un <code>sudo cp meteo.py /usr/sbin</code>. Ne pas oublier au préalable de rendre le script exécutable par un <code>chmod +x meteo.py</code>.</p>
+<h3>Créer un script de démarrage /etc/init.d</h3>
+<p>Le fichier <code>/etc/init.d/skeleton</code> est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que <a href="http://www.gavinj.net/2012/06/building-python-daemon-process.html">j'ai trouvé ici</a>, puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire <code>/etc/init.d/</code>, en faisant <code>$ sudo geany /etc/init.d/meteo</code> par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#! /bin/sh</span>
+<span class="c1">### BEGIN INIT INFO</span>
+<span class="c1"># Provides:          meteo</span>
+<span class="c1"># Required-Start:    $all</span>
+<span class="c1"># Required-Stop:     $all</span>
+<span class="c1"># Default-Start:     2 3 4 5</span>
+<span class="c1"># Default-Stop:      0 1 6</span>
+<span class="c1"># Short-Description: Demarrage du service meteo</span>
+<span class="c1"># Description:       Demarrage du programme de récupération des données</span>
+<span class="c1">#                    meteo</span>
+<span class="c1">### END INIT INFO</span>
+
+<span class="k">case</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">in</span>
+<span class="w">  </span>start<span class="o">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting server&quot;</span>
+<span class="w">    </span><span class="c1"># Start the daemon</span>
+<span class="w">    </span>python<span class="w"> </span>/usr/sbin/meteo.py<span class="w"> </span>start
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">  </span>stop<span class="o">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Stopping server&quot;</span>
+<span class="w">    </span><span class="c1"># Stop the daemon</span>
+<span class="w">    </span>python<span class="w"> </span>/usr/sbin/meteo.py<span class="w"> </span>stop
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">  </span>restart<span class="o">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restarting server&quot;</span>
+<span class="w">    </span>python<span class="w"> </span>/usr/sbin/meteo.py<span class="w"> </span>restart
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">  </span>*<span class="o">)</span>
+<span class="w">    </span><span class="c1"># Refuse to do other stuff</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usage: /etc/init.d/meteo {start|stop|restart}&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="k">esac</span>
+
+<span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+</code></pre></div></td></tr></table></div>
+
+<p><a class="button small" href="../../../../code/meteo" title="Télécharger meteo">Télécharger meteo</a></p>
+<p>Ensuite, il ne faut pas oublier de rendre le script exécutable par :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>meteo
+</code></pre></div>
+
+<p>Pour tester si votre script fonctionne correctement, vous pouvez faire :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>/etc/init.d/meteo<span class="w"> </span>start
+$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>meteo
+root<span class="w">      </span><span class="m">2355</span><span class="w">     </span><span class="m">1</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">21</span>:01<span class="w"> </span>?<span class="w">        </span><span class="m">00</span>:00:00<span class="w"> </span>python<span class="w"> </span>/usr/sbin/meteo.py<span class="w"> </span>start
+</code></pre></div>
+
+<p>Vous devriez voir votre service dans la liste des processus actifs.</p>
+<p>Pour arrêter le service, il suffit de faire :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>/etc/init.d/meteo<span class="w"> </span>stop
+</code></pre></div>
+
+<h3>Inclure le service au démarrage</h3>
+<p>Pour ajouter le script à la liste de démarrage, vous devez lancer la commande suivante à partir du répertoire /etc/init.d/</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>update-rc.d<span class="w"> </span>meteo<span class="w"> </span>defaults
+</code></pre></div>
+
+<p>Il ne reste plus qu'à rebooter et le programme python sera lancé automatiquement au démarrage.</p>
+<h3>Petites astuces</h3>
+<p>Argh, ça ne marche pas ! ! ! Mais pourquoi ? Pas de panique, il y a forcément une explication. Voilà deux pistes.</p>
+<h4>Astuce 1</h4>
+<p>Si vous avez lu le premier billet sur le programme python, vous avez remarqué que j'ai changé la redirection des messages envoyés par le démon de /dev/tty vers /dev/null. En effet, si tout fonctionnait parfaitement avec le lancement du service via le terminal, le script python plantait au reboot car il cherchait un service tty qui n'était pas démarré.</p>
+<p>Maintenant que tout part à la poubelle, je n'ai plus d'infos sur le démon, mais je n'ai plus de problème.</p>
+<h4>Astuce 2</h4>
+<p>Pour être sûr d'avoir paramétré correctement le script meteo dans /etc/init.d, , il faut savoir dans quel runlevel se lance Crunchbang.</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>who<span class="w"> </span>-r
+<span class="w">         </span>niveau<span class="w"> </span>d<span class="err">&#39;</span>exécution<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2013</span>-07-09<span class="w"> </span><span class="m">21</span>:01<span class="w">                   </span><span class="nv">dernier</span><span class="o">=</span>S
+</code></pre></div>
+
+<p>Nous voyons dans mon cas particulier que ma session démarre avec un runlevel 2. Ca tombe bien, c'est ce que j'ai défini sur la ligne <code># Default-Start:     2 3 4 5</code>.</p>
+<p>Et lorsque que j'ai lancé la commande update-rc.d, un lien s'est créé dans le répertoire /etc/rc2.d listant les services concernés par le runlevel 2, la lettre S signifiant Start (K voulant dire Kill), et le numéro 05 précisant que le service démarrera après tous ceux ayant un numéro inférieur.</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">$ls</span><span class="w"> </span>-l<span class="w"> </span>/etc/rc2.d/
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">15</span><span class="w"> </span>juil.<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">21</span>:45<span class="w"> </span>S05meteo<span class="w"> </span>-&gt;<span class="w"> </span>../init.d/meteo
+</code></pre></div>
+
+<p>Pour plus d'information sur les runlevel, je vous invite à aller <a href="http://www.generation-linux.fr/?post/2009/01/22/Cours-Linux-%3A-les-runlevels" title="Tout ce que vous avez toujours voulu savoir sur les runlevel">à cette adresse</a></p>
+<p>Dans le prochain billet, la troisème et dernière étape : <a href="../../../../2013/07/10/afficher-la-meteo-avec-conky-et-python-3eme-partie/">le conky météo</a></p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

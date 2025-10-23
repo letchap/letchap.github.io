@@ -1,0 +1,315 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Les travaux de rafraîchissement sur le blog</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2023/02/28/les-travaux-de-rafraichissement-sur-le-blog/" rel="bookmark" title="Permalink to Les travaux de rafraîchissement sur le blog">Les travaux de rafraîchissement sur le blog</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Tue 28 February 2023&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/pelican.html">&nbsp;Pelican</a>
+	<hr />
+	
+	<p>Après presque 8 ans sans avoir touché au blog, il était nécessaire de faire un peu de dépoussiérage. Toutes les sources ont 8 ans, autant dire une éternité. Pour le blog, j'utilise :
+* le CMS Pelican
+* le framework Foundation pour les feuilles de style
+* Github pour la publication des pages</p>
+<p>Pour remettre un petit coup de frais sur le blog, j'ai eu besoin de :
+* récupérer les sources depuis Github
+* faire la montée de version Pelican
+* faire la montée de version de Foundation de la v5 vers la v6</p>
+<h3>Récupérer les sources</h3>
+<p>Mon dernier article a été écrit sur un iMac qui a rendu l'âme. Fort heureusement, les sources sont toujours disponibles sur mon dépôt Github. Dans le dépôt source sont présents les articles et le template du site au format Foundation 5 (mais pas les sources Pelican).</p>
+<p>Dans deux de mes articles précédents, j'avais expliqué comment travailler sur plusieurs ordinateurs différents grâce à Github et comment créer un environnement virtuel python pour bien gérer le projet en local. Cette fois, je me suis facilité la tâche en faisant les deux en même temps grâce à Pycharm. L'installation de Pycharm sur Ubuntu se fait à partir d'un dépôt snap. J'utlise la version community :</p>
+<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>pycharm-community<span class="w"> </span>--classic
+</code></pre></div>
+
+<p>Une fois dans Pycharm, je peux créer un projet en clonant le dépôt Github. Pycharm va vous demander de vous connecter à votre compte Github, de sélectionner le dépôt à cloner, puis va créer le projet à partir du clone.</p>
+<p><a data-lightbox="pycharm" href="../../../../images/pycharm.png" title="Ecran pycharm"><img alt="Ecran pycham" src="../../../../images/pycharm.png" title="Ecran pycharm"></a></p>
+<p>Dans Pycharm, je vais donc avoir les pages sources du blog, et l'ancien thème Foundation dans sa version 5.</p>
+<p>Je vais ensuite paramétrer un environnement virtuel avant d'installer la nouvelle version de Pelican. Pour cela je vais dans file/settings/projets/python interpreter, add interpreter et je choisis virtualenv environment.</p>
+<h3>Installer la nouvelle version de Pelican</h3>
+<p>Je peux maintenant procéder à l'installation de Pelican</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pelican
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pelican[markdown]&quot;</span>
+pelican-quickstart
+</code></pre></div>
+
+<p>Je lance le pelican-quickstart uniquement pour créer le squelette du site, je laisse les options par défaut. Je récupère mon ancien fichier de configuration pelican.conf pour écraser celui créer par pelican-quickstart</p>
+<p>Ce que j'ai trouvé extraordinaire avec Pelican, c'est que je n'ai quasiment pas eu besoin de modifier mon fichier de configuration pour pouvoir lancer la fabrication du site. Seul le module markdown a évolué, j'ai modifié les lignes concernant uniquement markdown dans le fichier.</p>
+<p>A titre d'exemple, mon fichier <code>pelicanconf.py</code> :</p>
+<div class="codehilite"><pre><span></span><code><span class="n">AUTHOR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u</span><span class="s1">&#39;letchap&#39;</span>
+<span class="n">SITENAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u</span><span class="s1">&#39;letchap&#39;</span>
+<span class="n">SITESUBTITLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u</span><span class="s1">&#39;du Linux, du Python, un peu de Mac&#39;</span>
+<span class="n">SITEURL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://letchap.github.io&#39;</span>
+<span class="n">TIMEZONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Europe/Paris&#39;</span>
+
+<span class="n">PATH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;content&#39;</span>
+
+<span class="n">DEFAULT_METADATA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="s1">&#39;Linux&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Python&#39;</span><span class="p">),)</span>
+
+<span class="n">STATIC_PATHS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;images&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;downloads&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;code&#39;</span><span class="p">]</span>
+
+<span class="n">ABSURL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;letchap.github.io&#39;</span>
+<span class="n">SIMPLE_SEARCH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://duckduckgo.com&#39;</span>
+
+<span class="n">MARKDOWN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s1">&#39;extension_configs&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s1">&#39;markdown.extensions.codehilite&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">        </span><span class="s1">&#39;markdown.extensions.extra&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">        </span><span class="s1">&#39;markdown.extensions.meta&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">        </span><span class="s1">&#39;markdown.extensions.addcode&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s1">&#39;output_format&#39;</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;html5&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">DISPLAY_PAGES_ON_MENU</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">True</span>
+<span class="n">DISPLAY_CATEGORIES_ON_MENU</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">False</span>
+
+<span class="n">DEFAULT_LANG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u</span><span class="s1">&#39;fr&#39;</span>
+<span class="n">GOOGLE_ANALYTICS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;G-xxx&quot;</span>
+<span class="n">GITHUB_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://github.com/letchap/&#39;</span>
+
+<span class="n">FEED_ALL_ATOM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;atom.xml&#39;</span>
+
+
+
+<span class="c1"># Social</span>
+<span class="n">SOCIAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="s1">&#39;mastodon&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;https://mastodon.social/@letchap&#39;</span><span class="p">),</span>
+<span class="w">          </span><span class="p">(</span><span class="s1">&#39;github&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;https://github.com/letchap&#39;</span><span class="p">),)</span>
+
+<span class="c1"># Pagination</span>
+<span class="n">DEFAULT_PAGINATION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="n">SUMMARY_MAX_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span>
+
+<span class="c1"># Uncomment following line if you want document-relative URLs when developing</span>
+<span class="n">RELATIVE_URLS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">True</span>
+
+<span class="c1"># Paramètrage du thème</span>
+<span class="n">THEME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;F6-theme&quot;</span>
+
+<span class="c1"># Paramètrage de l&#39;URL</span>
+<span class="n">ARTICLE_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s2">}/{slug}/&quot;</span>
+<span class="n">ARTICLE_SAVE_AS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s2">}/{slug}/index.html&quot;</span>
+</code></pre></div>
+
+<p><a class="button small" href="../../../../code/pelicanconf.py" title="Télécharger pelicanconf.py">Télécharger pelicanconf.py</a></p>
+<p>Dans le fichier conf, j'ai une petite ligne custom car j'ai créé une extension markdown personnelle qui me permet de récupérer le contenu d'un fichier script pour le mettre sous forme de bloc de code dans un article. Les explications sont <a href="../../../../2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/">dans cet article</a> qui a été mis à jour pour l'occasion.</p>
+<p>.pipe(gulp.dest('static/css'))</p>
+<h3>Installer la nouvelle version 6 de foundation et adapter le thème du site</h3>
+<p>Alors là, ce fut le gros morceau. Tout a changé en 7 ans : l'installation, les composants, ... L'enfer.</p>
+<h4>L'installation</h4>
+<p>En clonant mon dépôt github, j'ai récupéré le thème Foundation dans sa version 5. Je vais installer la version 6 de foundation à coté, dans mon projet Pelican. J'ai choisi la version basic car je n'ai pas besoin de javascript Foundation, je n'utilise pas de composant le requérant. L'installation m'a semblé plus simple que dans la version 5, 3 petites lignes suffisent pour l'installation, la quatrième permet de visualiser les modifications en temps réel. J'ai installé Foundation dans un répertoire que j'ai appelé F6-theme.</p>
+<div class="codehilite"><pre><span></span><code>git clone https://github.com/foundation/foundation-sites-template F6-theme
+cd F6-theme
+yarn install
+yarn start # pour voir les modifications sass
+</code></pre></div>
+
+<p>J'en ai profité pour faire l'adaptation de la structure du répertoire Foundation à celle de Pelican (<a href="../../../../2014/08/29/utiliser-foundation-et-sass-avec-pelican/">petit rappel ici</a>) en modifiant le fichier gulpfile.js pour que le fichier app.css se crée dans un répertoire <code>static/css</code> et non <code>css</code></p>
+<h4>Les composants</h4>
+<p>Le plus gros changement concerne les composants de la version 6 de Foundation et il m'a fallu un bon moment pour adapter le site au format V5 en V6. Je vais faire un billet dédié sur les différents changements car il y en a beaucoup, en particulier, la gestion des grilles.</p>
+<h3>Le nouveau site Pelican</h3>
+<p>Une fois que tout est installé la structure de mon projet Pelican comprend :
+* les articles au format markdown récupéré de mon dépôt github dans le dossier content
+* un répertoire newpost qui me permet de créer automatique un squelette d'article
+* un répertoire F6-theme qui contient mon nouveau thème Foundation
+* un répertoire output qui va se créer en lançant la génération du site par un <code>make html</code>
+* un répertoire venv qui contient les sources Pelican et mon extension markdown pour insérer du code dans les articles</p>
+<p><a data-lightbox="blog-pycharm" href="../../../../images/blog-pycharm.png" title="blog-pycharm"><img alt="Ecran blog-pycharm" src="../../../../images/blog-pycharm.png" title="Ecran blog-pycharm"></a></p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

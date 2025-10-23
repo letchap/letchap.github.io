@@ -1,0 +1,1142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Python</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/python.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2014-08-07T21:42:00+02:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Bien démarrer un projet Python</title><link href="https://letchap.github.io/2014/08/07/bien-demarrer-un-projet-python/" rel="alternate"/><published>2014-08-07T21:42:00+02:00</published><updated>2014-08-07T21:42:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-08-07:/2014/08/07/bien-demarrer-un-projet-python/</id><summary type="html">&lt;p&gt;Après quelques mois de pratique de Python, je viens enfin de comprendre à quoi servent les environnements virtuels. C'est un peu toujours la même chose. On lit, on expérimente, on ne comprend pas bien pourquoi on fait telle action, et un jour, on a le déclic. Evidemment, j'ai bien lu …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Après quelques mois de pratique de Python, je viens enfin de comprendre à quoi servent les environnements virtuels. C'est un peu toujours la même chose. On lit, on expérimente, on ne comprend pas bien pourquoi on fait telle action, et un jour, on a le déclic. Evidemment, j'ai bien lu un peu partout que les environnements virtuels c'est super, que ça permet d'isoler des sources, que cela ne pollue pas le reste du système, etc ... Jusqu'à présent, pour moi, cela ne restait que des mots. Et facta est lux.&lt;/p&gt;
+&lt;h3&gt;La création d'un projet dans un environnement virtuel avec un dépôt git&lt;/h3&gt;
+&lt;p&gt;Quelque soit le projet, la méthode que je suis est désormais la suivante :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;je crée un répertoire&lt;/li&gt;
+&lt;li&gt;je me positionne dans le répertoire et je crée un dépôt git&lt;/li&gt;
+&lt;li&gt;je crée un environnement virtuel en choisissant ma version Python&lt;/li&gt;
+&lt;li&gt;j'exclue les sources et bibliothèques de l'environnement virtuel de mon dépôt&lt;/li&gt;
+&lt;li&gt;je fais un premier commit de mon dépôt&lt;/li&gt;
+&lt;li&gt;je peux activer l'environnement virtuel et installer les sources dont j'ai besoin pour travailler&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ce qui nous donne :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;monprojet
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;monprojet
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;init
+$&lt;span class="w"&gt; &lt;/span&gt;virtualenv&lt;span class="w"&gt; &lt;/span&gt;‐p&lt;span class="w"&gt; &lt;/span&gt;python2.7&lt;span class="w"&gt; &lt;/span&gt;monprojet-env&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;# par défaut, version de Python installé sur l&amp;#39;OS&lt;/span&gt;
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;monprojet-env&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;.gitignore
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;*.pyc&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;.gitignore
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;.gitignore
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;commit&lt;span class="w"&gt; &lt;/span&gt;‐m&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Création du projet en ignorant les bibliothèques Python installées&amp;quot;&lt;/span&gt;
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;monprojet-env/bin/activate
+$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour sortir d'un environnement virtuel, la commande est &lt;code&gt;deactivate&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;D'accord, mais à quoi ça sert ?&lt;/h3&gt;
+&lt;p&gt;Première chose, l'environnement virtuel ne va concerner que la bibliothèque standard python dans la version que vous aurez choisi au moment de faire &lt;code&gt;virtualenv&lt;/code&gt; et les bibliothèques tierces que vous aurez installé via &lt;code&gt;pip install&lt;/code&gt; par exemple. Un petit tour dans le dossier &lt;code&gt;monprojet-env&lt;/code&gt; vous permettra de le constater. Ce qui veut dire (ça a l'air évident mais j'avais pas percuté tout de suite), qu'il ne contient rien d'autre, surtout pas les sources de votre projet ou les sources des autres langages de programmation, comme par exemple, au hasard, Ruby.&lt;/p&gt;
+&lt;p&gt;Et maintenant, place au cas pratique :&lt;/p&gt;
+&lt;p&gt;Mon site est généré grâce au CMS Pelican écrit en python. Actuellement il est en version 3.4 et tourne en Python 2.7. Les sources de Python et Pelican sont dans un environnement virtuel. Les sources du site sont dans un dépôt git. J'utilise également Ruby et notamment le gem Sass, qui eux sont installés sur le système.&lt;/p&gt;
+&lt;p&gt;Je veux tester la version 3.4 de Pelican en Python 3.3, sans toucher à l'existant, puis si l'essai est concluant, en faire la version de production.&lt;/p&gt;
+&lt;p&gt;Les différentes étapes vont être les suivantes :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;récuperer la liste des bibliothèques tierces installées sur l'environnement virtuel de départ&lt;/li&gt;
+&lt;li&gt;bien mettre à jour le dépôt avec les sources du site&lt;/li&gt;
+&lt;li&gt;cloner les sources du site dans un nouveau dossier&lt;/li&gt;
+&lt;li&gt;créer un nouvel environnement virtuel&lt;/li&gt;
+&lt;li&gt;y installer Python 3.3, Pelican 3.4 et les autres bibliothèques nécessaires au fonctionnement de Pelican&lt;/li&gt;
+&lt;li&gt;faire les tests avec ce nouvel environnement, donc sans toucher à l'ancien&lt;/li&gt;
+&lt;li&gt;si tout est bon, ça devient le nouvel environnement, vous pouvez suprimmer l'ancien&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ce qui nous donne&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;blog2.7
+$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;freeze&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;source.txt
+$&lt;span class="w"&gt; &lt;/span&gt;virtualenv&lt;span class="w"&gt; &lt;/span&gt;‐p&lt;span class="w"&gt; &lt;/span&gt;python3.3&lt;span class="w"&gt; &lt;/span&gt;pelican3.4-env
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;pelican3.4-env&lt;span class="w"&gt; &lt;/span&gt;&amp;gt;&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;.gitignore
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;.gitignore
+$&lt;span class="w"&gt; &lt;/span&gt;git&lt;span class="w"&gt; &lt;/span&gt;commit&lt;span class="w"&gt; &lt;/span&gt;‐m&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;J&amp;#39;exclue les sources python 3.3 du dépôt&amp;quot;&lt;/span&gt;
+$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;pelican3.4-env/bin/activate
+$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;source.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Voilà, il ne reste plus qu'à tester le site sous ce nouvel environnement, et si vous êtes content du résultat, supprimer l'ancien environnement. Si vous n'êtes pas satisfait, il suffit de supprimer le nouvel environnement et d'annuler les modifications dans git.&lt;/p&gt;</content><category term="Python"/><category term="Python"/><category term="git"/><category term="virtualenv"/><category term="Pelican"/></entry><entry><title>Quel langage de programmation choisir pour débuter</title><link href="https://letchap.github.io/2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/" rel="alternate"/><published>2014-04-28T22:36:00+02:00</published><updated>2014-04-28T22:36:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-28:/2014/04/28/quel-langage-de-programmation-choisir-pour-debuter/</id><summary type="html">&lt;p&gt;Il y a de cela un an et demi, après avoir installé mon premier Linux, j'ai cherché un langage de programmation pour débutant. Je voulais réaliser des petits programmes simples pour me faciliter certaines tâches comme récupérer des documents sur internet ou convertir des fichiers.&lt;/p&gt;
+&lt;p&gt;La toute première question que …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Il y a de cela un an et demi, après avoir installé mon premier Linux, j'ai cherché un langage de programmation pour débutant. Je voulais réaliser des petits programmes simples pour me faciliter certaines tâches comme récupérer des documents sur internet ou convertir des fichiers.&lt;/p&gt;
+&lt;p&gt;La toute première question que je me suis posé fut : "Mais quel langage je vais bien pouvoir choisir ?". Question d'autant plus ardue que je n'y connaissais vraiment rien.&lt;/p&gt;
+&lt;p&gt;Evidemment, j'avais entendu parlé de certains langages comme Java ou C++, mais dès les premières recherches, je lis qu'en Java, tout objet est une classe. Rédhibitoire pour moi, les classes, quand on n'a jamais fait de programmation, ce n'est pas instinctif.&lt;/p&gt;
+&lt;p&gt;De la même manière, je connaissais php de nom, mais rapidement, je me rends compte que c'est surtout utile pour monter un site web.&lt;/p&gt;
+&lt;p&gt;Le premier langage sur lequel je tombe alors est Perl. Et dès l'introduction, je lis la devise Perl qui décomplexe n'importe quel amateur "Il y a toujours plusieurs façons de faire". Je me dis alors que je suis sur la bonne voie. Malheureusement, je pense que pour un débutant, Perl est un peu aride car très condensé. En une seule ligne, il est possible d'effectuer beaucoup de tâches, du coup, la relecture du code est un peu complexe. Il y a un gros ticket d'entrée.&lt;/p&gt;
+&lt;p&gt;Et puis, au hasard d'une lecture, en l'occurrence full circle magazine, je tombe sur &lt;a href="http://www.fullcirclemag.fr/?post/2012/06/07/Numéro-spécial-PYTHON%2C-volume-1"&gt;un tutoriel pour Python&lt;/a&gt;. Le premier article d'une longue série concerne le programme "Hello world" qui tient dans la ligne suivante :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;print(&amp;quot;Hello world!&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Difficile de faire plus simple.&lt;/p&gt;
+&lt;p&gt;A titre de comparaison, les "Hello world" en Perl, Java et C++ paraissent plus trapus.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;Perl&lt;/span&gt;
+&lt;span class="nf"&gt;print&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello world!&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;Java&lt;/span&gt;
+&lt;span class="kr"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;HelloWorld&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="kr"&gt;public&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;static&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;void&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kr"&gt;String&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello world!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="cpf"&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;
+
+&lt;span class="kr"&gt;int&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;cout&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, new world!&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Encore un petit exemple pour illustrer la facilité d'utilisation de Python : pour déclarer une variable, il suffit de faire :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;x=&amp;#39;toto&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Nous avons déclaré la variable x en lui affectant la valeur &lt;code&gt;toto&lt;/code&gt;. Un jeu d'enfant !&lt;/p&gt;
+&lt;p&gt;Python est un langage bien adapté pour les débutants car :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;comme nous venons de le voir, sa syntaxe est très simple,&lt;/li&gt;
+&lt;li&gt;il n'exige pas l'utilisation de classes. Il est possible de très rapidement de faire un programme complet sans une seule classe,&lt;/li&gt;
+&lt;li&gt;il est multi-plateforme. Pour moi qui travaille à la fois sur Linux et sur OSX, je n'ai pas besoin de réécrire de code, il tourne sur les deux systèmes (et sur Windows bien sûr même si je ne l'ai jamais expérimenté),&lt;/li&gt;
+&lt;li&gt;il est très documenté. Il est toujours possible également d'attrappé de bouts de code à droite à gauche qui vont faire le travail sans avoir forcément tout compris au début,&lt;/li&gt;
+&lt;li&gt;Il y a des informations partout, y compris en français, ce qui est plus facile pour démarrer, même si on est familier de la langue de Shakespeare,&lt;/li&gt;
+&lt;li&gt;il est capable de tout faire : du web, des maths, des interfaces, ... rien ne lui est interdit.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pour vous donner un petit exemple, en partant de zéro, j'ai pu au bout de quatre mois à écrire un petit programme qui se connecte sur un site internet et qui récupère un fichier. &lt;a href="https://letchap.github.io/2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/"&gt;Le programme se trouve ici&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Ensuite, comme j'ai pu le lire un peu partout, il faut sans doute 10 ans pour maîtriser un langage. Et c'est là encore un gros avantage de Python, il permet d'appendre à son rythme sans attendre 10 ans pour se faire plaisir. On peut commencer à écrire des programmes simples et puis, avec un peu plus d'expérience, on attaque les classes. Mais encore une fois, ce n'est pas une obligation. De la même manière, on peut appendre module par module : le module de traitement d'image, le module d'interface graphique, la connexion à une base de données ... A son rythme je vous dis... Et si un jour vous voulez l'utiliser de manière professionnelle, pas de soucis, il est aussi fait pour ça.&lt;/p&gt;
+&lt;p&gt;Si vous êtes convaincu par Python, quelques petites astuces pour démarrer :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;apprendre à utiliser la ligne de commande en parallèle (si vous êtes sur Linux ou Mac). C'est important pour lancer un programme python, mais également pour installer des modules complémentaires python (via la commande &lt;code&gt;pip&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;lire, lire et lire&lt;/li&gt;
+&lt;li&gt;faire des essais, se tromper, lire, refaire des essais, et miracle, ça fonctionne&lt;/li&gt;
+&lt;li&gt;utiliser la ligne de commande python pour tester son script en direct&lt;/li&gt;
+&lt;li&gt;bien comprendre le système d'encodage (aka c'est quoi UTF8 ?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Des liens utiles :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.python.org"&gt;le site officiel de python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://fr.openclassrooms.com/informatique/python/cours"&gt;Openclassroom (ex site du Zéro)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Python"/><category term="Python"/><category term="Java"/><category term="C++"/><category term="Perl"/></entry><entry><title>Mon extension markdown pour inclure du code à partir d'un fichier</title><link href="https://letchap.github.io/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="alternate"/><published>2014-04-05T10:51:00+02:00</published><updated>2014-04-05T10:51:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-04-05:/2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/</id><summary type="html">&lt;p&gt;&lt;em&gt;Article mis à jour le 8 Février 2023 pour prendre en compte la montée de version Pelican&lt;/em&gt; &lt;/p&gt;
+&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
+&lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;em&gt;Article mis à jour le 8 Février 2023 pour prendre en compte la montée de version Pelican&lt;/em&gt; &lt;/p&gt;
+&lt;p&gt;J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.&lt;/p&gt;
+&lt;p&gt;Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de code. Pour que l'opération soit la plus simple pour la maintenance du site et pour le lecteur qui souhaiterait utiliser le code, je mets le code dans un fichier que je rends téléchargeable.&lt;/p&gt;
+&lt;p&gt;Malheureusement, il n'est pas possible avec la syntaxe Markdown d'intégrer le contenu d'un fichier source.&lt;/p&gt;
+&lt;p&gt;Jusqu'à présent, pour contourner ce problème, j'utilisais un plugin Pelican nommé liquid_tags, inspiré du plugin liquid d'Octopress.&lt;/p&gt;
+&lt;p&gt;Pour moi, cela restait une façon de contourner une absence de fonctionnalité de markdown par ailleurs offerte par ReStructered Text dans une de ces directives. Pourquoi markdown ne pourrait - il pas interpréter un tag comme par exemple {% include_code file.py %} ? La réponse est assez simple : ce n'est pas fait pour ça.&lt;/p&gt;
+&lt;p&gt;En revanche, avec un peu de python, ça va devenir possible ...&lt;/p&gt;
+&lt;h3&gt;Un petit détour par le module markdown de python.&lt;/h3&gt;
+&lt;p&gt;Le module markdown de Python, en plus de pouvoir interpréter la syntaxe classique markdown, offre un certain nombre d'extensions comme par exemple la possibilité d'ajouter une coloration syntaxique sur un bloc de code. Par défaut, Pelican prend en compte ces extensions. Il est possible de les paramétrer plus finement dans le fichier pelicanconf.py.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;MARKDOWN = {
+&amp;#39;extension_configs&amp;#39;: {
+    &amp;#39;markdown.extensions.codehilite&amp;#39;: {},
+    &amp;#39;markdown.extensions.extra&amp;#39;: {},
+    &amp;#39;markdown.extensions.meta&amp;#39;: {},
+},
+&amp;#39;output_format&amp;#39;: &amp;#39;html5&amp;#39;,
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;}
+J'utilise déjà ces extensions (l'extension attribute lists) pour ajouter un attribut dans des balises &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;, comme je le décris &lt;a href="https://letchap.github.io/2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/"&gt;dans ce post&lt;/a&gt;, chose que ne permet évidemment pas nativement markdown.&lt;/p&gt;
+&lt;p&gt;En plus de ces extensions "standard", il est possible de créer ces propres extensions markdown en python. C'est exactement ce que nous allons faire pour insérer le contenu d'un fichier source dans notre fichier markdown. Puis, une fois cette extension personnelle créée, nous allons la déclarer à Pelican.&lt;/p&gt;
+&lt;h3&gt;Créons notre extension markdown&lt;/h3&gt;
+&lt;p&gt;Pour créer sa propre extension markdown, il est indispensable de se rendre sur le site python et &lt;a href="http://pythonhosted.org/Markdown/extensions/api.html"&gt;de lire le chapitre sur l'API&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;La logique de mon extension est la suivante : "Avant de passer mon fichier au processeur markdown, je vais lire le contenu de mon fichier markdown, et dès que je tombe sur le tag {% addcode content/monfichier.py %}, je récupère le contenu du fichier source, que j'indente. Ensuite, je rends la main au processeur markdown".&lt;/p&gt;
+&lt;p&gt;Concrètement, en python, cela donne les quelques lignes suivantes, les commentaires sont dans le code.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;markdown.extensions&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Extension&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;markdown.preprocessors&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Preprocessor&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;re&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nn"&gt;codecs&lt;/span&gt;
+
+
+&lt;span class="c1"&gt;# L&amp;#39;expression régulière permettant de trouver le tag dans le texte&lt;/span&gt;
+
+&lt;span class="n"&gt;CODE_RE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;compile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\{&lt;/span&gt;&lt;span class="si"&gt;% a&lt;/span&gt;&lt;span class="s1"&gt;ddcode ?(?P&amp;lt;src&amp;gt;[^\}]*) \%}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;AddCodePreprocessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Preprocessor&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Le pré-processor&lt;/span&gt;
+&lt;span class="c1"&gt;# Je lis les lignes de mon fichier markdown&lt;/span&gt;
+&lt;span class="c1"&gt;# Je les mets une à une dans une liste&lt;/span&gt;
+&lt;span class="c1"&gt;# Dès que je trouve une correspondance à mon expression régulière&lt;/span&gt;
+&lt;span class="c1"&gt;# J&amp;#39;ouvre le fichier source&lt;/span&gt;
+&lt;span class="c1"&gt;# Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour # le bloc de code markdown&lt;/span&gt;
+&lt;span class="c1"&gt;# Je complète ma liste avec ces lignes&lt;/span&gt;
+&lt;span class="c1"&gt;# Quand j&amp;#39;ai tout lu, je renvoie la liste pour la suite du traitement&lt;/span&gt;
+&lt;span class="c1"&gt;# markdown&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;lines&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;new_lines&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[];&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ow"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;lines&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;CODE_RE&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="n"&gt;filein&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;src&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ow"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;codecs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filein&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="w"&gt;                    &lt;/span&gt;&lt;span class="n"&gt;new_lines&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;    &amp;#39;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rstrip&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="n"&gt;new_lines&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;new_lines&lt;/span&gt;
+
+
+&lt;span class="k"&gt;class&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;AddCodeExtension&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Extension&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="c1"&gt;# Déclaration de mon extension&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;extendMarkdown&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;preprocessors&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;AddCodePreprocessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;addcode&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;registerExtension&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;makeExtension&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;AddCodeExtension&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/addcode.py" title="addcode.py"&gt;Télécharger addcode.py&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Testons cette extension&lt;/h3&gt;
+&lt;p&gt;Pour tester cette extension, vous pouvez lancer la commande suivante dans le terminal.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;markdown_py -x addcode montexte.txt &amp;gt; output.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Installons l'extension&lt;/h3&gt;
+&lt;p&gt;Pour installer cette extension, il suffit de la copier dans le répertoire contenant les extensions markdown python.&lt;/p&gt;
+&lt;h3&gt;Utilisons cette extension avec Pelican&lt;/h3&gt;
+&lt;p&gt;Pour installer cette extension avec Pelican, il suffit de la déclarer dans le fichier pelicanconf.py.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;MARKDOWN = {
+&amp;#39;extension_configs&amp;#39;: {
+    &amp;#39;markdown.extensions.codehilite&amp;#39;: {},
+    &amp;#39;markdown.extensions.extra&amp;#39;: {},
+    &amp;#39;markdown.extensions.meta&amp;#39;: {},
+    &amp;#39;markdown.extensions.addcode&amp;#39;: {},
+    },
+&amp;#39;output_format&amp;#39;: &amp;#39;html5&amp;#39;,
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Cherry on ze cake&lt;/h3&gt;
+&lt;p&gt;J'aimerais bien avoir un joli bouton pour télécharger mon fichier source. Nous allons donc utiliser l'extension attribute list dont nous parlions précédemment pour ajouter une classe bouton à notre lien html (en l'occurrence un bouton foundation) :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[Télécharger monfichier.py]({filename}/content/monfichier.py){: class=&amp;quot;button&amp;quot; title=&amp;quot;Télécharger monfichier.py&amp;quot; }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Le tour est joué, plus besoin de plugin Pelican, l'extension sera disponible pour tous vos projets markdown.&lt;/p&gt;</content><category term="Python"/><category term="Python"/><category term="Pelican"/><category term="Markdown"/></entry><entry><title>Créer un fichier pdf avec Python et Reportlab</title><link href="https://letchap.github.io/2014/03/06/creer-un-fichier-pdf-avec-python-et-reportlab/" rel="alternate"/><published>2014-03-06T21:36:00+01:00</published><updated>2014-03-06T21:36:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-06:/2014/03/06/creer-un-fichier-pdf-avec-python-et-reportlab/</id><summary type="html">&lt;p&gt;Dans un billet précédent, pour créer un document pdf, &lt;a href="https://letchap.github.io/2013/11/25/transformer-un-texte-chinois-en-pdf/"&gt;j'avais utilisé la bibliothèque tierce pyfpdf&lt;/a&gt;. Si cette bibliothèque s'avère extrèmement facile à prendre en main pour créer un fichier pdf à partir d'un fichier texte, elle présente à l'utilisation deux inconvénients majeures :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;la création d'une document d'une centaine de page …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Dans un billet précédent, pour créer un document pdf, &lt;a href="https://letchap.github.io/2013/11/25/transformer-un-texte-chinois-en-pdf/"&gt;j'avais utilisé la bibliothèque tierce pyfpdf&lt;/a&gt;. Si cette bibliothèque s'avère extrèmement facile à prendre en main pour créer un fichier pdf à partir d'un fichier texte, elle présente à l'utilisation deux inconvénients majeures :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;la création d'une document d'une centaine de page est très longs, plusieurs minutes&lt;/li&gt;
+&lt;li&gt;pour une raison que je ne m'explique pas, la conversion de certains caractères chinois est incorrecte au moment de la création du fichier pdf.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Il me fallait donc trouver une autre solution.&lt;/p&gt;
+&lt;p&gt;J'avais bien repéré la bibliothèque Reportlab pour Python, qui est la bibliothque de référence pour la création de fichier pdf. Mais comme je n'avais pas obtenu de résultats probants aussi rapidement qu'avec pyfpdf, je l'avais mis de coté. Grave erreur.&lt;/p&gt;
+&lt;p&gt;C'est de la faute à la doc reportlab aussi. Je dois transformer du texte en pdf et je vois un chapître entièrement consacrer à la transformation de texte en pdf. Chouette, je vais utiliser cette fonctionalité : "text objet method". Et bien, surtout pas. Il faut se prendre la tête à positionner un curseur, il n'y a pas nativement de multipage, la mise en page est inexistante. Une galère.&lt;/p&gt;
+&lt;p&gt;En revanche, il y a une fonctionnalité géniale, PLATYPUS : Page Layout and Typography Using Scripts. Et là, ça déchire.&lt;/p&gt;
+&lt;p&gt;Comme un petit script vaut mieux qu'un long discours, voyons comment créer un fichier pdf à partir d'un fichier texte avec reportlab :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12&lt;/span&gt;
+&lt;span class="normal"&gt;13&lt;/span&gt;
+&lt;span class="normal"&gt;14&lt;/span&gt;
+&lt;span class="normal"&gt;15&lt;/span&gt;
+&lt;span class="normal"&gt;16&lt;/span&gt;
+&lt;span class="normal"&gt;17&lt;/span&gt;
+&lt;span class="normal"&gt;18&lt;/span&gt;
+&lt;span class="normal"&gt;19&lt;/span&gt;
+&lt;span class="normal"&gt;20&lt;/span&gt;
+&lt;span class="normal"&gt;21&lt;/span&gt;
+&lt;span class="normal"&gt;22&lt;/span&gt;
+&lt;span class="normal"&gt;23&lt;/span&gt;
+&lt;span class="normal"&gt;24&lt;/span&gt;
+&lt;span class="normal"&gt;25&lt;/span&gt;
+&lt;span class="normal"&gt;26&lt;/span&gt;
+&lt;span class="normal"&gt;27&lt;/span&gt;
+&lt;span class="normal"&gt;28&lt;/span&gt;
+&lt;span class="normal"&gt;29&lt;/span&gt;
+&lt;span class="normal"&gt;30&lt;/span&gt;
+&lt;span class="normal"&gt;31&lt;/span&gt;
+&lt;span class="normal"&gt;32&lt;/span&gt;
+&lt;span class="normal"&gt;33&lt;/span&gt;
+&lt;span class="normal"&gt;34&lt;/span&gt;
+&lt;span class="normal"&gt;35&lt;/span&gt;
+&lt;span class="normal"&gt;36&lt;/span&gt;
+&lt;span class="normal"&gt;37&lt;/span&gt;
+&lt;span class="normal"&gt;38&lt;/span&gt;
+&lt;span class="normal"&gt;39&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reportlab.lib.pagesizes&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;A4&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reportlab.lib.units&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;cm&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reportlab.platypus&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Paragraph&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SimpleDocTemplate&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Spacer&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reportlab.lib.styles&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;getSampleStyleSheet&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reportlab.lib.styles&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;ParagraphStyle&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reportlab.pdfbase&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;pdfmetrics&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;reportlab.pdfbase.cidfonts&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;UnicodeCIDFont&lt;/span&gt;
+&lt;span class="n"&gt;pdfmetrics&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;registerFont&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UnicodeCIDFont&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;STSong-Light&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pdf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filein&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;txt&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filein&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;docpdf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;SimpleDocTemplate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fileout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
+                               &lt;span class="n"&gt;pagesize&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;style&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getSampleStyleSheet&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ParagraphStyle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Chinese&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                             &lt;span class="n"&gt;fontName&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;STSong-Light&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                             &lt;span class="n"&gt;fontSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                             &lt;span class="n"&gt;leading&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                             &lt;span class="n"&gt;wordWrap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;CJK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;story&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+    &lt;span class="n"&gt;paragraphs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;para&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;paragraphs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;story&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Paragraph&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;para&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Chinese&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+        &lt;span class="n"&gt;story&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Spacer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cm&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mf"&gt;.3&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;docpdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;story&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Utilisation : &amp;lt;script&amp;gt; textfile pdffile&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;filein&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="n"&gt;fileout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="n"&gt;pdf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filein&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Commençons par les imports :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;l'import de sys est uniquement pour gérer les fichiers d'entrée et de sortie&lt;/li&gt;
+&lt;li&gt;ensuite, nous importons diférents modules de reportlab pour gérer le format de la feuille, et l'unité de mesure&lt;/li&gt;
+&lt;li&gt;puis, nous importons l'ensemble des modules de PLATYPUS qui vont nous permettre de gérer le style du document et des paragraphes&lt;/li&gt;
+&lt;li&gt;enfin le dernier bloc d'import sert à gérer une police unicode pour les caractères chinois.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Concernant le code lui-même :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;en ligne 15, nous ouvrons le fichier en lecture&lt;/li&gt;
+&lt;li&gt;puis en ligne 16 nous définissons les caractéristiques de notre document&lt;/li&gt;
+&lt;li&gt;en ligne 18 à 23 nous créons un style auquel nous apportons des caractéristiques particulières comme la police, la taille de la police, et surtout, le plus important pour l'écriture chinoise, un flag 'CJK' pour les ruptures en bout de ligne. Sans cela, la ligne dépasserait le cadre de la page. Toutes les possibilités de paramétrages du style sont décrites dans la documentation reportlab disponible &lt;a href="http://www.reportlab.com/docs/reportlab-userguide.pdf" title="reportlab"&gt;à cette adresse&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Par défaut, le multi-pages est géré.&lt;/li&gt;
+&lt;li&gt;à partir de la ligne 25 et jusqu'à la ligne 30, nous lisons ligne à ligne notre texte et nous alimentons une liste, liste qui sera à son tour lue pour constituer le document pdf en applicant le style défini plus haut.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Par rapport à pyfpdf, je n'ai plus de problème de changement intempestif de caractères chinois et surtout, cela va beaucoup, beaucoup plus vite. Quelques secondes pour un fichier d'une centaine de pages.&lt;/p&gt;
+&lt;p&gt;Moralité, il ne faut pas refuser l'obstacle, la satisfaction est au bout de l'effort.&lt;/p&gt;</content><category term="Python"/><category term="Python"/><category term="Reportlab"/><category term="pyfpdf"/></entry><entry><title>Transformer un texte chinois en pdf</title><link href="https://letchap.github.io/2013/11/25/transformer-un-texte-chinois-en-pdf/" rel="alternate"/><published>2013-11-25T17:05:00+01:00</published><updated>2013-11-25T17:05:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-11-25:/2013/11/25/transformer-un-texte-chinois-en-pdf/</id><summary type="html">&lt;p&gt;Nous sommes tous confrontés un jour au problème de l'encodage, aka "c'est quoi tous ces hiéroglyphes bizarres dans mon document au lieu de mon beau texte en chinois (ou en suédois, en russe, en arabe, ou même en français....)?"&lt;/p&gt;
+&lt;p&gt;Bon, je ne vais pas faire un cours sur l'encodage, sachez …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Nous sommes tous confrontés un jour au problème de l'encodage, aka "c'est quoi tous ces hiéroglyphes bizarres dans mon document au lieu de mon beau texte en chinois (ou en suédois, en russe, en arabe, ou même en français....)?"&lt;/p&gt;
+&lt;p&gt;Bon, je ne vais pas faire un cours sur l'encodage, sachez juste que si vous avez des hiéroglyphes, que vous êtes sur Mac ou Linux, il y a des fortes chances que votre document ne soit pas en unicode mais dans un encodage régional, comme par exemple pour un texte chinois GB2312 (chinois simplifié) ou BIG5 (chinois traditionnel).&lt;/p&gt;
+&lt;p&gt;Qu'à cela ne tienne, nous allons convertir notre texte dans un format unicode universel, dans sa version UTF8. Et puis, pour pouvoir lire le texte en toute circonstance et sur toute plateforme, nous allons en faire un pdf&lt;/p&gt;
+&lt;p&gt;Pour cela, nous allons utiliser deux bibliothèques tierces de Python, chardet qui permet de deviner l'encodage de notre fichier texte de départ (très pratique si nous ne le connaissons pas) et pyfpdf qui permet de créer un fichier pdf (plus simple à utiliser que reportlab). Les deux bibliothèques s'installent avec pip. la documentation pyfpdf est &lt;a href="http://code.google.com/p/pyfpdf/"&gt;ici&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Allez, le programme python. Les commentaires sont dans le code.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12&lt;/span&gt;
+&lt;span class="normal"&gt;13&lt;/span&gt;
+&lt;span class="normal"&gt;14&lt;/span&gt;
+&lt;span class="normal"&gt;15&lt;/span&gt;
+&lt;span class="normal"&gt;16&lt;/span&gt;
+&lt;span class="normal"&gt;17&lt;/span&gt;
+&lt;span class="normal"&gt;18&lt;/span&gt;
+&lt;span class="normal"&gt;19&lt;/span&gt;
+&lt;span class="normal"&gt;20&lt;/span&gt;
+&lt;span class="normal"&gt;21&lt;/span&gt;
+&lt;span class="normal"&gt;22&lt;/span&gt;
+&lt;span class="normal"&gt;23&lt;/span&gt;
+&lt;span class="normal"&gt;24&lt;/span&gt;
+&lt;span class="normal"&gt;25&lt;/span&gt;
+&lt;span class="normal"&gt;26&lt;/span&gt;
+&lt;span class="normal"&gt;27&lt;/span&gt;
+&lt;span class="normal"&gt;28&lt;/span&gt;
+&lt;span class="normal"&gt;29&lt;/span&gt;
+&lt;span class="normal"&gt;30&lt;/span&gt;
+&lt;span class="normal"&gt;31&lt;/span&gt;
+&lt;span class="normal"&gt;32&lt;/span&gt;
+&lt;span class="normal"&gt;33&lt;/span&gt;
+&lt;span class="normal"&gt;34&lt;/span&gt;
+&lt;span class="normal"&gt;35&lt;/span&gt;
+&lt;span class="normal"&gt;36&lt;/span&gt;
+&lt;span class="normal"&gt;37&lt;/span&gt;
+&lt;span class="normal"&gt;38&lt;/span&gt;
+&lt;span class="normal"&gt;39&lt;/span&gt;
+&lt;span class="normal"&gt;40&lt;/span&gt;
+&lt;span class="normal"&gt;41&lt;/span&gt;
+&lt;span class="normal"&gt;42&lt;/span&gt;
+&lt;span class="normal"&gt;43&lt;/span&gt;
+&lt;span class="normal"&gt;44&lt;/span&gt;
+&lt;span class="normal"&gt;45&lt;/span&gt;
+&lt;span class="normal"&gt;46&lt;/span&gt;
+&lt;span class="normal"&gt;47&lt;/span&gt;
+&lt;span class="normal"&gt;48&lt;/span&gt;
+&lt;span class="normal"&gt;49&lt;/span&gt;
+&lt;span class="normal"&gt;50&lt;/span&gt;
+&lt;span class="normal"&gt;51&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class="c1"&gt;# -*- coding: utf8 -*-&lt;/span&gt;
+&lt;span class="c1"&gt;#---------------------&lt;/span&gt;
+&lt;span class="c1"&gt;#txt2pdf.py&lt;/span&gt;
+&lt;span class="c1"&gt;#Crée par letchap&lt;/span&gt;
+&lt;span class="c1"&gt;#---------------------&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;chardet&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;fpdf&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;FPDF&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;decodage&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+	&lt;span class="c1"&gt;# Je cherche l&amp;#39;encodage de mon fichier grâce à chardet&lt;/span&gt;
+	&lt;span class="n"&gt;rawdata&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="n"&gt;codage&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;chardet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;detect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rawdata&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;codage&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;encoding&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+	&lt;span class="c1"&gt;# Je prépare mon PDF, j&amp;#39;utilise pyfpdf&lt;/span&gt;
+	&lt;span class="n"&gt;pdf&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;FPDF&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;P&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;A4&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="n"&gt;pdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_page&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+	&lt;span class="c1"&gt;# J&amp;#39;utlise une jolie police de caractère dont je doit indiqué le chemin (sur Mac OSX)&lt;/span&gt;
+	&lt;span class="n"&gt;pdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_font&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;fireflysung&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/Library/Fonts/fireflysung.ttf&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uni&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="n"&gt;pdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_font&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;fireflysung&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="c1"&gt;# Je décode et j&amp;#39;encode mon texte&lt;/span&gt;
+	&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ignore&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="n"&gt;pdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="c1"&gt;# Je retravaille le nom du fichier&lt;/span&gt;
+	&lt;span class="n"&gt;ext&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;basename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# j&amp;#39;enlève le chemin&lt;/span&gt;
+	&lt;span class="n"&gt;namefile&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;splitext&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ext&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# j&amp;#39;enlève l&amp;#39;extension&lt;/span&gt;
+	&lt;span class="c1"&gt;# Je finalise le pdf&lt;/span&gt;
+	&lt;span class="n"&gt;pdf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/path/to/new_&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;namefile&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;.pdf&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;F&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="c1"&gt;#############################################################################################&lt;/span&gt;
+&lt;span class="c1"&gt;#                           Le main                                                         #&lt;/span&gt;
+&lt;span class="c1"&gt;#############################################################################################&lt;/span&gt;
+&lt;span class="c1"&gt;# Je teste le nombre d&amp;#39;arguments de la ligne de commande&lt;/span&gt;
+&lt;span class="c1"&gt;# 0 = premier paramètre, le nom du programme&lt;/span&gt;
+&lt;span class="c1"&gt;# 1 = deuxième paramètre, ici le nom du fichier.&lt;/span&gt;
+&lt;span class="c1"&gt;# Si j&amp;#39;ai strictement moins de 2 paramètres, j&amp;#39;ai oublié le nom de fichier&lt;/span&gt;
+&lt;span class="c1"&gt;# Je sors alors en erreur sys.exit(1), (0 pas d&amp;#39;erreur, 2 erreur de synthaxe de la ligne de commande)&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+	&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+		&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Précisez le fichier à décoder&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+		&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+	&lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;
+		&lt;span class="n"&gt;filename&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+		&lt;span class="n"&gt;decodage&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/txt2pdf.py" title="Télécharger txt2pdf.py"&gt;Télécharger txt2pdf.py&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Voilà, il n'y a plus qu'à lancer le programme par un beau&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;./txt2pdf.py&lt;span class="w"&gt; &lt;/span&gt;montexte.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Evidemment, pour tout être normalement constitué, lancer un décodage de cette manière, en ligne de commande, ce n'est pas très pratique, un clic droit sur un ou plusieurs fichiers serait le bienvenue. C'est que nous allons faire tout de suite &lt;a href="https://letchap.github.io/2013/11/26/lancer-un-programme-python-depuis-automator/"&gt;dans ce billet&lt;/a&gt;&lt;/p&gt;</content><category term="Python"/><category term="UTF8"/><category term="decodage"/><category term="encodage"/><category term="GB2312"/><category term="BIG5"/><category term="python"/><category term="chardet"/><category term="pyfpdf"/></entry><entry><title>Afficher la meteo avec conky et python 1ère partie</title><link href="https://letchap.github.io/2013/07/08/afficher-la-meteo-avec-conky-et-python-1ere-partie/" rel="alternate"/><published>2013-07-08T21:56:00+02:00</published><updated>2013-07-08T21:56:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-07-08:/2013/07/08/afficher-la-meteo-avec-conky-et-python-1ere-partie/</id><summary type="html">&lt;p&gt;Sur mon joli bureau openbox sur Crunchbang, j'aimerais pouvoir afficher à la demande les informations concernant la meteo au moyen d'un raccourci clavier ou d'un menu, puis refermer la fenêtre quand je n'en ai plus besoin. Evidemment, je veux des infos fraîches, avec un affichage sympa, et en consommant très …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sur mon joli bureau openbox sur Crunchbang, j'aimerais pouvoir afficher à la demande les informations concernant la meteo au moyen d'un raccourci clavier ou d'un menu, puis refermer la fenêtre quand je n'en ai plus besoin. Evidemment, je veux des infos fraîches, avec un affichage sympa, et en consommant très peu de ressources machine.&lt;/p&gt;
+&lt;p&gt;Tout d'abord, le résultat final :&lt;/p&gt;
+&lt;p&gt;&lt;a data-lightbox="conky" href="https://letchap.github.io/images/conky_meteo.png" title="Ecran conky"&gt;&lt;img alt="Ecran conky" src="https://letchap.github.io/images/conky_meteo.png" title="Ecran conky"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Pour réaliser cela, nous allons mettre en oeuvre plusieurs élements :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;un programme python qui va recueillir les informations météo sur un site spécialisé et stocker les informations dans un fichier texte&lt;/li&gt;
+&lt;li&gt;une automatisation de ce programme sous forme d'un démon qui se lancera au démarrage de l'ordinateur&lt;/li&gt;
+&lt;li&gt;un conky pour afficher à la demande la météo et la mettre en forme sur la base des informations contenues dans le fichier texte&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Le tutoriel sera découpé en chacune de ces trois parties et nous commençons cette première partie par le programme python.&lt;/p&gt;
+&lt;h3&gt;Wunderground&lt;/h3&gt;
+&lt;p&gt;Wunderground sera notre fournisseur de données météorologiques. Pourquoi Wunderground, parce qu'il fournit une API, une sorte de clé, qui va nous permettre de récupérer facilement des informations météo complètes. En une seule requête, vous disposez de prévisions riches sur les quatre prochains jours.&lt;/p&gt;
+&lt;p&gt;Les informations ainsi récupérées sont disponibles dans un format xml ou json, facilement lisibles car balisées. Le programme a été écrit pour un format json, rien ne vous empêche de le transposer pour un format xml, les grands principes resteront les mêmes.&lt;/p&gt;
+&lt;p&gt;La première étape consiste à s'inscrire sur le site de wunderground &lt;a href="http://www.wunderground.com/weather/api/d/login.html" title="S'inscrire sur Weather Underground"&gt;à cette adresse&lt;/a&gt; pour obtenir une clé pour l'API. En bonus, vous avez à votre disposition des outils pour tester une requête et des exemples de code dans différents langages, dont Python.&lt;/p&gt;
+&lt;p&gt;L'inscription est gratuite dans la limite d'une utilisation non commerciale et de 10 requêtes par minute. Parfait pour un usage privé.&lt;/p&gt;
+&lt;h3&gt;Le script&lt;/h3&gt;
+&lt;p&gt;Le but de ce programme est de se connecter régulièrement au site wunderground, de récupérer les informations qui nous intéressent et de créer un fichier texte lisible par un conky.&lt;/p&gt;
+&lt;p&gt;Ce script est largement inspiré d'une part du tutoriel python sur &lt;a href="http://www.fullcirclemag.fr/?pages/Numéros"&gt;full circle HS n°2&lt;/a&gt; et sur &lt;a href="http://www.archlinux.fr/forum/viewtopic.php?t=9981&amp;amp;p=107541"&gt;ce forum&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Tous les commentaires sont dans le script.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt;  1&lt;/span&gt;
+&lt;span class="normal"&gt;  2&lt;/span&gt;
+&lt;span class="normal"&gt;  3&lt;/span&gt;
+&lt;span class="normal"&gt;  4&lt;/span&gt;
+&lt;span class="normal"&gt;  5&lt;/span&gt;
+&lt;span class="normal"&gt;  6&lt;/span&gt;
+&lt;span class="normal"&gt;  7&lt;/span&gt;
+&lt;span class="normal"&gt;  8&lt;/span&gt;
+&lt;span class="normal"&gt;  9&lt;/span&gt;
+&lt;span class="normal"&gt; 10&lt;/span&gt;
+&lt;span class="normal"&gt; 11&lt;/span&gt;
+&lt;span class="normal"&gt; 12&lt;/span&gt;
+&lt;span class="normal"&gt; 13&lt;/span&gt;
+&lt;span class="normal"&gt; 14&lt;/span&gt;
+&lt;span class="normal"&gt; 15&lt;/span&gt;
+&lt;span class="normal"&gt; 16&lt;/span&gt;
+&lt;span class="normal"&gt; 17&lt;/span&gt;
+&lt;span class="normal"&gt; 18&lt;/span&gt;
+&lt;span class="normal"&gt; 19&lt;/span&gt;
+&lt;span class="normal"&gt; 20&lt;/span&gt;
+&lt;span class="normal"&gt; 21&lt;/span&gt;
+&lt;span class="normal"&gt; 22&lt;/span&gt;
+&lt;span class="normal"&gt; 23&lt;/span&gt;
+&lt;span class="normal"&gt; 24&lt;/span&gt;
+&lt;span class="normal"&gt; 25&lt;/span&gt;
+&lt;span class="normal"&gt; 26&lt;/span&gt;
+&lt;span class="normal"&gt; 27&lt;/span&gt;
+&lt;span class="normal"&gt; 28&lt;/span&gt;
+&lt;span class="normal"&gt; 29&lt;/span&gt;
+&lt;span class="normal"&gt; 30&lt;/span&gt;
+&lt;span class="normal"&gt; 31&lt;/span&gt;
+&lt;span class="normal"&gt; 32&lt;/span&gt;
+&lt;span class="normal"&gt; 33&lt;/span&gt;
+&lt;span class="normal"&gt; 34&lt;/span&gt;
+&lt;span class="normal"&gt; 35&lt;/span&gt;
+&lt;span class="normal"&gt; 36&lt;/span&gt;
+&lt;span class="normal"&gt; 37&lt;/span&gt;
+&lt;span class="normal"&gt; 38&lt;/span&gt;
+&lt;span class="normal"&gt; 39&lt;/span&gt;
+&lt;span class="normal"&gt; 40&lt;/span&gt;
+&lt;span class="normal"&gt; 41&lt;/span&gt;
+&lt;span class="normal"&gt; 42&lt;/span&gt;
+&lt;span class="normal"&gt; 43&lt;/span&gt;
+&lt;span class="normal"&gt; 44&lt;/span&gt;
+&lt;span class="normal"&gt; 45&lt;/span&gt;
+&lt;span class="normal"&gt; 46&lt;/span&gt;
+&lt;span class="normal"&gt; 47&lt;/span&gt;
+&lt;span class="normal"&gt; 48&lt;/span&gt;
+&lt;span class="normal"&gt; 49&lt;/span&gt;
+&lt;span class="normal"&gt; 50&lt;/span&gt;
+&lt;span class="normal"&gt; 51&lt;/span&gt;
+&lt;span class="normal"&gt; 52&lt;/span&gt;
+&lt;span class="normal"&gt; 53&lt;/span&gt;
+&lt;span class="normal"&gt; 54&lt;/span&gt;
+&lt;span class="normal"&gt; 55&lt;/span&gt;
+&lt;span class="normal"&gt; 56&lt;/span&gt;
+&lt;span class="normal"&gt; 57&lt;/span&gt;
+&lt;span class="normal"&gt; 58&lt;/span&gt;
+&lt;span class="normal"&gt; 59&lt;/span&gt;
+&lt;span class="normal"&gt; 60&lt;/span&gt;
+&lt;span class="normal"&gt; 61&lt;/span&gt;
+&lt;span class="normal"&gt; 62&lt;/span&gt;
+&lt;span class="normal"&gt; 63&lt;/span&gt;
+&lt;span class="normal"&gt; 64&lt;/span&gt;
+&lt;span class="normal"&gt; 65&lt;/span&gt;
+&lt;span class="normal"&gt; 66&lt;/span&gt;
+&lt;span class="normal"&gt; 67&lt;/span&gt;
+&lt;span class="normal"&gt; 68&lt;/span&gt;
+&lt;span class="normal"&gt; 69&lt;/span&gt;
+&lt;span class="normal"&gt; 70&lt;/span&gt;
+&lt;span class="normal"&gt; 71&lt;/span&gt;
+&lt;span class="normal"&gt; 72&lt;/span&gt;
+&lt;span class="normal"&gt; 73&lt;/span&gt;
+&lt;span class="normal"&gt; 74&lt;/span&gt;
+&lt;span class="normal"&gt; 75&lt;/span&gt;
+&lt;span class="normal"&gt; 76&lt;/span&gt;
+&lt;span class="normal"&gt; 77&lt;/span&gt;
+&lt;span class="normal"&gt; 78&lt;/span&gt;
+&lt;span class="normal"&gt; 79&lt;/span&gt;
+&lt;span class="normal"&gt; 80&lt;/span&gt;
+&lt;span class="normal"&gt; 81&lt;/span&gt;
+&lt;span class="normal"&gt; 82&lt;/span&gt;
+&lt;span class="normal"&gt; 83&lt;/span&gt;
+&lt;span class="normal"&gt; 84&lt;/span&gt;
+&lt;span class="normal"&gt; 85&lt;/span&gt;
+&lt;span class="normal"&gt; 86&lt;/span&gt;
+&lt;span class="normal"&gt; 87&lt;/span&gt;
+&lt;span class="normal"&gt; 88&lt;/span&gt;
+&lt;span class="normal"&gt; 89&lt;/span&gt;
+&lt;span class="normal"&gt; 90&lt;/span&gt;
+&lt;span class="normal"&gt; 91&lt;/span&gt;
+&lt;span class="normal"&gt; 92&lt;/span&gt;
+&lt;span class="normal"&gt; 93&lt;/span&gt;
+&lt;span class="normal"&gt; 94&lt;/span&gt;
+&lt;span class="normal"&gt; 95&lt;/span&gt;
+&lt;span class="normal"&gt; 96&lt;/span&gt;
+&lt;span class="normal"&gt; 97&lt;/span&gt;
+&lt;span class="normal"&gt; 98&lt;/span&gt;
+&lt;span class="normal"&gt; 99&lt;/span&gt;
+&lt;span class="normal"&gt;100&lt;/span&gt;
+&lt;span class="normal"&gt;101&lt;/span&gt;
+&lt;span class="normal"&gt;102&lt;/span&gt;
+&lt;span class="normal"&gt;103&lt;/span&gt;
+&lt;span class="normal"&gt;104&lt;/span&gt;
+&lt;span class="normal"&gt;105&lt;/span&gt;
+&lt;span class="normal"&gt;106&lt;/span&gt;
+&lt;span class="normal"&gt;107&lt;/span&gt;
+&lt;span class="normal"&gt;108&lt;/span&gt;
+&lt;span class="normal"&gt;109&lt;/span&gt;
+&lt;span class="normal"&gt;110&lt;/span&gt;
+&lt;span class="normal"&gt;111&lt;/span&gt;
+&lt;span class="normal"&gt;112&lt;/span&gt;
+&lt;span class="normal"&gt;113&lt;/span&gt;
+&lt;span class="normal"&gt;114&lt;/span&gt;
+&lt;span class="normal"&gt;115&lt;/span&gt;
+&lt;span class="normal"&gt;116&lt;/span&gt;
+&lt;span class="normal"&gt;117&lt;/span&gt;
+&lt;span class="normal"&gt;118&lt;/span&gt;
+&lt;span class="normal"&gt;119&lt;/span&gt;
+&lt;span class="normal"&gt;120&lt;/span&gt;
+&lt;span class="normal"&gt;121&lt;/span&gt;
+&lt;span class="normal"&gt;122&lt;/span&gt;
+&lt;span class="normal"&gt;123&lt;/span&gt;
+&lt;span class="normal"&gt;124&lt;/span&gt;
+&lt;span class="normal"&gt;125&lt;/span&gt;
+&lt;span class="normal"&gt;126&lt;/span&gt;
+&lt;span class="normal"&gt;127&lt;/span&gt;
+&lt;span class="normal"&gt;128&lt;/span&gt;
+&lt;span class="normal"&gt;129&lt;/span&gt;
+&lt;span class="normal"&gt;130&lt;/span&gt;
+&lt;span class="normal"&gt;131&lt;/span&gt;
+&lt;span class="normal"&gt;132&lt;/span&gt;
+&lt;span class="normal"&gt;133&lt;/span&gt;
+&lt;span class="normal"&gt;134&lt;/span&gt;
+&lt;span class="normal"&gt;135&lt;/span&gt;
+&lt;span class="normal"&gt;136&lt;/span&gt;
+&lt;span class="normal"&gt;137&lt;/span&gt;
+&lt;span class="normal"&gt;138&lt;/span&gt;
+&lt;span class="normal"&gt;139&lt;/span&gt;
+&lt;span class="normal"&gt;140&lt;/span&gt;
+&lt;span class="normal"&gt;141&lt;/span&gt;
+&lt;span class="normal"&gt;142&lt;/span&gt;
+&lt;span class="normal"&gt;143&lt;/span&gt;
+&lt;span class="normal"&gt;144&lt;/span&gt;
+&lt;span class="normal"&gt;145&lt;/span&gt;
+&lt;span class="normal"&gt;146&lt;/span&gt;
+&lt;span class="normal"&gt;147&lt;/span&gt;
+&lt;span class="normal"&gt;148&lt;/span&gt;
+&lt;span class="normal"&gt;149&lt;/span&gt;
+&lt;span class="normal"&gt;150&lt;/span&gt;
+&lt;span class="normal"&gt;151&lt;/span&gt;
+&lt;span class="normal"&gt;152&lt;/span&gt;
+&lt;span class="normal"&gt;153&lt;/span&gt;
+&lt;span class="normal"&gt;154&lt;/span&gt;
+&lt;span class="normal"&gt;155&lt;/span&gt;
+&lt;span class="normal"&gt;156&lt;/span&gt;
+&lt;span class="normal"&gt;157&lt;/span&gt;
+&lt;span class="normal"&gt;158&lt;/span&gt;
+&lt;span class="normal"&gt;159&lt;/span&gt;
+&lt;span class="normal"&gt;160&lt;/span&gt;
+&lt;span class="normal"&gt;161&lt;/span&gt;
+&lt;span class="normal"&gt;162&lt;/span&gt;
+&lt;span class="normal"&gt;163&lt;/span&gt;
+&lt;span class="normal"&gt;164&lt;/span&gt;
+&lt;span class="normal"&gt;165&lt;/span&gt;
+&lt;span class="normal"&gt;166&lt;/span&gt;
+&lt;span class="normal"&gt;167&lt;/span&gt;
+&lt;span class="normal"&gt;168&lt;/span&gt;
+&lt;span class="normal"&gt;169&lt;/span&gt;
+&lt;span class="normal"&gt;170&lt;/span&gt;
+&lt;span class="normal"&gt;171&lt;/span&gt;
+&lt;span class="normal"&gt;172&lt;/span&gt;
+&lt;span class="normal"&gt;173&lt;/span&gt;
+&lt;span class="normal"&gt;174&lt;/span&gt;
+&lt;span class="normal"&gt;175&lt;/span&gt;
+&lt;span class="normal"&gt;176&lt;/span&gt;
+&lt;span class="normal"&gt;177&lt;/span&gt;
+&lt;span class="normal"&gt;178&lt;/span&gt;
+&lt;span class="normal"&gt;179&lt;/span&gt;
+&lt;span class="normal"&gt;180&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class="c1"&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class="c1"&gt;#----------------------------------------------------&lt;/span&gt;
+&lt;span class="c1"&gt;# Créé par letchap&lt;/span&gt;
+&lt;span class="c1"&gt;# meteo.py&lt;/span&gt;
+&lt;span class="c1"&gt;#----------------------------------------------------&lt;/span&gt;
+&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot; récupère les informations météo grace à l&amp;#39;API du site wunderground.com &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;#import pour les infos meteo&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os.path&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib2&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="c1"&gt;# import pour le démon&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;daemon&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;runner&lt;/span&gt;
+
+&lt;span class="c1"&gt;#===========================================================&lt;/span&gt;
+&lt;span class="c1"&gt;#       La classe&lt;/span&gt;
+&lt;span class="c1"&gt;#===========================================================&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;App&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="c1"&gt;# Tout ça, c&amp;#39;est pour le démon&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdin_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dev/null&amp;#39;&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dev/null&amp;#39;&lt;/span&gt; &lt;span class="c1"&gt;# J&amp;#39;ai remplacé /dev/tty par dev/null pour éviter les plantages au démarrage par init.d&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stderr_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dev/null&amp;#39;&lt;/span&gt; &lt;span class="c1"&gt;# J&amp;#39;ai remplacé /dev/tty par dev/null pour éviter les plantages au démarrage par init.d&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pidfile_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/tmp/meteo.pid&amp;#39;&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pidfile_timeout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Bien appelé la fonction &amp;#39;run&amp;#39; pour le démon&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="c1"&gt;# C&amp;#39;est le début de ma boucle pour démoniser mon programme&lt;/span&gt;
+
+            &lt;span class="c1"&gt;###############################################&lt;/span&gt;
+            &lt;span class="c1"&gt;#           Le corps du programme             #&lt;/span&gt;
+            &lt;span class="c1"&gt;###############################################&lt;/span&gt;
+            &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="c1"&gt;# Je récupère les informations fournies par wunderground grâce à leur api, au format json,&lt;/span&gt;
+            &lt;span class="c1"&gt;# en une seule fois (forecast et conditions), et en français&lt;/span&gt;
+            &lt;span class="c1"&gt;# Un exemple de code est fourni sur le site wunderground&lt;/span&gt;
+
+            &lt;span class="c1"&gt;# Je charge ma page meteo&lt;/span&gt;
+                &lt;span class="n"&gt;page_json&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;http://api.wunderground.com/api/macleapi/forecast/conditions/lang:FR/q/France/Paris.json?paris=I75003PA1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="c1"&gt;# Je lis la page&lt;/span&gt;
+                &lt;span class="n"&gt;json_string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;page_json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+                &lt;span class="c1"&gt;# Je mets cette page dans un parseur&lt;/span&gt;
+                &lt;span class="n"&gt;parsed_json&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loads&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;json_string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="c1"&gt;# Et je peux fermer ma page meteo, je n&amp;#39;en ai plus besoin&lt;/span&gt;
+                &lt;span class="n"&gt;page_json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+            &lt;span class="k"&gt;except&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Les informations météo ne sont pas accessibles sur le site wunderground.com&amp;#39;&lt;/span&gt;
+                &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# pour sortir du programme si la requête n&amp;#39;aboutit pas&lt;/span&gt;
+
+            &lt;span class="c1"&gt;# Je récupère les informations du jour stokées sur le tag &amp;quot;current_observation&amp;quot;&lt;/span&gt;
+            &lt;span class="c1"&gt;# Je fais attention à avoir des variables uniques dans le cas où je fais une recherche sur une chaîne de&lt;/span&gt;
+            &lt;span class="c1"&gt;# caractère plus tard (avec un grep par exemple).&lt;/span&gt;
+
+            &lt;span class="n"&gt;city&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;display_location&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;city&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# la ville&lt;/span&gt;
+            &lt;span class="n"&gt;last_observation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;observation_time&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# l&amp;#39;heure dernière observation&lt;/span&gt;
+            &lt;span class="n"&gt;current_temp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;temp_c&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# la température en °C&lt;/span&gt;
+            &lt;span class="n"&gt;current_weather&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;weather&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# le temps actuel&lt;/span&gt;
+            &lt;span class="n"&gt;humidity&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;relative_humidity&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# le taux d&amp;#39;humidité en %&lt;/span&gt;
+            &lt;span class="n"&gt;wind_kph&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;wind_kph&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# la vitesse du vent&lt;/span&gt;
+            &lt;span class="n"&gt;wind_dir&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;wind_dir&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# l&amp;#39;orientation du vent&lt;/span&gt;
+            &lt;span class="n"&gt;pressure_mb&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pressure_mb&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# la pression atmosphérique&lt;/span&gt;
+            &lt;span class="n"&gt;pressure_trend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pressure_trend&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# l&amp;#39;evolution pression atmosphérique&lt;/span&gt;
+            &lt;span class="n"&gt;feelslike_c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;feelslike_c&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# la température ressentie&lt;/span&gt;
+            &lt;span class="n"&gt;visibility&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;visibility_km&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# la visibilité en km&lt;/span&gt;
+            &lt;span class="n"&gt;UV&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;UV&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="c1"&gt;# l&amp;#39;indice UV&lt;/span&gt;
+
+            &lt;span class="c1"&gt;# Un petit test sur l&amp;#39;indice UV qui peut être négatif&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UV&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;-1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;UV&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+            &lt;span class="c1"&gt;# Une petite transformation de la tendance atmosphérique&lt;/span&gt;
+
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;pressure_trend&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;-&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;pressure_trend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;en baisse&amp;#39;&lt;/span&gt;
+            &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;pressure_trend&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;+&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;pressure_trend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;en hausse&amp;#39;&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;pressure_trend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;stable&amp;#39;&lt;/span&gt;
+
+            &lt;span class="c1"&gt;# J&amp;#39;écris ces informations dans un fichier qui servira plus tard pour le conky meteo.&lt;/span&gt;
+            &lt;span class="c1"&gt;# En ouvrant le fichier en mode &amp;#39;w&amp;#39;, j&amp;#39;écrase le fichier meteo.txt précédent&lt;/span&gt;
+            &lt;span class="c1"&gt;# Je transforme tous les chiffres en chaînes de caractères et j&amp;#39;encode tous les textes français en UTF8&lt;/span&gt;
+            &lt;span class="c1"&gt;# Je n&amp;#39;ai pas besoin de fermer le fichier en utilisant &amp;quot;with open&amp;quot;&lt;/span&gt;
+
+            &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/letchap/tmp/meteo.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Meteo = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;current_weather&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Ville = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;city&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Derniere_observation = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;last_observation&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Temperature = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;current_temp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; °C&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Ressentie = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;feelslike_c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; °C&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Humidite = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;humidity&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Vent = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wind_kph&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; km/h&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Dir_vent = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;wind_dir&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Pression = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pressure_mb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; mb&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Tend_pres = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;pressure_trend&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;#Ok, l&amp;#39;utf8 ne sert à rien là&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Visibilite = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;visibility&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; km&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Indice_UV = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UV&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+
+            &lt;span class="c1"&gt;# Je récupère les prévisions sous le tag &amp;quot;simpleforecast&amp;quot;, en bouclant sur chacune des périodes&lt;/span&gt;
+            &lt;span class="n"&gt;forecast&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;forecast&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;simpleforecast&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;forecastday&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;forecast&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;jour&lt;/span&gt;           &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;day&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;        &lt;span class="c1"&gt;# jour&lt;/span&gt;
+                &lt;span class="n"&gt;mois&lt;/span&gt;           &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;month&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;      &lt;span class="c1"&gt;# mois&lt;/span&gt;
+                &lt;span class="n"&gt;annee&lt;/span&gt;          &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;year&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;       &lt;span class="c1"&gt;# année&lt;/span&gt;
+                &lt;span class="n"&gt;jour_sem&lt;/span&gt;       &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;weekday&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;    &lt;span class="c1"&gt;# jour de la semaine&lt;/span&gt;
+                &lt;span class="n"&gt;period&lt;/span&gt;         &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;period&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;             &lt;span class="c1"&gt;# période&lt;/span&gt;
+                &lt;span class="n"&gt;tempmax&lt;/span&gt;        &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;high&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;celsius&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;    &lt;span class="c1"&gt;# température maximale&lt;/span&gt;
+                &lt;span class="n"&gt;tempmin&lt;/span&gt;        &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;low&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;celsius&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;     &lt;span class="c1"&gt;# température minimale&lt;/span&gt;
+                &lt;span class="n"&gt;condition&lt;/span&gt;      &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;conditions&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;         &lt;span class="c1"&gt;# conditions&lt;/span&gt;
+                &lt;span class="n"&gt;icon&lt;/span&gt;           &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;icon&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;               &lt;span class="c1"&gt;# icone en lien avec condition&lt;/span&gt;
+                &lt;span class="n"&gt;skyicon&lt;/span&gt;        &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;skyicon&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;            &lt;span class="c1"&gt;# le couverture nuagueuse&lt;/span&gt;
+                &lt;span class="n"&gt;pop&lt;/span&gt;            &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;pop&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;                &lt;span class="c1"&gt;# probabilité de précipitation&lt;/span&gt;
+                &lt;span class="n"&gt;hauteur_precip&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;qpf_allday&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;   &lt;span class="c1"&gt;# hauteur de précipitation pour la journée&lt;/span&gt;
+                &lt;span class="n"&gt;hauteur_neige&lt;/span&gt;  &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;snow_allday&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c1"&gt;# hauteur de neige pour la journée&lt;/span&gt;
+                &lt;span class="n"&gt;vent&lt;/span&gt;           &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;avewind&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;kph&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;     &lt;span class="c1"&gt;# vitesse moyenne du vent&lt;/span&gt;
+                &lt;span class="n"&gt;vent_dir&lt;/span&gt;       &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;avewind&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;dir&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;     &lt;span class="c1"&gt;# direction du vent&lt;/span&gt;
+                &lt;span class="n"&gt;tx_humidite&lt;/span&gt;    &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;avehumidity&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;        &lt;span class="c1"&gt;# taux d&amp;#39;humidité&lt;/span&gt;
+
+                &lt;span class="c1"&gt;# Je définis chacune de mes 4 périodes&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;period&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;jour1&amp;#39;&lt;/span&gt;
+                &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;period&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;jour2&amp;#39;&lt;/span&gt;
+                &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;period&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;jour3&amp;#39;&lt;/span&gt;
+                &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;period&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;jour4&amp;#39;&lt;/span&gt;
+
+                &lt;span class="c1"&gt;# Encore un petit test pour les icones. Je combine icon et skyicon pour avoir la représentation graphique&lt;/span&gt;
+                &lt;span class="c1"&gt;# la plus proche de la réalité en particulier &amp;quot;partiellement couvert et pluvieux&amp;quot; qui n&amp;#39;existe pas&lt;/span&gt;
+                &lt;span class="c1"&gt;# D&amp;#39;abord je définis 3 listes pour l&amp;#39;orage, la pluie et la neige&lt;/span&gt;
+                &lt;span class="n"&gt;orage&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tstorms&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;chancetstorms&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nt_tstorms&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;nt_chancetstorms&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                &lt;span class="n"&gt;pluie&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;rain&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;chancerain&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nt_rain&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;nt_chancerain&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+                &lt;span class="n"&gt;neige&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;snow&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;flurries&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;chancesnow&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;chanceflurries&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nt_snow&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nt_flurries&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nt_chancesnow&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nt_chanceflurries&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;sleet&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;nt_sleet&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;chancesleet&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nt_chancesleet&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                &lt;span class="c1"&gt;# puis je définis mes icones&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;icon&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;orage&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;icone&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;skyicon&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;storm&amp;quot;&lt;/span&gt;
+                &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;icon&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;pluie&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;icone&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;skyicon&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;rain&amp;quot;&lt;/span&gt;
+                &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;icon&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;neige&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;icone&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;skyicon&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;snow&amp;quot;&lt;/span&gt;
+                &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;icone&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;icon&lt;/span&gt;
+
+                &lt;span class="c1"&gt;# J&amp;#39;écris à la suite, grâce à l&amp;#39;option &amp;#39;a&amp;#39; append au lieu de &amp;#39;w&amp;#39;&lt;/span&gt;
+                &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/home/letchap/tmp/meteo.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_jour = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;jour&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_mois = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mois&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_annee = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;annee&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_jour_sem = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;jour_sem&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# C&amp;#39;est du luxe, il n&amp;#39;y a pas d&amp;#39;accent dans les jours de la semaine&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_tempmax = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tempmax&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; °C&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_tempmin = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tempmin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; °C&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_conditions = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;condition&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_icone = &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;icone&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_pop = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_hauteur_precip = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hauteur_precip&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; mm&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_hauteur_neige = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hauteur_neige&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; cm&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_vent = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vent&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot; km/h&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_dir_vent = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;vent_dir&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;_tx_himidite = &amp;quot;&lt;/span&gt;  &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tx_humidite&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+            &lt;span class="c1"&gt;############################################&lt;/span&gt;
+            &lt;span class="c1"&gt;#             Le fin du programme          #&lt;/span&gt;
+            &lt;span class="c1"&gt;############################################&lt;/span&gt;
+
+            &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;120&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# C&amp;#39;est la fin de ma boucle de démonisation. La temporisation est de 120 secondes&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Toujours commencer la lecture d&amp;#39;un programme python par la fin. C&amp;#39;est là qu&amp;#39;on lance le démon&lt;/span&gt;
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;App&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;daemon_runner&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;runner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DaemonRunner&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;daemon_runner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;do_action&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/meteo.py" title="Télécharger meteo.py"&gt;Télécharger meteo.py&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Pour mieux comprendre la façon dont sont récupérées les données, prenons un exemple avec un morceau de fichier json et le code Python correspondant. Nous allons récupérer l'information concernant la ville.&lt;/p&gt;
+&lt;p&gt;Le morceau du fichier JSON qui nous intéresse ressemble à çà :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12&lt;/span&gt;
+&lt;span class="normal"&gt;13&lt;/span&gt;
+&lt;span class="normal"&gt;14&lt;/span&gt;
+&lt;span class="normal"&gt;15&lt;/span&gt;
+&lt;span class="normal"&gt;16&lt;/span&gt;
+&lt;span class="normal"&gt;17&lt;/span&gt;
+&lt;span class="normal"&gt;18&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="s2"&gt;&amp;quot;current_observation&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;image&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;url&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Weather Underground&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;link&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;http://www.wunderground.com&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;display_location&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;full&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Paris, France&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;city&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Paris&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;state_name&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;France&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;country&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;FR&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;country_iso3166&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;FR&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;zip&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;00000&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;latitude&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;48.86666489&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;longitude&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;2.33333302&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;elevation&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;47.00000000&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour trouver la bonne information, il suffit de suivre les branches de l'arbre. L'information "Paris" se trouve dans "city", qui se trouve dans "display_location" qui se trouve dans "current_observation". Ce qui se traduira en python par :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nx"&gt;city&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;parsed_json&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;current_observation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;display_location&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;city&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Le fichier texte final ressemble à ça :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Meteo = Ciel dégagé
+Ville = Paris
+Derniere_observation = Last Updated on juillet 9, 20:05 CEST
+Temperature = 27.1 °C
+Ressentie = 27.1 °C
+Humidite = 56%
+Vent = 14.5 km/h
+Dir_vent = NE
+Pression = 1020 mb
+Tend_pres = stable
+Visibilite = 10.0 km
+Indice_UV = 0
+jour1_jour = 9
+jour1_mois = juillet
+jour1_annee = 2013
+jour1_jour_sem = mardi
+jour1_tempmax = 29 °C
+jour1_tempmin = 20 °C
+jour1_conditions = Ciel dégagé
+jour1_icone = clear
+jour1_pop = 0%
+jour1_hauteur_precip = 0.0 mm
+jour1_hauteur_neige = 0 cm
+jour1_vent = 16 km/h
+jour1_dir_vent = NE
+jour1_tx_himidite = 57%
+jour2_jour = 10
+jour2_mois = juillet
+jour2_annee = 2013
+jour2_jour_sem = mercredi
+jour2_tempmax = 27 °C
+jour2_tempmin = 16 °C
+jour2_conditions = Ciel dégagé
+jour2_icone = clear
+jour2_pop = 0%
+jour2_hauteur_precip = 0.0 mm
+jour2_hauteur_neige = 0 cm
+jour2_vent = 18 km/h
+jour2_dir_vent = NNE
+jour2_tx_himidite = 61%
+jour3_jour = 11
+jour3_mois = juillet
+jour3_annee = 2013
+jour3_jour_sem = jeudi
+jour3_tempmax = 24 °C
+jour3_tempmin = 15 °C
+jour3_conditions = Ciel dégagé
+jour3_icone = clear
+jour3_pop = 0%
+jour3_hauteur_precip = 0.0 mm
+jour3_hauteur_neige = 0 cm
+jour3_vent = 18 km/h
+jour3_dir_vent = NNE
+jour3_tx_himidite = 55%
+jour4_jour = 12
+jour4_mois = juillet
+jour4_annee = 2013
+jour4_jour_sem = vendredi
+jour4_tempmax = 27 °C
+jour4_tempmin = 16 °C
+jour4_conditions = Ciel dégagé
+jour4_icone = clear
+jour4_pop = 0%
+jour4_hauteur_precip = 0.0 mm
+jour4_hauteur_neige = 0 cm
+jour4_vent = 16 km/h
+jour4_dir_vent = NNE
+jour4_tx_himidite = 57%
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Le démon&lt;/h3&gt;
+&lt;p&gt;Afin de pouvoir interroger régulièrement le site Wunderground, nous allons "démoniser" le programme, c'est à dire que nous allons lui demander de se déclencher à intervalle régulier (dans le script 120 secondes)&lt;/p&gt;
+&lt;p&gt;Pour cela, il suffit de suivre l'exemple suivant, en ayant installé préalablement python-daemon par un &lt;code&gt;sudo apt-get install python-daemon&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12&lt;/span&gt;
+&lt;span class="normal"&gt;13&lt;/span&gt;
+&lt;span class="normal"&gt;14&lt;/span&gt;
+&lt;span class="normal"&gt;15&lt;/span&gt;
+&lt;span class="normal"&gt;16&lt;/span&gt;
+&lt;span class="normal"&gt;17&lt;/span&gt;
+&lt;span class="normal"&gt;18&lt;/span&gt;
+&lt;span class="normal"&gt;19&lt;/span&gt;
+&lt;span class="normal"&gt;20&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;daemon&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;runner&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;App&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdin_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dev/null&amp;#39;&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dev/null&amp;#39;&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stderr_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dev/null&amp;#39;&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pidfile_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/tmp/meteo.pid&amp;#39;&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pidfile_timeout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="c1"&gt;# Le corps du programme&lt;/span&gt;
+            &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1200&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;App&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;daemon_runner&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;runner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DaemonRunner&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;daemon_runner&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;do_action&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Le programme ainsi démonisé se lance par :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;meteo.py&lt;span class="w"&gt; &lt;/span&gt;start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous voir le résultat par exemple par un :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt;1&lt;/span&gt;
+&lt;span class="normal"&gt;2&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;ps&lt;span class="w"&gt; &lt;/span&gt;-ef&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;grep&lt;span class="w"&gt; &lt;/span&gt;meteo
+root&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="m"&gt;2413&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;22&lt;/span&gt;:30&lt;span class="w"&gt; &lt;/span&gt;?&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m"&gt;00&lt;/span&gt;:00:00&lt;span class="w"&gt; &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;/usr/sbin/meteo.py&lt;span class="w"&gt; &lt;/span&gt;start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Il s'arrête par :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;meteo.py&lt;span class="w"&gt; &lt;/span&gt;stop
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Nous pouvons bientôt passer à la deuxième étape : &lt;a href="https://letchap.github.io/2013/07/09/afficher-la-meteo-avec-conky-et-python-2eme-partie/"&gt;le lancement automatique du programme python au démarrage de l'ordinateur&lt;/a&gt;.&lt;/p&gt;</content><category term="Python"/><category term="Python"/><category term="Wunderground"/><category term="conky"/><category term="crunchbang"/></entry><entry><title>wget en python 3 avec gestion des cookies et du post</title><link href="https://letchap.github.io/2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/" rel="alternate"/><published>2013-02-25T21:47:00+01:00</published><updated>2013-02-25T21:47:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-25:/2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/</id><summary type="html">&lt;p&gt;Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3&lt;/p&gt;
+&lt;h3&gt;La commande Wget dans un petit script :&lt;/h3&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12 …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3&lt;/p&gt;
+&lt;h3&gt;La commande Wget dans un petit script :&lt;/h3&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="nv"&gt;login&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$login&lt;/span&gt;
+&lt;span class="nv"&gt;pass&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$password&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Récupération des premiers cookies&lt;/span&gt;
+wget&lt;span class="w"&gt; &lt;/span&gt;-dO&lt;span class="w"&gt; &lt;/span&gt;/dev/null&lt;span class="w"&gt; &lt;/span&gt;--cookies&lt;span class="o"&gt;=&lt;/span&gt;on&lt;span class="w"&gt; &lt;/span&gt;--keep-session-cookies&lt;span class="w"&gt; &lt;/span&gt;--save-cookies&lt;span class="o"&gt;=&lt;/span&gt;cookies.txt&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Deuxième passage pour récupérer les cookies sécurisés&lt;/span&gt;
+wget&lt;span class="w"&gt; &lt;/span&gt;-dO&lt;span class="w"&gt; &lt;/span&gt;/dev/null&lt;span class="w"&gt; &lt;/span&gt;--cookies&lt;span class="o"&gt;=&lt;/span&gt;on&lt;span class="w"&gt; &lt;/span&gt;--keep-session-cookies&lt;span class="w"&gt; &lt;/span&gt;--save-cookies&lt;span class="o"&gt;=&lt;/span&gt;cookies.txt&lt;span class="w"&gt; &lt;/span&gt;--load-cookies&lt;span class="o"&gt;=&lt;/span&gt;cookies.txt&lt;span class="w"&gt; &lt;/span&gt;--post-data&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;connexioncompte_2numSecuriteSociale=&lt;/span&gt;&lt;span class="nv"&gt;$login&lt;/span&gt;&lt;span class="s2"&gt;&amp;amp;amp;connexioncompte_2codeConfidentiel=&lt;/span&gt;&lt;span class="nv"&gt;$pass&lt;/span&gt;&lt;span class="s2"&gt;&amp;amp;amp;connexioncompte_2actionEvt=connecter&amp;amp;amp;submit=validerFormulaire(this)&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Troisième passage pour se connecter&lt;/span&gt;
+wget&lt;span class="w"&gt; &lt;/span&gt;-dO&lt;span class="w"&gt; &lt;/span&gt;index.html&lt;span class="w"&gt; &lt;/span&gt;--cookies&lt;span class="o"&gt;=&lt;/span&gt;on&lt;span class="w"&gt; &lt;/span&gt;--keep-session-cookies&lt;span class="w"&gt; &lt;/span&gt;--save-cookies&lt;span class="o"&gt;=&lt;/span&gt;cookies.txt&lt;span class="w"&gt; &lt;/span&gt;--load-cookies&lt;span class="o"&gt;=&lt;/span&gt;cookies.txt&lt;span class="w"&gt; &lt;/span&gt;--post-data&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;connexioncompte_2numSecuriteSociale=&lt;/span&gt;&lt;span class="nv"&gt;$login&lt;/span&gt;&lt;span class="s2"&gt;&amp;amp;amp;connexioncompte_2codeConfidentiel=&lt;/span&gt;&lt;span class="nv"&gt;$pass&lt;/span&gt;&lt;span class="s2"&gt;&amp;amp;amp;connexioncompte_2actionEvt=connecter&amp;amp;amp;submit=validerFormulaire(this)&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Nous allons être obligé de faire plusieurs passages pour récupérer les cookies. Sur les deux premiers passages, je ne conserve pas de fichiers de sortie en envoyant le résultat de la requête vers /dev/null. En revanche, mes cookies seront bien conservés dans le fichiers cookies.txt grâce à l'option --save-cookies. &lt;/p&gt;
+&lt;p&gt;Pour le post, un petit coup d'extension web developer de firefox fera l'affaire. Cela permet d'identifier les zones de formulaires à remplir.&lt;/p&gt;
+&lt;h3&gt;La même chose en Python 3&lt;/h3&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12&lt;/span&gt;
+&lt;span class="normal"&gt;13&lt;/span&gt;
+&lt;span class="normal"&gt;14&lt;/span&gt;
+&lt;span class="normal"&gt;15&lt;/span&gt;
+&lt;span class="normal"&gt;16&lt;/span&gt;
+&lt;span class="normal"&gt;17&lt;/span&gt;
+&lt;span class="normal"&gt;18&lt;/span&gt;
+&lt;span class="normal"&gt;19&lt;/span&gt;
+&lt;span class="normal"&gt;20&lt;/span&gt;
+&lt;span class="normal"&gt;21&lt;/span&gt;
+&lt;span class="normal"&gt;22&lt;/span&gt;
+&lt;span class="normal"&gt;23&lt;/span&gt;
+&lt;span class="normal"&gt;24&lt;/span&gt;
+&lt;span class="normal"&gt;25&lt;/span&gt;
+&lt;span class="normal"&gt;26&lt;/span&gt;
+&lt;span class="normal"&gt;27&lt;/span&gt;
+&lt;span class="normal"&gt;28&lt;/span&gt;
+&lt;span class="normal"&gt;29&lt;/span&gt;
+&lt;span class="normal"&gt;30&lt;/span&gt;
+&lt;span class="normal"&gt;31&lt;/span&gt;
+&lt;span class="normal"&gt;32&lt;/span&gt;
+&lt;span class="normal"&gt;33&lt;/span&gt;
+&lt;span class="normal"&gt;34&lt;/span&gt;
+&lt;span class="normal"&gt;35&lt;/span&gt;
+&lt;span class="normal"&gt;36&lt;/span&gt;
+&lt;span class="normal"&gt;37&lt;/span&gt;
+&lt;span class="normal"&gt;38&lt;/span&gt;
+&lt;span class="normal"&gt;39&lt;/span&gt;
+&lt;span class="normal"&gt;40&lt;/span&gt;
+&lt;span class="normal"&gt;41&lt;/span&gt;
+&lt;span class="normal"&gt;42&lt;/span&gt;
+&lt;span class="normal"&gt;43&lt;/span&gt;
+&lt;span class="normal"&gt;44&lt;/span&gt;
+&lt;span class="normal"&gt;45&lt;/span&gt;
+&lt;span class="normal"&gt;46&lt;/span&gt;
+&lt;span class="normal"&gt;47&lt;/span&gt;
+&lt;span class="normal"&gt;48&lt;/span&gt;
+&lt;span class="normal"&gt;49&lt;/span&gt;
+&lt;span class="normal"&gt;50&lt;/span&gt;
+&lt;span class="normal"&gt;51&lt;/span&gt;
+&lt;span class="normal"&gt;52&lt;/span&gt;
+&lt;span class="normal"&gt;53&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/python3.2&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib.request&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;urllib.parse&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;urllib.error&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;http.cookiejar&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Le fichier qui va stocker les cookies&lt;/span&gt;
+&lt;span class="n"&gt;cj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cookiejar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LWPCookieJar&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Des raccourcis pour lancer les requêtes&lt;/span&gt;
+&lt;span class="n"&gt;urlopen&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;
+&lt;span class="n"&gt;Request&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Request&lt;/span&gt;
+&lt;span class="n"&gt;urlencode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parse&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlencode&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Modification de l&amp;#39;opener pour gérer les cookies&lt;/span&gt;
+&lt;span class="n"&gt;opener&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;build_opener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HTTPCookieProcessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cj&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;install_opener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;opener&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Notre fonction pour ouvrir les pages html avec gestion des cookies et de l&amp;#39;encodage&lt;/span&gt;
+&lt;span class="c1"&gt;#avec gestion du retour du code erreur&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;requete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+   &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urlencode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;utf-8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="n"&gt;req&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+       &lt;span class="n"&gt;handle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;req&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;IOError&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+       &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;hasattr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;reason&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+           &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+           &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Reason:&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;reason&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          
+       &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="nb"&gt;hasattr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;code&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+           &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+           &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Code erreur&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+       &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;handle&lt;/span&gt;
+
+&lt;span class="n"&gt;login&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt;
+&lt;span class="n"&gt;password&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;password&lt;/span&gt;
+
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;values&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;connexioncompte_2numSecuriteSociale&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;&amp;#39;connexioncompte_2codeConfidentiel&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;&amp;#39;connexioncompte_2actionEvt&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;connecter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s2"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;validerFormulaire(this)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;#Deux passages pour récupérer les cookies puis le cookie sécurisé&lt;/span&gt;
+&lt;span class="n"&gt;handle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;handle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requete&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;These are the cookies we have received so far :&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cookie&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cj&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+   &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;  :  &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cookie&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;the_page&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;the_page.html&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;wb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;the_page&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="n"&gt;the_page&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Dans values, nous allons trouver l'équivalent du post de wget. Il faut l'encoder en binaire en Python 3 d'où le urlencode.&lt;/p&gt;
+&lt;p&gt;Pourquoi écrire en plusieurs lignes Python quelquechose qui tient en 3 lignes en bash :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Je vais pouvoir réutiliser le code pour d'autres connexions&lt;/li&gt;
+&lt;li&gt;Je vais pouvoir mutualiser du code (gestion de l'opener, de la requête, ...)&lt;/li&gt;
+&lt;li&gt;Je vais pouvoir l'insérer dans un programme plus large&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si certains sont intéressés, j'ai le même en Python 2.&lt;/p&gt;</content><category term="Python"/><category term="bash"/><category term="cookie"/><category term="post data"/><category term="Python"/><category term="urllib"/><category term="wget"/></entry></feed>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Mon extension markdown pour inclure du code à partir d'un fichier</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2014/04/05/mon-extension-markdown-pour-inclure-du-code-a-partir-dun-fichier/" rel="bookmark" title="Permalink to Mon extension markdown pour inclure du code à partir d'un fichier">Mon extension markdown pour inclure du code à partir d'un fichier</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Sat 05 April 2014&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/python.html">&nbsp;Python</a>
+	<hr />
+	
+	<p><em>Article mis à jour le 8 Février 2023 pour prendre en compte la montée de version Pelican</em> </p>
+<p>J'adore mon Pelican. Comme il est écrit en Python, il est vraiment facile de le customizer pour l'adapter au maximum à mes besoins.</p>
+<p>Sur mon blog, j'ai régulièrement besoin d'insérer des blocs de code. Pour que l'opération soit la plus simple pour la maintenance du site et pour le lecteur qui souhaiterait utiliser le code, je mets le code dans un fichier que je rends téléchargeable.</p>
+<p>Malheureusement, il n'est pas possible avec la syntaxe Markdown d'intégrer le contenu d'un fichier source.</p>
+<p>Jusqu'à présent, pour contourner ce problème, j'utilisais un plugin Pelican nommé liquid_tags, inspiré du plugin liquid d'Octopress.</p>
+<p>Pour moi, cela restait une façon de contourner une absence de fonctionnalité de markdown par ailleurs offerte par ReStructered Text dans une de ces directives. Pourquoi markdown ne pourrait - il pas interpréter un tag comme par exemple {% include_code file.py %} ? La réponse est assez simple : ce n'est pas fait pour ça.</p>
+<p>En revanche, avec un peu de python, ça va devenir possible ...</p>
+<h3>Un petit détour par le module markdown de python.</h3>
+<p>Le module markdown de Python, en plus de pouvoir interpréter la syntaxe classique markdown, offre un certain nombre d'extensions comme par exemple la possibilité d'ajouter une coloration syntaxique sur un bloc de code. Par défaut, Pelican prend en compte ces extensions. Il est possible de les paramétrer plus finement dans le fichier pelicanconf.py.</p>
+<div class="codehilite"><pre><span></span><code>MARKDOWN = {
+&#39;extension_configs&#39;: {
+    &#39;markdown.extensions.codehilite&#39;: {},
+    &#39;markdown.extensions.extra&#39;: {},
+    &#39;markdown.extensions.meta&#39;: {},
+},
+&#39;output_format&#39;: &#39;html5&#39;,
+</code></pre></div>
+
+<p>}
+J'utilise déjà ces extensions (l'extension attribute lists) pour ajouter un attribut dans des balises <code>&lt;img&gt;</code>, comme je le décris <a href="../../../../2013/12/11/realiser-une-galerie-dimages-avec-pelican-et-bootstrap/">dans ce post</a>, chose que ne permet évidemment pas nativement markdown.</p>
+<p>En plus de ces extensions "standard", il est possible de créer ces propres extensions markdown en python. C'est exactement ce que nous allons faire pour insérer le contenu d'un fichier source dans notre fichier markdown. Puis, une fois cette extension personnelle créée, nous allons la déclarer à Pelican.</p>
+<h3>Créons notre extension markdown</h3>
+<p>Pour créer sa propre extension markdown, il est indispensable de se rendre sur le site python et <a href="http://pythonhosted.org/Markdown/extensions/api.html">de lire le chapitre sur l'API</a>.</p>
+<p>La logique de mon extension est la suivante : "Avant de passer mon fichier au processeur markdown, je vais lire le contenu de mon fichier markdown, et dès que je tombe sur le tag {% addcode content/monfichier.py %}, je récupère le contenu du fichier source, que j'indente. Ensuite, je rends la main au processeur markdown".</p>
+<p>Concrètement, en python, cela donne les quelques lignes suivantes, les commentaires sont dans le code.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">markdown.extensions</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">Extension</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">markdown.preprocessors</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">Preprocessor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">codecs</span>
+
+
+<span class="c1"># L&#39;expression régulière permettant de trouver le tag dans le texte</span>
+
+<span class="n">CODE_RE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\{</span><span class="si">% a</span><span class="s1">ddcode ?(?P&lt;src&gt;[^\}]*) \%}&#39;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AddCodePreprocessor</span><span class="p">(</span><span class="n">Preprocessor</span><span class="p">):</span>
+
+<span class="c1"># Le pré-processor</span>
+<span class="c1"># Je lis les lignes de mon fichier markdown</span>
+<span class="c1"># Je les mets une à une dans une liste</span>
+<span class="c1"># Dès que je trouve une correspondance à mon expression régulière</span>
+<span class="c1"># J&#39;ouvre le fichier source</span>
+<span class="c1"># Je le lis ligne à ligne en ajoutant une indentation de 4 espaces pour # le bloc de code markdown</span>
+<span class="c1"># Je complète ma liste avec ces lignes</span>
+<span class="c1"># Quand j&#39;ai tout lu, je renvoie la liste pour la suite du traitement</span>
+<span class="c1"># markdown</span>
+
+<span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">):</span>
+<span class="w">        </span><span class="n">new_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">lines</span><span class="p">:</span>
+<span class="w">            </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CODE_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">m</span><span class="p">:</span>
+<span class="w">                </span><span class="n">filein</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span>
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filein</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+<span class="w">                    </span><span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;    &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+<span class="w">            </span><span class="k">else</span><span class="p">:</span>
+<span class="w">                </span><span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">new_lines</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AddCodeExtension</span><span class="p">(</span><span class="n">Extension</span><span class="p">):</span>
+<span class="c1"># Déclaration de mon extension</span>
+<span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">md</span><span class="p">):</span>
+<span class="w">        </span><span class="n">md</span><span class="o">.</span><span class="n">preprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">AddCodePreprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">),</span><span class="w"> </span><span class="s1">&#39;addcode&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">        </span><span class="n">md</span><span class="o">.</span><span class="n">registerExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">makeExtension</span><span class="p">():</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AddCodeExtension</span><span class="p">()</span>
+</code></pre></div>
+
+<p><a class="button small" href="../../../../code/addcode.py" title="addcode.py">Télécharger addcode.py</a></p>
+<h3>Testons cette extension</h3>
+<p>Pour tester cette extension, vous pouvez lancer la commande suivante dans le terminal.</p>
+<div class="codehilite"><pre><span></span><code>markdown_py -x addcode montexte.txt &gt; output.html
+</code></pre></div>
+
+<h3>Installons l'extension</h3>
+<p>Pour installer cette extension, il suffit de la copier dans le répertoire contenant les extensions markdown python.</p>
+<h3>Utilisons cette extension avec Pelican</h3>
+<p>Pour installer cette extension avec Pelican, il suffit de la déclarer dans le fichier pelicanconf.py.</p>
+<div class="codehilite"><pre><span></span><code>MARKDOWN = {
+&#39;extension_configs&#39;: {
+    &#39;markdown.extensions.codehilite&#39;: {},
+    &#39;markdown.extensions.extra&#39;: {},
+    &#39;markdown.extensions.meta&#39;: {},
+    &#39;markdown.extensions.addcode&#39;: {},
+    },
+&#39;output_format&#39;: &#39;html5&#39;,
+}
+</code></pre></div>
+
+<h3>Cherry on ze cake</h3>
+<p>J'aimerais bien avoir un joli bouton pour télécharger mon fichier source. Nous allons donc utiliser l'extension attribute list dont nous parlions précédemment pour ajouter une classe bouton à notre lien html (en l'occurrence un bouton foundation) :</p>
+<div class="codehilite"><pre><span></span><code>[Télécharger monfichier.py]({filename}/content/monfichier.py){: class=&quot;button&quot; title=&quot;Télécharger monfichier.py&quot; }
+</code></pre></div>
+
+<p>Le tour est joué, plus besoin de plugin Pelican, l'extension sera disponible pour tous vos projets markdown.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

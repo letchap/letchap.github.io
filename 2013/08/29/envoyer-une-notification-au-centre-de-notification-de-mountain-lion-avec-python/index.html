@@ -1,0 +1,369 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Envoyer une notification au centre de notification de Mountain Lion avec Python</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/08/29/envoyer-une-notification-au-centre-de-notification-de-mountain-lion-avec-python/" rel="bookmark" title="Permalink to Envoyer une notification au centre de notification de Mountain Lion avec Python">Envoyer une notification au centre de notification de Mountain Lion avec Python</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Thu 29 August 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/mac-os-x.html">&nbsp;Mac OS X</a>
+	<hr />
+	
+	<p><a href="../../../../2013/08/08/demarrage-automatique-de-travaux-avec-launchd/" title="Démarrage automatique de travaux avec launchd">Dans mon dernier article</a>, nous avons vu comment programmer le déclenchement périodique d'un programme dans Mountain Lion grace à l'utilitaire launchd. J'aimerais maintenant être averti de la bonne exécution de mon programme via le centre de notifciation de Mountain Lion.</p>
+<p>Ce qui est décrit ci-dessous est librement inspiré de cet <a href="http://dbader.org/blog/alfred-timer-extension" title="A countdown timer extension for Alfred">article en anglais</a>.</p>
+<p>Pour pouvoir envoyer un message dans le centre de notification de Mountain Lion et afficher une pop-up, il faut obligatoirement que l'application soit reconnu par Apple via le "bundle identifier". Pour mon petit programme Python à moi, je ne vais pas demander un identifiant, alors pour pouvoir malgré tout envoyer un message, je vais adopter la stratégie du coucou et emprunter un bundle identifier existant. Par exemple celui de du programme Python Launcher (puisque que je lance un programme Python). Je vais donc faire croire au centre de notification que c'est l'application Python Launcher qui envoie un message.</p>
+<p>Tout d'abord, comment récupérer le bundler identifier? Avec la commande suivante dans le terminal :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;id of app &quot;Python Launcher&quot;&#39;</span>
+org.python.PythonLauncher
+</code></pre></div>
+
+<p>Maintenant, décorons !</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">objc</span>
+
+<span class="c1">########################################################################</span>
+<span class="c1">#                             Le décorateur                            #</span>
+<span class="c1">########################################################################</span>
+
+<span class="k">def</span> <span class="nf">swizzle</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator to override an ObjC selector&#39;s implementation with a</span>
+<span class="sd">    custom implementation (&quot;method swizzling&quot;).</span>
+
+<span class="sd">    Use like this:</span>
+
+<span class="sd">    @swizzle(NSOriginalClass, &#39;selectorName&#39;)</span>
+<span class="sd">    def swizzled_selectorName(self, original):</span>
+<span class="sd">        --&gt; `self` points to the instance</span>
+<span class="sd">        --&gt; `original` is the original implementation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">cls</span><span class="p">,</span> <span class="n">SEL</span> <span class="o">=</span> <span class="n">args</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="n">old_IMP</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">instanceMethodForSelector_</span><span class="p">(</span><span class="n">SEL</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_IMP</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">new_IMP</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">selector</span><span class="p">(</span><span class="n">wrapper</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="n">old_IMP</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span>
+                                <span class="n">signature</span><span class="o">=</span><span class="n">old_IMP</span><span class="o">.</span><span class="n">signature</span><span class="p">)</span>
+        <span class="n">objc</span><span class="o">.</span><span class="n">classAddMethod</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">SEL</span><span class="p">,</span> <span class="n">new_IMP</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+
+    <span class="k">return</span> <span class="n">decorator</span>
+
+
+<span class="nd">@swizzle</span><span class="p">(</span><span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s1">&#39;NSBundle&#39;</span><span class="p">),</span> <span class="sa">b</span><span class="s1">&#39;bundleIdentifier&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">swizzled_bundleIdentifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">original</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Swizzle [NSBundle bundleIdentifier] to make NSUserNotifications</span>
+<span class="sd">    work.</span>
+
+<span class="sd">    To post NSUserNotifications OS X requires the binary to be packaged</span>
+<span class="sd">    as an application bundle. To circumvent this restriction, as it would</span>
+<span class="sd">    be difficult (impossible?) to implement in an Alfred Extension,</span>
+<span class="sd">    we modify `bundleIdentifier` to return a fake bundle identifier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Return Python Launcher&#39;s bundle identifier to display the Python Launcher logo.</span>
+
+    <span class="k">return</span> <span class="s1">&#39;org.python.PythonLauncher&#39;</span>
+
+
+
+<span class="c1">########################################################################</span>
+<span class="c1">#      L&#39;envoi de la noticiation au centre de notification             #</span>
+<span class="c1">########################################################################</span>
+
+<span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display a NSUserNotification on Mac OS X &gt;= 10.8&quot;&quot;&quot;</span>
+    <span class="n">NSUserNotification</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s1">&#39;NSUserNotification&#39;</span><span class="p">)</span>
+    <span class="n">NSUserNotificationCenter</span> <span class="o">=</span> <span class="n">objc</span><span class="o">.</span><span class="n">lookUpClass</span><span class="p">(</span><span class="s1">&#39;NSUserNotificationCenter&#39;</span><span class="p">)</span>
+
+    <span class="n">notification</span> <span class="o">=</span> <span class="n">NSUserNotification</span><span class="o">.</span><span class="n">alloc</span><span class="p">()</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">notification</span><span class="o">.</span><span class="n">setTitle_</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">notification</span><span class="o">.</span><span class="n">setInformativeText_</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">NSUserNotificationCenter</span><span class="o">.</span><span class="n">defaultUserNotificationCenter</span><span class="p">()</span><span class="o">.</span><span class="n">deliverNotification_</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+
+<p><a class="button small" href="../../../../code/decorateur.py" title="Télécharger decorateur.py">Télécharger decorateur.py</a></p>
+<p>Le principe de base est de "décorer" la fonction renvoyant le bundle identifier, c'est à dire que nous affectons son comportement temporairement (mais sans la modifier), pour qu'elle renvoie l'identifiant que nous lui passons. Pour cela, nous utilisons un décorateur Python. Pour plus d'informations sur le fonctionnement des décorateurs, vous pouvez aller sur le <a href="http://www.siteduzero.com/informatique/tutoriels/apprenez-a-programmer-en-python/les-decorateurs" title="Les décorateurs Python">site du zéro</a> ou sur <a href="http://sametmax.com/comprendre-les-decorateurs-python-pas-a-pas-partie-1/" title="Les décorateurs Python première partie">le blog de Sam et Max</a>.</p>
+<p>Ensuite dans la fonction notify(), nous envoyons un message au centre de notification de Mountain Lion qui pensera que c'est l'application Python Launcher qui envoie le flux. Colossale feinte de sioux !</p>
+<p>Le résultat en image</p>
+<p><img alt="exemple notification" src="../../../../images/notif.png"></p>
+<p>Le tout s'appuie sur le projet PyObjC qui développe une passerelle entre Python et ObjC et dont vous trouverez la documentation <a href="http://pythonhosted.org/pyobjc/" title="Python ObjC">ici</a>.</p>
+<p>Contrairement au paquet pync (un wrapper Python de terminal-notifier qui permet d'envoyer des messages au centre de notification depuis le terminal) qui ne sait pas envoyer des messages hors d'une session du terminal, ici, il sera possible d'envoyer des notifications même si le programme est déclenché en mode batch par launchd.</p>
+<p>Voilà, c'est tout pour Mac OS X pour le moment, la prochaine fois, retour sur Linux.</p>
+<p>Pour la petite histoire, ce qu'on vient de faire tient en trois lignes de code sous Linux grâce à la bibliothèque pynotify :</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">pynotify</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="s2">&quot;Free.py&quot;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">pynotify</span><span class="o">.</span><span class="n">Notification</span><span class="p">(</span>
+    <span class="s2">&quot;Titre</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="c1"># Titre</span>
+    <span class="s2">&quot;Message&quot;</span><span class="p">,</span> <span class="c1"># Message</span>
+    <span class="s2">&quot;/home/letchap/Image/application_pdf.png&quot;</span><span class="p">)</span> <span class="c1"># Image</span>
+<span class="n">n</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

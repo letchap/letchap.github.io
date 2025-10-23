@@ -1,0 +1,265 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Convertir des fichiers flac en m4a grâce à un script shell</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/" rel="bookmark" title="Permalink to Convertir des fichiers flac en m4a grâce à un script shell">Convertir des fichiers flac en m4a grâce à un script shell</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Sat 23 February 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/shell.html">&nbsp;Shell</a>
+	<hr />
+	
+	<p>Dans le précédent billet, nous avons vu comment convertir une video grâce aux commandes avconv et ffmpeg et comment l’automatiser dans un script shell.</p>
+<p>Cette fois ci, nous allons faire la même chose pour convertir des fichiers audio flac en m4a en introduisant deux contraintes supplémentaires :</p>
+<ul>
+<li>Lancer le programme depuis n’importe quel endroit</li>
+<li>Copier le dossier d’origine contenant les fichiers audios à convertir dans le répertoire musique avec les fichiers convertis.</li>
+</ul>
+<p>C’est parti, voici le code :</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>~<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.flac&quot;</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="nv">rep</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>–re<span class="w"> </span><span class="s2">&quot;s/^[[:punct:][:alnum:]]+\/([[:alnum:]]+)\/[[:alnum:]]+\.flac/\1/&quot;</span><span class="k">)</span>
+<span class="nv">titre</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$file</span><span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span>~/Musique/<span class="nv">$rep</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+mkdir<span class="w"> </span>~/Musique/<span class="nv">$rep</span>
+<span class="k">fi</span>
+avconv<span class="w"> </span>-i<span class="w"> </span><span class="nv">$file</span><span class="w"> </span>-acodec<span class="w"> </span>libvo_aacenc<span class="w"> </span>-ab<span class="w"> </span>192k<span class="w"> </span>-ar<span class="w"> </span><span class="m">44100</span><span class="w"> </span>~/Musique/<span class="s2">&quot;</span><span class="nv">$rep</span><span class="s2">&quot;</span>/<span class="s2">&quot;</span><span class="si">${</span><span class="nv">titre</span><span class="p">%%.flac</span><span class="si">}</span><span class="s2">.m4a&quot;</span>
+<span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Nous allons décortiquer tout ça et expliquer les éléments mis en œuvre dans ce script.</p>
+<p>Le principe général:</p>
+<ul>
+<li>Je recherche dans mon dossier personnel tous les fichiers flac,</li>
+<li>Je cherche le dossier dans lequel sont rangés ces fichiers, dossier qui est en général un nom d’album,</li>
+<li>Je créé le dossier dans le répertoire musique,</li>
+<li>Je convertis mes fichiers audio et je les range dans le bon dossier du répertoire musique.</li>
+</ul>
+<p>La première ligne indique que nous sommes en train d’écrire un script shell avec un interpréteur bash.</p>
+<p>La 2ème ligne introduit deux notions : les boucles et la substitution :</p>
+<ul>
+<li>Nous alimentons une variable file avec le résultat de la commande find. La synthaxe est la suivante $(commande),</li>
+<li>La commande find en elle-même va rechercher tous les fichiers (type –f) dont le nom (-name) se termine par l’extension *.flac sur l’ensemble des répertoires et sous répertoires de l’utilisateur (~),</li>
+<li>La variable file va prendre successivement comme valeur le contenu de la commande file et pour chacune de ces valeurs va effectuer le traitement (for file in $(); do).</li>
+</ul>
+<p>Sur la 3ème ligne nous allons récupérer dans une variable rep le nom du répertoire dans lequel se trouve le fichier flac, ce répertoire porte en général le nom de l’artiste ou de l’album, cela permet de classer les fichiers une fois convertis. Pour cela nous allons utiliser un tube et la commande sed et les expressions régulière</p>
+<p>Commençons par la fin, la commande sed. La commande sed permet de rechercher et de remplacer des caractères dans une chaîne de caractères. Cela se fait au moyen des expressions régulières</p>
+<p><code>^[[:punct:][:alnum:]]+\/([[:alnum:]]+)\/[[:alnum:]]+.flac</code> signifie :</p>
+<p>Je commence par le début de ma chaîne, je cherche une série de caractères de ponctuation ou aplhanumérique jusqu’à sélectionner une série de caractères aplhanumériques encadrer par deux "/" se trouvant avant le nom du fichier se finissant par ".flac"</p>
+<p>Ici les anti-slash sont des caractères d’échappement du "/" et du "." qui peuvent être confondus avec des expressions régulières.</p>
+<p>Entre les "()" se trouvent ce que l’on veut extraire.</p>
+<p>Ceci est un petit exemple d’utilisation des expressions régulières. Elles sont évidemment beaucoup plus riches que ce qui est présenté ici, n’hésitez pas à vous plongez dedans et faire vos propres tests.</p>
+<p>Enfin dans le reste de la commande sed –r siginifie que nous utilisons les expressions régulières étendues, -e que les instructions sed se trouvent directement dans la ligne de commande et non pas dans un fichier, et s/xxx/\1/ que nous faisons une recherche dont nous stockons le résultat dans 1.</p>
+<p>Ouf !</p>
+<p>Mais comment passer le contenu de la variable file à sed pour alimenter la variable rep. Grâce à un printf de la variable file dont nous redirigeons la sortie grâce à un tube | vers la commande sed.</p>
+<p>En 4ème ligne, nous récupérons le titre de la chanson dans une variable titre par un simple echo $file.</p>
+<p>Sur la 5ème ligne, nous allons tester si le dossier contenant nos titres existe déjà dans le répertoire Musique grâce au test <code>[ ! –d xxx]</code>. [ ] veut dire que nous faisons un test, ! teste la non existence et –d indique que nous faisons un test sur un nom de répertoire.</p>
+<p>Si le répertoire n’existe pas, alors nous le créons par la commande mkdir en ligne 6.</p>
+<p>Fin de la boucle si en ligne 7 par un fi.</p>
+<p>Nous avons déjà vu la conversion en ligne 8 dans un précédent article, je n’y reviens pas (j’ai simplement supprimer la partie –vcodec) , ainsi que le bouclage de la boucle for par le petit done de la ligne 9.</p>
+<p>Et voilà, c'est prêt pour une conversion.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

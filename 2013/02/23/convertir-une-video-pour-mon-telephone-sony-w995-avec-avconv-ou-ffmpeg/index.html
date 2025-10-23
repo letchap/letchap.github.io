@@ -1,0 +1,272 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Convertir une video pour mon téléphone Sony W995 avec avconv (ou ffmpeg)</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/02/23/convertir-une-video-pour-mon-telephone-sony-w995-avec-avconv-ou-ffmpeg/" rel="bookmark" title="Permalink to Convertir une video pour mon téléphone Sony W995 avec avconv (ou ffmpeg)">Convertir une video pour mon téléphone Sony W995 avec avconv (ou ffmpeg)</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Sat 23 February 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/shell.html">&nbsp;Shell</a>
+	<hr />
+	
+	<p>Convertir des videos ou de fichiers audios sur Mac OS X pour un vieux téléphone comme le mien, c’est assez fastidieux. Il faut obligatoirement passer par itunes et par le logiciel de synchronisation tout moche disponible sur le site du fabricant.</p>
+<p>Sur Lubuntu, pas d’itunes et pas de logiciel de synchronisation. Alors, comment convertir ces maudits fichiers ?</p>
+<h3>1ère tentative avortée : trouver des logiciels de conversion</h3>
+<p>Personnellement j’ai testé deux logiciels : Arista et WINFF (disponibles dans la logithèque Lubuntu ou les paquets synaptic).</p>
+<h4>Arista</h4>
+<p>Le plus beau graphiquement, le problème vient du fait que la présélection pour le W995 disponible sur leur site ne fonctionne pas (une présélection est un jeu de paramètres de conversion de fichiers, spécifique à un appareil ou à une famille d’appareil).</p>
+<p>Mais c’est beau et ça fonctionne sans doute avec d’autres téléphones.</p>
+<h4>WINFF</h4>
+<p>Sur WINFF, il faut créer soit même sa présélection pour le W995, car elle n’est pas disponible par défaut. Et pour créer soit même sa présélection, finalement, il faut déjà faire tout le boulot de recherche et de paramétrage de la conversion soi-même, en résumé, il faut trouver tout seul comment fonctionne les commandes avconv ou ffmpeg, donc pas besoin de WINFF. D’autant plus que pour le coup, WINFF c’est moche et pas très convivial.</p>
+<p>En revanche, grâce à WINFF, je me suis posé les bonnes questions pour arriver à la solution. Et WINFF fonctionne sans doute très bien avec d’autres téléphones.</p>
+<h3>2ème tentative : avec une ligne de commande : avconv ou ffmpeg</h3>
+<p>Ce que je décris ici fonctionne indifféremment avec la commande avconv ou ffmpeg. Vous pouvez remplacer l’une par l’autre. Après, comme je ne comprends rien au débat autour de ces deux commandes, je ne me suis pas posé plus de questions que ça.</p>
+<h4>1. Quels sont les caractéristiques du format de sortie ?</h4>
+<p>Avant de convertir, il faut savoir en quoi convertir. Nous allons trouver l’information sur la documentation utilisateur de l’appareil.</p>
+<p>La taille de l’image, c’est 320x240, le format video mpeg4, le format audio AAC. A priori, ces informations sont largement suffisantes.</p>
+<h4>2. comment fonctionne avconv ou ffmpeg ?</h4>
+<p>Le programme avconv s'installe avec le paquet libav-tools</p>
+<p>Voici la ligne de commande brute de décoffrage :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>avconv<span class="w"> </span>-i<span class="w"> </span>monfichier.avi<span class="w"> </span>-c:a<span class="w"> </span>aac<span class="w"> </span>-strict<span class="w"> </span>experimental<span class="w"> </span>-b:a<span class="w"> </span>128k<span class="w"> </span>-ar<span class="w"> </span><span class="m">44100</span><span class="w"> </span>-c:v<span class="w"> </span>mpeg4<span class="w"> </span>-b:v<span class="w"> </span>600k<span class="w"> </span>-s<span class="w"> </span>320x240<span class="w"> </span>~/vidéos/monfichier.mp4
+</code></pre></div>
+
+<p>Dans le détail :</p>
+<ul>
+<li>Avconv : la commande de conversion (le fonctionnement est le même en mettant ffmpeg à la place de avconv),</li>
+<li>-i monfichier.avi : le fichier d’entrée,</li>
+<li>-c:v mpeg4 –b:v 600k : j’utilise pour convertir la partie video le codec mpeg 4 avec une qualité de conversion de 600k (c'est largement suffisant pour mon téléphone)</li>
+<li>-c:a -strict experimental -b:a 128k -ar 44100 : j’utilise pour convertir la partie son le codec aac livré par défaut sur avconv. Pour cela, il faut ajouter <code>-strict experimental</code> sinon avconv fait apparaître un message d'avertissement. Il est possible d'utiliser d'autres librairies comme libvo-aacenc ou libfaac. Elles ne sont pas installées par défaut, et dans certains cas il faudra recompiler avconv (sur Debian, pas sur Mageia par exemple).</li>
+<li>~/Video/monfichier.mp4 : le fichier de sortie, ici dans le dossier video de mon répertoire personnel.</li>
+</ul>
+<p>Pour connaître la liste des formats disponibles sur votre version d'avconv vous pouvez taper la commande suivante dans le terminal :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>avconv<span class="w"> </span>-formats
+</code></pre></div>
+
+<h1>3ème tentative : mon premier script en shell</h1>
+<p>C’est bien beau cette ligne de commande, mais ça reste quand même moins convivial que WINFF.</p>
+<p>Je me suis donc lancé dans l’écriture de mon tout premier script en shell pour automatiser tout ça.</p>
+<p>J’ai donc besoin de convertir toute une série de fichiers video dans des formats différents sans être obligé de lancer une ligne de commande par fichier en changeant à chaque fois à la main le fichier en entrée et le fichier en sortie.</p>
+<p>Le script le voici (à créer dans un fichier monscript.sh)</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.avi<span class="w"> </span>*.mp4<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+avconv<span class="w"> </span>-i<span class="w"> </span><span class="nv">$file</span><span class="w"> </span>-c:a<span class="w"> </span>aac<span class="w"> </span>-strict<span class="w"> </span>experimental<span class="w"> </span>-b:a<span class="w"> </span>128k<span class="w"> </span>-ar<span class="w"> </span><span class="m">44100</span><span class="w"> </span>-c:v<span class="w"> </span>mpeg4<span class="w"> </span>-b:v<span class="w"> </span>600k<span class="w"> </span>-s<span class="w"> </span>320x240<span class="w"> </span>~/Video/<span class="s2">&quot;</span><span class="si">${</span><span class="nv">file</span><span class="p">%%.*</span><span class="si">}</span><span class="s2">.mp4&quot;</span>
+<span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Ce que je trouve beau, c’est qu’une automatisation de tâche tienne en 4 lignes de code, et encore, comme c’est mon premier script, je suis sûr qu’un pro ferait beaucoup mieux.</p>
+<p>Pour expliquer un peu ce qui se passe là-dedans :</p>
+<p>La 1ère ligne permet tout simplement de dire qu’on est en train d’écrire un script shell, et qu’on utilisera l’interpréteur bash.</p>
+<p>La 2ème ligne initialise une variable appelée file avec différents types de fichiers video. Ici, file va prendre successivement les valeurs <em>.avi, puis </em>.mp4. Enfin, pour chacun de ses fichiers (for) il va lancer la commande de la 3ème ligne (do).</p>
+<p>La 3ème ligne va lancer successivement la conversion de tous les fichiers .avi et .mp4 qu’il trouvera dans le répertoire où est lancé le programme. Nous reconnaîtrons au passage la ligne de commande du §2 avec quelques petites différences.</p>
+<p>-i : nous passons la variable file en paramètre en écrivant $file.</p>
+<p>~/Video/"${file%%.*}.mp4" : Le fichier de sortie : je le renomme en .mp4 en modifiant l’extension grâce aux outils de traitement de variable %%. Pour plus d’explication, il faut trouver un manuel shell qui explique ce que sont les outils de traitements. Sinon, vous pouvez copier le script tel quel, il est testé et approuvé.</p>
+<p>La 4ème ligne, va clore la boucle initiée par "for".</p>
+<p>Derniers éléments d’informations si vous souhaitez vous lancer dans l’écriture d’un script :</p>
+<ul>
+<li>il faut changer les droits du script pour le rendre exécutable : chmod +x monscript.sh</li>
+<li>il se lance de la manière suivante (attention aux chemins des répertoires où se trouvent les fichiers et le programme, nous verrons plus tard comment simplifier les lancements):<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>./monscript.sh
+</code></pre></div>
+
+</li>
+</ul>
+<p>Du coup, j’en ai profité pour faire un autre script pour les fichiers audio sur le même principe pour transformer des fichiers flac en m4a, en n’utilisant que la partie –c:a, sans la partie -c:v. Et comme j’en ai aussi profité pour approfondir mes connaissances shell, le prochain billet parlera variables, sed, expressions régulières, tubes, que du bonheur.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

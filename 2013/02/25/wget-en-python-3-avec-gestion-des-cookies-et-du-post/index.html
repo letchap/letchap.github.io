@@ -1,0 +1,353 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>wget en python 3 avec gestion des cookies et du post</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/02/25/wget-en-python-3-avec-gestion-des-cookies-et-du-post/" rel="bookmark" title="Permalink to wget en python 3 avec gestion des cookies et du post">wget en python 3 avec gestion des cookies et du post</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Mon 25 February 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/python.html">&nbsp;Python</a>
+	<hr />
+	
+	<p>Un petit exemple avec le site ameli, qui permet d'illustrer la gestion des cookies et du post data à la fois avec la commande wget et son équivalent en Python 3</p>
+<h3>La commande Wget dans un petit script :</h3>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">login</span><span class="o">=</span><span class="nv">$login</span>
+<span class="nv">pass</span><span class="o">=</span><span class="nv">$password</span>
+
+<span class="c1">#Récupération des premiers cookies</span>
+wget<span class="w"> </span>-dO<span class="w"> </span>/dev/null<span class="w"> </span>--cookies<span class="o">=</span>on<span class="w"> </span>--keep-session-cookies<span class="w"> </span>--save-cookies<span class="o">=</span>cookies.txt<span class="w"> </span><span class="s2">&quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&quot;</span>
+
+<span class="c1">#Deuxième passage pour récupérer les cookies sécurisés</span>
+wget<span class="w"> </span>-dO<span class="w"> </span>/dev/null<span class="w"> </span>--cookies<span class="o">=</span>on<span class="w"> </span>--keep-session-cookies<span class="w"> </span>--save-cookies<span class="o">=</span>cookies.txt<span class="w"> </span>--load-cookies<span class="o">=</span>cookies.txt<span class="w"> </span>--post-data<span class="w"> </span><span class="s2">&quot;connexioncompte_2numSecuriteSociale=</span><span class="nv">$login</span><span class="s2">&amp;amp;connexioncompte_2codeConfidentiel=</span><span class="nv">$pass</span><span class="s2">&amp;amp;connexioncompte_2actionEvt=connecter&amp;amp;submit=validerFormulaire(this)&quot;</span><span class="w"> </span><span class="s2">&quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&quot;</span>
+
+<span class="c1">#Troisième passage pour se connecter</span>
+wget<span class="w"> </span>-dO<span class="w"> </span>index.html<span class="w"> </span>--cookies<span class="o">=</span>on<span class="w"> </span>--keep-session-cookies<span class="w"> </span>--save-cookies<span class="o">=</span>cookies.txt<span class="w"> </span>--load-cookies<span class="o">=</span>cookies.txt<span class="w"> </span>--post-data<span class="w">  </span><span class="s2">&quot;connexioncompte_2numSecuriteSociale=</span><span class="nv">$login</span><span class="s2">&amp;amp;connexioncompte_2codeConfidentiel=</span><span class="nv">$pass</span><span class="s2">&amp;amp;connexioncompte_2actionEvt=connecter&amp;amp;submit=validerFormulaire(this)&quot;</span><span class="w"> </span><span class="s2">&quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&quot;</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Nous allons être obligé de faire plusieurs passages pour récupérer les cookies. Sur les deux premiers passages, je ne conserve pas de fichiers de sortie en envoyant le résultat de la requête vers /dev/null. En revanche, mes cookies seront bien conservés dans le fichiers cookies.txt grâce à l'option --save-cookies. </p>
+<p>Pour le post, un petit coup d'extension web developer de firefox fera l'affaire. Cela permet d'identifier les zones de formulaires à remplir.</p>
+<h3>La même chose en Python 3</h3>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/usr/bin/python3.2</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">urllib.parse</span><span class="o">,</span> <span class="nn">urllib.error</span>
+<span class="kn">import</span> <span class="nn">http.cookiejar</span>
+
+<span class="c1">#Le fichier qui va stocker les cookies</span>
+<span class="n">cj</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">cookiejar</span><span class="o">.</span><span class="n">LWPCookieJar</span>
+
+<span class="c1">#Des raccourcis pour lancer les requêtes</span>
+<span class="n">urlopen</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span>
+<span class="n">Request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span>
+<span class="n">urlencode</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span>
+
+<span class="c1">#Modification de l&#39;opener pour gérer les cookies</span>
+<span class="n">opener</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">HTTPCookieProcessor</span><span class="p">(</span><span class="n">cj</span><span class="p">))</span>
+<span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">opener</span><span class="p">)</span>
+
+<span class="c1">#Notre fonction pour ouvrir les pages html avec gestion des cookies et de l&#39;encodage</span>
+<span class="c1">#avec gestion du retour du code erreur</span>
+<span class="k">def</span> <span class="nf">requete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+   <span class="n">data</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+   <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+   <span class="n">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+   <span class="k">try</span><span class="p">:</span>
+       <span class="n">handle</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+   <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+       <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="s1">&#39;reason&#39;</span><span class="p">):</span>
+           <span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+           <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reason:&#39;</span><span class="p">,</span><span class="n">err</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>          
+       <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="s1">&#39;code&#39;</span><span class="p">):</span>
+           <span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+           <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Code erreur&#39;</span><span class="p">,</span><span class="n">err</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+   <span class="k">else</span><span class="p">:</span>
+       <span class="k">return</span> <span class="n">handle</span>
+
+<span class="n">login</span> <span class="o">=</span> <span class="err">$</span><span class="n">login</span>
+<span class="n">password</span> <span class="o">=</span> <span class="err">$</span><span class="n">password</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure&quot;</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;connexioncompte_2numSecuriteSociale&#39;</span> <span class="p">:</span> <span class="n">login</span><span class="p">,</span>
+         <span class="s1">&#39;connexioncompte_2codeConfidentiel&#39;</span> <span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+         <span class="s1">&#39;connexioncompte_2actionEvt&#39;</span> <span class="p">:</span> <span class="s1">&#39;connecter&#39;</span><span class="p">,</span>
+         <span class="s2">&quot;submit&quot;</span> <span class="p">:</span> <span class="s2">&quot;validerFormulaire(this)&quot;</span><span class="p">}</span>
+
+<span class="c1">#Deux passages pour récupérer les cookies puis le cookie sécurisé</span>
+<span class="n">handle</span> <span class="o">=</span> <span class="n">requete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<span class="n">handle</span> <span class="o">=</span> <span class="n">requete</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;These are the cookies we have received so far :&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">cookie</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cj</span><span class="p">):</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;  :  &#39;</span><span class="p">,</span> <span class="n">cookie</span><span class="p">)</span>
+
+<span class="n">the_page</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;the_page.html&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+<span class="n">the_page</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">the_page</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Dans values, nous allons trouver l'équivalent du post de wget. Il faut l'encoder en binaire en Python 3 d'où le urlencode.</p>
+<p>Pourquoi écrire en plusieurs lignes Python quelquechose qui tient en 3 lignes en bash :</p>
+<ul>
+<li>Je vais pouvoir réutiliser le code pour d'autres connexions</li>
+<li>Je vais pouvoir mutualiser du code (gestion de l'opener, de la requête, ...)</li>
+<li>Je vais pouvoir l'insérer dans un programme plus large</li>
+</ul>
+<p>Si certains sont intéressés, j'ai le même en Python 2.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

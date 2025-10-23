@@ -1,0 +1,276 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/" rel="bookmark" title="Permalink to Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox">Virtualiser Mageia 2 sur OS X Mountain Lion avec VirtualBox</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Tue 09 April 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/virtualbox.html">&nbsp;VirtualBox</a>
+	<hr />
+	
+	<p>Malgré toute sa bonne volonté mon pauvre vieux PC de 2003 touche certaines limites. La plus génante concerne l'obsolescence de la carte graphique, il m'est par exemple impossible d'utiliser Kivy.</p>
+<p>C'est l'occasion d'installer une distribution sur mon iMac. Et pour tester un univers que je ne connais pas et qui va me changer du monde Ubuntu, nous allons installer Mageia 2.</p>
+<h3>Dual boot ou virtualisation ?</h3>
+<p>Pour ne pas perturber les autres membres de la famille avec le choix d'un OS de démarrage, je ne souhaite pas installer Mageia en double amorçage (dual boot) sur mon iMac. J'ai la flemme de partitionner, d'installer rEfit, tout ça pour avoir un écran moche au démarrage.</p>
+<p>La solution : la virtualisation</p>
+<p>La virtualisation permet de démarrer une session de n'importe quelle distribution Linux à l'intérieur de Mountain Lion :</p>
+<ul>
+<li>Ca ne prend pas de place (il faut compter 8 Go pour être tranquille),</li>
+<li>Ca tourne de manière fluide avec 512 Mo de RAM dédiée (j'ai mis 2 Go quand même pour Mageia 2),</li>
+<li>Ca ne touche pas à Mountain Lion,</li>
+<li>Ca permet de partager des fichiers entre Mountain Lion et Mageia très facilement,</li>
+<li>Ca reconnaît les port usb,</li>
+<li>Ca se sauvegarde,</li>
+<li>Ca permet de tester très facilement toutes sortes de distributions.</li>
+</ul>
+<p>Le principal intérêt de la virtualisation est de pouvoir essayer sereinement des distributions, mais j'ai décidé de tester la virtualisation aussi sur la durée, je voudrais savoir si cela peut être une solution pérenne en attendant de racheter un PC et de faire une vraie installation.</p>
+<h3>L'installation</h3>
+<p>Il n'existe pas énormément de logiciel de virtualisation sur Max OS X, et le seul gratuit est VirtualBox. Les deux autres sont VMware et Parallel Desktop.</p>
+<p>Pour virtualiser, j'ai donc utilisé le logiciel Virtualbox. Les différentes étapes sont :</p>
+<ul>
+<li>L'installation de Virtualbox</li>
+<li>Le téléchargement de l'image disque Mageia 2</li>
+<li>L'installation de Mageia 2 dans VirtualBox</li>
+<li>L'installation des compléments (VirtualBox guest additions)</li>
+<li>L'installation des compléments (VirtualBox extension pack)</li>
+</ul>
+<h4>Installer Virtualbox.</h4>
+<p>C'est une installation classique sur OS X par les paquets dmg. Il est disponible au téléchargement <a href="https://www.virtualbox.org/wiki/Downloads" title="VirtualBox">ici</a></p>
+<h4>Télécharger Mageia 2</h4>
+<p>Nous allons installer la dernière version de Mageia 2 en 64 bits, elle est disponible au téléchargement sur <a href="http://www.mageia.org/fr/downloads/" title="Mageia">cette page</a>. Personnellement j'utilise le torrent avec transmission, c'est plus rapide et plus sûr.</p>
+<p>Dans le dossier que vous récupérez se trouve un fichier .iso, c'est de celui dont nous aurons besoin.</p>
+<p>Tous les Mac récents tournent en 64 bits, pour vous en assurer, vous pouvez aller dans le moniteur d'activité, il doit être indiqué Intel (64bits) dans la colonne Type.
+<a data-lightbox="moniteur" href="../../../../images/virtualbox/moniteur.png" title="moniteur d'activité"><img alt="Moniteur d'activité" src="../../../../images/virtualbox/moniteur.png" title="moniteur d'activité"></a></p>
+<p>La documentation VirtualBox précise qu'il est possible de virtualiser du 64 sur du 32, je n'ai pas essayé, je ne sais pas si cela fonctionne bien.</p>
+<h4>Démarrer VirtualBox et installer Mageia</h4>
+<p>Le vrai travail commence maintenant</p>
+<p>Démarrer VirtaulBox et cliquer sur nouveau. Vous saisissez alors le nom de votre distribution, Mageia
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution"><img alt="VirtualBox nouveau" src="../../../../images/virtualbox/vb-nouvelle.png" title="Etape 1 : créer une nouvelle distribution"></a></p>
+<p>Ensuite choisissez la taille de la mémoire qui sera utilisé pour faire fonctionner la machine virtuelle. La mémoire vive est partagé avec le système hôte, celle dédiée à VirtualBox ne peut pas être plus de la moitié de la taille totale. Ici, j'ai choisi 2Go.
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive"><img alt="VirtualBox mémoire" src="../../../../images/virtualbox/vb-memoire.png" title="Etape 2 : choisir la taille de la mémoire vive"></a></p>
+<p>La création d'un disque dur virtuel est proposée (laissez le paramétrage par défaut)
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel"><img alt="VirtualBox disque dur" src="../../../../images/virtualbox/vb-disk.png" title="Etape 3 : choisir le disque dur virtuel"></a></p>
+<p>Il s'agit d'un disque virtuel avec une extension vdi qui permettra plus tard si besoin d'exporter la machine virtuelle
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque"><img alt="VirtualBox vdi" src="../../../../images/virtualbox/vb-vdi.png" title="Etape 4 : choisir l'extension du disque"></a></p>
+<p>Conserver le paramétrage de taille de disque dynamiquement allouée. Seul l'espace réellement utilisé sera présent sur le disque dur de la machine hôte. Pour des soucis de performance, il est possible de choisir une taille fixe, mais évidemment, cela prend plus d'espace. A vous de voir.
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée"><img alt="VirtualBox taille allouée" src="../../../../images/virtualbox/vb-alloue.png" title="Etape 5 : choisir la taille dynamiquement allouée"></a></p>
+<p>8Go par défaut, c'est largement suffisant pour tester une distribution.
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque"><img alt="VirtualBox taille" src="../../../../images/virtualbox/vb-taille.png" title="Etape 6 : choisir la taille du disque"></a></p>
+<p>Une fois tous ces éléments paramétrés, il va falloir demander à la machine de démarrer sur l'image disque de Mageia. Pour cela, il faut se rendre dans l'onglet stockage.
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage"><img alt="VirtualBox stockage" src="../../../../images/virtualbox/vb-stockage.png" title="Etape 6 : onglet stockage"></a></p>
+<p>Vous cliquez sur l'icone du CD à coté de Lecteur CD/DVD.
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso"><img alt="VirtualBox CD" src="../../../../images/virtualbox/vb-cd.png" title="Etape 7 : charger l'image iso"></a></p>
+<p>Et vous choisissez votre fichier iso.
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso"><img alt="VirtualBox iso" src="../../../../images/virtualbox/vb-iso.png" title="Etape 8 : charger l'image iso"></a></p>
+<p>Vous cliquer alors sur démarrer et lancer l'installation normale de Mageia. Attention, ne télécharger pas les compléments d'installation durant cette étape. C'est très important pour un bon fonctionnement ultérieur de Mageia.</p>
+<p>A la fin de l'installation, vous éteignez (power off) la machine virtuelle.
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine"><img alt="VirtualBox power off" src="../../../../images/virtualbox/vb-off.png" title="Etape 9 : éteindre la machine"></a></p>
+<p>Puis, vous éjectez le fichier iso (pour ne pas redémarrer l'installation à chaque fois).
+<a data-lightbox="virtualbox" href="../../../../images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso"><img alt="VirtualBox eject" src="../../../../images/virtualbox/vb-eject.png" title="Etape 10 : éjecter le fichier iso"></a></p>
+<p>Vous pouvez alors redémarrer Mageia. Une fois sur Mageia, voici quelques petites astuces pour un fonctionnement optimal de la machine virtuelle :</p>
+<h4>Guest additions</h4>
+<p>Tout d'abord, installer les compléments de l'installation que nous avons mis de coté tout à l'heure. L'installation sera plus propre si vous le faites maintenant et évitera des dysfonctionnements de Mageia. Pour éviter d'être embêté avec le fichier iso, vous pouvez aller dans le Centre de Contrôle Mageia (CCM) pour paramétrer les sources des programmes et supprimer la mise à jour par CD.</p>
+<p>Mageia va en même temps installer les VirtualBox guest additions qui permettent notamment de partager un répertoire avec le système hôte. Il n'est donc pas nécessaire d'installer spécifiquement ces guest additions, laissez le CCM faire.</p>
+<p>Une petite astuce pour les répertoires partagés, n'oubliez pas d'ajouter votre utilisateur dans le groupe VirtualBox (là encore cela se passe dans le CCM).
+<a data-lightbox="CCM" href="../../../../images/virtualbox/ccm.png" title="CCM"><img alt="CCM" src="../../../../images/virtualbox/ccm.png" title="Partager un répertoire"></a></p>
+<h4>Extension pack</h4>
+<p>Enfin, dernière astuce, installer le VirtualBox extension pack pour pouvoir accéder aux ports USB sur la machine invitée.</p>
+<p>Bonne virtualisation !!</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

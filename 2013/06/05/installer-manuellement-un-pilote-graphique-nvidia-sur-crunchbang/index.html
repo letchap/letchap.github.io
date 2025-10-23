@@ -1,0 +1,258 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Installer manuellement un pilote graphique Nvidia sur Crunchbang</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/06/05/installer-manuellement-un-pilote-graphique-nvidia-sur-crunchbang/" rel="bookmark" title="Permalink to Installer manuellement un pilote graphique Nvidia sur Crunchbang">Installer manuellement un pilote graphique Nvidia sur Crunchbang</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Wed 05 June 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/crunchbang.html">&nbsp;Crunchbang</a>
+	<hr />
+	
+	<p>La distribution Crunchbang est une distribution trés légére basée sur Debian. Lors de l'installation sur mon vieux PC, la partie inférieure de l'écran est inutilisable car la carte graphique est mal gérée. Il faut alors installer le pilote graphique propriétaire, Nvidia dans mon cas. Crunchbang, se voulant trés léger, il n'y a pas par défaut d'interface graphique pour installer le pilote, nous allons donc l'installer via le terminal.</p>
+<p>Ce post est très largement inspiré du wiki Debian disponible <a href="http://wiki.debian.org/NvidiaGraphicsDrivers#NVIDIA_Proprietary_Driver" title="wiki Debian">à cette adresse</a></p>
+<h3>Puis - je installer des pilotes non-libres ?</h3>
+<p>La première étape consiste à vérifier que nous pouvons installer des paquets non-libres, comme celui contenant le pilote nvidia qui nous intéresse. Par défaut, sur Crunchbang Waldorf, c'est le cas. Pour s'en assurer, il suffit de vérifier la présence de "non-free" dans la liste des sources. La commande :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>/etc/apt/sources.list
+</code></pre></div>
+
+<p>devrait vous renvoyer :</p>
+<div class="codehilite"><pre><span></span><code><span class="c">## DEBIAN</span>
+<span class="k">deb</span><span class="w"> </span><span class="s">http://http.debian.net/debian/</span><span class="w"> </span><span class="kp">wheezy</span><span class="w"> </span><span class="kp">main</span><span class="w"> </span><span class="kp">contrib</span><span class="w"> </span><span class="kp">non-free</span>
+</code></pre></div>
+
+<p>S'il n'est pas présent, ajouter ces deux lignes en éditant le fichier :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/apt/sources.list
+</code></pre></div>
+
+<h3>Quel pilote ?</h3>
+<p>La deuxième étape consiste à savoir quel pilote installer en fonction de sa carte graphique. Pour cela nous allons utiliser  nvidia-detect qui s'installe par synaptic ou à partir d'un terminal avec la commande <code>sudo apt-get install nvidia-detect</code>.</p>
+<p>Ensuite, sur le terminal, la commande nvidia-detect vous renverra les informations sur la carte graphique et le pilote à installer.</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>nvidia-detect
+Detected<span class="w"> </span>NVIDIA<span class="w"> </span>GPUs:
+<span class="m">01</span>:00.0<span class="w"> </span>VGA<span class="w"> </span>compatible<span class="w"> </span>controller<span class="w"> </span><span class="o">[</span><span class="m">0300</span><span class="o">]</span>:<span class="w"> </span>NVIDIA<span class="w"> </span>Corporation<span class="w"> </span>NV34M<span class="w"> </span><span class="o">[</span>GeForce<span class="w"> </span>FX<span class="w"> </span>Go5200<span class="w"> </span>32M/64M<span class="o">]</span><span class="w"> </span><span class="o">[</span>10de:0328<span class="o">]</span><span class="w"> </span><span class="o">(</span>rev<span class="w"> </span>a1<span class="o">)</span>
+Your<span class="w"> </span>card<span class="w"> </span>is<span class="w"> </span>only<span class="w"> </span>supported<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="m">173</span>.14<span class="w"> </span>legacy<span class="w"> </span>drivers<span class="w"> </span>series.
+It<span class="w"> </span>is<span class="w"> </span>recommended<span class="w"> </span>to<span class="w"> </span>install<span class="w"> </span>the
+<span class="w">    </span>nvidia-glx-legacy-173xx
+package.
+</code></pre></div>
+
+<h3>J'installe mon pilote</h3>
+<p>Le pilote s'installe avec les deux commandes suivantes dans le terminal :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>-r<span class="w"> </span>install<span class="w"> </span>linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="p">|</span>sed<span class="w"> </span><span class="s1">&#39;s,[^-]*-[^-]*-,,&#39;</span><span class="k">)</span><span class="w"> </span>nvidia-kernel-legacy-173xx-dkms
+</code></pre></div>
+
+<p>Cela va également installer les dépendances, et notamment le paquet nvidia-glx-legacy-173xx.</p>
+<h3>Mon pilote n'est pas détecté par défaut</h3>
+<p>La dernière étape consiste à faire reconnaître le pilote par le système, qui n'est pas détecté automatiquement par défaut. Pour cela, il faut créer un fichier de configuration :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/X11/xorg.conf.d/20-nvidia.conf
+</code></pre></div>
+
+<p>et ajouter les lignes suivantes :</p>
+<div class="codehilite"><pre><span></span><code>Section &quot;Device&quot;
+    Identifier     &quot;Mon pilote graphique&quot;
+    Driver         &quot;Nvidia&quot;
+    Option         &quot;NoLogo&quot; &quot;1&quot;
+EndSection
+</code></pre></div>
+
+<p>L'option NoLogo permet de supprimer l'affichage du logo nvidia au démarrage.</p>
+<p>C'est fini, il ne reste plus qu'à redémarrer.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

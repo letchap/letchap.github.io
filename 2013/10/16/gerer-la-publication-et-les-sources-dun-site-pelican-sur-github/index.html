@@ -1,0 +1,289 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Gérer la publication et les sources d'un site Pelican sur Github</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2013/10/16/gerer-la-publication-et-les-sources-dun-site-pelican-sur-github/" rel="bookmark" title="Permalink to Gérer la publication et les sources d'un site Pelican sur Github">Gérer la publication et les sources d'un site Pelican sur Github</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Wed 16 October 2013&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/pelican.html">&nbsp;Pelican</a>
+	<hr />
+	
+	<p>Début d'une série de billets sur la création d'un site avec le générateur de site statique Pelican. Je commence par la fin. Comment publier son site sur github, ainsi que les sources ayant permis de créer le site ? Je traiterai de la création proprement dite du site avec Pelican dans un prochain billet.</p>
+<p>Nous démarrons donc ce billet à partir du moment où vous avez finalisé le paramètrage de Pelican et que vous voulez publier vos pages.</p>
+<p>Mon objectif était d'avoir une facilité de publication assez similaire à celle offerte par Octopress. A partir d'un même dépôt distant, je veux disposé d'une branche contenant le site à déployer et d'une branche content les sources de mon site. Cela est très utile pour blogger depuis plusieurs ordinateurs. Je veux pouvoir mettre à jour facilement ces deux branches, indépendemment l'une de l'autre, mais toujours à partir d'un unique dépôt local. Le tout doit être exécutable en un minimum de lignes de commande. </p>
+<p>Dernier élément, je veux conserver l'adresse letchap.github.io, ce qui m'oblige à passer par une publication de pages Github en mode "pages utilisateur"</p>
+<p>C'est parti !</p>
+<p>Je commence par me placer dans le répertoire contenant les sources et le site. Je l'ai appelé de manière très originale <code>blog</code>. Il doit contenir les répertoires content et output (obtenu par la commande <code>make html</code>):</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>blog
+/blog$<span class="w"> </span>ls<span class="w"> </span>-l
+drwxr-xr-x<span class="w">  </span><span class="m">6</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">4096</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">16</span><span class="w"> </span><span class="m">21</span>:00<span class="w"> </span>content
+-rwxr-xr-x<span class="w">  </span><span class="m">1</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">2073</span><span class="w"> </span>août<span class="w">   </span><span class="m">3</span><span class="w"> </span><span class="m">21</span>:58<span class="w"> </span>develop_server.sh
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">3076</span><span class="w"> </span>août<span class="w">   </span><span class="m">3</span><span class="w"> </span><span class="m">21</span>:58<span class="w"> </span>Makefile
+drwxr-xr-x<span class="w">  </span><span class="m">4</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">4096</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">15</span><span class="w"> </span><span class="m">23</span>:16<span class="w"> </span>mon-theme
+drwxr-xr-x<span class="w"> </span><span class="m">11</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">4096</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">15</span><span class="w"> </span><span class="m">23</span>:06<span class="w"> </span>output
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">1537</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">15</span><span class="w"> </span><span class="m">23</span>:16<span class="w"> </span>pelicanconf.py
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">1625</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">10</span><span class="w"> </span><span class="m">21</span>:33<span class="w"> </span>pelicanconf.pyc
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w">    </span><span class="m">5</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">12</span><span class="w"> </span><span class="m">15</span>:57<span class="w"> </span>pelican.pid
+drwxr-xr-x<span class="w">  </span><span class="m">3</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w"> </span><span class="m">4096</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">15</span><span class="w"> </span><span class="m">22</span>:50<span class="w"> </span>plugins
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w">  </span><span class="m">508</span><span class="w"> </span>août<span class="w">   </span><span class="m">3</span><span class="w"> </span><span class="m">21</span>:58<span class="w"> </span>publishconf.py
+-rw-r--r--<span class="w">  </span><span class="m">1</span><span class="w"> </span>letchap<span class="w"> </span>letchap<span class="w">    </span><span class="m">5</span><span class="w"> </span>oct.<span class="w">  </span><span class="m">12</span><span class="w"> </span><span class="m">15</span>:57<span class="w"> </span>srv.pid
+</code></pre></div>
+
+<p>Sous mon identifiant sur le site github.com, je créé un dépôt <code>letchap.github.io</code>, avec comme nom obligatoirement monuser.github.io. Et je n'y touche plus.</p>
+<p>Retour dans le terminal, où j'initialise mon dépôt local, que je lie ensuite au dépôt distant.</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>init
+$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:letchap/letchap.github.io.git
+$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span>you@example.com
+</code></pre></div>
+
+<p>Je vais maintenant créer une branche source qui va contenir les sources de mon site, c'est à dire tout sauf le dossier output qui lui contient le site à déployer. Pour exclure le sous-dossier output, j'ai pris soin de créer un fichier .gitignore contenant le dossier output (plus quelques fichiers sans intérêt)</p>
+<p>Contenu de .gitignore</p>
+<div class="codehilite"><pre><span></span><code>output
+*.pyc
+*.pid
+Makefile
+develop_server.sh
+</code></pre></div>
+
+<p>Pour créer ma branche source, j'utilise une procédure normalement pas très orthodoxe : je créé une branche master vide que je renomme en source, et je l'alimente avec tout le contenu de mon répertoire blog sauf le contenu de .gitignore. Je peux alors envoyer mes sources dans mon dépôt distant github sur une branche source.</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>--allow-empty<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;initial commit&quot;</span><span class="w"> </span><span class="c1">#je crée master vide</span>
+$<span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>-m<span class="w"> </span>master<span class="w"> </span><span class="nb">source</span><span class="w"> </span><span class="c1">#je renomme master en source</span>
+$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;creation du source&#39;</span><span class="w"> </span><span class="c1">#j&#39;alimente la branche source</span>
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span><span class="nb">source</span><span class="w"> </span><span class="c1">#j&#39;envoie les sources sur le dépôt distant</span>
+</code></pre></div>
+
+<p>Maintenant le site proprement dit !</p>
+<p>Rappelez - vous, toutes les pages sont contenues dans le dossier output. Pour créer et alimenter une branche gh-pages, nous allons utiliser l'utilitaire ghp-import qui s'installe par un <code>pip install ghp-import</code>. Je ne sais pas comment ça fonctionne mais cela créé ou met à jour une branche gh-pages avec le contenu du dossier output. Hyper pratique. Il ne reste plus qu'à pousser cette branche sur la branche master de notre dépôt distant (qui se créé à cette occasion).</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>make<span class="w"> </span>html<span class="w"> </span><span class="c1"># génère le dossier output avec le contenu du site</span>
+$<span class="w"> </span>ghp-import<span class="w"> </span>output
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>gh-pages:master
+</code></pre></div>
+
+<p>Voilà, l'installation est terminée ! Pour la suite de la vie du blog, la mise à jour des sources se fera par :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;message&#39;</span>
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span><span class="nb">source</span>
+</code></pre></div>
+
+<p>et la mise à jour des pages du site se fera par :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>make<span class="w"> </span>html
+$<span class="w"> </span>ghp-import<span class="w"> </span>output
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>gh-pages:master
+</code></pre></div>
+
+<p>C'est magique !</p>
+<p>Si vous souhaitez blogger depuis un autre ordinateur, il suffit de cloner la branche source distante en local après l'avoir préalablement mise à jour, de supprimer la branche master distante qui contient le site, de regénérer localement la branche gh-pages et de la pousser sur une nouvelle branche master distante,  ce qui donne :</p>
+<p>Sur le premier ordinateur :</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>blog
+$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;je vais blogger ailleurs&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span><span class="nb">source</span>
+</code></pre></div>
+
+<p>Sur le deuxième ordinateur :</p>
+<div class="codehilite"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">letchap</span><span class="o">/</span><span class="n">letchap</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">git</span><span class="w"> </span><span class="n">blog</span>
+<span class="err">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="p">:</span><span class="n">master</span><span class="w"> </span><span class="c1"># cela supprime la branche master distante</span>
+<span class="err">$</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">html</span>
+<span class="err">$</span><span class="w"> </span><span class="n">ghp</span><span class="o">-</span><span class="kn">import</span><span class="w"> </span><span class="nn">output</span>
+<span class="err">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span><span class="n">master</span>
+</code></pre></div>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

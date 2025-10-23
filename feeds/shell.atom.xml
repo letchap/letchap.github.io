@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Shell</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/shell.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2014-01-06T22:36:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Envoyer une notification utilisateur à partir d'une commande root</title><link href="https://letchap.github.io/2014/01/06/envoyer-une-notification-utilisateur-a-partir-d-une-commande-root/" rel="alternate"/><published>2014-01-06T22:36:00+01:00</published><updated>2014-01-06T22:36:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-01-06:/2014/01/06/envoyer-une-notification-utilisateur-a-partir-d-une-commande-root/</id><summary type="html">&lt;p&gt;Vous allez me dire, à quoi ça sert ? On ne devrait jamais se connecter en root ! C'est dangereux et cela signifie que les droits sont mal gérés. Si je veux envoyer une notification utilisateur, je lance la commande en tant qu'utilisateur, un point c'est tout. Malheureusement, cela ne fonctionne pas …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Vous allez me dire, à quoi ça sert ? On ne devrait jamais se connecter en root ! C'est dangereux et cela signifie que les droits sont mal gérés. Si je veux envoyer une notification utilisateur, je lance la commande en tant qu'utilisateur, un point c'est tout. Malheureusement, cela ne fonctionne pas avec anacron qui ne s'exécute qu'en root, à moins de créer une instance non root spécialement &lt;a href="https://letchap.github.io/2013/10/25/lancer-anacron-comme-simple-utilisateur/"&gt;ce que je détaille ici&lt;/a&gt;. Et là patatras, un job lancé par anacron en root n'enverra jamais de message sur une session utilisateur.&lt;/p&gt;
+&lt;p&gt;Pour la suite de l'article, il faut avoir en tête qu'à chaque utilisateur est associé une session du serveur X qui gère notammenent l'interface graphique. Par défaut, le root n'a pas le droit de se connecter au serveur X d'un utilisateur non-root.&lt;/p&gt;
+&lt;p&gt;Heureusement, il est possible de forcer un job lancé en root à envoyer un message sur une session du serveur X. Pour cela nous allons modifier la variable d'environnement DISPLAY du root que nous allons fusionner avec celle de l'utilisateur le temps de l'exécution de la commande.&lt;/p&gt;
+&lt;p&gt;La variable d'environnement DISPLAY contient les éléments suivants :
+    &lt;code&gt;machine:numéro_display.numéro_écran&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Pour un simple utilisateur comme moi, pas de nom de machine, un seul écran, elle va donc s'afficher avec &lt;code&gt;:0.0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Maintenant, comment rappatrier l'authentification au serveur X de l'utilisateur et le passer au root : en utilisant la commande &lt;code&gt;xauth&lt;/code&gt;. &lt;code&gt;xauth&lt;/code&gt; est utilisé pour éditer et fournir les authorisations d'un serveur X. Associé à la commande &lt;code&gt;merge&lt;/code&gt;, elle va permettre de récupérer les authorisations de l'utilisateur et les passer au root.&lt;/p&gt;
+&lt;p&gt;Enfin, pour ne faire cette opération que le temps de l'exécution de la commande, nous allons utiliser la commande &lt;code&gt;env&lt;/code&gt; qui permet justement de définir une variable le temps de la commande.&lt;/p&gt;
+&lt;p&gt;Un dernier point avant d'afficher la solution. Mais où récupère t-on les authorisations de l'utlisateur ?&lt;/p&gt;
+&lt;p&gt;Pour cela, il faut connaître son gestionnaire d'affichage, ou Display Manager dans la langue de Stallman. Les plus connus sont gdm ou kdm. Bon sur Crunchbang, c'est slim (sur Archlinux aussi d'ailleurs). Pour s'en assurer, il suffit de faire :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;/etc/X11/default-display-manager
+/usr/bin/slim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Les informations qui nous intéressent vont se trouver dans le fichier &lt;code&gt;/etc/slim.conf&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;/etc/slim.conf
+&lt;span class="c1"&gt;# Xauth file for server&lt;/span&gt;
+authfile&lt;span class="w"&gt;           &lt;/span&gt;/var/run/slim.auth
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Voilà, les authorisations de l'utilisateur se trouvent dans le fichier &lt;code&gt;/var/run/slim.auth&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Il ne reste plus qu'à compiler tout ça, et la solution est :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;env&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;:0&lt;span class="w"&gt; &lt;/span&gt;xauth&lt;span class="w"&gt; &lt;/span&gt;merge&lt;span class="w"&gt; &lt;/span&gt;/var/run/slim.auth&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;ma_commande
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Shell"/><category term="shell"/><category term="terminal"/><category term="slim"/><category term="crunchbang"/><category term="xauth"/></entry><entry><title>Vider la corbeille avec le terminal</title><link href="https://letchap.github.io/2013/02/25/vider-la-corbeille-avec-le-terminal/" rel="alternate"/><published>2013-02-25T22:18:00+01:00</published><updated>2013-02-25T22:18:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-25:/2013/02/25/vider-la-corbeille-avec-le-terminal/</id><summary type="html">&lt;p&gt;Avec mon Lubuntu 12.04, j'ai parfois des soucis avec la corbeille : je ne vois pas les fichiers à supprimer, et donc je ne peux pas vider la corbeille. Il m'arrive parfois des messages d'erreur.&lt;/p&gt;
+&lt;p&gt;Je suis alors obligé de vider la corbeille via le terminal et comme je ne …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Avec mon Lubuntu 12.04, j'ai parfois des soucis avec la corbeille : je ne vois pas les fichiers à supprimer, et donc je ne peux pas vider la corbeille. Il m'arrive parfois des messages d'erreur.&lt;/p&gt;
+&lt;p&gt;Je suis alors obligé de vider la corbeille via le terminal et comme je ne me souviens jamais de l'emplacement, je me le note, ainsi que les commandes de suppression :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;~/.local/share/Trash/
+$&lt;span class="w"&gt; &lt;/span&gt;rm&lt;span class="w"&gt; &lt;/span&gt;-rf&lt;span class="w"&gt; &lt;/span&gt;files&lt;span class="w"&gt; &lt;/span&gt;
+$&lt;span class="w"&gt; &lt;/span&gt;rm&lt;span class="w"&gt; &lt;/span&gt;-rf&lt;span class="w"&gt; &lt;/span&gt;info&lt;span class="w"&gt; &lt;/span&gt;
+$&lt;span class="w"&gt; &lt;/span&gt;rm&lt;span class="w"&gt; &lt;/span&gt;-rf&lt;span class="w"&gt; &lt;/span&gt;expunged
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Voilà, une corbeille comme neuve.&lt;/p&gt;</content><category term="Shell"/><category term="Corbeille"/><category term="Linux"/><category term="Lubuntu"/><category term="Terminal"/></entry><entry><title>Exécuter un script shell</title><link href="https://letchap.github.io/2013/02/24/executer-un-script-shell/" rel="alternate"/><published>2013-02-24T22:29:00+01:00</published><updated>2013-02-24T22:29:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-24:/2013/02/24/executer-un-script-shell/</id><summary type="html">&lt;p&gt;Nous avons fait deux beaux scripts en shell pour utiliser la commande &lt;a href="https://letchap.github.io/2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/" title="Convertir des fichiers flac en m4a grâce à un script shell"&gt;avconv&lt;/a&gt;. Nous avons enregistré nos scripts dans des fichiers monscript.sh. Maintenant comment exécuter ces scripts ?&lt;/p&gt;
+&lt;p&gt;La première chose à faire est de rendre exécutable le script par la commande :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;+x&lt;span class="w"&gt; &lt;/span&gt;monscript.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Ensuite, deux façons de …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Nous avons fait deux beaux scripts en shell pour utiliser la commande &lt;a href="https://letchap.github.io/2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/" title="Convertir des fichiers flac en m4a grâce à un script shell"&gt;avconv&lt;/a&gt;. Nous avons enregistré nos scripts dans des fichiers monscript.sh. Maintenant comment exécuter ces scripts ?&lt;/p&gt;
+&lt;p&gt;La première chose à faire est de rendre exécutable le script par la commande :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;+x&lt;span class="w"&gt; &lt;/span&gt;monscript.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Ensuite, deux façons de lancer le script.&lt;/p&gt;
+&lt;h1&gt;Vous êtes encore en train de travailler sur votre script :&lt;/h1&gt;
+&lt;p&gt;Le plus simple est de lancer le script en se plaçant dans le répertoire de travail où il se trouve et de taper la commande suivante :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;./monscript.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;Vous avez fini votre joli script :&lt;/h1&gt;
+&lt;p&gt;Nous pouvons placer notre script dans un des répertoires bin du système :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dans usr/bin : le programme sera accessible à tous les utlisateurs&lt;/li&gt;
+&lt;li&gt;dans usr/local/bin : le programme sera accessible aux utilisateurs de notre système&lt;/li&gt;
+&lt;li&gt;dans ~/bin : le programme n'est accessible que par nous&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Par bonheur, sur la version 12.04 de Lubuntu par exemple, pas besoin de modifier le PATH pour ajouter notre répertoire bin personnel. Il suffit de le créer pour qu'il soit reconnu. En effet, dans le fichier home/.profile, nous trouvons les lignes suivantes :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-d&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/bin&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;permettant de modifier automatiquement le PATH si le dossier home/bin existe.&lt;/p&gt;
+&lt;p&gt;C'est magique !&lt;/p&gt;
+&lt;p&gt;Il ne reste plus qu'à copier son script dans le répertoire ~/bin puis à le lancer depuis n'importe où en tapant son petit nom : monscript.sh&lt;/p&gt;</content><category term="Shell"/><category term="bash"/><category term="bin"/><category term="Lubuntu"/><category term="$PATH"/><category term="Shell"/></entry><entry><title>Convertir des fichiers flac en m4a grâce à un script shell</title><link href="https://letchap.github.io/2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/" rel="alternate"/><published>2013-02-23T21:36:00+01:00</published><updated>2013-02-23T21:36:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-23:/2013/02/23/convertir-des-fichiers-flac-en-m4a-grace-a-un-script-shell/</id><summary type="html">&lt;p&gt;Dans le précédent billet, nous avons vu comment convertir une video grâce aux commandes avconv et ffmpeg et comment l’automatiser dans un script shell.&lt;/p&gt;
+&lt;p&gt;Cette fois ci, nous allons faire la même chose pour convertir des fichiers audio flac en m4a en introduisant deux contraintes supplémentaires :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lancer le programme …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Dans le précédent billet, nous avons vu comment convertir une video grâce aux commandes avconv et ffmpeg et comment l’automatiser dans un script shell.&lt;/p&gt;
+&lt;p&gt;Cette fois ci, nous allons faire la même chose pour convertir des fichiers audio flac en m4a en introduisant deux contraintes supplémentaires :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lancer le programme depuis n’importe quel endroit&lt;/li&gt;
+&lt;li&gt;Copier le dossier d’origine contenant les fichiers audios à convertir dans le répertoire musique avec les fichiers convertis.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C’est parti, voici le code :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt;1&lt;/span&gt;
+&lt;span class="normal"&gt;2&lt;/span&gt;
+&lt;span class="normal"&gt;3&lt;/span&gt;
+&lt;span class="normal"&gt;4&lt;/span&gt;
+&lt;span class="normal"&gt;5&lt;/span&gt;
+&lt;span class="normal"&gt;6&lt;/span&gt;
+&lt;span class="normal"&gt;7&lt;/span&gt;
+&lt;span class="normal"&gt;8&lt;/span&gt;
+&lt;span class="normal"&gt;9&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;file&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;find&lt;span class="w"&gt; &lt;/span&gt;~&lt;span class="w"&gt; &lt;/span&gt;-type&lt;span class="w"&gt; &lt;/span&gt;f&lt;span class="w"&gt; &lt;/span&gt;-name&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;*.flac&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="nv"&gt;rep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;printf&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;–re&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;s/^[[:punct:][:alnum:]]+\/([[:alnum:]]+)\/[[:alnum:]]+\.flac/\1/&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;titre&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$file&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;!&lt;span class="w"&gt; &lt;/span&gt;-d&lt;span class="w"&gt; &lt;/span&gt;~/Musique/&lt;span class="nv"&gt;$rep&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+mkdir&lt;span class="w"&gt; &lt;/span&gt;~/Musique/&lt;span class="nv"&gt;$rep&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+avconv&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-acodec&lt;span class="w"&gt; &lt;/span&gt;libvo_aacenc&lt;span class="w"&gt; &lt;/span&gt;-ab&lt;span class="w"&gt; &lt;/span&gt;192k&lt;span class="w"&gt; &lt;/span&gt;-ar&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;44100&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;~/Musique/&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$rep&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;/&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;titre&lt;/span&gt;&lt;span class="p"&gt;%%.flac&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;.m4a&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Nous allons décortiquer tout ça et expliquer les éléments mis en œuvre dans ce script.&lt;/p&gt;
+&lt;p&gt;Le principe général:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Je recherche dans mon dossier personnel tous les fichiers flac,&lt;/li&gt;
+&lt;li&gt;Je cherche le dossier dans lequel sont rangés ces fichiers, dossier qui est en général un nom d’album,&lt;/li&gt;
+&lt;li&gt;Je créé le dossier dans le répertoire musique,&lt;/li&gt;
+&lt;li&gt;Je convertis mes fichiers audio et je les range dans le bon dossier du répertoire musique.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;La première ligne indique que nous sommes en train d’écrire un script shell avec un interpréteur bash.&lt;/p&gt;
+&lt;p&gt;La 2ème ligne introduit deux notions : les boucles et la substitution :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nous alimentons une variable file avec le résultat de la commande find. La synthaxe est la suivante $(commande),&lt;/li&gt;
+&lt;li&gt;La commande find en elle-même va rechercher tous les fichiers (type –f) dont le nom (-name) se termine par l’extension *.flac sur l’ensemble des répertoires et sous répertoires de l’utilisateur (~),&lt;/li&gt;
+&lt;li&gt;La variable file va prendre successivement comme valeur le contenu de la commande file et pour chacune de ces valeurs va effectuer le traitement (for file in $(); do).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sur la 3ème ligne nous allons récupérer dans une variable rep le nom du répertoire dans lequel se trouve le fichier flac, ce répertoire porte en général le nom de l’artiste ou de l’album, cela permet de classer les fichiers une fois convertis. Pour cela nous allons utiliser un tube et la commande sed et les expressions régulière&lt;/p&gt;
+&lt;p&gt;Commençons par la fin, la commande sed. La commande sed permet de rechercher et de remplacer des caractères dans une chaîne de caractères. Cela se fait au moyen des expressions régulières&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;^[[:punct:][:alnum:]]+\/([[:alnum:]]+)\/[[:alnum:]]+.flac&lt;/code&gt; signifie :&lt;/p&gt;
+&lt;p&gt;Je commence par le début de ma chaîne, je cherche une série de caractères de ponctuation ou aplhanumérique jusqu’à sélectionner une série de caractères aplhanumériques encadrer par deux "/" se trouvant avant le nom du fichier se finissant par ".flac"&lt;/p&gt;
+&lt;p&gt;Ici les anti-slash sont des caractères d’échappement du "/" et du "." qui peuvent être confondus avec des expressions régulières.&lt;/p&gt;
+&lt;p&gt;Entre les "()" se trouvent ce que l’on veut extraire.&lt;/p&gt;
+&lt;p&gt;Ceci est un petit exemple d’utilisation des expressions régulières. Elles sont évidemment beaucoup plus riches que ce qui est présenté ici, n’hésitez pas à vous plongez dedans et faire vos propres tests.&lt;/p&gt;
+&lt;p&gt;Enfin dans le reste de la commande sed –r siginifie que nous utilisons les expressions régulières étendues, -e que les instructions sed se trouvent directement dans la ligne de commande et non pas dans un fichier, et s/xxx/\1/ que nous faisons une recherche dont nous stockons le résultat dans 1.&lt;/p&gt;
+&lt;p&gt;Ouf !&lt;/p&gt;
+&lt;p&gt;Mais comment passer le contenu de la variable file à sed pour alimenter la variable rep. Grâce à un printf de la variable file dont nous redirigeons la sortie grâce à un tube | vers la commande sed.&lt;/p&gt;
+&lt;p&gt;En 4ème ligne, nous récupérons le titre de la chanson dans une variable titre par un simple echo $file.&lt;/p&gt;
+&lt;p&gt;Sur la 5ème ligne, nous allons tester si le dossier contenant nos titres existe déjà dans le répertoire Musique grâce au test &lt;code&gt;[ ! –d xxx]&lt;/code&gt;. [ ] veut dire que nous faisons un test, ! teste la non existence et –d indique que nous faisons un test sur un nom de répertoire.&lt;/p&gt;
+&lt;p&gt;Si le répertoire n’existe pas, alors nous le créons par la commande mkdir en ligne 6.&lt;/p&gt;
+&lt;p&gt;Fin de la boucle si en ligne 7 par un fi.&lt;/p&gt;
+&lt;p&gt;Nous avons déjà vu la conversion en ligne 8 dans un précédent article, je n’y reviens pas (j’ai simplement supprimer la partie –vcodec) , ainsi que le bouclage de la boucle for par le petit done de la ligne 9.&lt;/p&gt;
+&lt;p&gt;Et voilà, c'est prêt pour une conversion.&lt;/p&gt;</content><category term="Shell"/><category term="Linux"/><category term="Lubuntu"/><category term="Shell"/><category term="Python"/></entry><entry><title>Convertir une video pour mon téléphone Sony W995 avec avconv (ou ffmpeg)</title><link href="https://letchap.github.io/2013/02/23/convertir-une-video-pour-mon-telephone-sony-w995-avec-avconv-ou-ffmpeg/" rel="alternate"/><published>2013-02-23T21:25:00+01:00</published><updated>2013-02-23T21:25:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-23:/2013/02/23/convertir-une-video-pour-mon-telephone-sony-w995-avec-avconv-ou-ffmpeg/</id><summary type="html">&lt;p&gt;Convertir des videos ou de fichiers audios sur Mac OS X pour un vieux téléphone comme le mien, c’est assez fastidieux. Il faut obligatoirement passer par itunes et par le logiciel de synchronisation tout moche disponible sur le site du fabricant.&lt;/p&gt;
+&lt;p&gt;Sur Lubuntu, pas d’itunes et pas de …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Convertir des videos ou de fichiers audios sur Mac OS X pour un vieux téléphone comme le mien, c’est assez fastidieux. Il faut obligatoirement passer par itunes et par le logiciel de synchronisation tout moche disponible sur le site du fabricant.&lt;/p&gt;
+&lt;p&gt;Sur Lubuntu, pas d’itunes et pas de logiciel de synchronisation. Alors, comment convertir ces maudits fichiers ?&lt;/p&gt;
+&lt;h3&gt;1ère tentative avortée : trouver des logiciels de conversion&lt;/h3&gt;
+&lt;p&gt;Personnellement j’ai testé deux logiciels : Arista et WINFF (disponibles dans la logithèque Lubuntu ou les paquets synaptic).&lt;/p&gt;
+&lt;h4&gt;Arista&lt;/h4&gt;
+&lt;p&gt;Le plus beau graphiquement, le problème vient du fait que la présélection pour le W995 disponible sur leur site ne fonctionne pas (une présélection est un jeu de paramètres de conversion de fichiers, spécifique à un appareil ou à une famille d’appareil).&lt;/p&gt;
+&lt;p&gt;Mais c’est beau et ça fonctionne sans doute avec d’autres téléphones.&lt;/p&gt;
+&lt;h4&gt;WINFF&lt;/h4&gt;
+&lt;p&gt;Sur WINFF, il faut créer soit même sa présélection pour le W995, car elle n’est pas disponible par défaut. Et pour créer soit même sa présélection, finalement, il faut déjà faire tout le boulot de recherche et de paramétrage de la conversion soi-même, en résumé, il faut trouver tout seul comment fonctionne les commandes avconv ou ffmpeg, donc pas besoin de WINFF. D’autant plus que pour le coup, WINFF c’est moche et pas très convivial.&lt;/p&gt;
+&lt;p&gt;En revanche, grâce à WINFF, je me suis posé les bonnes questions pour arriver à la solution. Et WINFF fonctionne sans doute très bien avec d’autres téléphones.&lt;/p&gt;
+&lt;h3&gt;2ème tentative : avec une ligne de commande : avconv ou ffmpeg&lt;/h3&gt;
+&lt;p&gt;Ce que je décris ici fonctionne indifféremment avec la commande avconv ou ffmpeg. Vous pouvez remplacer l’une par l’autre. Après, comme je ne comprends rien au débat autour de ces deux commandes, je ne me suis pas posé plus de questions que ça.&lt;/p&gt;
+&lt;h4&gt;1. Quels sont les caractéristiques du format de sortie ?&lt;/h4&gt;
+&lt;p&gt;Avant de convertir, il faut savoir en quoi convertir. Nous allons trouver l’information sur la documentation utilisateur de l’appareil.&lt;/p&gt;
+&lt;p&gt;La taille de l’image, c’est 320x240, le format video mpeg4, le format audio AAC. A priori, ces informations sont largement suffisantes.&lt;/p&gt;
+&lt;h4&gt;2. comment fonctionne avconv ou ffmpeg ?&lt;/h4&gt;
+&lt;p&gt;Le programme avconv s'installe avec le paquet libav-tools&lt;/p&gt;
+&lt;p&gt;Voici la ligne de commande brute de décoffrage :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;avconv&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;monfichier.avi&lt;span class="w"&gt; &lt;/span&gt;-c:a&lt;span class="w"&gt; &lt;/span&gt;aac&lt;span class="w"&gt; &lt;/span&gt;-strict&lt;span class="w"&gt; &lt;/span&gt;experimental&lt;span class="w"&gt; &lt;/span&gt;-b:a&lt;span class="w"&gt; &lt;/span&gt;128k&lt;span class="w"&gt; &lt;/span&gt;-ar&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;44100&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-c:v&lt;span class="w"&gt; &lt;/span&gt;mpeg4&lt;span class="w"&gt; &lt;/span&gt;-b:v&lt;span class="w"&gt; &lt;/span&gt;600k&lt;span class="w"&gt; &lt;/span&gt;-s&lt;span class="w"&gt; &lt;/span&gt;320x240&lt;span class="w"&gt; &lt;/span&gt;~/vidéos/monfichier.mp4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Dans le détail :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Avconv : la commande de conversion (le fonctionnement est le même en mettant ffmpeg à la place de avconv),&lt;/li&gt;
+&lt;li&gt;-i monfichier.avi : le fichier d’entrée,&lt;/li&gt;
+&lt;li&gt;-c:v mpeg4 –b:v 600k : j’utilise pour convertir la partie video le codec mpeg 4 avec une qualité de conversion de 600k (c'est largement suffisant pour mon téléphone)&lt;/li&gt;
+&lt;li&gt;-c:a -strict experimental -b:a 128k -ar 44100 : j’utilise pour convertir la partie son le codec aac livré par défaut sur avconv. Pour cela, il faut ajouter &lt;code&gt;-strict experimental&lt;/code&gt; sinon avconv fait apparaître un message d'avertissement. Il est possible d'utiliser d'autres librairies comme libvo-aacenc ou libfaac. Elles ne sont pas installées par défaut, et dans certains cas il faudra recompiler avconv (sur Debian, pas sur Mageia par exemple).&lt;/li&gt;
+&lt;li&gt;~/Video/monfichier.mp4 : le fichier de sortie, ici dans le dossier video de mon répertoire personnel.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pour connaître la liste des formats disponibles sur votre version d'avconv vous pouvez taper la commande suivante dans le terminal :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;avconv&lt;span class="w"&gt; &lt;/span&gt;-formats
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1&gt;3ème tentative : mon premier script en shell&lt;/h1&gt;
+&lt;p&gt;C’est bien beau cette ligne de commande, mais ça reste quand même moins convivial que WINFF.&lt;/p&gt;
+&lt;p&gt;Je me suis donc lancé dans l’écriture de mon tout premier script en shell pour automatiser tout ça.&lt;/p&gt;
+&lt;p&gt;J’ai donc besoin de convertir toute une série de fichiers video dans des formats différents sans être obligé de lancer une ligne de commande par fichier en changeant à chaque fois à la main le fichier en entrée et le fichier en sortie.&lt;/p&gt;
+&lt;p&gt;Le script le voici (à créer dans un fichier monscript.sh)&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt;1&lt;/span&gt;
+&lt;span class="normal"&gt;2&lt;/span&gt;
+&lt;span class="normal"&gt;3&lt;/span&gt;
+&lt;span class="normal"&gt;4&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;file&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;*.avi&lt;span class="w"&gt; &lt;/span&gt;*.mp4&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt;
+avconv&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$file&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-c:a&lt;span class="w"&gt; &lt;/span&gt;aac&lt;span class="w"&gt; &lt;/span&gt;-strict&lt;span class="w"&gt; &lt;/span&gt;experimental&lt;span class="w"&gt; &lt;/span&gt;-b:a&lt;span class="w"&gt; &lt;/span&gt;128k&lt;span class="w"&gt; &lt;/span&gt;-ar&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;44100&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-c:v&lt;span class="w"&gt; &lt;/span&gt;mpeg4&lt;span class="w"&gt; &lt;/span&gt;-b:v&lt;span class="w"&gt; &lt;/span&gt;600k&lt;span class="w"&gt; &lt;/span&gt;-s&lt;span class="w"&gt; &lt;/span&gt;320x240&lt;span class="w"&gt; &lt;/span&gt;~/Video/&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;file&lt;/span&gt;&lt;span class="p"&gt;%%.*&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;.mp4&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Ce que je trouve beau, c’est qu’une automatisation de tâche tienne en 4 lignes de code, et encore, comme c’est mon premier script, je suis sûr qu’un pro ferait beaucoup mieux.&lt;/p&gt;
+&lt;p&gt;Pour expliquer un peu ce qui se passe là-dedans :&lt;/p&gt;
+&lt;p&gt;La 1ère ligne permet tout simplement de dire qu’on est en train d’écrire un script shell, et qu’on utilisera l’interpréteur bash.&lt;/p&gt;
+&lt;p&gt;La 2ème ligne initialise une variable appelée file avec différents types de fichiers video. Ici, file va prendre successivement les valeurs &lt;em&gt;.avi, puis &lt;/em&gt;.mp4. Enfin, pour chacun de ses fichiers (for) il va lancer la commande de la 3ème ligne (do).&lt;/p&gt;
+&lt;p&gt;La 3ème ligne va lancer successivement la conversion de tous les fichiers .avi et .mp4 qu’il trouvera dans le répertoire où est lancé le programme. Nous reconnaîtrons au passage la ligne de commande du §2 avec quelques petites différences.&lt;/p&gt;
+&lt;p&gt;-i : nous passons la variable file en paramètre en écrivant $file.&lt;/p&gt;
+&lt;p&gt;~/Video/"${file%%.*}.mp4" : Le fichier de sortie : je le renomme en .mp4 en modifiant l’extension grâce aux outils de traitement de variable %%. Pour plus d’explication, il faut trouver un manuel shell qui explique ce que sont les outils de traitements. Sinon, vous pouvez copier le script tel quel, il est testé et approuvé.&lt;/p&gt;
+&lt;p&gt;La 4ème ligne, va clore la boucle initiée par "for".&lt;/p&gt;
+&lt;p&gt;Derniers éléments d’informations si vous souhaitez vous lancer dans l’écriture d’un script :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;il faut changer les droits du script pour le rendre exécutable : chmod +x monscript.sh&lt;/li&gt;
+&lt;li&gt;il se lance de la manière suivante (attention aux chemins des répertoires où se trouvent les fichiers et le programme, nous verrons plus tard comment simplifier les lancements):&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;./monscript.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Du coup, j’en ai profité pour faire un autre script pour les fichiers audio sur le même principe pour transformer des fichiers flac en m4a, en n’utilisant que la partie –c:a, sans la partie -c:v. Et comme j’en ai aussi profité pour approfondir mes connaissances shell, le prochain billet parlera variables, sed, expressions régulières, tubes, que du bonheur.&lt;/p&gt;</content><category term="Shell"/><category term="arista"/><category term="avconv"/><category term="bash"/><category term="ffmpeg"/><category term="Shell"/><category term="w995"/><category term="winff"/></entry></feed>

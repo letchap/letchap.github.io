@@ -1,0 +1,445 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Utilisation de Sass avec Pelican et Foundation</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2014/11/29/utilisation-de-sass-avec-pelican-et-foundation/" rel="bookmark" title="Permalink to Utilisation de Sass avec Pelican et Foundation">Utilisation de Sass avec Pelican et Foundation</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Sat 29 November 2014&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/foundation.html">&nbsp;Foundation</a>
+	<hr />
+	
+	<p>Dans le dernier billet, nous avons vu comment nous mettre à l’aise avec Pelican et Foundation tout en nous préparant à utiliser Sass. Nous allons tirer profit de tout cela pour simplifier le fichier de configuration css personnel attaché au site.</p>
+<p>Pour rappel, voici le fichier d’origine :</p>
+<div class="codehilite"><pre><span></span><code><span class="c">/* Fichier de personalisation de foundation 5</span>
+<span class="c">   par letchap</span>
+<span class="c">   */</span>
+
+<span class="c">/* Gestion de la barre de recherche */</span>
+
+<span class="p">.</span><span class="nc">top-bar</span><span class="w"> </span><span class="nt">input</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding-top</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="kt">rem</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding-bottom</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="kt">rem</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.75</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Gestion d&#39;un bandeau sous la topbar */</span>
+
+<span class="p">.</span><span class="nc">myheader</span><span class="w"> </span><span class="nt">h1</span><span class="o">&gt;</span><span class="nt">a</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">myheader</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#074e68</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Gestion des blocs de code */</span>
+
+<span class="p">.</span><span class="nc">linenodiv</span><span class="w"> </span><span class="nt">pre</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#f2f2f2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">codehilitetable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">table-layout</span><span class="p">:</span><span class="w"> </span><span class="kc">fixed</span><span class="p">;</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">tbody</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">top</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="nt">td</span><span class="p">.</span><span class="nc">linenos</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="nt">td</span><span class="p">.</span><span class="nc">code</span><span class="p">{</span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">95</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="nt">code</span><span class="o">,</span>
+<span class="nt">pre</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">Monaco</span><span class="p">,</span><span class="w"> </span><span class="n">Menlo</span><span class="p">,</span><span class="w"> </span><span class="n">Consolas</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Courier New&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">monospace</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">code</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">normal</span><span class="p">;</span>
+<span class="w">  </span><span class="k">white-space</span><span class="p">:</span><span class="w"> </span><span class="kc">nowrap</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#f2f2f2</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="nt">p</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mf">1.25</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">pre</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">  </span><span class="k">line-height</span><span class="p">:</span><span class="w"> </span><span class="mf">1.3</span><span class="kt">rem</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#333333</span><span class="p">;</span>
+<span class="w">  </span><span class="k">word-break</span><span class="p">:</span><span class="w"> </span><span class="n">break-all</span><span class="p">;</span>
+<span class="w">  </span><span class="k">white-space</span><span class="p">:</span><span class="w"> </span><span class="kc">pre</span><span class="p">;</span>
+<span class="w">  </span><span class="k">overflow-x</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">include</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#f2f2f2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c">/* Gestion des images pour les diaporamas */</span>
+<span class="nt">img</span><span class="w"> </span><span class="p">{</span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="kc">inherit</span><span class="p">;}</span>
+
+<span class="nt">article</span><span class="w"> </span><span class="nt">img</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c">/* Gestion de la taille des icones */</span>
+
+<span class="p">.</span><span class="nc">size-12</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-14</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">1.4</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-16</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-18</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">1.8</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-21</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">2.1</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-24</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">2.4</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-36</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">3.6</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-48</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">4.8</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-60</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">size-72</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">7.2</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<h3>Un peu de nettoyage</h3>
+<p>Première étape, avec la nouvelle version de Foundation, plus besoin de bidouille pour la barre de recherche dans la top-bar. Nous pouvons supprimer le code css dans la feuille de style</p>
+<p>Deuxième étape : l’utilisation de pygments et de l’extension markdown. Je n’avais rien compris et j’avais monté une usine à gaz pour essayer d’avoir un tableau avec deux colonnes de largeur fixe et un texte qui pouvait déborder horizontalement en essayant de jouer avec la valeur witdh. Alors je ne sais pas si c’est la lib markdown de python et celle de pygments qui gère la table, mais dans tous les cas, il n’y a rien à faire pour gérer la largeur de la table de deux colonnes. Exit la bidouille sur la table.</p>
+<p>Dernière étape : j’ai supprimé aussi la petite verrue .include que j’utilisais avec le plugin include que j’ai remplacé par ma propre extension markdown pour gérer les inclusions de code à partir d'un fichier.</p>
+<p>Nous voilà avec un fichier un peu plus propre. Passons à Sass.</p>
+<h3>Configuration avec Sass</h3>
+<p>Bon, passés tous ces préliminaires, attaquons l’utilisation de Sass proprement dite. Pour cela nous alors avoir besoin du fichier _setting.scss et de notre feuille perso _style.scss</p>
+<p>Sass est très puissant, cependant, dans un premier temps, je ne vais utiliser que les possibilités offertes par les variables. Je définis une variable dans mon fichier _settings.scss et je l’utilise dans le fichier _style.scss.</p>
+<p>Pour illustrer cela, prenons comme exemple la police de caractère des lignes de code.</p>
+<p>Je vais commencer par définir dans _settings.sccs les polices de caractère que je souhaite utiliser sur l'ensemble du site. Pour cela, je copie la ligne </p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// $code-font-family: Consolas, &#39;Liberation Mono&#39;, Courier, monospace;</span>
+</code></pre></div>
+
+<p>Je supprime la mise en commentaire et je mets définis les polices que je veux :</p>
+<div class="codehilite"><pre><span></span><code><span class="o">$</span><span class="nt">code-font-family</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Source Code Pro&#39;</span><span class="o">,</span><span class="w"> </span><span class="nt">monospace</span><span class="o">,</span><span class="w"> </span><span class="nt">Consolas</span><span class="o">;</span>
+</code></pre></div>
+
+<p>Il est important de dupliquer la ligne plutôt que de la modifier directement, afin de pouvoir retrouver facilement le paramétrage d'origine</p>
+<p>Maintenant que j'ai défini ma police de caractère pour les blocs de code dans la variable $code-font-family, je vais pouvoir la réutiliser dans _style.scss pour définir le tag <code>&lt;pre&gt;</code>.</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">pre</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">code-font-family</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Le fichier après passage à la moulinette sass ressemblera alors à ça :</p>
+<div class="codehilite"><pre><span></span><code><span class="o">/*</span><span class="nd">@import</span><span class="w"> </span><span class="s2">&quot;settings&quot;</span><span class="w"> </span><span class="n">normalement</span><span class="w"> </span><span class="n">je</span><span class="w"> </span><span class="n">n</span><span class="s1">&#39;en ai pas besoin*/</span>
+
+<span class="o">/*</span><span class="w"> </span><span class="n">Fichier</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">personalisation</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">foundation</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">   </span><span class="n">par</span><span class="w"> </span><span class="n">letchap</span>
+<span class="w">   </span><span class="o">*/</span>
+
+<span class="o">/*</span><span class="w"> </span><span class="n">Gestion</span><span class="w"> </span><span class="n">d</span><span class="s1">&#39;un bandeau sous la topbar */</span>
+
+<span class="o">.</span><span class="n">myheader</span><span class="w"> </span><span class="n">h2</span><span class="o">&gt;</span><span class="n">a</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="n">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">.</span><span class="n">myheader</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">background</span><span class="o">-</span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="c1">#074e68;</span>
+<span class="p">}</span>
+
+<span class="o">/*</span><span class="w"> </span><span class="n">Gestion</span><span class="w"> </span><span class="n">des</span><span class="w"> </span><span class="n">blocs</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">*/</span>
+
+
+<span class="o">/*</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">kevinyap</span><span class="o">.</span><span class="n">ca</span><span class="o">/</span><span class="mi">2013</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="n">styling</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">blocks</span><span class="o">-</span><span class="n">using</span><span class="o">-</span><span class="n">pelican</span><span class="o">/*/</span>
+
+
+<span class="o">.</span><span class="n">codehilitetable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">base</span><span class="o">-</span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">;</span>
+<span class="w">    </span><span class="n">overflow</span><span class="p">:</span><span class="w"> </span><span class="n">auto</span><span class="p">;</span>
+<span class="w">    </span><span class="n">display</span><span class="p">:</span><span class="w"> </span><span class="n">block</span><span class="p">;</span>
+<span class="w">    </span><span class="n">border</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">table</span><span class="o">-</span><span class="n">border</span><span class="o">-</span><span class="n">style</span><span class="w"> </span><span class="err">$</span><span class="n">table</span><span class="o">-</span><span class="n">border</span><span class="o">-</span><span class="n">size</span><span class="w"> </span><span class="err">$</span><span class="n">table</span><span class="o">-</span><span class="n">border</span><span class="o">-</span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="n">border</span><span class="o">-</span><span class="n">radius</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="k">global</span><span class="o">-</span><span class="n">radius</span><span class="p">;</span>
+<span class="w">    </span><span class="n">background</span><span class="o">-</span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="c1">#fdf6e3;</span>
+<span class="p">}</span>
+
+<span class="o">.</span><span class="n">linenos</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">border</span><span class="o">-</span><span class="n">right</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">table</span><span class="o">-</span><span class="n">border</span><span class="o">-</span><span class="n">style</span><span class="w"> </span><span class="err">$</span><span class="n">table</span><span class="o">-</span><span class="n">border</span><span class="o">-</span><span class="n">size</span><span class="w"> </span><span class="err">$</span><span class="n">table</span><span class="o">-</span><span class="n">border</span><span class="o">-</span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="n">background</span><span class="o">-</span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">secondary</span><span class="o">-</span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="n">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">0.8</span><span class="n">em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">.</span><span class="n">codehilite</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="n">em</span><span class="p">;</span>
+<span class="w">    </span><span class="n">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="n">em</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">display</span><span class="p">:</span><span class="w"> </span><span class="n">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">code</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">white</span><span class="o">-</span><span class="n">space</span><span class="p">:</span><span class="w"> </span><span class="n">nowrap</span><span class="p">;</span>
+<span class="w">    </span><span class="n">background</span><span class="o">-</span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">secondary</span><span class="o">-</span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="n">pre</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">line</span><span class="o">-</span><span class="n">height</span><span class="p">:</span><span class="w"> </span><span class="mf">1.3</span><span class="n">rem</span><span class="p">;</span>
+<span class="w">  </span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">code</span><span class="o">-</span><span class="n">color</span><span class="p">;</span>
+<span class="w">  </span><span class="n">font</span><span class="o">-</span><span class="n">family</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">code</span><span class="o">-</span><span class="n">font</span><span class="o">-</span><span class="n">family</span><span class="p">;</span>
+<span class="w">  </span><span class="n">word</span><span class="o">-</span><span class="k">break</span><span class="p">:</span><span class="w"> </span><span class="k">break</span><span class="o">-</span><span class="nb">all</span><span class="p">;</span>
+<span class="w">  </span><span class="n">white</span><span class="o">-</span><span class="n">space</span><span class="p">:</span><span class="w"> </span><span class="n">pre</span><span class="p">;</span>
+<span class="w">  </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="o">/*</span><span class="w"> </span><span class="n">Gestion</span><span class="w"> </span><span class="n">des</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="n">pour</span><span class="w"> </span><span class="n">les</span><span class="w"> </span><span class="n">diaporamas</span><span class="w"> </span><span class="o">*/</span>
+<span class="n">img</span><span class="w"> </span><span class="p">{</span><span class="nb">max</span><span class="o">-</span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="n">inherit</span><span class="p">;}</span>
+
+<span class="n">article</span><span class="w"> </span><span class="n">img</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">max</span><span class="o">-</span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+<span class="w">  </span><span class="n">height</span><span class="p">:</span><span class="w"> </span><span class="n">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="o">/*</span><span class="w"> </span><span class="n">Gestion</span><span class="w"> </span><span class="n">de</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="n">taille</span><span class="w"> </span><span class="n">des</span><span class="w"> </span><span class="n">icones</span><span class="w"> </span><span class="o">*/</span>
+
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">12</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">14</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">16</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">18</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">18</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">21</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">24</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">36</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">48</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">48</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">60</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">72</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">font</span><span class="o">-</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="n">rem</span><span class="o">-</span><span class="n">calc</span><span class="p">(</span><span class="mi">72</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>Plus concis quand même.</p>
+<h3>rem-calc</h3>
+<p>Petit détour sur la fonction rem-calc que l'on retrouve un peu partout dans foundation. Elle permet de ramener une valeur relative à une valeur en px :</p>
+<p>Foundation définit une taille de police de base de 16px</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// This is the default html and body font-size for the base rem value.</span>
+<span class="c1">// $rem-base: 16px;</span>
+</code></pre></div>
+
+<p>Quand je vais écrire font-size = 1rem, ma valeur sera de 16px, pour avoir une taille de 14px par exemple je devrais écrire font-size= 0.875rem. Pas super pratique. Pour éviter de s’embêter avec ça, on va faire comme si on écrivait directement la taille en px avec font-size=rem-calc(14), ce qui veut dire font-size=14px. Vous allez me dire, pourquoi ne pas écrire directement font-size=14px. Tout simplement car si on veut changer la taille de police de base, on n'aura à le faire qu'une seule fois. Petit extrait de _settings.scss:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Since the typical default browser font-size is 16px, that makes the calculation for grid size.</span>
+<span class="c1">// If you want your base font-size to be different and not have it affect the grid breakpoints,</span>
+<span class="c1">// set $rem-base to $base-font-size and make sure $base-font-size is a px value.</span>
+<span class="c1">// $base-font-size: 100%;</span>
+</code></pre></div>
+
+<p>Hyper pratique !</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

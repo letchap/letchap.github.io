@@ -1,0 +1,393 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="letchap">
+	<title>Utiliser Foundation et Sass avec Pelican</title>
+
+	<!-- Style -->
+	<link rel="stylesheet" href="../../../../theme/css/app.css"/> <!--#TODO changer le path -->
+
+	<!--link rel="stylesheet" href="../../../../theme/css/style.css"/-->
+	<link rel="stylesheet" href="../../../../theme/css/pygments.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/foundation-icons.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/lightbox.css"/>
+    <link rel="stylesheet" href="../../../../theme/css/newicons.css"/>
+    <!-- Syndication -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="letchap RSS Feed"/>
+
+    <!-- Google analytics -->
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7EEZEDYMT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-K7EEZEDYMT');
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+  <!--'body'content'here'-->
+    <!-- Nav Bar -->
+    <nav class="top-bar">
+      <div class="top-bar-left">
+         <ul class="menu">
+           <li class="menu-text">
+             <a href="../../../..">Accueil</a>
+           </li>
+           <li class="menu-text">
+            <a href="../../../../pages/a-propos.html">A propos</a>
+           </li>
+         </ul>
+      </div>
+
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="../../../../archives.html"><i class="fi-list-thumbnails"></i> Archives</a></li>
+          <li><a href="/atom.xml" type="application/atom+xml" rel="subscribe-rss"
+               title="Subscribe via RSS"><i class="fi-rss"></i></a></li>
+
+          <form action="https://duckduckgo.com" method="get">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x" >
+                <div class="medium-9 cell">
+                 <input type="search" name="q" placeholder="Search">
+                 <input type="hidden" name="sites" value="letchap.github.io" />
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </ul>
+      </div>
+    </nav>
+    <!-- Nav Bar -->
+
+    <!-- Header -->
+    <header class="callout large" id="myheader">
+      <div class="text-left">
+                  <h2><a href="../../../..">letchap</a></h2>
+      </div>
+        <h2><small>du Linux, du Python, un peu de Mac</small></h2>
+    </header>
+    <!-- Header -->
+
+
+
+  <!-- Main Page Content and Sidebar -->
+  <section role="main">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x grid-margin-y">
+
+        <!-- Main Blog Content -->
+        <div class="medium-9 cell">
+<section>
+  <article>
+	<h2><a href="../../../../2014/08/29/utiliser-foundation-et-sass-avec-pelican/" rel="bookmark" title="Permalink to Utiliser Foundation et Sass avec Pelican">Utiliser Foundation et Sass avec Pelican</a></h2>
+	
+	<hr />
+	<i class="fi-calendar size-14"></i>&nbsp;Fri 29 August 2014&nbsp;&nbsp;
+    <i class="fi-price-tag size-14"></i><a href="../../../../category/foundation.html">&nbsp;Foundation</a>
+	<hr />
+	
+	<p>Lorsque j'ai créé le site avec Pelican, j'ai cherché un framework responsive et le premier sur lequel je suis tombé sans trop chercher fut <a href="http://getbootstrap.com" title="Bootstrap">Bootstrap</a>. En testant le CMS <a href="https://gitorious.org/get_microbe" title="Get Microbe">Microbe</a>, j'ai découvert un nouveau framework : <a href="http://foundation.zurb.com" title="Foundation">Foundation</a>. Voyant du Bootstrap partout, je me suis décidé à passer sur Foundation. En terme de fonctionnalités, il n'existe pas une énorme différence entre les deux, dans tous les cas un système de grille permet de gérer les différentes tailles d'écran en partant du principe que le site est d'abord créé pour des écrans mobiles,  un fichier style de base très complet est fourni en standard et quelques applets javascript agrémente le tout. Le passage de Bootstrap à Foundation n'était motivé que par l'esthétique pour ne pas avoir un site "qui a le même look que les autres".</p>
+<p>Comme la logique entre Bootstrap et Fondation est la même, la migration de l'un vers l'autre se fait sans douleur.</p>
+<p>Foundation apporte néanmoins deux fonctionnalités supplémentaires assez intéressantes : l'utilisation de <a href="http://sass-lang.com" title="Sass">Sass</a> et de <a href="http://gruntjs.com" title="Grunt">Grunt</a>. Sur le site de Foundation, <a href="http://foundation.zurb.com/docs/sass.html">une page est dédiée à l'installation</a> de ces deux fonctionnalités qui sont liées. Ils existent pas mal de tutoriels en anglais qui expliquent comment créer un nouveau projet Fondation avec Sass. </p>
+<p>Ce que nous allons voir plus particulièrement ensemble est l'utilisation de ces deux outils avec Pelican. Mais tout d'abord ...</p>
+<h3>Installation de Sass et automatisation des tâches avec Grunt</h3>
+<p>L'installation de Foundation dans sa version Sass est assez fastidieuse. Pas compliquée, mais fastidieuse. Cela m'a freiné pendant un petit moment. Pourquoi installer tout un bazar alors que le site fonctionne très bien avec css. Ce qui m'a finalement convaincu dans un premier temps, ce sont plus les possibilités d'automatisation apportées par Grunt que Sass lui-même.</p>
+<p>Pourquoi fastidieux, parce qu'il faut installer un certain nombre de modules. Sass et Foundation sont des gems de Ruby. Donc, il faut avoir Ruby, donc rvm ou rbenv pour installer les gems. Ensuite, il faut installer Grunt, mais pour installer Grunt, il faut avoir npm. Plus compliqué que de simplement gérer une feuille de style.</p>
+<p>Je vous renvoie à nouveau à la procédure complète sur <a href="http://foundation.zurb.com/docs/sass.html" title="Getting start with Sass">le site de Foundation</a>. </p>
+<p>Par contre, une fois que tout est installé, c'est le bonheur.</p>
+<h4>Création d'un nouveau projet</h4>
+<p>Pour créer un nouveau projet, il suffit de se positionner dans le répertoire de son choix et de lancer la commande :</p>
+<div class="codehilite"><pre><span></span><code>foundation new project_name ‐‐libsass
+</code></pre></div>
+
+<p>Le projet contient alors :</p>
+<ul>
+<li>bower_components : ensemble des fichiers scss de Foundation ainsi que les javascripts</li>
+<li>css : le répertoire de sortie des fichiers scss après conversion en css</li>
+<li>js : nos propres javascripts</li>
+<li>node_modules : contient essentiellement grunt </li>
+<li>scss : nos fichiers scss</li>
+<li>Gruntfile.js : j'y reviens juste après, le fichier permettant l'automatisation de nos tâches</li>
+<li>index.html : un fichier permettant de tester les modification de style</li>
+</ul>
+<h4>Mise à jour de Foundation</h4>
+<p>Si vous souhaitez bénéficier des dernières versions de Foundation, il suffit de lancer la commande suivante dans le répertoire projet :</p>
+<div class="codehilite"><pre><span></span><code>foundation update
+</code></pre></div>
+
+<p>Cela ne met à jour que le répertoire bower_components, avec les tous derniers fichiers scss ou javascript. C'est <strong>TRES</strong> important pour la suite.</p>
+<h4>Utilisation de Sass et Grunt</h4>
+<p>Le véritable intérêt réside dans la mise à jour du style avec Sass et Grunt. Pour bien comprendre comment cela fonctionne, il faut faire un petit tour dans les fichiers gruntfile.js et scss/app.css.</p>
+<p>Le contenu de gruntfile.js :</p>
+<div class="codehilite"><pre><span></span><code><span class="n">module</span><span class="o">.</span><span class="n">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">grunt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">grunt</span><span class="o">.</span><span class="n">initConfig</span><span class="p">({</span>
+<span class="w">    </span><span class="n">pkg</span><span class="p">:</span><span class="w"> </span><span class="n">grunt</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">readJSON</span><span class="p">(</span><span class="s1">&#39;package.json&#39;</span><span class="p">),</span>
+
+<span class="w">    </span><span class="n">sass</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">includePaths</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;bower_components/foundation/scss&#39;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="n">dist</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="n">outputStyle</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;compressed&#39;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="n">files</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="s1">&#39;css/app.css&#39;</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;scss/app.scss&#39;</span>
+<span class="w">        </span><span class="p">}</span><span class="w">        </span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="n">watch</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">grunt</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">files</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;Gruntfile.js&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+
+<span class="w">      </span><span class="n">sass</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">files</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;scss/**/*.scss&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">tasks</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sass&#39;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="n">grunt</span><span class="o">.</span><span class="n">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-sass&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">grunt</span><span class="o">.</span><span class="n">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-watch&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">grunt</span><span class="o">.</span><span class="n">registerTask</span><span class="p">(</span><span class="s1">&#39;build&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sass&#39;</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">grunt</span><span class="o">.</span><span class="n">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;build&#39;</span><span class="p">,</span><span class="s1">&#39;watch&#39;</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Dans ce fichier sont définies deux tâches : une tâche de transformation de fichier app.scss en app.css à travers la commande <code>sass</code> et une tâche de mise à jour de notre fichier css à chaque modification du fichier scss avec la commande <code>watch</code>.</p>
+<p>Ce qui veut dire concrètement que, lorsque nous aurons créé notre projet, nous allons lancer dans le terminal la commande <code>grunt</code> qui va à la fois créer notre premier fichier app.css à partir du fichier app.scss et nous permettre de visualiser en temps réel sur notre page html toutes les modifications que nous pourrons apporter au fichier app.scss.</p>
+<div class="codehilite"><pre><span></span><code>grunt
+Running &quot;sass:dist&quot; (sass) task
+File &quot;static/css/app.css&quot; created.
+
+Running &quot;watch&quot; task
+Waiting...
+</code></pre></div>
+
+<p>Nous sommes maintenant prêt à apporter les modifications de style à notre site. Pour cela, regardons maintenant le contenu du fichier app.scss</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@import</span><span class="w"> </span><span class="s2">&quot;settings&quot;</span><span class="p">;</span>
+<span class="nd">@import</span><span class="w"> </span><span class="s2">&quot;foundation&quot;</span><span class="p">;</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">Or</span><span class="w"> </span><span class="n">selectively</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">components</span>
+<span class="o">//</span><span class="w"> </span><span class="nd">@import</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/accordion&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/alert-boxes&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/block-grid&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/breadcrumbs&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/button-groups&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/buttons&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/clearing&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/dropdown&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/dropdown-buttons&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/flex-video&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/forms&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/grid&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/inline-lists&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/joyride&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/keystrokes&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/labels&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/magellan&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/orbit&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/pagination&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/panels&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/pricing-tables&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/progress-bars&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/reveal&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/side-nav&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/split-buttons&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/sub-nav&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/switch&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/tables&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/tabs&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/thumbs&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/tooltips&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/top-bar&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/type&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/offcanvas&quot;</span><span class="p">,</span>
+<span class="o">//</span><span class="w">   </span><span class="s2">&quot;foundation/components/visibility&quot;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Notre fichier app.scss (et par construction app.css) et construit à partir de l'ensemble des fonctions par défaut de Foundation qui se trouvent dans le répertoire bower_components (si si regardez bien le includePaths du fichier gruntfile.js) et des modifications que nous pourrions apporter à ces fonctions par défaut à partir du fichier _settings.scss.</p>
+<p>Dit autrement, si on ne touche à rien, le fichier app.css est identique au fichier foundation.min.css classique.</p>
+<p>Les modifications de style vont donc se faire en enlevant simplement des commentaires sur certaines lignes de _settings.scss.</p>
+<h3>L'utilisation de Fondation avec Pelican</h3>
+<p>Un projet Pelican est structuré de la manière suivante :</p>
+<div class="codehilite"><pre><span></span><code>Mon-site
+    |__ content
+    |__ mon-theme-zf-css
+    |   |__ static
+    |   |   |__ css
+    |   |   |__ js
+    |   |__ template
+    |__ output
+    |__ pelicanconf.py
+</code></pre></div>
+
+<p>Lorsque que je crée un projet Foundation, je crée mon-theme-zf-sass, qui va avoir une structure différente de celle attendue par Pelican :</p>
+<div class="codehilite"><pre><span></span><code>mon-theme-zf-sass
+    |__ bower_components
+    |__ css
+    |__ js
+    |__ node_modules
+    |__ scss
+</code></pre></div>
+
+<p>Après la création de mon-theme-zf-sass, je vais commencer par modifier le répertoire pour le rendre compatible avec la structure Pelican comme ceci :</p>
+<div class="codehilite"><pre><span></span><code>mon-theme-zf-sass
+    |__ bower_components
+    |__ static
+    |  |__ css
+    |  |__ js
+    |__ node_modules
+    |__ scss
+</code></pre></div>
+
+<p>Je dois alors modifier le fichier gruntfile.js pour qu'il prenne en compte la modification de destination du fichier css en remplaçant la ligne <code>'css/app.css': 'scss/app.scss'</code> par <code>'static/css/app.css': 'scss/app.scss'</code>.</p>
+<p>J'ai déjà un thème Foundation css personnalisé. Il est composé de deux fichiers css, un fichier foundation.min.css qui contient les valeurs par défaut de fondation et un fichier style.css qui contient ma personnalisation. Je vais commencer par mettre exactement à l'identique mon thème Foundation css et mon thème Foundation Sass. Pour cela, il faut simplement :</p>
+<ul>
+<li>copier le fichier style.css dans le répertoire scss et le renommer _style.scss sans en modifier le contenu. Je transforme mon fichier style.css en "partial" scss pour qu'il puisse être intégré lors du traitement sass. Le preprocesseur sass sait très bien lire du contenu css.</li>
+<li>ajouter <code>@import "style"</code>dans le fichier app.scss. Je paramètre l'import de mon "partial"</li>
+<li>ne pas toucher au fichier _settings.scss</li>
+</ul>
+<p>Le fichier app.css en sortie du traitement sass sera à l'identique de la somme de mes fichiers foundation.min.css et style.css. Cela est possible grâce à la possibilité offerte par sass de constituer un fichier css à partir de plusieurs fichiers scss, et parce qu'un fichier style.css est un fichier style.scss qui s'ignore.</p>
+<p>Petit bonus, il est possible aussi d'ajouter le fichier normalize.scss, ce qui nous donne (en respectant bien cet ordre) :</p>
+<div class="codehilite"><pre><span></span><code><span class="nd">@import</span><span class="w"> </span><span class="s2">&quot;normalize&quot;</span><span class="p">;</span>
+<span class="nd">@import</span><span class="w"> </span><span class="s2">&quot;settings&quot;</span><span class="p">;</span>
+<span class="nd">@import</span><span class="w"> </span><span class="s2">&quot;fondation&quot;</span><span class="p">;</span>
+<span class="nd">@import</span><span class="w"> </span><span class="s2">&quot;style&quot;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Si je souhaite bénéficier de nouvelles fonctionnalités Foundation, je n'ai qu'à faire un <code>foundation update</code> qui mettra à jour le répertoire bower_components, sans toucher aux autres répertoires ou fichiers de mon-theme-zf-sass. Pratique.</p>
+<p>Dernier point, il ne faut pas oublier dans le fichier base.html de modifier l'appel aux feuilles de style en remplaçant normalize.css, foundation.min.css et style.css par app.css.</p>
+<p>Voilà, tout est prêt pour utiliser Pelican avec Foundation et Sass. Pour faire les modifciations et voir le résultat en direct, il suffit de faire :</p>
+<div class="codehilite"><pre><span></span><code>cd mon-blog
+make devserver
+cd mon-theme-zf-sass
+grunt
+</code></pre></div>
+
+<p>Puis lancer le navigateur sur localhost:8000. Et à chaque modification de n'importe quel fichier Pelican, les modifcations apparaîtrons immédiatement sur le site. C'est magique !</p>
+<p>Maintenant, il ne me reste plus qu'à essayer de "tuer" mon fichier style.css pour exploiter tout le potentiel de Sass. Ce sera pour de prochains épisodes.</p>
+<h3>Un dernier point avec git</h3>
+<p>A la création d'un nouveau projet Foundation, un dépôt git est automatiquement créé (pour grunt je crois). Comme il se crée à l'intérieur de mon dépôt git existant (celui qui contient mon site pelican), ça met un peu le bazar quand je veux committer mes modifications. La solution la plus simple que j'ai trouvée jusqu'à présent est de supprimer le répertoire .git de mon projet Foundation, ce qui n'empêche pas les mises à jour futures avec grunt.</p>
+	
+  </article>
+  <hr />
+	<div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12">
+          <div id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="0e5fe46f-ef6e-4be2-abb1-5abe9211600f"
+            data-page-id=""
+            data-page-url="pages/{slug}.html"
+            data-page-title="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</section>
+        </div>
+
+        <!-- End Main Content -->
+    
+        <!-- Sidebar -->
+    
+        <div class="medium-3 cell">
+          <div class="callout large secondary">
+
+		  <h4>Catégories</h4>
+		  <ul class="vertical menu">
+		    <li><a href="../../../../category/archlinux.html">Archlinux</a></li>
+		    <li><a href="../../../../category/conky.html">Conky</a></li>
+		    <li><a href="../../../../category/crunchbang.html">Crunchbang</a></li>
+		    <li><a href="../../../../category/foundation.html">Foundation</a></li>
+		    <li><a href="../../../../category/freebox.html">Freebox</a></li>
+		    <li><a href="../../../../category/linux.html">Linux</a></li>
+		    <li><a href="../../../../category/lubuntu.html">Lubuntu</a></li>
+		    <li><a href="../../../../category/mac-os-x.html">Mac OS X</a></li>
+		    <li><a href="../../../../category/mageia.html">Mageia</a></li>
+		    <li><a href="../../../../category/microbe.html">Microbe</a></li>
+		    <li><a href="../../../../category/octopress.html">Octopress</a></li>
+		    <li><a href="../../../../category/openshift.html">Openshift</a></li>
+		    <li><a href="../../../../category/pelican.html">Pelican</a></li>
+		    <li><a href="../../../../category/python.html">Python</a></li>
+		    <li><a href="../../../../category/shell.html">Shell</a></li>
+		    <li><a href="../../../../category/terminal.html">Terminal</a></li>
+		    <li><a href="../../../../category/virtualbox.html">VirtualBox</a></li>
+		  </ul>
+
+		  <h4>Social</h4>
+		  <ul class="vertical menu">
+		    <li>
+			  <a href="https://mastodon.social/@letchap">
+			  <i class="icon-mastodon medium"></i> mastodon
+			  </a>
+			</li>
+		    <li>
+			  <a href="https://github.com/letchap">
+			  <i class="icon-github medium"></i> github
+			  </a>
+			</li>
+		  </ul>
+
+          </div>
+	    </div>
+      </div>
+      <!-- End Sidebar -->
+    </div>
+ 
+  <!-- End Main Content and Sidebar -->
+
+  <!-- Footer -->
+   <footer>
+   <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+
+        <div class="cell large-6">
+          <p>© Copyright WTFPL</p>
+        </div>
+        <div class="cell large-6">
+            <div class="text-right">
+
+            <a href="http://getpelican.com/">Site généré par Pelican</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</section> 
+  <!-- End Footer -->
+
+    <script src="../../../../theme/js/jquery.js"></script>
+<!--    <script src="../../../../theme/js/foundation.min.js"></script>-->
+     <script>
+        $(document).foundation();
+    </script>
+	
+	<script src="../../../../theme/js/lightbox-2.6.min.js"></script>
+  
+
+
+    <script src="../../../../theme/js/app.js"></script>
+
+
+
+  </body>
+</html>

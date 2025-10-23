@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Microbe</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/microbe.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2014-03-17T20:11:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Microbe</title><link href="https://letchap.github.io/2014/03/17/microbe/" rel="alternate"/><published>2014-03-17T20:11:00+01:00</published><updated>2014-03-17T20:11:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2014-03-17:/2014/03/17/microbe/</id><summary type="html">&lt;p&gt;Vous avez un serveur à la maison : votre ordinateur est allumé en permanence ou vous avez un raspberry pi.&lt;/p&gt;
+&lt;p&gt;Vous aimez vous auto - héberger, pour le mail, les dépôts, le contenu multimedia, votre site web.&lt;/p&gt;
+&lt;p&gt;Vous avez testé Pelican, Flask, Octopress, Jekyll, mais finalement vous avez autre chose à faire …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Vous avez un serveur à la maison : votre ordinateur est allumé en permanence ou vous avez un raspberry pi.&lt;/p&gt;
+&lt;p&gt;Vous aimez vous auto - héberger, pour le mail, les dépôts, le contenu multimedia, votre site web.&lt;/p&gt;
+&lt;p&gt;Vous avez testé Pelican, Flask, Octopress, Jekyll, mais finalement vous avez autre chose à faire et vous n'avez pas envie de passer beaucoup de temps à configurer un site web.&lt;/p&gt;
+&lt;p&gt;Vous êtes allergique à tous ce qui est priopriétaire : Disqus, Github, ...&lt;/p&gt;
+&lt;p&gt;Microbe est fait pour vous.&lt;/p&gt;
+&lt;p&gt;Pour paraphraser son auteur Microbe c'est :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Aucune base de données&lt;/li&gt;
+&lt;li&gt;Facilement installable et exécutable via Pip&lt;/li&gt;
+&lt;li&gt;Rendu dynamique en HTML de pages markdown stockées sur le serveur&lt;/li&gt;
+&lt;li&gt;Gestion de commentaires&lt;/li&gt;
+&lt;li&gt;Génération de flux atom&lt;/li&gt;
+&lt;li&gt;Multi utilisateurs&lt;/li&gt;
+&lt;li&gt;Interface de configuration (qui se veut) simple&lt;/li&gt;
+&lt;li&gt;Création de nouvelles pages/articles à partir d'une interface dédiée&lt;/li&gt;
+&lt;li&gt;Upload de fichiers à partir d'une interface pour pouvoir les utiliser dans les articles&lt;/li&gt;
+&lt;li&gt;Disponible en anglais ou en français&lt;/li&gt;
+&lt;li&gt;Pagination côté serveur&lt;/li&gt;
+&lt;li&gt;Page d'archive&lt;/li&gt;
+&lt;li&gt;Pages de tag&lt;/li&gt;
+&lt;li&gt;Page de catégorie&lt;/li&gt;
+&lt;li&gt;Multi thèmes&lt;/li&gt;
+&lt;li&gt;Moteur de recherche&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;En quelques secondes (je vous promets que je n'exagère pas), vous avez paramétré votre site, écrit et publié votre premier post.&lt;/p&gt;
+&lt;p&gt;Si vous sentez l'âme créative, faire votre propre thème &lt;a href="http://foundation.zurb.com"&gt;foundation&lt;/a&gt; ne vous prendra que peu de temps.&lt;/p&gt;
+&lt;p&gt;A essayer d'urgence !&lt;/p&gt;
+&lt;p&gt;Pour les infos, c'est ici :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pip : &lt;a href="https://pypi.python.org/pypi/Microbe/1.0"&gt;https://pypi.python.org/pypi/Microbe/1.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Doc : &lt;a href="http://microbe.joacodepel.tk/"&gt;http://microbe.joacodepel.tk/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Code : &lt;a href="https://hg.joacodepel.tk/get_microbe/microbe/"&gt;https://hg.joacodepel.tk/get_microbe/microbe/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Thèmes : &lt;a href="https://hg.joacodepel.tk/get_microbe/microbe-themes/"&gt;https://hg.joacodepel.tk/get_microbe/microbe-themes/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Microbe"/><category term="Python"/><category term="CMS"/><category term="Microbe"/></entry></feed>

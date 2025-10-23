@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Crunchbang</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/crunchbang.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2013-06-05T22:02:00+02:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Installer manuellement un pilote graphique Nvidia sur Crunchbang</title><link href="https://letchap.github.io/2013/06/05/installer-manuellement-un-pilote-graphique-nvidia-sur-crunchbang/" rel="alternate"/><published>2013-06-05T22:02:00+02:00</published><updated>2013-06-05T22:02:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-06-05:/2013/06/05/installer-manuellement-un-pilote-graphique-nvidia-sur-crunchbang/</id><summary type="html">&lt;p&gt;La distribution Crunchbang est une distribution trés légére basée sur Debian. Lors de l'installation sur mon vieux PC, la partie inférieure de l'écran est inutilisable car la carte graphique est mal gérée. Il faut alors installer le pilote graphique propriétaire, Nvidia dans mon cas. Crunchbang, se voulant trés léger, il …&lt;/p&gt;</summary><content type="html">&lt;p&gt;La distribution Crunchbang est une distribution trés légére basée sur Debian. Lors de l'installation sur mon vieux PC, la partie inférieure de l'écran est inutilisable car la carte graphique est mal gérée. Il faut alors installer le pilote graphique propriétaire, Nvidia dans mon cas. Crunchbang, se voulant trés léger, il n'y a pas par défaut d'interface graphique pour installer le pilote, nous allons donc l'installer via le terminal.&lt;/p&gt;
+&lt;p&gt;Ce post est très largement inspiré du wiki Debian disponible &lt;a href="http://wiki.debian.org/NvidiaGraphicsDrivers#NVIDIA_Proprietary_Driver" title="wiki Debian"&gt;à cette adresse&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Puis - je installer des pilotes non-libres ?&lt;/h3&gt;
+&lt;p&gt;La première étape consiste à vérifier que nous pouvons installer des paquets non-libres, comme celui contenant le pilote nvidia qui nous intéresse. Par défaut, sur Crunchbang Waldorf, c'est le cas. Pour s'en assurer, il suffit de vérifier la présence de "non-free" dans la liste des sources. La commande :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;/etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;devrait vous renvoyer :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c"&gt;## DEBIAN&lt;/span&gt;
+&lt;span class="k"&gt;deb&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;http://http.debian.net/debian/&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kp"&gt;wheezy&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kp"&gt;main&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kp"&gt;contrib&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kp"&gt;non-free&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;S'il n'est pas présent, ajouter ces deux lignes en éditant le fichier :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;nano&lt;span class="w"&gt; &lt;/span&gt;/etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Quel pilote ?&lt;/h3&gt;
+&lt;p&gt;La deuxième étape consiste à savoir quel pilote installer en fonction de sa carte graphique. Pour cela nous allons utiliser  nvidia-detect qui s'installe par synaptic ou à partir d'un terminal avec la commande &lt;code&gt;sudo apt-get install nvidia-detect&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Ensuite, sur le terminal, la commande nvidia-detect vous renverra les informations sur la carte graphique et le pilote à installer.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;nvidia-detect
+Detected&lt;span class="w"&gt; &lt;/span&gt;NVIDIA&lt;span class="w"&gt; &lt;/span&gt;GPUs:
+&lt;span class="m"&gt;01&lt;/span&gt;:00.0&lt;span class="w"&gt; &lt;/span&gt;VGA&lt;span class="w"&gt; &lt;/span&gt;compatible&lt;span class="w"&gt; &lt;/span&gt;controller&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0300&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;:&lt;span class="w"&gt; &lt;/span&gt;NVIDIA&lt;span class="w"&gt; &lt;/span&gt;Corporation&lt;span class="w"&gt; &lt;/span&gt;NV34M&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;GeForce&lt;span class="w"&gt; &lt;/span&gt;FX&lt;span class="w"&gt; &lt;/span&gt;Go5200&lt;span class="w"&gt; &lt;/span&gt;32M/64M&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;10de:0328&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;rev&lt;span class="w"&gt; &lt;/span&gt;a1&lt;span class="o"&gt;)&lt;/span&gt;
+Your&lt;span class="w"&gt; &lt;/span&gt;card&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;only&lt;span class="w"&gt; &lt;/span&gt;supported&lt;span class="w"&gt; &lt;/span&gt;up&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;the&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;173&lt;/span&gt;.14&lt;span class="w"&gt; &lt;/span&gt;legacy&lt;span class="w"&gt; &lt;/span&gt;drivers&lt;span class="w"&gt; &lt;/span&gt;series.
+It&lt;span class="w"&gt; &lt;/span&gt;is&lt;span class="w"&gt; &lt;/span&gt;recommended&lt;span class="w"&gt; &lt;/span&gt;to&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;the
+&lt;span class="w"&gt;    &lt;/span&gt;nvidia-glx-legacy-173xx
+package.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;J'installe mon pilote&lt;/h3&gt;
+&lt;p&gt;Le pilote s'installe avec les deux commandes suivantes dans le terminal :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;update
+$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;linux-headers-&lt;span class="k"&gt;$(&lt;/span&gt;uname&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="p"&gt;|&lt;/span&gt;sed&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;s,[^-]*-[^-]*-,,&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;nvidia-kernel-legacy-173xx-dkms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Cela va également installer les dépendances, et notamment le paquet nvidia-glx-legacy-173xx.&lt;/p&gt;
+&lt;h3&gt;Mon pilote n'est pas détecté par défaut&lt;/h3&gt;
+&lt;p&gt;La dernière étape consiste à faire reconnaître le pilote par le système, qui n'est pas détecté automatiquement par défaut. Pour cela, il faut créer un fichier de configuration :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;nano&lt;span class="w"&gt; &lt;/span&gt;/etc/X11/xorg.conf.d/20-nvidia.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;et ajouter les lignes suivantes :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Section &amp;quot;Device&amp;quot;
+    Identifier     &amp;quot;Mon pilote graphique&amp;quot;
+    Driver         &amp;quot;Nvidia&amp;quot;
+    Option         &amp;quot;NoLogo&amp;quot; &amp;quot;1&amp;quot;
+EndSection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;L'option NoLogo permet de supprimer l'affichage du logo nvidia au démarrage.&lt;/p&gt;
+&lt;p&gt;C'est fini, il ne reste plus qu'à redémarrer.&lt;/p&gt;</content><category term="Crunchbang"/><category term="Crunchbang"/><category term="Nvidia"/><category term="Terminal"/></entry></feed>

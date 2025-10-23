@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>letchap - Linux</title><link href="https://letchap.github.io/" rel="alternate"/><link href="https://letchap.github.io/feeds/linux.atom.xml" rel="self"/><id>https://letchap.github.io/</id><updated>2023-02-09T18:52:00+01:00</updated><subtitle>du Linux, du Python, un peu de Mac</subtitle><entry><title>Transférer des données de l'iPhone sur Ubuntu</title><link href="https://letchap.github.io/2023/02/09/transferer-des-donnees-de-liphone-sur-ubuntu/" rel="alternate"/><published>2023-02-09T18:52:00+01:00</published><updated>2023-02-09T18:52:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-09:/2023/02/09/transferer-des-donnees-de-liphone-sur-ubuntu/</id><summary type="html">&lt;p&gt;Il est toujours compliqué de brancher un iPhone sur un ordinateur Linux. A chaque fois je me demande comment faire. Je me note donc la procédure une bonne fois pour toute.&lt;/p&gt;
+&lt;p&gt;Tout d'abord vérifier que les packages suivants sont bien installés :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install libimobiledevice6 libimobiledevice-utils
+sudo apt install ifuse …&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Il est toujours compliqué de brancher un iPhone sur un ordinateur Linux. A chaque fois je me demande comment faire. Je me note donc la procédure une bonne fois pour toute.&lt;/p&gt;
+&lt;p&gt;Tout d'abord vérifier que les packages suivants sont bien installés :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install libimobiledevice6 libimobiledevice-utils
+sudo apt install ifuse
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Puis créer un répertoire sur lequel monter l'iPhone :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo mkdir /media/iPhone
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Afin monter le téléphone :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ifuse /media/iPhone
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;J'ai trouvé les informations sur &lt;a href="https://www.maketecheasier.com/easily-mount-your-iphone-as-an-external-drive-in-ubuntu/"&gt;ce lien&lt;/a&gt;&lt;/p&gt;</content><category term="Linux"/><category term="Linux"/><category term="Ubuntu"/><category term="iPhone"/></entry><entry><title>Récupérer la sauvegarde Time Machine sur Linux</title><link href="https://letchap.github.io/2023/02/08/recuperer-la-sauvegarde-time-machine-sur-linux/" rel="alternate"/><published>2023-02-08T20:27:00+01:00</published><updated>2023-02-08T20:27:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2023-02-08:/2023/02/08/recuperer-la-sauvegarde-time-machine-sur-linux/</id><summary type="html">&lt;p&gt;Mon iMac ayant rendu l'âme, j'ai besoin de récupérer certaines données sauvegardées sur Time Machine pour les utiliser sur mon ordinateur tournant sous Ubuntu&lt;/p&gt;
+&lt;p&gt;J'ai trouvé un petit script qui fonctionne très bien à &lt;a href="https://gist.github.com/vjt/5183305"&gt;cette adresse&lt;/a&gt;. Le script date de 2014 mais il est toujours d'actualité. J'ai simplement ajouté une …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Mon iMac ayant rendu l'âme, j'ai besoin de récupérer certaines données sauvegardées sur Time Machine pour les utiliser sur mon ordinateur tournant sous Ubuntu&lt;/p&gt;
+&lt;p&gt;J'ai trouvé un petit script qui fonctionne très bien à &lt;a href="https://gist.github.com/vjt/5183305"&gt;cette adresse&lt;/a&gt;. Le script date de 2014 mais il est toujours d'actualité. J'ai simplement ajouté une petite modification pour que le programme continue même s'il rencontre une erreur avec un &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;cp&lt;span class="w"&gt; &lt;/span&gt;-van&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$entry&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$dest&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;||&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Il suffit de lui passer en paramètre le répertoire Time Machine à récupérer (en général dans le répertoire "latest") et le répertoire de destination.&lt;/p&gt;
+&lt;p&gt;Je mets à télécharger le script modifié.&lt;/p&gt;
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/copy-from-time-machine.sh" title="copy-from-time-machine.sh"&gt;Télécharger copy-from-time-machine.sh&lt;/a&gt;&lt;/p&gt;</content><category term="Linux"/><category term="Linux"/><category term="Mac OS X"/><category term="Time Machine"/></entry><entry><title>J'arrive pas à me décider</title><link href="https://letchap.github.io/2015/03/10/jarrive-pas-a-me-decider/" rel="alternate"/><published>2015-03-10T22:16:00+01:00</published><updated>2015-03-10T22:16:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2015-03-10:/2015/03/10/jarrive-pas-a-me-decider/</id><summary type="html">&lt;p&gt;Le papa de ma distribution préférée vient d'annoncer la fin de l'aventure Crunchbang. Me voilà donc à la recherche d'une solution de remplacement.&lt;/p&gt;
+&lt;p&gt;C'est trop facile, il y a tellement de choix...&lt;/p&gt;
+&lt;p&gt;Cette fois, j'arrête la bidouille, je me prends une distribution clé en main. Hop, va pour Ubuntu. En …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Le papa de ma distribution préférée vient d'annoncer la fin de l'aventure Crunchbang. Me voilà donc à la recherche d'une solution de remplacement.&lt;/p&gt;
+&lt;p&gt;C'est trop facile, il y a tellement de choix...&lt;/p&gt;
+&lt;p&gt;Cette fois, j'arrête la bidouille, je me prends une distribution clé en main. Hop, va pour Ubuntu. En fait non, je n'aime pas le bureau Unity. Ce sera plutôt Mageia. C'est sympa, mais vraiment trop clé en main, il faut que je puisse bidouiller un minimum quand même.&lt;/p&gt;
+&lt;p&gt;Revenons aux basiques, une Debian minimale avec Openbox, comme Crunchbang. Mais si c'est pour mettre du Gnome dedans pour avoir un bureau un peu joli... Qu'à cela ne tienne, une Debian minimale avec XFCE alors. Oui mais bon, attendre plusieurs années pour avoir la dernière version de XFCE, c'est long.&lt;/p&gt;
+&lt;p&gt;Je vais plutôt choisir une rolling release. Je me monte une Archinux avec la toute dernière version XFCE. Enfin, faut voir, une rolling release, ça reste un peu moins stable.&lt;/p&gt;
+&lt;p&gt;J'ai trouvé, un dérivé d'Ubuntu pour être sur les dernières versions et un joli bureau. ElementaryOS par exemple, c'est joli.&lt;/p&gt;
+&lt;p&gt;Non, mais en fait, j'ai aussi besoin de quelquechose de léger, plutôt Wattos ou LXDE.&lt;/p&gt;
+&lt;p&gt;J'ai dit qu'il fallait que je reste sur une distribution majeure pour la pérennité. Ubuntu alors. Ah mais non, j'avais dit pas Unity ...&lt;/p&gt;
+&lt;p&gt;C'est trop dur, il y a tellement de choix...&lt;/p&gt;</content><category term="Linux"/><category term="Ubuntu"/><category term="Archlinux"/><category term="Debian"/><category term="XFCE"/><category term="Openbox"/><category term="Unity"/><category term="LXDE"/><category term="Mageia"/></entry><entry><title>Afficher la meteo avec conky et python 2ème partie</title><link href="https://letchap.github.io/2013/07/09/afficher-la-meteo-avec-conky-et-python-2eme-partie/" rel="alternate"/><published>2013-07-09T20:52:00+02:00</published><updated>2013-07-09T20:52:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-07-09:/2013/07/09/afficher-la-meteo-avec-conky-et-python-2eme-partie/</id><summary type="html">&lt;p&gt;Nous avons vu &lt;a href="https://letchap.github.io/2013/07/08/afficher-la-meteo-avec-conky-et-python-1ere-partie/"&gt;dans le billet précédent&lt;/a&gt; comment créer un programme python qui récupère les informations météo sur le site de wunderground. Nous avons "démonisé" ce script, c'est à dire que nous lui avons demandé de se déclencher à intervalle régulier.&lt;/p&gt;
+&lt;p&gt;Nous allons maintenant faire en sorte qu'il se lance …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Nous avons vu &lt;a href="https://letchap.github.io/2013/07/08/afficher-la-meteo-avec-conky-et-python-1ere-partie/"&gt;dans le billet précédent&lt;/a&gt; comment créer un programme python qui récupère les informations météo sur le site de wunderground. Nous avons "démonisé" ce script, c'est à dire que nous lui avons demandé de se déclencher à intervalle régulier.&lt;/p&gt;
+&lt;p&gt;Nous allons maintenant faire en sorte qu'il se lance automatiquement au démarrage de l'ordinateur.&lt;/p&gt;
+&lt;p&gt;Cette procédure est valable pour les distributions Linux se basant sur init.d comme Debian, et donc Crunchbang qui est la distribution sur laquelle a été fait cette automatisation.&lt;/p&gt;
+&lt;p&gt;Pour cela, il suffit de suivre les étapes suivantes :&lt;/p&gt;
+&lt;h3&gt;Sauver le programme python dans /usr/sbin&lt;/h3&gt;
+&lt;p&gt;Dans le billet précédent, j'ai appelé mon script meteo.py. La copie du programme meteo.py dans &lt;code&gt;/usr./sbin&lt;/code&gt; doit se faire en mode root par un &lt;code&gt;sudo cp meteo.py /usr/sbin&lt;/code&gt;. Ne pas oublier au préalable de rendre le script exécutable par un &lt;code&gt;chmod +x meteo.py&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Créer un script de démarrage /etc/init.d&lt;/h3&gt;
+&lt;p&gt;Le fichier &lt;code&gt;/etc/init.d/skeleton&lt;/code&gt; est un fichier d'exemple pour la création d'un script de démarrage. Personnellement, j'en ai créé un beaucoup plus sommaire sur la base d'un tuto que &lt;a href="http://www.gavinj.net/2012/06/building-python-daemon-process.html"&gt;j'ai trouvé ici&lt;/a&gt;, puis que j'ai un peu customisé, et qui fonctionne très bien. Il faut le créé en mode root dans le répertoire &lt;code&gt;/etc/init.d/&lt;/code&gt;, en faisant &lt;code&gt;$ sudo geany /etc/init.d/meteo&lt;/code&gt; par exemple (remplacer geany par nano, vim, ... l'éditeur de votre choix).&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;&lt;span class="normal"&gt; 1&lt;/span&gt;
+&lt;span class="normal"&gt; 2&lt;/span&gt;
+&lt;span class="normal"&gt; 3&lt;/span&gt;
+&lt;span class="normal"&gt; 4&lt;/span&gt;
+&lt;span class="normal"&gt; 5&lt;/span&gt;
+&lt;span class="normal"&gt; 6&lt;/span&gt;
+&lt;span class="normal"&gt; 7&lt;/span&gt;
+&lt;span class="normal"&gt; 8&lt;/span&gt;
+&lt;span class="normal"&gt; 9&lt;/span&gt;
+&lt;span class="normal"&gt;10&lt;/span&gt;
+&lt;span class="normal"&gt;11&lt;/span&gt;
+&lt;span class="normal"&gt;12&lt;/span&gt;
+&lt;span class="normal"&gt;13&lt;/span&gt;
+&lt;span class="normal"&gt;14&lt;/span&gt;
+&lt;span class="normal"&gt;15&lt;/span&gt;
+&lt;span class="normal"&gt;16&lt;/span&gt;
+&lt;span class="normal"&gt;17&lt;/span&gt;
+&lt;span class="normal"&gt;18&lt;/span&gt;
+&lt;span class="normal"&gt;19&lt;/span&gt;
+&lt;span class="normal"&gt;20&lt;/span&gt;
+&lt;span class="normal"&gt;21&lt;/span&gt;
+&lt;span class="normal"&gt;22&lt;/span&gt;
+&lt;span class="normal"&gt;23&lt;/span&gt;
+&lt;span class="normal"&gt;24&lt;/span&gt;
+&lt;span class="normal"&gt;25&lt;/span&gt;
+&lt;span class="normal"&gt;26&lt;/span&gt;
+&lt;span class="normal"&gt;27&lt;/span&gt;
+&lt;span class="normal"&gt;28&lt;/span&gt;
+&lt;span class="normal"&gt;29&lt;/span&gt;
+&lt;span class="normal"&gt;30&lt;/span&gt;
+&lt;span class="normal"&gt;31&lt;/span&gt;
+&lt;span class="normal"&gt;32&lt;/span&gt;
+&lt;span class="normal"&gt;33&lt;/span&gt;
+&lt;span class="normal"&gt;34&lt;/span&gt;
+&lt;span class="normal"&gt;35&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#! /bin/sh&lt;/span&gt;
+&lt;span class="c1"&gt;### BEGIN INIT INFO&lt;/span&gt;
+&lt;span class="c1"&gt;# Provides:          meteo&lt;/span&gt;
+&lt;span class="c1"&gt;# Required-Start:    $all&lt;/span&gt;
+&lt;span class="c1"&gt;# Required-Stop:     $all&lt;/span&gt;
+&lt;span class="c1"&gt;# Default-Start:     2 3 4 5&lt;/span&gt;
+&lt;span class="c1"&gt;# Default-Stop:      0 1 6&lt;/span&gt;
+&lt;span class="c1"&gt;# Short-Description: Demarrage du service meteo&lt;/span&gt;
+&lt;span class="c1"&gt;# Description:       Demarrage du programme de récupération des données&lt;/span&gt;
+&lt;span class="c1"&gt;#                    meteo&lt;/span&gt;
+&lt;span class="c1"&gt;### END INIT INFO&lt;/span&gt;
+
+&lt;span class="k"&gt;case&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;start&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Starting server&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# Start the daemon&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;/usr/sbin/meteo.py&lt;span class="w"&gt; &lt;/span&gt;start
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;stop&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Stopping server&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# Stop the daemon&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;/usr/sbin/meteo.py&lt;span class="w"&gt; &lt;/span&gt;stop
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;restart&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Restarting server&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;/usr/sbin/meteo.py&lt;span class="w"&gt; &lt;/span&gt;restart
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;*&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;# Refuse to do other stuff&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Usage: /etc/init.d/meteo {start|stop|restart}&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;exit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;span class="k"&gt;esac&lt;/span&gt;
+
+&lt;span class="nb"&gt;exit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a class="button small" href="https://letchap.github.io/code/meteo" title="Télécharger meteo"&gt;Télécharger meteo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Ensuite, il ne faut pas oublier de rendre le script exécutable par :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;chmod&lt;span class="w"&gt; &lt;/span&gt;+x&lt;span class="w"&gt; &lt;/span&gt;meteo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour tester si votre script fonctionne correctement, vous pouvez faire :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;service&lt;span class="w"&gt; &lt;/span&gt;/etc/init.d/meteo&lt;span class="w"&gt; &lt;/span&gt;start
+$&lt;span class="w"&gt; &lt;/span&gt;ps&lt;span class="w"&gt; &lt;/span&gt;-ef&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;grep&lt;span class="w"&gt; &lt;/span&gt;meteo
+root&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="m"&gt;2355&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;21&lt;/span&gt;:01&lt;span class="w"&gt; &lt;/span&gt;?&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="m"&gt;00&lt;/span&gt;:00:00&lt;span class="w"&gt; &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;/usr/sbin/meteo.py&lt;span class="w"&gt; &lt;/span&gt;start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous devriez voir votre service dans la liste des processus actifs.&lt;/p&gt;
+&lt;p&gt;Pour arrêter le service, il suffit de faire :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;service&lt;span class="w"&gt; &lt;/span&gt;/etc/init.d/meteo&lt;span class="w"&gt; &lt;/span&gt;stop
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Inclure le service au démarrage&lt;/h3&gt;
+&lt;p&gt;Pour ajouter le script à la liste de démarrage, vous devez lancer la commande suivante à partir du répertoire /etc/init.d/&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;update-rc.d&lt;span class="w"&gt; &lt;/span&gt;meteo&lt;span class="w"&gt; &lt;/span&gt;defaults
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Il ne reste plus qu'à rebooter et le programme python sera lancé automatiquement au démarrage.&lt;/p&gt;
+&lt;h3&gt;Petites astuces&lt;/h3&gt;
+&lt;p&gt;Argh, ça ne marche pas ! ! ! Mais pourquoi ? Pas de panique, il y a forcément une explication. Voilà deux pistes.&lt;/p&gt;
+&lt;h4&gt;Astuce 1&lt;/h4&gt;
+&lt;p&gt;Si vous avez lu le premier billet sur le programme python, vous avez remarqué que j'ai changé la redirection des messages envoyés par le démon de /dev/tty vers /dev/null. En effet, si tout fonctionnait parfaitement avec le lancement du service via le terminal, le script python plantait au reboot car il cherchait un service tty qui n'était pas démarré.&lt;/p&gt;
+&lt;p&gt;Maintenant que tout part à la poubelle, je n'ai plus d'infos sur le démon, mais je n'ai plus de problème.&lt;/p&gt;
+&lt;h4&gt;Astuce 2&lt;/h4&gt;
+&lt;p&gt;Pour être sûr d'avoir paramétré correctement le script meteo dans /etc/init.d, , il faut savoir dans quel runlevel se lance Crunchbang.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;who&lt;span class="w"&gt; &lt;/span&gt;-r
+&lt;span class="w"&gt;         &lt;/span&gt;niveau&lt;span class="w"&gt; &lt;/span&gt;d&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;exécution&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;2013&lt;/span&gt;-07-09&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;21&lt;/span&gt;:01&lt;span class="w"&gt;                   &lt;/span&gt;&lt;span class="nv"&gt;dernier&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;S
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Nous voyons dans mon cas particulier que ma session démarre avec un runlevel 2. Ca tombe bien, c'est ce que j'ai défini sur la ligne &lt;code&gt;# Default-Start:     2 3 4 5&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Et lorsque que j'ai lancé la commande update-rc.d, un lien s'est créé dans le répertoire /etc/rc2.d listant les services concernés par le runlevel 2, la lettre S signifiant Start (K voulant dire Kill), et le numéro 05 précisant que le service démarrera après tous ceux ayant un numéro inférieur.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;$ls&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-l&lt;span class="w"&gt; &lt;/span&gt;/etc/rc2.d/
+lrwxrwxrwx&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;root&lt;span class="w"&gt; &lt;/span&gt;root&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;juil.&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;21&lt;/span&gt;:45&lt;span class="w"&gt; &lt;/span&gt;S05meteo&lt;span class="w"&gt; &lt;/span&gt;-&amp;gt;&lt;span class="w"&gt; &lt;/span&gt;../init.d/meteo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour plus d'information sur les runlevel, je vous invite à aller &lt;a href="http://www.generation-linux.fr/?post/2009/01/22/Cours-Linux-%3A-les-runlevels" title="Tout ce que vous avez toujours voulu savoir sur les runlevel"&gt;à cette adresse&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Dans le prochain billet, la troisème et dernière étape : &lt;a href="https://letchap.github.io/2013/07/10/afficher-la-meteo-avec-conky-et-python-3eme-partie/"&gt;le conky météo&lt;/a&gt;&lt;/p&gt;</content><category term="Linux"/><category term="Python"/><category term="Wunderground"/><category term="conky"/><category term="Crunchbang"/></entry><entry><title>Quelle distribution légère choisir pour une vieille configuration?</title><link href="https://letchap.github.io/2013/06/02/quelle-distribution-legere-choisir-pour-une-vieille-configuration/" rel="alternate"/><published>2013-06-02T13:09:00+02:00</published><updated>2013-06-02T13:09:00+02:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-06-02:/2013/06/02/quelle-distribution-legere-choisir-pour-une-vieille-configuration/</id><summary type="html">&lt;p&gt;Ces dernières semaines, plusieurs distributions adaptées aux petites configurations ont été livrées ou mises à jour :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lubuntu est passé en version 13.04 Raring Ringtail, &lt;/li&gt;
+&lt;li&gt;Mageia qui existe en version LXDE a livré sa version 3, &lt;/li&gt;
+&lt;li&gt;Debian a livré sa version Wheezy sur laquelle se base la distribution légère Crunchbang …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Ces dernières semaines, plusieurs distributions adaptées aux petites configurations ont été livrées ou mises à jour :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lubuntu est passé en version 13.04 Raring Ringtail, &lt;/li&gt;
+&lt;li&gt;Mageia qui existe en version LXDE a livré sa version 3, &lt;/li&gt;
+&lt;li&gt;Debian a livré sa version Wheezy sur laquelle se base la distribution légère Crunchbang, &lt;/li&gt;
+&lt;li&gt;une version E17 du bureau Enlightenment est arrivé sur Bodhi Linux.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Petite parenthèse : je mets hors catégorie Toutou Linux qui reste LA distribution sur les plus vieux PC, qui transforme un canasson en cheval de course, mais dont le look peut parfois étonner.&lt;/p&gt;
+&lt;p&gt;Chacune de ces distributions est supposée tourner sur un ordinosaure, mais qu'en est-il dans la vraie vie, quand il s'agit de les installer concrétement et de les utiliser au quotidien ?&lt;/p&gt;
+&lt;p&gt;J'ai installé ces 4 distributions sur mon portable Toshiba M40 de 2003 (1,4 GHz, 512Mo de RAM). Verdict :&lt;/p&gt;
+&lt;h3&gt;Lubuntu 13.04&lt;/h3&gt;
+&lt;p&gt;Pendant très longtemps, Lubuntu 12.04 LTS a été la seule distribution sur mon PC. Consommation de CPU et de RAM réduite, prise en main facile pour des débutants, aussi bien lors de l'installation que dans une utilisation courante. Le bureau LXDE reste très adapté sur les anciennes configurations.&lt;/p&gt;
+&lt;p&gt;Est ce toujours le cas pour les suivantes, la 12.10 puis la 13.04 ?&lt;/p&gt;
+&lt;p&gt;La réponse tient en une seule phrase : ces versions sont inutilisables sur des machines non-pae comme la mienne car le kernel de Ubuntu 13.04 n'est livré qu'avec une version pae. Ce que je trouve regrettable car cela exclu de fait les plus anciennes machines de Lubuntu dont elles sont sensées être la cible.&lt;/p&gt;
+&lt;p&gt;Si vous voulez absolument utiliser Lubuntu, ce qui est légitime compte tenu des qualités d'ensemble de cette distribution, rester en 12.04. En téléchargement &lt;a href="https://help.ubuntu.com/community/Lubuntu/GetLubuntu" title="Lubuntu"&gt;à cette adresse&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Mageia 3 LXDE&lt;/h3&gt;
+&lt;p&gt;Contrairement à Lubuntu, les machines non-pae supportent très bien le passage de Mageia 2 vers Mageia 3. Mageia est une distribution très agréable à utiliser, en particulier grâce au son centre de contrôle qui permet de configurer facilement son ordinateur.&lt;/p&gt;
+&lt;p&gt;Le confort d'utilisation est en revanche assez sensiblement réduit avec la version 3 (il n'était déjà pas fameux avec Mageia 2 avec simplement 512Mo de RAM). La distribution "rame" même avec un bureau LXDE. Rien de rédhibitoire mais du coup, il y a mieux sur des vieilles machines.&lt;/p&gt;
+&lt;p&gt;C'est &lt;a href="http://www.mageia.org/fr/downloads/" title="Mageia"&gt;ici pour le téléchargement&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Bodhi Linux&lt;/h3&gt;
+&lt;p&gt;Y a t-il un bug ? Voyant qu'il était possible de charger une version 32bits non-pae, je me suis dit "chouette, je vais pouvoir installer une jolie distribution sur mon PC". Ce que j'en avais vu en virtualisant m'avait donné envie d'en savoir plus sur le bureau Enlightenment. Et là, patatras, impossible de lancer le live USB, je bloque au moment du choix de la configuration du bureau. Tant pis!&lt;/p&gt;
+&lt;p&gt;Mais si cela fonctionne chez vous, vous pouvez le &lt;a href="http://www.bodhilinux.com/downloads_desktop.php" title="Bodhi Linux"&gt;trouver là&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Crunchbang&lt;/h3&gt;
+&lt;p&gt;Mon coup de coeur !&lt;/p&gt;
+&lt;p&gt;Crunchbang est une version dérivée de Debian, utilisant le bureau openbox. La consommation de CPU et de RAM est réduite, comparable à ceux que je pouvais avoir avec Lubuntu 12.04. L'utilisation est très fluide, même lorsque plusieurs applications sont ouvertes. La présentation de base est très sobre.&lt;/p&gt;
+&lt;p&gt;Cette distribution ne s'adresse pas aux débutants. Il faut avoir un peu de connaissances de Linux pour le paramétrage du système. Un seul petit exemple, la francisation complète se fait en ligne de commande par le terminal là où toutes les autres proposent des mises à jour par une interface graphique.&lt;/p&gt;
+&lt;p&gt;Par contre, ceux qui viennent de Lubuntu (comme moi) ne seront pas dépaysés par l'univers Debian/Ubuntu (paquets .deb, synaptic, ...) et les plus curieux pourront approfondir avec bonheur leurs connaissances de Linux.&lt;/p&gt;
+&lt;p&gt;En résumé, une utilisation très fluide et une incitation à ouvrir le capot, c'est le bonheur.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://crunchbang.org/download/" title="Crunchbang"&gt;A télécharger d'urgence là&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;En conclusion, pour avoir une distribution légère sur son PC, je recommenderais Lubuntu pour les débutants et Crunchbang pour les plus aventuriers.&lt;/p&gt;</content><category term="Linux"/><category term="Lubuntu"/><category term="Mageia"/><category term="Bodhi Linux"/><category term="Crunchbang"/></entry><entry><title>Démarrer sur une clé USB sans passer par le BIOS</title><link href="https://letchap.github.io/2013/02/23/demarrer-sur-une-cle-usb-sans-passer-par-le-bios/" rel="alternate"/><published>2013-02-23T21:16:00+01:00</published><updated>2013-02-23T21:16:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-23:/2013/02/23/demarrer-sur-une-cle-usb-sans-passer-par-le-bios/</id><summary type="html">&lt;p&gt;Faire des clés live USB c’est bien joli, mais si on ne peut pas démarrer sur une clé USB sur son ordinosaure, c’est ballot.&lt;/p&gt;
+&lt;p&gt;Heureusement, il existe une solution pour démarrer sur une clé USB sans passer par le BIOS : Plop Manager.&lt;/p&gt;
+&lt;p&gt;Si vous souhaitez vous lancer, je …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Faire des clés live USB c’est bien joli, mais si on ne peut pas démarrer sur une clé USB sur son ordinosaure, c’est ballot.&lt;/p&gt;
+&lt;p&gt;Heureusement, il existe une solution pour démarrer sur une clé USB sans passer par le BIOS : Plop Manager.&lt;/p&gt;
+&lt;p&gt;Si vous souhaitez vous lancer, je vous mets en garde, c’est assez difficile. Nous allons essayer d’y aller pas à pas.&lt;/p&gt;
+&lt;p&gt;Tout d’abord, le principe général :&lt;/p&gt;
+&lt;p&gt;Sur Ubuntu, le gestionnaire de démarrage s’appelle GRUB. Par défaut, il se contente de lancer le système d’exploitation. Lorsqu’il y a plusieurs systèmes d’exploitation installés sur la machine (dual boot), c’est GRUB qui va vous donner le choix du système sur lequel démarrer. Nous allons ajouter une entrée dans GRUB qui lancera le programme Plop Manager au démarrage et nous permettra ainsi de démarrer sur la clé USB.&lt;/p&gt;
+&lt;p&gt;Nous allons commencer par installer Plop Manager.&lt;/p&gt;
+&lt;p&gt;Pour cela, il faut télécharger le dossier plpbt-5.0.14.zip (c’est la dernière version au moment de l’écriture du billet) sur le site de Plop manager &lt;a href="http://www.plop.at/en/bootmanager/download.html" title="Plop manager"&gt;à cette adresse&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Vous décompressez le .zip et vous copiez le fichier plpbt.bin dans le répertoire /boot.&lt;/p&gt;
+&lt;p&gt;Ensuite il faut éditer le fichier /etc/grub.d/40_custom avec &lt;code&gt;sudo nano /etc/grub.d/40_custom&lt;/code&gt;, puis ajouter les lignes ci-dessous : &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;menuentry &amp;quot;Plop Boot Manager&amp;quot; {
+set root=&amp;#39;(hd0,1)&amp;#39;
+linux16 /boot/plpbt.bin
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Comme son nom l'indique, il s'agit d'un fichier où nous pouvons ajouter des entrées personnalisées dans GRUB.&lt;/p&gt;
+&lt;p&gt;Nous avons maintenant installé le programme et ajouté une entrée pour appeler ce programme dans GRUB.&lt;/p&gt;
+&lt;p&gt;Dernière étape sur certaines distrubutions (Ubuntu par exemple), il faut forcer l'affichage du GRUB au démarrage. En effet, si certaines distributions proposent l'affichage systématique de GRUB par défaut, d'autres non et lancent directement le système présent sur l'ordinateur s'il est le seul présent.&lt;/p&gt;
+&lt;p&gt;IL est possible de modifier ce paramètrage de deux manières. D'abord avec l'outil graphique GRUB Customizer disponible dans un ppa en tapant les commandes suivantes dans le terminal :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;add-apt-repository&lt;span class="w"&gt; &lt;/span&gt;ppa:danielrichter2007/grub-customizer
+$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;update
+$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt-get&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;grub-customizer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Il est possible également de le faire manuellement en éditant le fichier /etc/default/grub en fixant une valeur de 10s par exemple pour le TIMEOUT `GRUB_TIMEOUT=10, ce qui forcera l'affichage de GRUB au démarrage.&lt;/p&gt;
+&lt;p&gt;Très important, il reste à mettre à jour GRUB avec la commande suivante dans le terminal :&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;update-grub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Et voilà, au démarrage, il vous sera proposé de choisir Plop Manager, puis une fois dans Plop Manager, de choisir USB pour démarrer votre PC.&lt;/p&gt;</content><category term="Linux"/><category term="BIOS"/><category term="Boot"/><category term="Grub"/><category term="Grub2"/><category term="Installation"/><category term="Lubuntu"/><category term="Plop Manager"/></entry><entry><title>Quel Linux choisir?</title><link href="https://letchap.github.io/2013/02/19/quel-linux-choisir/" rel="alternate"/><published>2013-02-19T21:29:00+01:00</published><updated>2013-02-19T21:29:00+01:00</updated><author><name>letchap</name></author><id>tag:letchap.github.io,2013-02-19:/2013/02/19/quel-linux-choisir/</id><summary type="html">&lt;p&gt;Une fois ma décision prise d’installer linux sur mon vieil ordinateur, rapidement je me suis trouvé confronter à une question de taille : Quel Linux choisir ?&lt;/p&gt;
+&lt;p&gt;Linux est un OS (Operating System, système d’exploitation en français) libre et ouvert. Chacun a le droit de le modifier et d’en …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Une fois ma décision prise d’installer linux sur mon vieil ordinateur, rapidement je me suis trouvé confronter à une question de taille : Quel Linux choisir ?&lt;/p&gt;
+&lt;p&gt;Linux est un OS (Operating System, système d’exploitation en français) libre et ouvert. Chacun a le droit de le modifier et d’en proposer sa propre version. Nous parlons alors d’une distribution. Et des distributions, il en existe une foultitude : des jolies, des faciles à installer, des pour brutes épaisses de l'informatique, des complètes pour tout faire comme les OS payants mais en version libre, des spécialisées (pour la video, la sécurité, l’éducation, …) des légères pour faire tourner un vieux PC. Difficile de s’y retrouver dans cette jungle.&lt;/p&gt;
+&lt;p&gt;Si vous ne voulez pas chercher trop longtemps, que votre PC n’est pas si ancien que ça, n’hésitez pas, choisissez pour démarrer la dernière distribution de Linux Mint disponible au téléchargement &lt;a href="http://www.linuxmint.com/download.php" title="Linux Mint"&gt;ici&lt;/a&gt; et ne vous posez pas plus de questions. Vous pouvez  également prendre de manière alternative Ubuntu. Pour connaître la dernière version en date, allez &lt;a href="http://www.ubuntu.com/download/desktop" title="site officiel Ubuntu"&gt;ici&lt;/a&gt; pour le site officiel, ou &lt;a href="http://ubuntu-fr.org/" title="Ubuntu en français"&gt;ici&lt;/a&gt; pour la version française.&lt;/p&gt;
+&lt;p&gt;Si vous voulez affiner votre choix, sachez qu’il existe plusieurs distributions, et très souvent le choix entre plusieurs bureaux :&lt;/p&gt;
+&lt;h3&gt;La distribution :&lt;/h3&gt;
+&lt;p&gt;Comme nous l’avons déjà vu, il s’agit d’une version de l’OS. Elles ont dérivées de versions majeures de Linux. Nous pourrons citer sans être exhaustif :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Debian&lt;/li&gt;
+&lt;li&gt;Redhat&lt;/li&gt;
+&lt;li&gt;OpenSUSE&lt;/li&gt;
+&lt;li&gt;Mandriva&lt;/li&gt;
+&lt;li&gt;Fedora&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A partir de ces versions majeures nous allons trouver les distributions qui nous intéressent et qui sont plus accessibles au commun des mortels. Parmi celles-ci, nous allons trouver toute la famille Ubuntu (Xubuntu, Kubuntu, Lubuntu) dérivée de Debian. Elle est sans doute la plus connue et celle qui bénéficie du support communautaire le plus actif. &lt;/p&gt;
+&lt;p&gt;Il existe quelques belles distributions faciles d'accès comme Linux Mint (basée sur Ubuntu et la plus populaire en ce moment) ou Mageia basée sur Mandriva.&lt;/p&gt;
+&lt;p&gt;Pour se faire une idée des distributions les plus populaires, il est possible de suivre le classement des distributions les plus consultées sur le site &lt;a href="http://distrowatch.com/" title="distrowatch"&gt;distrowatch&lt;/a&gt;. En prime, vous trouverez un petit descriptif et les liens vers les sites des dites distributions.&lt;/p&gt;
+&lt;p&gt;Si votre ordinateur est vraiment hors d'âge, il existe une distribution ultra légère et en français, &lt;a href="http://toutoulinux.free.fr/&amp;quot;"&gt;toutoulinux&lt;/a&gt;. Je vous la recommande chaudement pour les très vieux PC cacochimes.&lt;/p&gt;
+&lt;h3&gt;Le bureau :&lt;/h3&gt;
+&lt;p&gt;A chacune ou presque de ces distributions, nous pouvons combiner différents bureaux. Ces bureaux vont se différencier par :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;La liste des applications embarquées ou disponibles&lt;/li&gt;
+&lt;li&gt;Le look&lt;/li&gt;
+&lt;li&gt;La documentation&lt;/li&gt;
+&lt;li&gt;Les compléments&lt;/li&gt;
+&lt;li&gt;La possibilité de modifier la configuration&lt;/li&gt;
+&lt;li&gt;La simplicité d’installation&lt;/li&gt;
+&lt;li&gt;Le poids&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pour faire un résumé très subjectif :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Unity : le plus controversé&lt;/li&gt;
+&lt;li&gt;Cinnamon : le plus à la mode&lt;/li&gt;
+&lt;li&gt;Mate : le retour à Gnome&lt;/li&gt;
+&lt;li&gt;Xfce : le bon compromis&lt;/li&gt;
+&lt;li&gt;Gnome 3 : le plus standard&lt;/li&gt;
+&lt;li&gt;KDE 4 : le plus configurable&lt;/li&gt;
+&lt;li&gt;Lxde : le plus léger&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Et il existe plein d'autres bureaux ...&lt;/p&gt;
+&lt;h3&gt;Non pae&lt;/h3&gt;
+&lt;p&gt;Pour les plus vieux ordinateurs comme le mien, attention à bien choisir une version non pae (c'est un gestionnaire de RAM non pris en charge sur les vieux PC), comme Lubuntu 12.04 par exemple (mais pas les suivantes).&lt;/p&gt;
+&lt;h3&gt;Mon choix&lt;/h3&gt;
+&lt;p&gt;Sur mon vieux PC, dans les prememris temps, j’avais choisi une distribution Lubuntu 12.04, c'est-à-dire basée sur Ubuntu avec un bureau très léger LXDE. Ce n’est pas la dernière version en date de Lubuntu, mais après avoir fait le test, mon pauvre PC refusait d’aller au-delà et supporte mal la version 12.10. Par ailleurs, il refuse carrément la version 13.04 obligatoirement PAE. Pour le débutants avec une petite configuration je recommande formtement Lubuntu 12.04 LTS (Long Time Support).&lt;/p&gt;
+&lt;p&gt;Ensuite j'ai installé la distribution Crunchbang (basée sur Debian)avec un bureau openbox qui me donne entière satisfaction autant sur la plan des performances que de la stabilité, mais qui n'est pas réservée aux débutants.&lt;/p&gt;
+&lt;h3&gt;Avant de choisir&lt;/h3&gt;
+&lt;p&gt;Avant de choisir, il est aussi possible de tester une distribution par la technique du live USB (ou live CD mais bon, il faut graver un CD à chaque fois, ça consomme du CD). Mais là, on n'est déjà plus au stade du grand débutant. J'ai dédié un &lt;a href="https://letchap.github.io/2013/02/20/fabriquer-une-cle-live-usb-depuis-nimporte-quelle-distribution-linux/" title="Fabriquer une clé live USB depuis n'importe quelle distribution Linux"&gt;billet spécial sur le sujet&lt;/a&gt;. Dernière méthode très intéressante pour tester une distribution : la virtualisation (avec Virtualbox par exemple). La encore vous trouverez des explications &lt;a href="https://letchap.github.io/2013/04/09/virtualiser-mageia-2-sur-os-x-mountain-lion-avec-virtualbox/" title="Virtualisation"&gt;ici&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Maintenant à vous sélectionner la distribution qui vous convient, et une fois choisie, vous allez pouvoir l'installer. C'est l'objet du prochain billet sur &lt;a href="https://letchap.github.io/2013/02/19/comment-installer-lubuntu-12-dot-04/" title="Comment installer Lubuntu 12.04"&gt;l'installation d'une distribution Linux&lt;/a&gt;&lt;/p&gt;</content><category term="Linux"/><category term="Distributions"/><category term="Gnome"/><category term="KDE"/><category term="Linux"/><category term="Lubuntu"/><category term="LXDE"/><category term="pae"/><category term="Ubuntu"/><category term="XFCE"/><category term="Mate"/><category term="Cinnamon"/><category term="Linux Mint"/><category term="Mageia"/></entry></feed>
